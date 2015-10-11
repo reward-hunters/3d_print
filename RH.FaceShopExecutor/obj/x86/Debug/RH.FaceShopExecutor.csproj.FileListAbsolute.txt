@@ -25,3 +25,10 @@ C:\elance\github\RH.HeadShop_source (1) (2)\RH.FaceShopExecutor\obj\x86\Debug\RH
 C:\elance\github\RH.HeadShop_source (1) (2)\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.csproj.GenerateResource.Cache
 C:\elance\github\RH.HeadShop_source (1) (2)\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.exe
 C:\elance\github\RH.HeadShop_source (1) (2)\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.pdb
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\Debug\FaceShop.exe
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\Debug\FaceShop.pdb
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.csprojResolveAssemblyReference.cache
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.Properties.Resources.resources
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.csproj.GenerateResource.Cache
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.exe
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.pdb

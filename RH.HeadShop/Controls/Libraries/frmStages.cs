@@ -152,6 +152,14 @@ namespace RH.HeadShop.Controls.Libraries
         {
             SetPosePosition();
         }
+        private void trackSize_Scroll(object sender, EventArgs e)
+        {
+            if (IsUpdating)
+                return;
+
+            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = trackSize.Value;
+            ProgramCore.MainForm.ctrlRenderControl.UpdateCameraPosition(-0.54f);
+        }
 
         private void frmStages_Activated(object sender, EventArgs e)
         {
@@ -324,6 +332,10 @@ namespace RH.HeadShop.Controls.Libraries
         {
             ProgramCore.MainForm.ctrlRenderControl.Export3DPrint();
         }
+        private void btnColor3DPrint_Click(object sender, EventArgs e)
+        {
+            ProgramCore.MainForm.ctrlRenderControl.Export3DPrint();
+        }
 
         #endregion
 
@@ -372,16 +384,6 @@ namespace RH.HeadShop.Controls.Libraries
         }
 
         #endregion
-
-        private void trackSize_Scroll(object sender, EventArgs e)
-        {
-            if (IsUpdating)
-                return;
-
-            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = trackSize.Value;
-            ProgramCore.MainForm.ctrlRenderControl.UpdateCameraPosition(-0.54f);
-        }
-
 
     }
 }

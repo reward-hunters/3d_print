@@ -1551,12 +1551,12 @@ namespace RH.HeadShop.Render
 
             var shader = idleShader;
             GL.Enable(EnableCap.DepthTest);
-            DrawMeshes(pickingController.HairMeshes, ref  shader, false);
-            DrawMeshes(pickingController.AccesoryMeshes, ref  shader, false);
+            DrawMeshes(pickingController.HairMeshes, ref shader, false);
+            DrawMeshes(pickingController.AccesoryMeshes, ref shader, false);
 
             EnableTransparent();
-            DrawMeshes(pickingController.HairMeshes, ref  shader, true);
-            DrawMeshes(pickingController.AccesoryMeshes, ref  shader, true);
+            DrawMeshes(pickingController.HairMeshes, ref shader, true);
+            DrawMeshes(pickingController.AccesoryMeshes, ref shader, true);
             DisableTransparent();
             idleShader.End();
             GL.PopMatrix();
@@ -2469,9 +2469,9 @@ namespace RH.HeadShop.Render
                     GL.Color3(1.0f, 0.0f, 0.0f);
                 else
                     if (baseProfilePoints.Contains(i))
-                        GL.Color3(0.0f, 0.0f, 1.0f);
-                    else
-                        GL.Color3(0.0f, 1.0f, 0.0f);
+                    GL.Color3(0.0f, 0.0f, 1.0f);
+                else
+                    GL.Color3(0.0f, 1.0f, 0.0f);
 
                 GL.Vertex2(-point.Value.X, point.Value.Y);
             }
@@ -3141,6 +3141,8 @@ namespace RH.HeadShop.Render
             //Scene model = importer.ImportFile(fileName, PostProcessPreset.TargetRealTimeMaximumQuality);
         }
 
+        /// <summary> Экспорт для 3Д печати </summary>
+        /// <param name="exportColor3DPrint">Добавляет фото профиля и анфаса. Пакует получившуюся папку в зип</param>
         public void Export()
         {
             var fiName = string.Empty;
@@ -3360,7 +3362,7 @@ namespace RH.HeadShop.Render
                 morphs.Add(FatMorphing);
             //if (PoseMorphing != null)
             //    morphs.Add(PoseMorphing);
-            if(k != null)
+            if (k != null)
                 headMeshesController.RenderMesh.EndMorph();
 
             Morphing.Morph(morphs, headMeshesController.RenderMesh);

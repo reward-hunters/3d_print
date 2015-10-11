@@ -31,6 +31,7 @@ namespace RH.HeadShop.Controls.Libraries
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnColor3DPrint = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.trackSize = new RH.HeadShop.Controls.TrackBar.TrackBarEx();
@@ -43,7 +44,6 @@ namespace RH.HeadShop.Controls.Libraries
             this.imageListBackgrounds = new RH.ImageListView.ImageListViewEx();
             this.panelPoses = new System.Windows.Forms.GroupBox();
             this.imageListPoses = new RH.ImageListView.ImageListViewEx();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPose)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -52,7 +52,7 @@ namespace RH.HeadShop.Controls.Libraries
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnColor3DPrint);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.trackSize);
@@ -66,6 +66,17 @@ namespace RH.HeadShop.Controls.Libraries
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(153, 364);
             this.panel1.TabIndex = 0;
+            // 
+            // btnColor3DPrint
+            // 
+            this.btnColor3DPrint.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnColor3DPrint.Location = new System.Drawing.Point(18, 331);
+            this.btnColor3DPrint.Name = "btnColor3DPrint";
+            this.btnColor3DPrint.Size = new System.Drawing.Size(110, 26);
+            this.btnColor3DPrint.TabIndex = 15;
+            this.btnColor3DPrint.Text = "Color 3D Print";
+            this.btnColor3DPrint.UseVisualStyleBackColor = true;
+            this.btnColor3DPrint.Click += new System.EventHandler(this.btnColor3DPrint_Click);
             // 
             // label1
             // 
@@ -220,16 +231,6 @@ namespace RH.HeadShop.Controls.Libraries
             this.imageListPoses.SelectionChanged += new System.EventHandler(this.imageListPoses_SelectionChanged);
             this.imageListPoses.DoubleClick += new System.EventHandler(this.imageListPoses_DoubleClick);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(18, 331);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 26);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "3D Print";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // frmStages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,6 +272,6 @@ namespace RH.HeadShop.Controls.Libraries
         private System.Windows.Forms.Button btn3DPrint;
         private System.Windows.Forms.Label label2;
         public TrackBarEx trackSize;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnColor3DPrint;
     }
 }

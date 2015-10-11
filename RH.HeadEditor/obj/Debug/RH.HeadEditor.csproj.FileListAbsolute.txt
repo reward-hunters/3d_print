@@ -23,3 +23,8 @@ C:\elance\github\RH.HeadShop_source (1) (2)\Debug\RH.HeadEditor.pdb
 C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadEditor\obj\Debug\RH.HeadEditor.csprojResolveAssemblyReference.cache
 C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadEditor\obj\Debug\RH.HeadEditor.dll
 C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadEditor\obj\Debug\RH.HeadEditor.pdb
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\Debug\RH.HeadEditor.dll
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\Debug\RH.HeadEditor.pdb
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.HeadEditor\obj\Debug\RH.HeadEditor.csprojResolveAssemblyReference.cache
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.HeadEditor\obj\Debug\RH.HeadEditor.dll
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.HeadEditor\obj\Debug\RH.HeadEditor.pdb
