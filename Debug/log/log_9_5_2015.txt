@@ -1,0 +1,3 @@
+Saturday, September 05, 2015 1:08:52 PM 48 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\sat1\OBJ\hair.obj'
+Saturday, September 05, 2015 1:10:16 PM 667 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\sat2\OBJ\hair.obj'
+Saturday, September 05, 2015 1:12:55 PM 260 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\sat3\OBJ\hair.obj'

@@ -1,0 +1,2 @@
+Saturday, August 15, 2015 9:12:00 AM 261 Error Can't load obj model 'C:\Users\laslo\Desktop\pictures2\sa1\OBJ\hair.obj'
+Saturday, August 15, 2015 9:17:08 AM 900 Error Can't load obj model 'C:\Users\laslo\Desktop\pictures2\sa2\OBJ\hair.obj'

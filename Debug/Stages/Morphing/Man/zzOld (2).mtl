@@ -1,0 +1,283 @@
+newmtl Legs
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl EyeReflection
+d 0
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl Nostrils
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeHeadM.jpg
+
+newmtl Lacrimals
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeEyesM.jpg
+
+newmtl Pupils
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeEyesM.jpg
+
+newmtl Lips
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeHeadM.jpg
+
+newmtl Tear
+d 0
+Kd 0.8 0.8 0.8
+
+newmtl Gums
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeInMouthM.jpg
+
+newmtl Irises
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeEyesM.jpg
+
+newmtl Teeth
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeInMouthM.jpg
+
+newmtl Cornea
+d 0
+Kd 1 1 1
+
+newmtl Face
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeHeadM.jpg
+
+newmtl Toenails
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl Sclera
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeEyesM.jpg
+
+newmtl Fingernails
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl Head
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeTorsoM.jpg
+
+newmtl Hands
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl Shoulders
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl Neck
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeTorsoM.jpg
+
+newmtl Hips
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeTorsoM.jpg
+
+newmtl Torso
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeTorsoM.jpg
+
+newmtl Nipples
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeTorsoM.jpg
+
+newmtl Forearms
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl Feet
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLimbsM.jpg
+
+newmtl Eyelashes
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.168627 0.156863 0.133333
+Ks 1 1 1
+Km 0.02
+map_D C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeLashes1.jpg
+
+newmtl Tongue
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeInMouthM.jpg
+
+newmtl InnerMouth
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeInMouthM.jpg
+
+newmtl Ears
+d 1
+Kd 1 1 1
+map_Kd C:/Users/Public/Documents/My DAZ 3D Library/Runtime/textures/DAZ/Characters/Genesis2/BaseFemale/V5BreeTorsoM.jpg
+
+newmtl EyeReflection_Fem
+d 0
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.0004
+
+newmtl Nostrils_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeHeadM.jpg
+
+newmtl Lacrimals_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeEyesM.jpg
+
+newmtl Pupils_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeEyesM.jpg
+
+newmtl Lips_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeHeadM.jpg
+
+newmtl Tear_Fem
+d 0
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 0.6 0.6 0.6
+Km 0
+
+newmtl Irises_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeEyesM.jpg
+
+newmtl Cornea_Fem
+d 0
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+
+newmtl Face_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeHeadM.jpg
+
+newmtl Sclera_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeEyesM.jpg
+
+newmtl Head_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeTorsoM.jpg
+
+newmtl Ears_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeTorsoM.jpg
+
+newmtl Eyelashes_Fem
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.164706 0.156863 0.129412
+Ks 1 1 1
+Km 0.0004
+
+newmtl InnerMouth_Fem
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/Debug4.8b/HeadShop plugin/Models/Model/Fem/Maps/V5BreeInMouthM.jpg
+

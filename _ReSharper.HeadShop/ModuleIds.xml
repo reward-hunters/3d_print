@@ -1,0 +1,5 @@
+<Modules>
+  <Module PersistentId="BCE6C08A-B790-4994-AA0A-F7686E424D4A" ModuleId="RH.HeadShop" />
+  <Module PersistentId="A64716B8-4445-4467-A7FF-EFEB9024C02E" ModuleId="RH.HeadEditor" />
+  <Module PersistentId="B7D6A447-BC18-48B4-879E-5C4179A83D00" ModuleId="RH.FaceShopExecutor" />
+</Modules>

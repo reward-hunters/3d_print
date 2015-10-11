@@ -1,0 +1,170 @@
+newmtl EyeReflection
+d 0
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+
+newmtl Nostrils
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipFace01_smoothed.jpg
+
+newmtl Lacrimals
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+
+newmtl Pupils
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+
+newmtl Lips
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipFace01_smoothed.jpg
+
+newmtl Tear
+d 0.118182
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+
+newmtl Irises
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+
+newmtl Cornea
+d 0
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+
+newmtl Face
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipFace01_smoothed.jpg
+
+newmtl Sclera
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+map_D C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipEyesO.jpg
+
+newmtl Head
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipTorso01_smoothed.jpg
+
+newmtl Ears
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipTorso01_smoothed.jpg
+
+newmtl Eyelashes
+d 0.7
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 0.211765 0.176471 0.164706
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/tempHaarImage.jpg
+map_D C:/Users/laslo/Desktop/autod/fgnhm/Textures/RyBelle_lashes.jpg
+
+newmtl InnerMouth
+d 1
+Ns 0
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/autod/fgnhm/Textures/M5PhillipMouth_smoothed.jpg
+
+newmtl default
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+map_Kd C:/Users/laslo/Desktop/New729 - Copy/Rh.HeadShop_sources/Debug/Libraries/Materials/rasorcut.jpg
+
+newmtl Material-Mtl_Hair_Mesh_01
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+
+newmtl default_MaleCurl_100
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+Km 0
+

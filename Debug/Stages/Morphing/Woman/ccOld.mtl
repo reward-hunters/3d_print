@@ -1,0 +1,61 @@
+newmtl Nostrils
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeHeadM.jpg
+d 1
+newmtl Lacrimals
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeEyesM.jpg
+d 1
+newmtl Lips
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeHeadM.jpg
+d 1
+newmtl Tear
+Ns 10
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 0.6 0.6 0.6
+d 1
+newmtl Face
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeHeadM.jpg
+d 1
+newmtl Head
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeTorsoM.jpg
+d 1
+newmtl Ears
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeTorsoM.jpg
+d 1
+newmtl Eyelashes
+Ns 0.75
+Ka 0 0 0
+Kd 0.168627 0.156863 0.133333
+Ks 1 1 1
+d 1
+newmtl InnerMouth
+Ns 10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.6 0.6 0.6
+map_Kd V5BreeInMouthM.jpg
+d 1

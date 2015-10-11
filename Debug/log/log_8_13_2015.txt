@@ -1,0 +1,4 @@
+Thursday, August 13, 2015 10:15:01 AM 751 Error Can't load obj model 'C:\Users\laslo\Desktop\pictures2\h1\OBJ\hair.obj'
+Thursday, August 13, 2015 11:14:25 AM 47 Error Can't load obj model 'C:\Users\laslo\Desktop\pictures2\h2\OBJ\hair.obj'
+Thursday, August 13, 2015 2:35:16 PM 609 Error Can't load obj model 'C:\Users\laslo\Desktop\pictures2\h4\OBJ\hair.obj'
+Thursday, August 13, 2015 4:44:34 PM 623 Error OutOfMemory

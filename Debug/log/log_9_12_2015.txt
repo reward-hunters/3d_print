@@ -1,0 +1,3 @@
+Saturday, September 12, 2015 4:41:35 PM 650 Error Can't load obj model 'C:\AbaloneStuff\Abalone78\Head 2\Fix\OBJ\hair.obj'
+Saturday, September 12, 2015 4:57:25 PM 413 Error Can't load obj model 'C:\AbaloneStuff\Abalone78\Head 2\fix4\OBJ\hair.obj'
+Saturday, September 12, 2015 5:05:35 PM 221 Error Can't load obj model 'C:\AbaloneStuff\Abalone78\Head 2\fix5\OBJ\hair.obj'

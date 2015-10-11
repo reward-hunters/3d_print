@@ -1,0 +1,38 @@
+<MorphTransforms>
+	<Group name="head">
+		<Trans x="0.000292463" y="0.00105141" z="4.27976e-005" />
+	</Group>
+	<Group name="leye">
+		<Trans x="-0.000733769" y="-0.00171944" z="-6.49298e-005" />
+	</Group>
+	<Group name="reye">
+		<Trans x="-0.000506751" y="-0.00155618" z="-6.18809e-005" />
+	</Group>
+	<Group name="tongue05">
+		<Trans x="-0.000393876" y="-0.00158483" z="-6.54407e-005" />
+	</Group>
+	<Group name="tongue03">
+		<Trans x="-0.00039471" y="-0.00161604" z="-6.68666e-005" />
+	</Group>
+	<Group name="tonguetip">
+		<Trans x="-0.000393932" y="-0.00157464" z="-6.49683e-005" />
+	</Group>
+	<Group name="tongue04">
+		<Trans x="-0.000392503" y="-0.00159691" z="-6.60261e-005" />
+	</Group>
+	<Group name="tongue02">
+		<Trans x="-0.000393846" y="-0.00163911" z="-6.79498e-005" />
+	</Group>
+	<Group name="tonguebase">
+		<Trans x="-0.000383246" y="-0.00165987" z="-6.91192e-005" />
+	</Group>
+	<Group name="tongue01">
+		<Trans x="-0.000390991" y="-0.00165439" z="-6.87126e-005" />
+	</Group>
+	<Group name="lowerjaw">
+		<Trans x="-0.000389674" y="-0.00160413" z="-6.6416e-005" />
+	</Group>
+	<Group name="upperjaw">
+		<Trans x="-0.000416269" y="-0.00160335" z="-6.58531e-005" />
+	</Group>
+</MorphTransforms>

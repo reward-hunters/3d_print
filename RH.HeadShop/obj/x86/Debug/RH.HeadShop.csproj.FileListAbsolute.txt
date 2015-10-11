@@ -1,0 +1,264 @@
+C:\elance\github\RH.HeadShop_source (1)\Debug\Head3D.exe.config
+C:\elance\github\RH.HeadShop_source (1)\Debug\Head3D.exe
+C:\elance\github\RH.HeadShop_source (1)\Debug\Head3D.pdb
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csprojResolveAssemblyReference.cache
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlAngleSelector.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlNewPart.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmAbout.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmControlBox.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject1.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject2.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmSplash.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmAccessories.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmFreeHand.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmMaterials.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmParts.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStages.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStyles.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelFeatures.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelCut.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelHead.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelShape.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Progress.ProgressForm.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmRecognizeTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmAccessoryTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmCutTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmMaterialTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmShapeTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStageTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmStartTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStyleTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmCustomHeadsTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmProfileTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmFreehandTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmMirrorTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmLineToolTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmShapedotsTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmAutodotsTutorial.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.frmMain.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.Resources.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\Head3D.exe
+C:\elance\github\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\Head3D.pdb
+E:\Projects\RH.HeadShop_source\Debug\Head3D.exe.config
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\Head3D.exe
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\Head3D.pdb
+E:\Projects\RH.HeadShop_source\Debug\Head3D.exe
+E:\Projects\RH.HeadShop_source\Debug\Head3D.pdb
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csprojResolveAssemblyReference.cache
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlAngleSelector.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlNewPart.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmAbout.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmControlBox.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject1.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject2.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmSplash.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmAccessories.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmFreeHand.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmMaterials.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmParts.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStages.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStyles.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelFeatures.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelCut.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelHead.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelShape.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Progress.ProgressForm.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmRecognizeTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmAccessoryTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmCutTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmMaterialTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmShapeTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStageTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmStartTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStyleTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmCustomHeadsTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmProfileTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmFreehandTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmMirrorTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmLineToolTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmShapedotsTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmAutodotsTutorial.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.frmMain.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.Resources.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
+E:\Projects\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache
+C:\elance\github\RH.HeadShop_source\Debug\Head3D.exe.config
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\Head3D.exe
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\Head3D.pdb
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csprojResolveAssemblyReference.cache
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlAngleSelector.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlNewPart.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmAbout.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmControlBox.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject1.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject2.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmSplash.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmAccessories.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmFreeHand.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmMaterials.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmParts.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStages.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStyles.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelFeatures.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelCut.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelHead.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelShape.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Progress.ProgressForm.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmRecognizeTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmAccessoryTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmCutTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmMaterialTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmShapeTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStageTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmStartTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStyleTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmCustomHeadsTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmProfileTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmFreehandTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmMirrorTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmLineToolTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmShapedotsTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmAutodotsTutorial.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.frmMain.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.Resources.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
+C:\elance\github\RH.HeadShop_source\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache
+C:\elance\github\RH.HeadShop_source\Debug\Head3D.exe
+C:\elance\github\RH.HeadShop_source\Debug\Head3D.pdb
+C:\RH.HeadShop_source (1)\Debug\Head3D.exe.config
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\Head3D.exe
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\Head3D.pdb
+C:\RH.HeadShop_source (1)\Debug\Head3D.exe
+C:\RH.HeadShop_source (1)\Debug\Head3D.pdb
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csprojResolveAssemblyReference.cache
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlAngleSelector.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlNewPart.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmAbout.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmControlBox.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject1.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject2.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmSplash.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmAccessories.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmFreeHand.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmMaterials.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmParts.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStages.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStyles.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelFeatures.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelCut.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelHead.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelShape.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Progress.ProgressForm.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmRecognizeTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmAccessoryTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmCutTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmMaterialTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmShapeTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStageTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmStartTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStyleTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmCustomHeadsTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmProfileTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmFreehandTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmMirrorTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmLineToolTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmShapedotsTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmAutodotsTutorial.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.frmMain.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.Resources.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
+C:\RH.HeadShop_source (1)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache
+C:\elance\github\RH.HeadShop_source (1) (2)\Debug\Head3D.exe.config
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\Head3D.exe
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\Head3D.pdb
+C:\elance\github\RH.HeadShop_source (1) (2)\Debug\Head3D.exe
+C:\elance\github\RH.HeadShop_source (1) (2)\Debug\Head3D.pdb
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csprojResolveAssemblyReference.cache
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlAngleSelector.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlNewPart.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmAbout.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmControlBox.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject1.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject2.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmSplash.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmAccessories.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmFreeHand.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmMaterials.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmParts.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStages.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStyles.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelFeatures.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelCut.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelHead.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelShape.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Progress.ProgressForm.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmRecognizeTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmAccessoryTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmCutTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmMaterialTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmShapeTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStageTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmStartTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStyleTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmCustomHeadsTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmProfileTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmFreehandTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmMirrorTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmLineToolTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmShapedotsTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmAutodotsTutorial.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.frmMain.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.Resources.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
+C:\elance\github\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache
+C:\RH.HeadShop_source (1) (2)\Debug\Head3D.exe.config
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\Head3D.exe
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\Head3D.pdb
+C:\RH.HeadShop_source (1) (2)\Debug\Head3D.exe
+C:\RH.HeadShop_source (1) (2)\Debug\Head3D.pdb
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csprojResolveAssemblyReference.cache
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlAngleSelector.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.ctrlNewPart.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmAbout.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmControlBox.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject1.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmNewProject2.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.frmSplash.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmAccessories.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmFreeHand.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmMaterials.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmParts.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStages.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Libraries.frmStyles.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelFeatures.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelCut.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelHead.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Panels.PanelShape.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Progress.ProgressForm.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmRecognizeTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmAccessoryTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmCutTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmMaterialTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmShapeTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStageTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmStartTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HairShop.frmStyleTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmCustomHeadsTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmProfileTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmFreehandTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmMirrorTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.frmLineToolTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmShapedotsTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Controls.Tutorials.HeadShop.frmAutodotsTutorial.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.frmMain.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.Resources.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
+C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache

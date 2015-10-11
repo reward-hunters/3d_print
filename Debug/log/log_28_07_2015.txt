@@ -1,0 +1,2 @@
+28 июля 2015 г. 22:59:49 766 Error Can't load obj model 'C:\444\OBJ\hair.obj'
+28 июля 2015 г. 23:07:44 370 Error Can't load obj model 'C:\444\OBJ\hair.obj'

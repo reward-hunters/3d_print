@@ -1,0 +1,8 @@
+Tuesday, September 01, 2015 1:23:36 PM 664 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\laslo\OBJ\hair.obj'
+Tuesday, September 01, 2015 1:30:36 PM 996 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\l3\OBJ\hair.obj'
+Tuesday, September 01, 2015 1:35:15 PM 331 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\l4\OBJ\hair.obj'
+Tuesday, September 01, 2015 1:39:26 PM 589 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\l5\OBJ\hair.obj'
+Tuesday, September 01, 2015 2:08:45 PM 815 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\las6\OBJ\hair.obj'
+Tuesday, September 01, 2015 3:41:33 PM 899 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\l7\OBJ\hair.obj'
+Tuesday, September 01, 2015 3:45:21 PM 530 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\hjkl\OBJ\hair.obj'
+Tuesday, September 01, 2015 3:46:22 PM 700 Error Can't load obj model 'C:\Users\laslo\Desktop\autod\l9\OBJ\hair.obj'
