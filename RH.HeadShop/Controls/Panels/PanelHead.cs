@@ -637,13 +637,16 @@ namespace RH.HeadShop.Controls.Panels
                 SetDefaultHeadRotation();
                 ProgramCore.MainForm.DisableRotating();
 
+
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadLine;
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
                 UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
                 SetPanelLogic();
                 if (ProgramCore.MainForm.HeadProfile)
+                {
                     ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = MeshPartType.ProfileTop;
+                }
             }
             else
             {
@@ -872,7 +875,10 @@ namespace RH.HeadShop.Controls.Panels
                     ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg_MouseUp(null, null);
                 }
                 else
+                {
                     ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage);
+                    ProgramCore.MainForm.ctrlTemplateImage.RecalcProfilePoints();
+                }
 
                 if (ProgramCore.Project.CustomHeadNeedProfileSetup)     // произвольная модель. при первом включении нужно произвести первоначальную настройку.
                     ProgramCore.MainForm.ctrlRenderControl.SetCustomProfileSetup();

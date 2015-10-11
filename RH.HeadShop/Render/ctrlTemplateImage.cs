@@ -1812,6 +1812,12 @@ namespace RH.HeadShop.Render
             }
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
 
+            RecalcProfilePoints();
+        }
+
+        public void RecalcProfilePoints()
+        {
+
             #region Пересчитываем точки справа на лево
 
             var width = ProgramCore.MainForm.ctrlRenderControl.camera.WindowWidth * ProgramCore.MainForm.ctrlRenderControl.camera.Scale;
@@ -1825,8 +1831,8 @@ namespace RH.HeadShop.Render
                 point.ValueMirrored = new Vector2((point.Value.X - offsetX) / width, 1 - ((point.Value.Y - offsetY) / height));
 
             #endregion
-
         }
+
 
         #endregion
     }
