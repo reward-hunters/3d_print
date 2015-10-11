@@ -876,15 +876,6 @@ namespace RH.HeadShop.Render
                                         tempMoveRectWidth = (FaceRectTransformed.Width) / (ImageTemplateWidth * 1f);
                                         tempMoveRectHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
                                     }
-
-                                    if (ProgramCore.MainForm.ctrlRenderControl.Mode != Mode.HeadAutodotsFirstTime
-                                        && RectTransformMode == false)
-                                    {
-                                        Mode tempMode = ProgramCore.MainForm.ctrlRenderControl.Mode;
-                                        ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
-                                        pictureTemplate_MouseDown(sender, e);
-                                        ProgramCore.MainForm.ctrlRenderControl.Mode = tempMode;
-                                    }
                                 }
                                 break;
                             case Mode.HeadAutodotsLassoStart:
@@ -1206,15 +1197,6 @@ namespace RH.HeadShop.Render
                                         }
                                         UpdateUserCenterPositions(true, true);
                                     }
-
-                                    if (ProgramCore.MainForm.ctrlRenderControl.Mode != Mode.HeadAutodotsFirstTime
-                                        && RectTransformMode == false)
-                                    {
-                                        Mode tempMode = ProgramCore.MainForm.ctrlRenderControl.Mode;
-                                        ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
-                                        pictureTemplate_MouseMove(sender, e);
-                                        ProgramCore.MainForm.ctrlRenderControl.Mode = tempMode;
-                                    }
                                 }
                                 break;
                             case Mode.HeadLine:
@@ -1414,15 +1396,6 @@ namespace RH.HeadShop.Render
                                             ProgramCore.MainForm.ctrlRenderControl.headController.EndAutodots(false);
                                             ProgramCore.MainForm.ctrlRenderControl.ApplySmoothedTextures();
                                         }
-                                    }
-
-                                    if (ProgramCore.MainForm.ctrlRenderControl.Mode != Mode.HeadAutodotsFirstTime
-                                        && RectTransformMode == false)
-                                    {
-                                        Mode tempMode = ProgramCore.MainForm.ctrlRenderControl.Mode;
-                                        ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
-                                        pictureTemplate_MouseUp(sender, e);
-                                        ProgramCore.MainForm.ctrlRenderControl.Mode = tempMode;
                                     }
                                 }
                                 break;
