@@ -46,11 +46,6 @@ namespace RH.HeadShop
             get;
             private set;
         }
-        public PanelHead panelProfile
-        {
-            get;
-            private set;
-        }
         private PanelFeatures panelFeatures;
 
         private readonly frmStartTutorial frmTutStart = new frmStartTutorial();
@@ -68,30 +63,30 @@ namespace RH.HeadShop
         public readonly frmShapedotsTutorial frmTutShapedots = new frmShapedotsTutorial();
         public readonly frmMirrorTutorial frmTutMirror = new frmMirrorTutorial();
         public readonly frmFreehandTutorial frmTutFreehand = new frmFreehandTutorial();
-        private readonly frmProfileTutorial frmTutProfile = new frmProfileTutorial();
+        public readonly frmProfileTutorial frmTutProfile = new frmProfileTutorial();
         public readonly frmLineToolTutorial frmTutLineTool = new frmLineToolTutorial();
 
         /// <summary> Флаг, означающий что мы находимся во вкладкам изменения ибала. </summary>
         public bool HeadMode
         {
             get;
-            private set;
+            set;
         }
 
         public bool HeadFront
         {
             get;
-            private set;
+            set;
         }
         public bool HeadProfile
         {
             get;
-            private set;
+            set;
         }
         public bool HeadFeature
         {
             get;
-            private set;
+            set;
         }
 
         public List<string> PluginUvGroups = new List<string>();
@@ -238,7 +233,7 @@ namespace RH.HeadShop
             panelStages.OnExport += OnExport_Click;
             panelStages.OnDelete += stagesLibraryOnDelete_Click;
 
-            panelFront = new PanelHead(true)
+            panelFront = new PanelHead()
             {
                 Dock = DockStyle.Fill
             };
@@ -247,16 +242,7 @@ namespace RH.HeadShop
             panelFront.OnUndo += OnUndo_Click;
             panelFront.OnShapeTool += OnShapeTool_Click;
 
-            panelProfile = new PanelHead(false)
-            {
-                Dock = DockStyle.Fill
-            };
-            panelProfile.OnDelete += OnDeleteHeadSelectedPoints_Click;
-            panelProfile.OnSave += OnSaveHead_Click;
-            panelProfile.OnUndo += OnUndo_Click;
-            panelProfile.OnShapeTool += OnShapeTool_Click;
-
-            panelFeatures = new PanelFeatures
+           panelFeatures = new PanelFeatures
             {
                 Dock = DockStyle.Fill
             };
@@ -532,9 +518,8 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
@@ -570,9 +555,8 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
@@ -608,9 +592,8 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
@@ -645,9 +628,8 @@ namespace RH.HeadShop
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
@@ -682,9 +664,8 @@ namespace RH.HeadShop
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag  = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesActivate(false);
@@ -728,9 +709,8 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag  = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
@@ -771,8 +751,6 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuProfile.Tag = panelMenuFeatures.Tag = "2";
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
@@ -793,59 +771,7 @@ namespace RH.HeadShop
                     frmTutAutodots.ShowDialog(this);
             }
         }
-        private void panelMenuProfile_Click(object sender, EventArgs e)
-        {
-            if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomControlPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomProfilePoints)
-                return;
-
-            if (panelMenuProfile.Tag.ToString() == "2")
-            {
-                panelMenuProfile.Tag = "1";
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfilePressed;
-                panelMenuControl.Controls.Clear();
-                panelMenuControl.Controls.Add(panelProfile);
-
-                panelMenuStage.Tag = panelMenuStyle.Tag = panelMenuCut.Tag = panelMenuShape.Tag = panelMenuAccessories.Tag = panelMenuMaterials.Tag = "2";
-                panelMenuStyle.Image = Properties.Resources.btnMenuStyleNormal;
-                panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
-                panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
-                panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
-                panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
-
-                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
-                panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
-
-                ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
-
-                HeadMode = true;
-                HeadProfile = true;
-                HeadFront = HeadFeature = false;
-                ctrlRenderControl.Mode = Mode.None;
-                ctrlTemplateImage.btnCopyProfileImg.Visible = true;
-                ctrlRenderControl.OrtoRight();            // поворачиваем морду как надо
-                EnableRotating();
-
-                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.UpdateProfileLines();
-                ProgramCore.MainForm.ctrlTemplateImage.InitializeProfileControlPoints();
-
-                if (ProgramCore.Project.ProfileImage == null) // если нет профиля - просто копируем ебало справа
-                {
-                    ctrlRenderControl.Render();             // специально два раза, чтобы переинициализировать буфер. хз с чем это связано.
-                    ctrlRenderControl.Render();
-                    ctrlTemplateImage.btnCopyProfileImg_MouseUp(null, null);
-                }
-                else
-                    ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage);
-
-                if (ProgramCore.Project.CustomHeadNeedProfileSetup)     // произвольная модель. при первом включении нужно произвести первоначальную настройку.
-                    ProgramCore.MainForm.ctrlRenderControl.SetCustomProfileSetup();
-
-                if (UserConfig.ByName("Options")["Tutorials", "Profile", "1"] == "1")
-                    frmTutProfile.ShowDialog(this);
-            }
-        }
+       
         private void panelMenuFeatures_Click(object sender, EventArgs e)
         {
             if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomControlPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomProfilePoints)
@@ -875,10 +801,9 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag = panelMenuProfile.Tag = "2";
+                panelMenuFront.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                panelMenuProfile.Image = Properties.Resources.btnMenuProfileNormal;
-
+                
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
 
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
@@ -1467,8 +1392,6 @@ namespace RH.HeadShop
                 panelCut.ResetModeTools();
             if (panelFront != null)
                 panelFront.ResetModeTools();
-            if (panelProfile != null)
-                panelProfile.ResetModeTools();
 
             ctrlRenderControl.ResetModeTools();
         }
@@ -1651,12 +1574,12 @@ namespace RH.HeadShop
 
         private void linesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            panelProfile.btnPolyLine_Click(null, EventArgs.Empty);
+            panelFront.btnPolyLine_Click(null, EventArgs.Empty);
         }
 
         private void handToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            panelProfile.btnShapeTool_Click(null, EventArgs.Empty);
+            panelFront.btnShapeTool_Click(null, EventArgs.Empty);
         }
 
         private void saveToolStripMenuItem6_Click(object sender, EventArgs e)

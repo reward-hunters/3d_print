@@ -47,7 +47,7 @@ namespace RH.HeadShop.Controls.Libraries
             Hide();
             e.Cancel = true;            // this cancels the close event.
             ProgramCore.MainForm.panelFront.DisableShape();
-            ProgramCore.MainForm.panelProfile.DisableShape();
+        
         }
 
         private void trackRadius_MouseUp(object sender, MouseEventArgs e)

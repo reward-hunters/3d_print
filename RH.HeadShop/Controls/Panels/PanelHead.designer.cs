@@ -40,6 +40,7 @@
             this.btnFlipLeft = new System.Windows.Forms.Button();
             this.btnFlipRight = new System.Windows.Forms.Button();
             this.btnNewPict = new System.Windows.Forms.Button();
+            this.btnProfile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMirror
@@ -110,7 +111,7 @@
             // 
             this.btnDots.Enabled = false;
             this.btnDots.Image = global::RH.HeadShop.Properties.Resources.btnDotsNormal;
-            this.btnDots.Location = new System.Drawing.Point(551, 9);
+            this.btnDots.Location = new System.Drawing.Point(662, 9);
             this.btnDots.Name = "btnDots";
             this.btnDots.Size = new System.Drawing.Size(30, 30);
             this.btnDots.TabIndex = 6;
@@ -123,7 +124,7 @@
             // 
             this.btnPolyLine.Enabled = false;
             this.btnPolyLine.Image = global::RH.HeadShop.Properties.Resources.btnPolyLineNormal;
-            this.btnPolyLine.Location = new System.Drawing.Point(590, 9);
+            this.btnPolyLine.Location = new System.Drawing.Point(701, 9);
             this.btnPolyLine.Name = "btnPolyLine";
             this.btnPolyLine.Size = new System.Drawing.Size(30, 30);
             this.btnPolyLine.TabIndex = 7;
@@ -135,7 +136,7 @@
             // 
             this.btnShapeTool.Enabled = false;
             this.btnShapeTool.Image = global::RH.HeadShop.Properties.Resources.btnHandNormal1;
-            this.btnShapeTool.Location = new System.Drawing.Point(631, 9);
+            this.btnShapeTool.Location = new System.Drawing.Point(742, 9);
             this.btnShapeTool.Name = "btnShapeTool";
             this.btnShapeTool.Size = new System.Drawing.Size(30, 30);
             this.btnShapeTool.TabIndex = 8;
@@ -146,7 +147,7 @@
             // btnLasso
             // 
             this.btnLasso.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLasso.Location = new System.Drawing.Point(456, 16);
+            this.btnLasso.Location = new System.Drawing.Point(567, 16);
             this.btnLasso.Name = "btnLasso";
             this.btnLasso.Size = new System.Drawing.Size(63, 23);
             this.btnLasso.TabIndex = 9;
@@ -158,7 +159,7 @@
             // btnFlipLeft
             // 
             this.btnFlipLeft.Image = global::RH.HeadShop.Properties.Resources.btnToRightNormal;
-            this.btnFlipLeft.Location = new System.Drawing.Point(694, 9);
+            this.btnFlipLeft.Location = new System.Drawing.Point(805, 9);
             this.btnFlipLeft.Name = "btnFlipLeft";
             this.btnFlipLeft.Size = new System.Drawing.Size(30, 30);
             this.btnFlipLeft.TabIndex = 10;
@@ -169,7 +170,7 @@
             // btnFlipRight
             // 
             this.btnFlipRight.Image = global::RH.HeadShop.Properties.Resources.btnToLeftNormal;
-            this.btnFlipRight.Location = new System.Drawing.Point(734, 9);
+            this.btnFlipRight.Location = new System.Drawing.Point(845, 9);
             this.btnFlipRight.Name = "btnFlipRight";
             this.btnFlipRight.Size = new System.Drawing.Size(30, 30);
             this.btnFlipRight.TabIndex = 11;
@@ -191,12 +192,24 @@
             this.btnNewPict.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnNewPict_MouseDown);
             this.btnNewPict.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnNewPict_MouseUp);
             // 
+            // btnProfile
+            // 
+            this.btnProfile.BackColor = System.Drawing.SystemColors.Control;
+            this.btnProfile.Location = new System.Drawing.Point(438, 16);
+            this.btnProfile.Name = "btnProfile";
+            this.btnProfile.Size = new System.Drawing.Size(63, 23);
+            this.btnProfile.TabIndex = 13;
+            this.btnProfile.Tag = "2";
+            this.btnProfile.Text = "Profile";
+            this.btnProfile.UseVisualStyleBackColor = false;
+            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
+            // 
             // PanelHead
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::RH.HeadShop.Properties.Resources.menuBackground;
-            this.Controls.Add(this.btnNewPict);
+            this.Controls.Add(this.btnProfile);
             this.Controls.Add(this.btnFlipRight);
             this.Controls.Add(this.btnFlipLeft);
             this.Controls.Add(this.btnLasso);
@@ -208,6 +221,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnAutodots);
             this.Controls.Add(this.btnMirror);
+            this.Controls.Add(this.btnNewPict);
             this.Name = "PanelHead";
             this.Size = new System.Drawing.Size(994, 49);
             this.ResumeLayout(false);
@@ -228,5 +242,6 @@
         private System.Windows.Forms.Button btnFlipRight;
         private System.Windows.Forms.Button btnNewPict;
         public System.Windows.Forms.Button btnAutodots;
+        public System.Windows.Forms.Button btnProfile;
     }
 }

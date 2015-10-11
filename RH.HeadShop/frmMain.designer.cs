@@ -33,7 +33,9 @@ namespace RH.HeadShop
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.panelRender = new System.Windows.Forms.Panel();
+            this.ctrlRenderControl = new RH.HeadShop.Render.ctrlRenderControl();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.ctrlTemplateImage = new RH.HeadShop.Render.ctrlTemplateImage();
             this.panelMenuItems = new System.Windows.Forms.Panel();
             this.panelMenuControl = new System.Windows.Forms.Panel();
             this.panelNavigation = new System.Windows.Forms.Panel();
@@ -51,7 +53,6 @@ namespace RH.HeadShop
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panelMenuFeatures = new System.Windows.Forms.PictureBox();
-            this.panelMenuProfile = new System.Windows.Forms.PictureBox();
             this.panelMenuFront = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,8 +161,6 @@ namespace RH.HeadShop
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.showManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutHeadShopProToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctrlTemplateImage = new RH.HeadShop.Render.ctrlTemplateImage();
-            this.ctrlRenderControl = new RH.HeadShop.Render.ctrlRenderControl();
             this.panelRender.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -182,7 +181,6 @@ namespace RH.HeadShop
             ((System.ComponentModel.ISupportInitialize)(this.panelMenuStyle)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelMenuFeatures)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelMenuProfile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelMenuFront)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -195,6 +193,19 @@ namespace RH.HeadShop
             this.panelRender.Name = "panelRender";
             this.panelRender.Size = new System.Drawing.Size(668, 563);
             this.panelRender.TabIndex = 4;
+            // 
+            // ctrlRenderControl
+            // 
+            this.ctrlRenderControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlRenderControl.InStageMode = false;
+            this.ctrlRenderControl.IsFullPointsInfo = true;
+            this.ctrlRenderControl.Location = new System.Drawing.Point(0, 0);
+            this.ctrlRenderControl.Mode = RH.HeadShop.Render.Mode.None;
+            this.ctrlRenderControl.Name = "ctrlRenderControl";
+            this.ctrlRenderControl.PlayAnimation = true;
+            this.ctrlRenderControl.Size = new System.Drawing.Size(668, 563);
+            this.ctrlRenderControl.TabIndex = 0;
+            this.ctrlRenderControl.ToolMirrored = false;
             // 
             // splitContainer
             // 
@@ -214,6 +225,14 @@ namespace RH.HeadShop
             this.splitContainer.SplitterDistance = 668;
             this.splitContainer.SplitterWidth = 1;
             this.splitContainer.TabIndex = 5;
+            // 
+            // ctrlTemplateImage
+            // 
+            this.ctrlTemplateImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlTemplateImage.Location = new System.Drawing.Point(0, 0);
+            this.ctrlTemplateImage.Name = "ctrlTemplateImage";
+            this.ctrlTemplateImage.Size = new System.Drawing.Size(668, 563);
+            this.ctrlTemplateImage.TabIndex = 0;
             // 
             // panelMenuItems
             // 
@@ -330,7 +349,7 @@ namespace RH.HeadShop
             // 
             this.panelMenuStage.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuStage.Image = global::RH.HeadShop.Properties.Resources.btnMenuStageNormal;
-            this.panelMenuStage.Location = new System.Drawing.Point(897, 0);
+            this.panelMenuStage.Location = new System.Drawing.Point(736, 0);
             this.panelMenuStage.Name = "panelMenuStage";
             this.panelMenuStage.Size = new System.Drawing.Size(143, 42);
             this.panelMenuStage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -343,7 +362,7 @@ namespace RH.HeadShop
             // 
             this.panelMenuMaterials.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuMaterials.Image = global::RH.HeadShop.Properties.Resources.btnMenuColorNormal;
-            this.panelMenuMaterials.Location = new System.Drawing.Point(754, 0);
+            this.panelMenuMaterials.Location = new System.Drawing.Point(593, 0);
             this.panelMenuMaterials.Name = "panelMenuMaterials";
             this.panelMenuMaterials.Size = new System.Drawing.Size(143, 42);
             this.panelMenuMaterials.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -356,7 +375,7 @@ namespace RH.HeadShop
             // 
             this.panelMenuAccessories.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuAccessories.Image = global::RH.HeadShop.Properties.Resources.btnMenuAccessoriesNormal;
-            this.panelMenuAccessories.Location = new System.Drawing.Point(611, 0);
+            this.panelMenuAccessories.Location = new System.Drawing.Point(450, 0);
             this.panelMenuAccessories.Name = "panelMenuAccessories";
             this.panelMenuAccessories.Size = new System.Drawing.Size(143, 42);
             this.panelMenuAccessories.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -370,7 +389,7 @@ namespace RH.HeadShop
             this.panelMenuShape.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuShape.Enabled = false;
             this.panelMenuShape.Image = global::RH.HeadShop.Properties.Resources.btnMenuShapeNormal;
-            this.panelMenuShape.Location = new System.Drawing.Point(611, 0);
+            this.panelMenuShape.Location = new System.Drawing.Point(450, 0);
             this.panelMenuShape.Name = "panelMenuShape";
             this.panelMenuShape.Size = new System.Drawing.Size(0, 42);
             this.panelMenuShape.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -384,7 +403,7 @@ namespace RH.HeadShop
             this.panelMenuCut.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuCut.Enabled = false;
             this.panelMenuCut.Image = global::RH.HeadShop.Properties.Resources.btnMenuCutNormal;
-            this.panelMenuCut.Location = new System.Drawing.Point(611, 0);
+            this.panelMenuCut.Location = new System.Drawing.Point(450, 0);
             this.panelMenuCut.Name = "panelMenuCut";
             this.panelMenuCut.Size = new System.Drawing.Size(0, 42);
             this.panelMenuCut.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -397,7 +416,7 @@ namespace RH.HeadShop
             // 
             this.panelMenuStyle.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuStyle.Image = global::RH.HeadShop.Properties.Resources.btnMenuStylePressed;
-            this.panelMenuStyle.Location = new System.Drawing.Point(468, 0);
+            this.panelMenuStyle.Location = new System.Drawing.Point(307, 0);
             this.panelMenuStyle.Name = "panelMenuStyle";
             this.panelMenuStyle.Size = new System.Drawing.Size(143, 42);
             this.panelMenuStyle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -410,7 +429,7 @@ namespace RH.HeadShop
             // 
             this.panel1.BackgroundImage = global::RH.HeadShop.Properties.Resources.bgHighMenu;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(449, 0);
+            this.panel1.Location = new System.Drawing.Point(288, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(19, 42);
             this.panel1.TabIndex = 4;
@@ -419,19 +438,18 @@ namespace RH.HeadShop
             // 
             this.panel3.BackgroundImage = global::RH.HeadShop.Properties.Resources.bgHighMenuHead;
             this.panel3.Controls.Add(this.panelMenuFeatures);
-            this.panel3.Controls.Add(this.panelMenuProfile);
             this.panel3.Controls.Add(this.panelMenuFront);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(449, 42);
+            this.panel3.Size = new System.Drawing.Size(288, 42);
             this.panel3.TabIndex = 14;
             // 
             // panelMenuFeatures
             // 
             this.panelMenuFeatures.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuFeatures.Image = global::RH.HeadShop.Properties.Resources.btnMenuFeaturesNormal;
-            this.panelMenuFeatures.Location = new System.Drawing.Point(286, 0);
+            this.panelMenuFeatures.Location = new System.Drawing.Point(143, 0);
             this.panelMenuFeatures.Name = "panelMenuFeatures";
             this.panelMenuFeatures.Size = new System.Drawing.Size(143, 42);
             this.panelMenuFeatures.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -439,19 +457,6 @@ namespace RH.HeadShop
             this.panelMenuFeatures.TabStop = false;
             this.panelMenuFeatures.Tag = "2";
             this.panelMenuFeatures.Click += new System.EventHandler(this.panelMenuFeatures_Click);
-            // 
-            // panelMenuProfile
-            // 
-            this.panelMenuProfile.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMenuProfile.Image = global::RH.HeadShop.Properties.Resources.btnMenuProfileNormal;
-            this.panelMenuProfile.Location = new System.Drawing.Point(143, 0);
-            this.panelMenuProfile.Name = "panelMenuProfile";
-            this.panelMenuProfile.Size = new System.Drawing.Size(143, 42);
-            this.panelMenuProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.panelMenuProfile.TabIndex = 15;
-            this.panelMenuProfile.TabStop = false;
-            this.panelMenuProfile.Tag = "2";
-            this.panelMenuProfile.Click += new System.EventHandler(this.panelMenuProfile_Click);
             // 
             // panelMenuFront
             // 
@@ -627,7 +632,7 @@ namespace RH.HeadShop
             this.flipToLeftToolStripMenuItem,
             this.flipToRightToolStripMenuItem});
             this.frontTabToolStripMenuItem.Name = "frontTabToolStripMenuItem";
-            this.frontTabToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.frontTabToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.frontTabToolStripMenuItem.Text = "Front_Tab";
             // 
             // autodotsToolStripMenuItem
@@ -691,7 +696,7 @@ namespace RH.HeadShop
             this.linesToolStripMenuItem1,
             this.handToolStripMenuItem1});
             this.profileTabToolStripMenuItem.Name = "profileTabToolStripMenuItem";
-            this.profileTabToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.profileTabToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.profileTabToolStripMenuItem.Text = "Profile_Tab";
             // 
             // saveToolStripMenuItem6
@@ -733,7 +738,7 @@ namespace RH.HeadShop
             this.saveToolStripMenuItem8,
             this.undoToolStripMenuItem5});
             this.featuresTabToolStripMenuItem.Name = "featuresTabToolStripMenuItem";
-            this.featuresTabToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.featuresTabToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.featuresTabToolStripMenuItem.Text = "Features_Tab";
             // 
             // saveToolStripMenuItem8
@@ -758,7 +763,7 @@ namespace RH.HeadShop
             this.deleteToolStripMenuItem5,
             this.exportToolStripMenuItem3});
             this.styleTabToolStripMenuItem.Name = "styleTabToolStripMenuItem";
-            this.styleTabToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.styleTabToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.styleTabToolStripMenuItem.Text = "Style_Tab";
             // 
             // openToolStripMenuItem1
@@ -802,7 +807,7 @@ namespace RH.HeadShop
             this.polyLineToolStripMenuItem,
             this.arcToolStripMenuItem});
             this.cuToolStripMenuItem.Name = "cuToolStripMenuItem";
-            this.cuToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.cuToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.cuToolStripMenuItem.Text = "Cut_Tab";
             // 
             // cutToolStripMenuItem
@@ -886,7 +891,7 @@ namespace RH.HeadShop
             this.saveToolStripMenuItem2,
             this.undoToolStripMenuItem2});
             this.shapeTabToolStripMenuItem.Name = "shapeTabToolStripMenuItem";
-            this.shapeTabToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.shapeTabToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.shapeTabToolStripMenuItem.Text = "Shape_Tab";
             // 
             // shapeToolStripMenuItem
@@ -944,7 +949,7 @@ namespace RH.HeadShop
             this.deleteToolStripMenuItem1,
             this.exportToolStripMenuItem2});
             this.accessoryTabToolStripMenuItem.Name = "accessoryTabToolStripMenuItem";
-            this.accessoryTabToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.accessoryTabToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.accessoryTabToolStripMenuItem.Text = "Accessory_Tab";
             // 
             // accessoryLibraryToolStripMenuItem1
@@ -986,7 +991,7 @@ namespace RH.HeadShop
             this.deleteToolStripMenuItem2,
             this.exportToolStripMenuItem1});
             this.materialtabToolStripMenuItem.Name = "materialtabToolStripMenuItem";
-            this.materialtabToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.materialtabToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
             this.materialtabToolStripMenuItem.Text = "Materials_Tab";
             // 
             // materialLibraryToolStripMenuItem1
@@ -1023,7 +1028,7 @@ namespace RH.HeadShop
             this.stageLibraryToolStripMenuItem2,
             this.photoToolStripMenuItem});
             this.stageLibraryToolStripMenuItem1.Name = "stageLibraryToolStripMenuItem1";
-            this.stageLibraryToolStripMenuItem1.Size = new System.Drawing.Size(73, 20);
+            this.stageLibraryToolStripMenuItem1.Size = new System.Drawing.Size(72, 20);
             this.stageLibraryToolStripMenuItem1.Text = "Stage_Tab";
             // 
             // stageLibraryToolStripMenuItem2
@@ -1335,25 +1340,6 @@ namespace RH.HeadShop
             this.aboutHeadShopProToolStripMenuItem.Text = "About Head3D";
             this.aboutHeadShopProToolStripMenuItem.Click += new System.EventHandler(this.aboutHeadShopProToolStripMenuItem_Click);
             // 
-            // ctrlTemplateImage
-            // 
-            this.ctrlTemplateImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlTemplateImage.Location = new System.Drawing.Point(0, 0);
-            this.ctrlTemplateImage.Name = "ctrlTemplateImage";
-            this.ctrlTemplateImage.Size = new System.Drawing.Size(668, 563);
-            this.ctrlTemplateImage.TabIndex = 0;
-            // 
-            // ctrlRenderControl
-            // 
-            this.ctrlRenderControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlRenderControl.Location = new System.Drawing.Point(0, 0);
-            this.ctrlRenderControl.Mode = RH.HeadShop.Render.Mode.None;
-            this.ctrlRenderControl.Name = "ctrlRenderControl";
-            this.ctrlRenderControl.PlayAnimation = true;
-            this.ctrlRenderControl.Size = new System.Drawing.Size(668, 563);
-            this.ctrlRenderControl.TabIndex = 0;
-            this.ctrlRenderControl.ToolMirrored = false;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1392,7 +1378,6 @@ namespace RH.HeadShop
             ((System.ComponentModel.ISupportInitialize)(this.panelMenuStyle)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelMenuFeatures)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelMenuProfile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelMenuFront)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1494,7 +1479,6 @@ namespace RH.HeadShop
         private System.Windows.Forms.ToolStripMenuItem styleHelpToolStripMenuItem;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox panelMenuFeatures;
-        private System.Windows.Forms.PictureBox panelMenuProfile;
         private System.Windows.Forms.PictureBox panelMenuFront;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem frontTabToolStripMenuItem;

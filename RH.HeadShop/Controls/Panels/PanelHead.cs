@@ -27,14 +27,11 @@ namespace RH.HeadShop.Controls.Panels
 
         #endregion
 
-        public PanelHead(bool frontTab)
+        public PanelHead()
         {
             InitializeComponent();
-            this.frontTab = frontTab;
-
-            btnAutodots.Visible = frontTab;
-            //TODO: uncomment if need return  
-            btnDots.Visible = frontTab;
+            frontTab = true;
+                      
 
             if (ProgramCore.PluginMode)
             {
@@ -45,6 +42,14 @@ namespace RH.HeadShop.Controls.Panels
             if (ProgramCore.Project != null)
                 ResetButtons();
         }
+
+        private void ReInitializeControl(bool isFrontTab)
+        {
+            btnAutodots.Visible = isFrontTab;
+            //TODO: uncomment if need return  
+            btnDots.Visible = isFrontTab;
+        }
+
 
         #region Supported void's
 
@@ -607,7 +612,7 @@ namespace RH.HeadShop.Controls.Panels
             }
         }
 
-        public readonly RH.HeadShop.Controls.Tutorials.frmLineToolTutorial frmTutLineTool = new RH.HeadShop.Controls.Tutorials.frmLineToolTutorial();
+        public readonly Tutorials.frmLineToolTutorial frmTutLineTool = new Tutorials.frmLineToolTutorial();
         public void btnPolyLine_Click(object sender, EventArgs e)
         {
             if (UserConfig.ByName("Options")["Tutorials", "LineTool", "1"] == "1")
@@ -830,5 +835,78 @@ namespace RH.HeadShop.Controls.Panels
 
         #endregion
 
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            if (IsUpdating)
+                return;
+
+            if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomControlPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomProfilePoints)
+                return;
+
+            BeginUpdate();
+            if (btnProfile.Tag.ToString() == "2")
+            {
+                btnProfile.Tag = "1";
+                frontTab = false;
+
+                btnProfile.BackColor = SystemColors.ControlDarkDark;
+                btnProfile.ForeColor = Color.White;
+
+                ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
+
+                ProgramCore.MainForm.HeadMode = true;
+                ProgramCore.MainForm.HeadProfile = true;
+                ProgramCore.MainForm.HeadFront = ProgramCore.MainForm.HeadFeature = false;
+                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
+                ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg.Visible = true;
+                ProgramCore.MainForm.ctrlRenderControl.OrtoRight();            // поворачиваем морду как надо
+                ProgramCore.MainForm.EnableRotating();
+
+                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.UpdateProfileLines();
+                ProgramCore.MainForm.ctrlTemplateImage.InitializeProfileControlPoints();
+
+                if (ProgramCore.Project.ProfileImage == null) // если нет профиля - просто копируем ебало справа
+                {
+                    ProgramCore.MainForm.ctrlRenderControl.Render();             // специально два раза, чтобы переинициализировать буфер. хз с чем это связано.
+                    ProgramCore.MainForm.ctrlRenderControl.Render();
+                    ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg_MouseUp(null, null);
+                }
+                else
+                    ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage);
+
+                if (ProgramCore.Project.CustomHeadNeedProfileSetup)     // произвольная модель. при первом включении нужно произвести первоначальную настройку.
+                    ProgramCore.MainForm.ctrlRenderControl.SetCustomProfileSetup();
+
+                if (UserConfig.ByName("Options")["Tutorials", "Profile", "1"] == "1")
+                    ProgramCore.MainForm.frmTutProfile.ShowDialog(this);
+            }
+            else
+            {
+                btnProfile.Tag = "2";
+
+                btnProfile.BackColor = SystemColors.Control;
+                btnProfile.ForeColor = Color.Black;
+
+                frontTab = true;
+
+                ProgramCore.MainForm.HeadMode = true;
+                ProgramCore.MainForm.HeadFront = true;
+                ProgramCore.MainForm.HeadProfile = ProgramCore.MainForm.HeadFeature = false;
+
+                if (sender != null)         // иначе это во время загрузки программы. и не надо менять мод!
+                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
+
+                ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg.Visible = false;
+                ProgramCore.MainForm.ctrlRenderControl.OrtoTop();            // поворачиваем морду как надо
+                ProgramCore.MainForm.EnableRotating();
+                ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица
+
+                if (UserConfig.ByName("Options")["Tutorials", "Autodots", "1"] == "1")
+                    ProgramCore.MainForm.frmTutAutodots.ShowDialog(this);
+            }
+
+            ReInitializeControl(frontTab);
+            EndUpdate();
+        }
     }
 }
