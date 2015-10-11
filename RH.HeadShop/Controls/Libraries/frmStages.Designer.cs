@@ -31,18 +31,19 @@ namespace RH.HeadShop.Controls.Libraries
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.trackSize = new RH.HeadShop.Controls.TrackBar.TrackBarEx();
             this.btn3DPrint = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.trackBarPose = new System.Windows.Forms.TrackBar();
             this.btnPhoto = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.imageListBackgrounds = new RH.ImageListView.ImageListViewEx();
             this.panelPoses = new System.Windows.Forms.GroupBox();
             this.imageListPoses = new RH.ImageListView.ImageListViewEx();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPose)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -51,6 +52,7 @@ namespace RH.HeadShop.Controls.Libraries
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.trackSize);
@@ -64,6 +66,16 @@ namespace RH.HeadShop.Controls.Libraries
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(153, 364);
             this.panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(3, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 18);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Smoothing";
             // 
             // label2
             // 
@@ -87,7 +99,7 @@ namespace RH.HeadShop.Controls.Libraries
             this.trackSize.Minimum = 1;
             this.trackSize.Name = "trackSize";
             this.trackSize.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackSize.Size = new System.Drawing.Size(47, 178);
+            this.trackSize.Size = new System.Drawing.Size(47, 151);
             this.trackSize.TabIndex = 13;
             this.trackSize.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(146)))), ((int)(((byte)(148)))));
             this.trackSize.TickHeight = 4;
@@ -102,7 +114,7 @@ namespace RH.HeadShop.Controls.Libraries
             // btn3DPrint
             // 
             this.btn3DPrint.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn3DPrint.Location = new System.Drawing.Point(25, 325);
+            this.btn3DPrint.Location = new System.Drawing.Point(18, 299);
             this.btn3DPrint.Name = "btn3DPrint";
             this.btn3DPrint.Size = new System.Drawing.Size(110, 26);
             this.btn3DPrint.TabIndex = 12;
@@ -113,7 +125,7 @@ namespace RH.HeadShop.Controls.Libraries
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDelete.Location = new System.Drawing.Point(25, 290);
+            this.btnDelete.Location = new System.Drawing.Point(18, 264);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(110, 29);
             this.btnDelete.TabIndex = 11;
@@ -124,7 +136,7 @@ namespace RH.HeadShop.Controls.Libraries
             // btnAddNew
             // 
             this.btnAddNew.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnAddNew.Location = new System.Drawing.Point(25, 258);
+            this.btnAddNew.Location = new System.Drawing.Point(18, 232);
             this.btnAddNew.Name = "btnAddNew";
             this.btnAddNew.Size = new System.Drawing.Size(110, 29);
             this.btnAddNew.TabIndex = 10;
@@ -132,23 +144,13 @@ namespace RH.HeadShop.Controls.Libraries
             this.btnAddNew.UseVisualStyleBackColor = true;
             this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 18);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Smoothing";
-            // 
             // trackBarPose
             // 
             this.trackBarPose.Location = new System.Drawing.Point(33, 34);
             this.trackBarPose.Maximum = 100;
             this.trackBarPose.Name = "trackBarPose";
             this.trackBarPose.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPose.Size = new System.Drawing.Size(40, 178);
+            this.trackBarPose.Size = new System.Drawing.Size(45, 151);
             this.trackBarPose.TabIndex = 2;
             this.trackBarPose.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarPose.Value = 90;
@@ -157,7 +159,7 @@ namespace RH.HeadShop.Controls.Libraries
             // btnPhoto
             // 
             this.btnPhoto.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnPhoto.Location = new System.Drawing.Point(25, 226);
+            this.btnPhoto.Location = new System.Drawing.Point(18, 200);
             this.btnPhoto.Name = "btnPhoto";
             this.btnPhoto.Size = new System.Drawing.Size(110, 26);
             this.btnPhoto.TabIndex = 1;
@@ -197,7 +199,7 @@ namespace RH.HeadShop.Controls.Libraries
             this.panelPoses.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelPoses.Location = new System.Drawing.Point(140, 0);
             this.panelPoses.Name = "panelPoses";
-            this.panelPoses.Size = new System.Drawing.Size(55, 364);
+            this.panelPoses.Size = new System.Drawing.Size(100, 364);
             this.panelPoses.TabIndex = 6;
             this.panelPoses.TabStop = false;
             this.panelPoses.Text = "Poses";
@@ -213,10 +215,20 @@ namespace RH.HeadShop.Controls.Libraries
             this.imageListPoses.Name = "imageListPoses";
             this.imageListPoses.PersistentCacheFile = "";
             this.imageListPoses.PersistentCacheSize = ((long)(100));
-            this.imageListPoses.Size = new System.Drawing.Size(49, 345);
+            this.imageListPoses.Size = new System.Drawing.Size(94, 345);
             this.imageListPoses.TabIndex = 4;
             this.imageListPoses.SelectionChanged += new System.EventHandler(this.imageListPoses_SelectionChanged);
             this.imageListPoses.DoubleClick += new System.EventHandler(this.imageListPoses_DoubleClick);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(18, 331);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 26);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "3D Print";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // frmStages
             // 
@@ -259,5 +271,6 @@ namespace RH.HeadShop.Controls.Libraries
         private System.Windows.Forms.Button btn3DPrint;
         private System.Windows.Forms.Label label2;
         public TrackBarEx trackSize;
+        private System.Windows.Forms.Button button1;
     }
 }

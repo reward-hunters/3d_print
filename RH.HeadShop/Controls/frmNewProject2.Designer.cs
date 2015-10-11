@@ -33,8 +33,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.pictureTemplate = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rbImportObj = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnChild = new System.Windows.Forms.PictureBox();
             this.btnFemale = new System.Windows.Forms.PictureBox();
             this.btnMale = new System.Windows.Forms.PictureBox();
@@ -95,8 +93,6 @@
             // panel1
             // 
             this.panel1.BackgroundImage = global::RH.HeadShop.Properties.Resources.bgWizard2;
-            this.panel1.Controls.Add(this.rbImportObj);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnChild);
             this.panel1.Controls.Add(this.btnFemale);
             this.panel1.Controls.Add(this.btnMale);
@@ -114,33 +110,10 @@
             this.panel1.Size = new System.Drawing.Size(795, 100);
             this.panel1.TabIndex = 14;
             // 
-            // rbImportObj
-            // 
-            this.rbImportObj.AutoSize = true;
-            this.rbImportObj.BackColor = System.Drawing.Color.Transparent;
-            this.rbImportObj.Location = new System.Drawing.Point(528, 56);
-            this.rbImportObj.Name = "rbImportObj";
-            this.rbImportObj.Size = new System.Drawing.Size(14, 13);
-            this.rbImportObj.TabIndex = 19;
-            this.rbImportObj.TabStop = true;
-            this.rbImportObj.UseVisualStyleBackColor = false;
-            this.rbImportObj.CheckedChanged += new System.EventHandler(this.rbImportObj_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(489, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 18);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Import OBJ";
-            // 
             // btnChild
             // 
             this.btnChild.Image = global::RH.HeadShop.Properties.Resources.btnChildGray;
-            this.btnChild.Location = new System.Drawing.Point(390, 34);
+            this.btnChild.Location = new System.Drawing.Point(457, 34);
             this.btnChild.Name = "btnChild";
             this.btnChild.Size = new System.Drawing.Size(59, 59);
             this.btnChild.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -152,7 +125,7 @@
             // btnFemale
             // 
             this.btnFemale.Image = global::RH.HeadShop.Properties.Resources.btnFemaleGray;
-            this.btnFemale.Location = new System.Drawing.Point(285, 34);
+            this.btnFemale.Location = new System.Drawing.Point(352, 34);
             this.btnFemale.Name = "btnFemale";
             this.btnFemale.Size = new System.Drawing.Size(59, 59);
             this.btnFemale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -164,7 +137,7 @@
             // btnMale
             // 
             this.btnMale.Image = global::RH.HeadShop.Properties.Resources.btnMaleNormal;
-            this.btnMale.Location = new System.Drawing.Point(184, 34);
+            this.btnMale.Location = new System.Drawing.Point(251, 34);
             this.btnMale.Name = "btnMale";
             this.btnMale.Size = new System.Drawing.Size(59, 59);
             this.btnMale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -231,7 +204,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(396, 12);
+            this.label6.Location = new System.Drawing.Point(463, 12);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 18);
             this.label6.TabIndex = 7;
@@ -242,7 +215,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(281, 12);
+            this.label4.Location = new System.Drawing.Point(348, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 18);
             this.label4.TabIndex = 6;
@@ -253,7 +226,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(191, 12);
+            this.label3.Location = new System.Drawing.Point(258, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 18);
             this.label3.TabIndex = 5;
@@ -330,7 +303,5 @@
         private System.Windows.Forms.PictureBox btnChild;
         private System.Windows.Forms.PictureBox btnFemale;
         public System.Windows.Forms.Timer RenderTimer;
-        private System.Windows.Forms.RadioButton rbImportObj;
-        private System.Windows.Forms.Label label1;
     }
 }

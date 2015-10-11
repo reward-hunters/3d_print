@@ -262,3 +262,6 @@ C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Properties.R
 C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlRenderControl.resources
 C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.Render.ctrlTemplateImage.resources
 C:\RH.HeadShop_source (1) (2)\RH.HeadShop\obj\x86\Debug\RH.HeadShop.csproj.GenerateResource.Cache
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\Debug\Head3D.exe.config
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.HeadShop\obj\x86\Debug\Head3D.exe
+D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.HeadShop\obj\x86\Debug\Head3D.pdb

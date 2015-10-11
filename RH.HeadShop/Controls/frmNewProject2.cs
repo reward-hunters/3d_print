@@ -100,7 +100,7 @@ namespace RH.HeadShop.Controls
                 var dazPath = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\", "fs3d.obj");
                 if (File.Exists(dazPath))
                 {
-                    rbImportObj.Checked = true;
+                 //   rbImportObj.Checked = true;
                     CustomModelPath = dazPath;
                 }
                 else
@@ -277,7 +277,7 @@ namespace RH.HeadShop.Controls
                 btnChild.Tag = btnFemale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
-                rbImportObj.Checked = false;
+             //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
             }
         }
@@ -291,7 +291,7 @@ namespace RH.HeadShop.Controls
                 btnChild.Tag = btnMale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnMale.Image = Properties.Resources.btnMaleGray;
-                rbImportObj.Checked = false;
+             //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
             }
         }
@@ -305,11 +305,11 @@ namespace RH.HeadShop.Controls
                 btnMale.Tag = btnFemale.Tag = "2";
                 btnMale.Image = Properties.Resources.btnMaleGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
-                rbImportObj.Checked = false;
+             //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
             }
         }
-        private void rbImportObj_CheckedChanged(object sender, EventArgs e)
+    /*    private void rbImportObj_CheckedChanged(object sender, EventArgs e)
         {
             if (rbImportObj.Checked)
             {
@@ -334,7 +334,7 @@ namespace RH.HeadShop.Controls
                     }
                 }
             }
-        }
+        }*/
 
         private void btnQuestion_MouseDown(object sender, MouseEventArgs e)
         {
