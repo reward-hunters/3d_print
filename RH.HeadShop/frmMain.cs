@@ -1306,6 +1306,7 @@ namespace RH.HeadShop
             UpdateProjectControls(false);
 
             ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper();         // инициализация точек головы.
+           ProgramCore.MainForm.ctrlTemplateImage.RecalcProfilePoints();            // пидоры сломали все. инициализируем профиль.
 
             if (ProgramCore.Project.AgeCoefficient != 0 || ProgramCore.Project.FatCoefficient != 0)  // восстанавливаем морфинги
             {

@@ -219,9 +219,9 @@
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnAutodots);
             this.Controls.Add(this.btnMirror);
             this.Controls.Add(this.btnNewPict);
+            this.Controls.Add(this.btnAutodots);
             this.Name = "PanelHead";
             this.Size = new System.Drawing.Size(994, 49);
             this.ResumeLayout(false);

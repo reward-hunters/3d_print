@@ -31,7 +31,7 @@ namespace RH.HeadShop.Controls.Panels
         {
             InitializeComponent();
             frontTab = true;
-                      
+
 
             if (ProgramCore.PluginMode)
             {
@@ -41,6 +41,8 @@ namespace RH.HeadShop.Controls.Panels
 
             if (ProgramCore.Project != null)
                 ResetButtons();
+
+            ReInitializeControl(frontTab);
         }
 
         private void ReInitializeControl(bool isFrontTab)
@@ -48,6 +50,8 @@ namespace RH.HeadShop.Controls.Panels
             btnAutodots.Visible = isFrontTab;
             //TODO: uncomment if need return  
             btnDots.Visible = isFrontTab;
+
+            btnNewPict.Visible = !isFrontTab;
         }
 
 
@@ -451,7 +455,8 @@ namespace RH.HeadShop.Controls.Panels
                         ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
 
                         float jawCoeff;
-                        switch (ProgramCore.Project.ManType) {
+                        switch (ProgramCore.Project.ManType)
+                        {
                             case ManType.Male: jawCoeff = 0.9345454f; break;
                             case ManType.Child:
                             case ManType.Female:
@@ -494,7 +499,7 @@ namespace RH.HeadShop.Controls.Panels
                     }
                 }
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
-                       
+
                 /*
                 Vector2 center;
                 var FaceRectTransformed = ProgramCore.MainForm.ctrlTemplateImage.FaceRectTransformed;
@@ -862,7 +867,10 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.HeadFront = ProgramCore.MainForm.HeadFeature = false;
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
                 ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg.Visible = true;
-                ProgramCore.MainForm.ctrlRenderControl.OrtoRight();            // поворачиваем морду как надо
+
+                ProgramCore.MainForm.ctrlRenderControl.camera.ResetCamera(true);
+                ProgramCore.MainForm.ctrlRenderControl.OrtoRight();          // поворачиваем морду как надо
+
                 ProgramCore.MainForm.EnableRotating();
 
                 ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.UpdateProfileLines();
