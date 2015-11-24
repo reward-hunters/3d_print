@@ -250,7 +250,7 @@ namespace RH.HeadShop.Render.Helpers
                         scaleCoef = PickingController.GetHeadScale(ProgramCore.Project.ManType);
                     else
                         scaleCoef = PickingController.GetHairScale(ProgramCore.Project.ManType);
-                    bool useExporter = ProgramCore.PluginMode &&
+                    var useExporter = ProgramCore.PluginMode &&
                     ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport != null;
                     var invScale = Matrix4.CreateScale(useExporter ? 1.0f : 1.0f / scaleCoef);
                     var tempTransform = transformMatrix;

@@ -230,8 +230,8 @@ namespace RH.HeadShop.Render
             var vectorLeft = profileControlPoints[2].ValueMirrored - profileControlPoints[1].ValueMirrored; // из глаза рот
             vectorLeft = new Vector2(vectorLeft.X * croppedImage.Width, vectorLeft.Y * croppedImage.Height);
             vectorLeft.Normalize();
-            float xDiff = xVector.X - vectorLeft.X;
-            float yDiff = xVector.Y - vectorLeft.Y;
+            var xDiff = xVector.X - vectorLeft.X;
+            var yDiff = xVector.Y - vectorLeft.Y;
             var angleLeft = Math.Atan2(yDiff, xDiff);
 
             var vectorRight = profileControlPoints[2].Value - profileControlPoints[1].Value;
@@ -378,7 +378,7 @@ namespace RH.HeadShop.Render
                 var minY1 = faceDots.Min(point => point.ValueMirrored.Y);
                 var maxY1 = faceDots.Max(point => point.ValueMirrored.Y);
 
-                RectangleF rrr = new RectangleF((float)minX1, (float)minY1, (float)(maxX1 - minX1), (float)(maxY1 - minY1));
+                var rrr = new RectangleF((float)minX1, (float)minY1, (float)(maxX1 - minX1), (float)(maxY1 - minY1));
             }
 
             var minX = faceDots.Min(point => point.ValueMirrored.X) * ImageTemplateWidth + ImageTemplateOffsetX;
@@ -640,7 +640,6 @@ namespace RH.HeadShop.Render
             if (ProgramCore.Debug && ProgramCore.MainForm.HeadFront)
                 e.Graphics.DrawRectangle(DrawingTools.GreenPen, EyesMouthRectTransformed.X, EyesMouthRectTransformed.Y, EyesMouthRectTransformed.Width, EyesMouthRectTransformed.Height);
 
-
             if (ImageTemplateOffsetX != -1)
                 ProgramCore.MainForm.ctrlRenderControl.headController.DrawOnPictureBox(e.Graphics);
 
@@ -832,6 +831,17 @@ namespace RH.HeadShop.Render
 
                         switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
+                            case Mode.ColorPicker:
+                                {
+                                    using (var bitmap = new Bitmap(pictureTemplate.Width, pictureTemplate.Height))
+                                    using (var g = Graphics.FromImage(bitmap))
+                                    {
+                                        g.DrawImage(DrawingImage, ImageTemplateOffsetX, ImageTemplateOffsetY, ImageTemplateWidth, ImageTemplateHeight);
+                                        var color = bitmap.GetPixel((int)headLastPoint.X, (int)headLastPoint.Y);
+                                        ProgramCore.MainForm.frmMaterial.SetColorFromPicker(color);
+                                    }
+                                }
+                                break;
                             case Mode.HeadAutodotsFirstTime:
                             case Mode.HeadAutodots:
                                 {
@@ -1813,6 +1823,17 @@ namespace RH.HeadShop.Render
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
 
             RecalcProfilePoints();
+        }
+
+        private void btnNewProfilePict_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnNewProfilePict.Image = Properties.Resources.newProfilePictPressed;
+        }
+        private void btnNewProfilePict_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnNewProfilePict.Image = Properties.Resources.newProfilePictNormal;
+
+            ProgramCore.MainForm.ctrlRenderControl.headController.LoadNewProfileImage();
         }
 
         public void RecalcProfilePoints()

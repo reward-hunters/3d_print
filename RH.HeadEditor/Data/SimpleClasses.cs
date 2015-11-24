@@ -243,7 +243,7 @@ namespace RH.HeadEditor.Data
         {
             if (Points != null)
             {
-                foreach (HeadPoint point in Points)
+                foreach (var point in Points)
                 {
                     var p = point.Value - center;
                     p.X *= scale.X;

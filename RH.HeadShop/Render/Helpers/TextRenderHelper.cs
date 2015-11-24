@@ -106,7 +106,7 @@ namespace RH.HeadShop.Render.Helpers
         {
             using (var bitmap = new Bitmap(1, 1))
             {
-                using (Graphics graphics = Graphics.FromImage(bitmap))
+                using (var graphics = Graphics.FromImage(bitmap))
                 {
                     var measures = graphics.MeasureString(Label, Font);
                     CalculatedWidth = (int)Math.Ceiling(measures.Width);
@@ -131,7 +131,7 @@ namespace RH.HeadShop.Render.Helpers
                 using (var bitmap = new Bitmap(Width, Height))
                 {
                     var rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-                    using (Graphics graphics = Graphics.FromImage(bitmap))
+                    using (var graphics = Graphics.FromImage(bitmap))
                     {
                         graphics.Clear(System.Drawing.Color.Transparent);
                         graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;

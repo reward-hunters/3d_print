@@ -124,20 +124,23 @@
   <data name="btnUnscalePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnUnscalePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="handBrush4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\handBrush4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="handBrush2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\handBrush2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnToLeftNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnToLeftNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TutCustomHeads" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutCustomHeads.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="panelTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\panelTop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuShapeActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menuShapeActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnHandPressed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnHandPressed1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMaleNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMaleNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,26 +151,26 @@
   <data name="copyArrowPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\copyArrowPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="handBrush3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\handBrush3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="btnDotsNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnDotsNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnLineNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnLineNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnArcPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnArcPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="handBrush2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\handBrush2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="handBrush4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\handBrush4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnHandNormal1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnHandNormal1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="newProfilePictNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newProfilePictNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnPlayNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnPlayNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnHandPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnHandPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btnMenuShapeNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnMenuShapeNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bgHighMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bgHighMenu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,20 +181,20 @@
   <data name="TutProfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TutProfile.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="newProfilePictPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newProfilePictPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="btnArrowPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnArrowPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnZoomPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnZoomPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="radioUncheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\radioUncheck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgGradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BgGradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMenuColorNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuColorNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btnArcPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnArcPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnQuestionNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnQuestionNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,14 +208,11 @@
   <data name="btnMenuCutPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuCutPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="handBrush1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\handBrush1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="radioCheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\radioCheck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TutShapedots" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TutShapedots.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bgWizard2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bgWizard2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnDotsPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnDotsPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,8 +226,8 @@
   <data name="btnMenuStagePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuStagePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnInfoPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnInfoPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="radioUncheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\radioUncheck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnPolyLineNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnPolyLineNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,11 +247,11 @@
   <data name="btnMenuAccessoriesNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuAccessoriesNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnHandPressed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnHandPressed1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnInfoPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnInfoPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bgWizard2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bgWizard2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TutLineTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutLineTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TutFreehand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TutFreehand.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -289,8 +289,8 @@
   <data name="TutAutodots" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TutAutodots.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BgGradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgGradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnToLeftNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnToLeftNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnChildNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnChildNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -304,20 +304,29 @@
   <data name="btnMenuProfilePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuProfilePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="panelLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\panelLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TutShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TutShape.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btnMenuCutNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnMenuCutNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnZoomNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnZoomNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMenuFeaturesPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuFeaturesPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="handBrush3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\handBrush3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="handBrush1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\handBrush1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TutShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutShape.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="panelLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\panelLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnMenuCutNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnMenuCutNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnFemaleNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnFemaleNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnMaleGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnMaleGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMenuFrontPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuFrontPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -334,14 +343,17 @@
   <data name="TutStage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TutStage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menuCutActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menuCutActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnMenuShapeNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnMenuShapeNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menuAccessoriesActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menuAccessoriesActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMenuStyleNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuStyleNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnHandNormal1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnHandNormal1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnArrowNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnArrowNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -352,14 +364,14 @@
   <data name="btnMenuStageNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuStageNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnFemaleNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnFemaleNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Logo_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo_2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnMenuFeaturesNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnMenuFeaturesNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="panelStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\panelStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnZoomNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnZoomNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnPolyLinePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnPolyLinePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnLinePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnLinePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -370,14 +382,17 @@
   <data name="menuMaterialsActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menuMaterialsActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnMaleGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnMaleGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnMenuFeaturesNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnMenuFeaturesNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnPolyLinePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnPolyLinePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="menuCutActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\menuCutActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMenuShapePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuShapePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TutShapedots" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutShapedots.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btnMenuStylePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuStylePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -388,16 +403,10 @@
   <data name="btnToRightPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnToRightPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="panelStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\panelStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnLineNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnLineNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TutCustomHeads" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TutCustomHeads.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TutLineTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TutLineTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Logo_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo_2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="color-picker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\color-picker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

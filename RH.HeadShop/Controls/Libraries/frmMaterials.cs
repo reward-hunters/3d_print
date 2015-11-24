@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using OpenTK;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
+using RH.HeadShop.Render;
 using RH.HeadShop.Render.Meshes;
 using RH.ImageListView;
 
@@ -16,10 +17,18 @@ namespace RH.HeadShop.Controls.Libraries
 {
     public partial class frmMaterials : FormEx
     {
+        private readonly Cursor colorPickerCursor;
+
         public frmMaterials()
         {
             InitializeComponent();
             InitializeListView();
+
+            using (var bitmap = new Bitmap(Properties.Resources.color_picker, new Size(24, 24)))
+            {
+                var ptr = bitmap.GetHicon();
+                colorPickerCursor = new Cursor(ptr);
+            }
 
             Sizeble = false;
             ProgramCore.MainForm.ctrlRenderControl.pickingController.OnSelectedMeshChanged += pickingController_OnSelectedMeshChanged;
@@ -184,7 +193,7 @@ namespace RH.HeadShop.Controls.Libraries
             if (IsUpdating)
                 return;
 
-            for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor.Keys.Count;i++)
+            for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor.Keys.Count; i++)
             {
                 var key = ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor.Keys.ElementAt(i);
                 var color = ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor[key];
@@ -265,5 +274,42 @@ namespace RH.HeadShop.Controls.Libraries
 
         #endregion
 
+        private void btnColorPicker_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (IsUpdating)
+                return;
+            BeginUpdate();
+            if (btnColorPicker.Tag.ToString() == "2")       // режим снятие цвета
+            {
+                btnColorPicker.Tag = "1";
+                btnColorPicker.BackColor = SystemColors.ControlDarkDark;
+                btnColorPicker.ForeColor = Color.White;
+
+                ChangeCursors(colorPickerCursor);
+                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.ColorPicker;
+            }
+            else
+            {
+                btnColorPicker.Tag = "2";
+                btnColorPicker.BackColor = SystemColors.Control;
+                btnColorPicker.ForeColor = Color.Black;
+
+                ChangeCursors(DefaultCursor);
+                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
+            }
+            EndUpdate();
+        }
+
+        private void ChangeCursors(Cursor cursor)
+        {
+            Cursor = cursor;
+            ProgramCore.MainForm.ctrlTemplateImage.Cursor = cursor;
+            ProgramCore.MainForm.ctrlRenderControl.Cursor = cursor;
+        }
+
+        public void SetColorFromPicker(Color color)
+        {
+            panelColor.BackColor = color;
+        }
     }
 }

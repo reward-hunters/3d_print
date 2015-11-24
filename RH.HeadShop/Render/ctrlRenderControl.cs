@@ -867,6 +867,15 @@ namespace RH.HeadShop.Render
 
                     switch (Mode)
                     {
+                        case Mode.ColorPicker:
+                            {
+                                using (var img = ProgramCore.MainForm.ctrlRenderControl.GrabScreenshot(string.Empty, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Width, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Height))
+                                {
+                                    var color = img.GetPixel((int)e.X, (int)e.Y);
+                                    ProgramCore.MainForm.frmMaterial.SetColorFromPicker(color);
+                                }
+                            }
+                            break;
                         case Mode.LassoStart:
                             if (dblClick)
                             {
@@ -1198,7 +1207,7 @@ namespace RH.HeadShop.Render
                                             var newHeight = FaceRectTransformed.Height;
                                             var kx = newWidth / tempMoveRectWidth;
                                             var ky = newHeight / tempMoveRectHeight;
-                                            for (int i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Points.Count; i++)
+                                            for (var i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Points.Count; i++)
                                             {
                                                 var point = autodotsShapeHelper.ShapeProfileInfo.Points[i];
                                                 if (point.Selected)
@@ -1225,8 +1234,8 @@ namespace RH.HeadShop.Render
                                             delta2 = mousePoint - customLastPoint;
                                             delta2.X *= -1;
                                             var delta3 = new Vector2(delta2.X, 0.0f);
-                                            int index = 0;
-                                            for (int i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Points.Count; i++)
+                                            var index = 0;
+                                            for (var i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Points.Count; i++)
                                             {
                                                 var headPoint = autodotsShapeHelper.ShapeProfileInfo.Points[i];
                                                 if (headPoint.Selected)
@@ -1588,7 +1597,7 @@ namespace RH.HeadShop.Render
                 {
                     GL.Begin(PrimitiveType.Triangles);
                     GL.Color4(0.0f, 1.0f, 0.0f, 0.3f);
-                    for (int i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Indices.Length; i += 3)
+                    for (var i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Indices.Length; i += 3)
                     {
                         var a = autodotsShapeHelper.ShapeProfileInfo.Indices[i];
                         var b = autodotsShapeHelper.ShapeProfileInfo.Indices[i + 1];
@@ -1652,7 +1661,7 @@ namespace RH.HeadShop.Render
                     {
                         GL.Begin(PrimitiveType.Triangles);
                         GL.Color4(0.0f, 1.0f, 0.0f, 0.3f);
-                        for (int i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
+                        for (var i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
                         {
                             var a = autodotsShapeHelper.ShapeInfo.Indices[i];
                             var b = autodotsShapeHelper.ShapeInfo.Indices[i + 1];
@@ -1728,7 +1737,7 @@ namespace RH.HeadShop.Render
 
             GL.Begin(PrimitiveType.Lines);
             GL.Color3(0.0f, 0.0f, 1.0f);
-            for (int i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
+            for (var i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
             {
                 var p0 = autodotsShapeHelper.ShapeInfo.Points[autodotsShapeHelper.ShapeInfo.Indices[i]];
                 var p1 = autodotsShapeHelper.ShapeInfo.Points[autodotsShapeHelper.ShapeInfo.Indices[i + 1]];
@@ -1748,7 +1757,7 @@ namespace RH.HeadShop.Render
 
             GL.Begin(PrimitiveType.Triangles);
             GL.Color4(0.0f, 1.0f, 0.0f, 0.3f);
-            for (int i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
+            for (var i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
             {
                 var a = autodotsShapeHelper.ShapeInfo.Indices[i];
                 var b = autodotsShapeHelper.ShapeInfo.Indices[i + 1];
@@ -1890,7 +1899,7 @@ namespace RH.HeadShop.Render
              pickingController.AccesoryMeshes
              * 
              vec4 position = u_World * vec4( gl_Vertex.xyz, 1.0 );
-	gl_Position = u_ViewProjection * position;
+    gl_Position = u_ViewProjection * position;
              * 
              idleShader.UpdateUniform("u_LightDirection", Vector3.Normalize(camera.Position));
             var worldMatrix = //Если мы в режиме просмотра морфинга, то делаем это
@@ -2235,7 +2244,7 @@ namespace RH.HeadShop.Render
                     GL.PointSize(5.0f);
                     GL.Begin(PrimitiveType.Points);
                     foreach (var line in headController.Lines)
-                        foreach (MirroredHeadPoint point in line)
+                        foreach (var point in line)
                         {
                             GL.Color3(0.0f, 1.0f, 0.0f);
 
@@ -2260,7 +2269,7 @@ namespace RH.HeadShop.Render
             GL.PointSize(5.0f);
             GL.Begin(PrimitiveType.Points);
 
-            foreach (MirroredHeadPoint point in ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints)
+            foreach (var point in ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints)
             {
                 GL.Color3(0.0f, 1.0f, 0.0f);
                 GL.Vertex2(point.Value);
@@ -2458,7 +2467,7 @@ namespace RH.HeadShop.Render
 
             GL.PointSize(5.0f);
             GL.Begin(PrimitiveType.Points);
-            for (int i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Points.Count; i++)
+            for (var i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Points.Count; i++)
             {
                 var point = autodotsShapeHelper.ShapeProfileInfo.Points[i];
 
@@ -2469,9 +2478,9 @@ namespace RH.HeadShop.Render
                     GL.Color3(1.0f, 0.0f, 0.0f);
                 else
                     if (baseProfilePoints.Contains(i))
-                    GL.Color3(0.0f, 0.0f, 1.0f);
-                else
-                    GL.Color3(0.0f, 1.0f, 0.0f);
+                        GL.Color3(0.0f, 0.0f, 1.0f);
+                    else
+                        GL.Color3(0.0f, 1.0f, 0.0f);
 
                 GL.Vertex2(-point.Value.X, point.Value.Y);
             }
@@ -3133,7 +3142,7 @@ namespace RH.HeadShop.Render
                 ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
                 headMeshesController.RenderMesh.RealScale);
 
-            AssimpImporter importer = new AssimpImporter();
+            var importer = new AssimpImporter();
             importer.ConvertFromFileToFile(fiName, stlName, "stl");
             //importer.ConvertFromFileToFile(fiName, stlName, "stlb");
 
@@ -3453,7 +3462,7 @@ namespace RH.HeadShop.Render
             var originalImg = ProgramCore.Project.FrontImage;
 
             var indicies = ProgramCore.MainForm.ctrlRenderControl.headController.GetFaceIndexes();
-            List<MirroredHeadPoint> faceDots = ProgramCore.MainForm.ctrlRenderControl.headController.GetSpecialAutodots(indicies);
+            var faceDots = ProgramCore.MainForm.ctrlRenderControl.headController.GetSpecialAutodots(indicies);
 
             var minX = faceDots.Min(point => point.ValueMirrored.X) * originalImg.Width;
             var maxX = faceDots.Max(point => point.ValueMirrored.X) * originalImg.Width;
@@ -3538,7 +3547,8 @@ namespace RH.HeadShop.Render
         HeadFlipRight,
         SetCustomControlPoints,     // произвольная модель. этап 1. расставить 4 главные опорные точки
         SetCustomPoints,            // расставить остальные точки во фронте. этап 2
-        SetCustomProfilePoints      // расставить остальные точки в профиле. этап 3
+        SetCustomProfilePoints,      // расставить остальные точки в профиле. этап 3
+        ColorPicker   // пипетка
     }
 
     public enum ScaleMode

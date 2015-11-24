@@ -279,7 +279,7 @@ namespace RH.HeadEditor.Helpers
         public void UpdateNormals()
         {
             var normals = Normal.CalculateNormals(Vertices.Select(v => v.Position).ToList(), Indices);
-            for (int i = 0; i < normals.Count; i++)
+            for (var i = 0; i < normals.Count; i++)
             {
                 var v = Vertices[i];
                 v.Normal = normals[i];
@@ -311,19 +311,19 @@ namespace RH.HeadEditor.Helpers
 
         public void BeginMorph()
         {
-            for (int i = 0; i < Vertices.Length; ++i)
+            for (var i = 0; i < Vertices.Length; ++i)
                 Vertices[i].OldPosition = Vertices[i].Position;
         }
 
         public void EndMorph()
         {
-            for (int i = 0; i < Vertices.Length; ++i)
+            for (var i = 0; i < Vertices.Length; ++i)
                 Vertices[i].Position = Vertices[i].OldPosition;
         }
 
         public void DoMorph(float k)
         {
-            for (int i = 0; i < Vertices.Length; ++i)
+            for (var i = 0; i < Vertices.Length; ++i)
             {
                 var vertex = Vertices[i];
                 Vertices[i].Position = vertex.OriginalPosition + (vertex.OldPosition - vertex.OriginalPosition) * k;
@@ -382,7 +382,7 @@ namespace RH.HeadEditor.Helpers
         {
             foreach (var p in Points)
             {
-                float k = 0.0f;
+                var k = 0.0f;
                 foreach (var b in blendingInfos)
                 {
                     var length = (b.Position - p.Position.Xy).Length;
@@ -504,7 +504,7 @@ namespace RH.HeadEditor.Helpers
             var vertices = new List<Vertex3d>();
             var positions = new List<Vector3>();
             var delta = leftToRight ? axis + 0.00001f : axis - 0.00001f;
-            for (int i = 0; i < Vertices.Length; i++)
+            for (var i = 0; i < Vertices.Length; i++)
             {
                 var vertex = Vertices[i];
                 if (vertex.Position.X < delta == leftToRight)
@@ -540,9 +540,9 @@ namespace RH.HeadEditor.Helpers
             var indices = new List<uint>();
             var linesMapping = new Dictionary<Line, int>(new VectorEqualityComparer());
             var lines = new[] { new Line(0, 0), new Line(0, 0) };
-            float k = 0.0f;
+            var k = 0.0f;
             var idx = new int[2];
-            for (int i = 0; i < Indices.Count; i += 3)
+            for (var i = 0; i < Indices.Count; i += 3)
             {
                 var triangle = Indices.GetRange(i, 3).Select(p => (int)p).ToArray();
                 var count = triangle.Count(pointsMapping.ContainsKey);
@@ -570,7 +570,7 @@ namespace RH.HeadEditor.Helpers
                     case 0:
                         continue;
                 }
-                for (int j = 0; j < 3; j++)
+                for (var j = 0; j < 3; j++)
                     if (pointsMapping.ContainsKey(triangle[j]) == (count == 1))
                     {
                         lines[0].A = triangle[j];
@@ -580,7 +580,7 @@ namespace RH.HeadEditor.Helpers
                     }
                 idx[0] = linesMapping.ContainsKey(lines[0]) ? linesMapping[lines[0]] : -1;
                 idx[1] = linesMapping.ContainsKey(lines[1]) ? linesMapping[lines[1]] : -1;
-                for (int j = 0; j < idx.Length; j++)
+                for (var j = 0; j < idx.Length; j++)
                     if (idx[j] < 0)
                     {
                         var line = lines[j];
@@ -634,15 +634,15 @@ namespace RH.HeadEditor.Helpers
                 }
             }
             var cnt = indices.Count;
-            for (int i = 0; i < cnt; i += 3)
+            for (var i = 0; i < cnt; i += 3)
             {
                 var triangle = indices.GetRange(i, 3).ToArray();
-                for (int j = 2; j >= 0; j--)
+                for (var j = 2; j >= 0; j--)
                     indices.Add((uint)mirroredPoints[(int)triangle[j]]);
             }
 
             var normals = Normal.CalculateNormals(positions, indices);
-            for (int i = 0; i < normals.Count; i++)
+            for (var i = 0; i < normals.Count; i++)
             {
                 var v = vertices[i];
                 v.Normal = normals[i];
@@ -680,7 +680,7 @@ namespace RH.HeadEditor.Helpers
         public MeshUndoInfo GetUndoInfo()
         {
             var info = new MeshUndoInfo();
-            for (int i = 0; i < Points.Count; i++)
+            for (var i = 0; i < Points.Count; i++)
                 info.Points.Add(i, Points[i].Position);
             return info;
         }
@@ -893,7 +893,7 @@ namespace RH.HeadEditor.Helpers
                 foreach (var i in point.Indices)
                 {
                     Vertices[i].PointIndex = p;
-                    for (int t = 0; t < Indices.Count; t++)
+                    for (var t = 0; t < Indices.Count; t++)
                         if (Indices[t] == i)
                             triangles.Add(t - t % 3);
                 }

@@ -107,7 +107,7 @@ namespace RH.HeadShop.Render.Obj
             {
                 var index = face.TriangleIndex0 * 3;
 
-                for (int l = 0; l < 3; l++)
+                for (var l = 0; l < 3; l++)
                 {
                     var v = positions[indicesPositions[index + l] - 1];
                     var vn = normals[indicesNormals[index + l] - 1];
@@ -153,12 +153,12 @@ namespace RH.HeadShop.Render.Obj
                     sw.WriteLine(resStr);
                 }
 
-                String prevGroup = String.Empty;
+                var prevGroup = String.Empty;
                 foreach (var materialGroup in objExport.MaterialsGroups)
                 {
                     if (materialGroup.Groups.Count == 0 || !materialGroup.Groups[0].IsValid)
                         continue;
-                    for (int i = 0; i < materialGroup.Groups.Count; i++)
+                    for (var i = 0; i < materialGroup.Groups.Count; i++)
                     {
                         var group = materialGroup.Groups[i];
                         if (!group.IsValid)
@@ -170,10 +170,10 @@ namespace RH.HeadShop.Render.Obj
                         }
                         if (i == 0)
                             sw.WriteLine("usemtl " + materialGroup.Material);
-                        for (int j = group.StartFaceIndex; j <= group.EndFaceIndex; j++)
+                        for (var j = group.StartFaceIndex; j <= group.EndFaceIndex; j++)
                         {
                             var face = objExport.Faces[j];
-                            String resStr = "f ";
+                            var resStr = "f ";
                             foreach (var vertex in face.FaceVertices)
                             {
                                 resStr += (vertex.VertexIndex).ToString(ProgramCore.Nfi);
@@ -321,14 +321,14 @@ namespace RH.HeadShop.Render.Obj
 
                 if (meshInfos.Count > 0) {
                     var scale = Controllers.PickingController.GetHairScale(ProgramCore.Project.ManType); 
-                    Matrix4 transformMatrix = Matrix4.CreateScale(scale);
+                    var transformMatrix = Matrix4.CreateScale(scale);
 
                     SaveVerticles(meshInfos, sw, transformMatrix);       //write only additional meshes first, with translated positions
                     SaveTextureCoords(meshInfos, sw);
                     SaveNormals(meshInfos, sw, transformMatrix);
                 }
                 if (faceParts.Count > 0) {
-                    Matrix4 transformMatrix = Matrix4.CreateScale(morphScale);
+                    var transformMatrix = Matrix4.CreateScale(morphScale);
                     SaveVerticles(faceParts, sw, transformMatrix);
                     SaveTextureCoords(faceParts, sw);
                     SaveNormals(faceParts, sw, Matrix4.Zero);
@@ -458,7 +458,7 @@ namespace RH.HeadShop.Render.Obj
 
                     if (transformMatrix != Matrix4.Zero)
                     {
-                        Vector3 newV = Vector3.Transform(v, transformMatrix);
+                        var newV = Vector3.Transform(v, transformMatrix);
                         var resStr = "v " + newV.X.ToString(ProgramCore.Nfi) + " " + newV.Y.ToString(ProgramCore.Nfi) + " " + newV.Z.ToString(ProgramCore.Nfi);
                         sw.WriteLine(resStr);
                     }
@@ -489,7 +489,7 @@ namespace RH.HeadShop.Render.Obj
                 {
                     if (transformMatrix != Matrix4.Zero)
                     {
-                        Vector3 newVn = Vector3.Transform(vn, transformMatrix);
+                        var newVn = Vector3.Transform(vn, transformMatrix);
                         var resStr = "vn " + newVn.X.ToString(ProgramCore.Nfi) + " " + newVn.Y.ToString(ProgramCore.Nfi) + " " + newVn.Z.ToString(ProgramCore.Nfi);
                         sw.WriteLine(resStr);
                     }

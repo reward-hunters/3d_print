@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RH.HeadEditor.Data;
+using RH.HeadShop.Controls;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render.Helpers;
@@ -96,7 +97,23 @@ namespace RH.HeadShop.Render.Controllers
         /// <summary> Загрузить новое изображение как шаблон для профиля </summary>
         public void LoadNewProfileImage()
         {
-            using (var ofd = new OpenFileDialogEx("Select template file", "JPG Files|*.jpg"))
+            var ctrl = new frmNewProfilePict1();
+            if (ProgramCore.ShowDialog(ctrl, "Select profile template image", MessageBoxButtons.OK) != DialogResult.OK)
+                return;
+
+            //TODO: ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
+
+            var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, ctrl.TemplateImage, ctrl.MouthRelative, ctrl.EyeRelative);
+            if (ProgramCore.ShowDialog(ctrl1, "Adjust profile template image", MessageBoxButtons.OK) != DialogResult.OK)
+                return;
+
+            var newPath = Project.CopyImgToProject(ctrl1.RotatedPath, "ProfileImage");
+            using (var bmp = new Bitmap(newPath))
+                ProgramCore.Project.ProfileImage = new Bitmap(bmp);
+
+            ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage, false);
+
+            /*   using (var ofd = new OpenFileDialogEx("Select template file", "JPG Files|*.jpg"))   // Старый вариант. пока оставить!
             {
                 ofd.Multiselect = false;
                 if (ofd.ShowDialog() != DialogResult.OK)
@@ -110,7 +127,7 @@ namespace RH.HeadShop.Render.Controllers
                 ProgramCore.MainForm.ctrlTemplateImage.ControlPointsMode = ProfileControlPointsMode.SetControlPoints;
                 foreach (var point in ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints)     // подчищаем за собой каки
                     point.ValueMirrored = Vector2.Zero;
-            }
+            }*/
         }
 
         #region Event's
@@ -167,7 +184,7 @@ namespace RH.HeadShop.Render.Controllers
             GL.PointSize(5.0f);
             GL.Begin(PrimitiveType.Points);
             foreach (var line in Lines)
-                foreach (MirroredHeadPoint point in line)
+                foreach (var point in line)
                 {
                     GL.Color3(0.0f, 1.0f, 0.0f);
 
@@ -278,7 +295,7 @@ namespace RH.HeadShop.Render.Controllers
                                                       pointB.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX,
                                                       pointB.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY);
                 }
-                foreach (MirroredHeadPoint point in line)
+                foreach (var point in line)
                 {
                     var v = point.ValueMirrored;
                     var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - 2.5f,
@@ -812,7 +829,7 @@ namespace RH.HeadShop.Render.Controllers
         }
         public List<int> GetNoseIndexes()
         {
-            return new List<int> { 2, 18, 19, 20, 40, 41, 42, 52};
+            return new List<int> { 2, 18, 19, 20, 40, 41, 42, 52 };
         }
 
         #endregion

@@ -145,7 +145,7 @@ namespace RH.HeadEditor.Helpers
                 c.X *= -1.0f;
                 isLeft = ShapePoint.X < 0.0f ? 1.0f : -1.0f;
                 int idA = -1, idB = -1, idC = -1;
-                for (int i = 0; i < startPart.Vertices.Length; i++ )
+                for (var i = 0; i < startPart.Vertices.Length; i++ )
                 {
                     if (idA >= 0 && idB >= 0 && idC >= 0)
                         break;
@@ -171,7 +171,7 @@ namespace RH.HeadEditor.Helpers
                 }
                 if (idA >= 0 && idB >= 0 && idC >= 0)
                 {
-                    for (int i = 0; i < startPart.Indices.Count; i += 3)
+                    for (var i = 0; i < startPart.Indices.Count; i += 3)
                     {
                         var v0 = startPart.Indices[i];
                         var v1 = startPart.Indices[i + 1];
@@ -376,7 +376,7 @@ namespace RH.HeadEditor.Helpers
                 var np = part.Points[n.Key];
                 foreach (var prt in headMeshController.RenderMesh.Parts.Where(r => r.Guid != part.Guid))
                 {
-                    int id = -1;
+                    var id = -1;
 
                     if (prt.PointsIndices.TryGetValue(np, out id))
                     {

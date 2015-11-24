@@ -81,7 +81,7 @@ namespace RH.HeadShop.Controls
             //arrowPen.Width = 2;
 
             nextHeadRect.Height = fcr.FaceRectRelative.Height * 3.77294f;
-            float center = (fcr.FaceRectRelative.Height + fcr.FaceRectRelative.Y) / 2f * 1.4f;
+            var center = (fcr.FaceRectRelative.Height + fcr.FaceRectRelative.Y) / 2f * 1.4f;
             nextHeadRect.Y = center - (nextHeadRect.Height / 2f);
             nextHeadRect.Height *= 0.92f; //рисовать на месте нижней челюсти
             

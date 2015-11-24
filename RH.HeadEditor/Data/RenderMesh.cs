@@ -79,10 +79,10 @@ namespace RH.HeadEditor.Data
                     b.X = Math.Max(vertex.Position.X, b.X);
                     b.Y = Math.Max(vertex.Position.Y, b.Y);
                 }
-            float d = (b - a).Length;
+            var d = (b - a).Length;
             if (d == 0.0f)
                 return 0.0f;
-            float scale = diagonal / d;
+            var scale = diagonal / d;
             foreach (var part in Parts)
             {
                 for (var i = 0; i < part.Vertices.Length; i++)
@@ -167,7 +167,7 @@ namespace RH.HeadEditor.Data
             AABB.B = b;
 
             BlendingInfos.Clear();
-            float radius = Math.Abs(leye.X - reye.X) * 0.5f;
+            var radius = Math.Abs(leye.X - reye.X) * 0.5f;
             BlendingInfos.Add(new BlendingInfo
             {
                 Position = leye,
@@ -224,7 +224,7 @@ namespace RH.HeadEditor.Data
             var triangle = new int[3];
             foreach (var part in Parts)
             {
-                bool isEyelash = part.Name.ToLower().Contains("eyelash");
+                var isEyelash = part.Name.ToLower().Contains("eyelash");
                 for (var i = 0; i < part.Indices.Count; i += 3)
                 {
                     for (var j = 0; j < 3; ++j)

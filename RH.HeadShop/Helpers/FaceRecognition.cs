@@ -243,8 +243,8 @@ namespace RH.HeadShop.Helpers
                 v.Normalize();      // ПД !
                 var xVector = new Vector2(1, 0);
 
-                float xDiff = xVector.X - v.X;
-                float yDiff = xVector.Y - v.Y;
+                var xDiff = xVector.X - v.X;
+                var yDiff = xVector.Y - v.Y;
                 var angle = Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
 
                 if (Math.Abs(angle) > 1 && angleCount <= 5)                // поворачиваем наклоненные головы

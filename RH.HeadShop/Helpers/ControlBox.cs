@@ -8,7 +8,7 @@ using RH.HeadShop.Controls;
 
 namespace RH.HeadShop.Helpers
 {
-   public class ControlBox
+    public class ControlBox
     {
         private const int Margin = 4;
         private static void AddButtons(Form box, Button[] buttons, int defaultButton)
@@ -79,11 +79,8 @@ namespace RH.HeadShop.Helpers
                     cancelButton = controlButtons[controlButtons.Count - 1];
                     break;
                 case MessageBoxButtons.OK:
-                    if (oKpresent)
-                        AppendButton(controlButtons, "Close", DialogResult.Cancel, 1 + double.Epsilon);
-                    else
-                        AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);
-                    cancelButton = controlButtons[controlButtons.Count - 1];
+                    AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);
+                  //  cancelButton = controlButtons[controlButtons.Count - 1];
                     break;
                 case MessageBoxButtons.OKCancel:
                     AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);

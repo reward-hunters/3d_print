@@ -321,7 +321,7 @@ namespace RH.HeadShop.Render.Controllers
                             meshPartInfos.Add(meshPartInfo);
 
                         }
-                        Vector3 dv = Vector3.Zero;
+                        var dv = Vector3.Zero;
                         foreach (var meshPartInfo in meshPartInfos)
                         {
                             dv = MoveToPosition(ref meshPartInfo.VertexPositions, a, b, Vector3.Zero);
@@ -528,7 +528,7 @@ namespace RH.HeadShop.Render.Controllers
         private Vector3 MoveToPosition(ref List<Vector3> points, Vector3 a, Vector3 b, Vector3 position)
         {
             var dv = position - (a + b) * 0.5f;
-            for (int i = 0; i < points.Count; i++)
+            for (var i = 0; i < points.Count; i++)
                 points[i] = points[i] + dv;
             return dv;
         }
@@ -558,12 +558,12 @@ namespace RH.HeadShop.Render.Controllers
                     GetObjFace(face, objModel, ref vertexPositions, ref tmp, ref tmp,
                         ref tmp, ref tmp, ref uitmp);
                 vertices.Clear();
-                for (int i = 0; i < vertexPositions.Count; i += 3)
+                for (var i = 0; i < vertexPositions.Count; i += 3)
                     vertices.Add(new Vector3(vertexPositions[i], vertexPositions[i + 1], vertexPositions[i + 2]));
 
 
                 PartMorphInfo morphInfo = null;
-                float scale = ProgramCore.PluginMode &&
+                var scale = ProgramCore.PluginMode &&
                               ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport != null
                     ? ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport.Scale
                     : 1.0f;

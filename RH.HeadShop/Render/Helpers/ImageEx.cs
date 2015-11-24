@@ -50,8 +50,8 @@ namespace RH.HeadShop.Render.Helpers
 
         public static Image ResizeImage(Image imgToResize, Size size)
         {
-            int sourceWidth = imgToResize.Width;
-            int sourceHeight = imgToResize.Height;
+            var sourceWidth = imgToResize.Width;
+            var sourceHeight = imgToResize.Height;
 
             float nPercent = 0;
             float nPercentW = 0;
@@ -65,11 +65,11 @@ namespace RH.HeadShop.Render.Helpers
             else
                 nPercent = nPercentW;
 
-            int destWidth = (int)(sourceWidth * nPercent);
-            int destHeight = (int)(sourceHeight * nPercent);
+            var destWidth = (int)(sourceWidth * nPercent);
+            var destHeight = (int)(sourceHeight * nPercent);
 
-            Bitmap b = new Bitmap(destWidth, destHeight);
-            Graphics g = Graphics.FromImage(b);
+            var b = new Bitmap(destWidth, destHeight);
+            var g = Graphics.FromImage(b);
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);

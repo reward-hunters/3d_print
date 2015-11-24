@@ -51,7 +51,8 @@ namespace RH.HeadShop.Controls.Panels
             //TODO: uncomment if need return  
             btnDots.Visible = isFrontTab;
 
-            btnNewPict.Visible = !isFrontTab;
+            btnNewPict.Visible = false;
+
         }
 
 
@@ -450,7 +451,7 @@ namespace RH.HeadShop.Controls.Panels
                         var FaceRectTransformed = ProgramCore.MainForm.ctrlTemplateImage.FaceRectTransformed;
 
                         var point = new Point((int)ProgramCore.MainForm.ctrlTemplateImage.CentralFacePoint.X, (int)ProgramCore.MainForm.ctrlTemplateImage.CentralFacePoint.Y);
-                        MouseEventArgs eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
+                        var eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
                         ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseDown(null, eMouse);
                         ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
 
@@ -463,7 +464,7 @@ namespace RH.HeadShop.Controls.Panels
                             default: jawCoeff = 0.9285714f; break;
                         }
 
-                        int yDiff = (int)(ProgramCore.Project.nextHeadRectF.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - FaceRectTransformed.Y;
+                        var yDiff = (int)(ProgramCore.Project.nextHeadRectF.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - FaceRectTransformed.Y;
                         //yDiff = 0;
                         if (Math.Abs(yDiff) > 1)
                         {
@@ -478,7 +479,7 @@ namespace RH.HeadShop.Controls.Panels
                             ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
                         }
                         FaceRectTransformed = ProgramCore.MainForm.ctrlTemplateImage.FaceRectTransformed;
-                        int hDiff = (int)(ProgramCore.Project.nextHeadRectF.Bottom * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - (int)(FaceRectTransformed.Height * jawCoeff + FaceRectTransformed.Y);
+                        var hDiff = (int)(ProgramCore.Project.nextHeadRectF.Bottom * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - (int)(FaceRectTransformed.Height * jawCoeff + FaceRectTransformed.Y);
                         //hDiff = 0;
                         if (Math.Abs(hDiff) > 1)
                         {
@@ -867,6 +868,7 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.HeadFront = ProgramCore.MainForm.HeadFeature = false;
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
                 ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg.Visible = true;
+                ProgramCore.MainForm.ctrlTemplateImage.btnNewProfilePict.Visible = true;
 
                 ProgramCore.MainForm.ctrlRenderControl.camera.ResetCamera(true);
                 ProgramCore.MainForm.ctrlRenderControl.OrtoRight();          // поворачиваем морду как надо
@@ -911,6 +913,7 @@ namespace RH.HeadShop.Controls.Panels
                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
 
                 ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg.Visible = false;
+                ProgramCore.MainForm.ctrlTemplateImage.btnNewProfilePict.Visible = false;
                 ProgramCore.MainForm.ctrlRenderControl.OrtoTop();            // поворачиваем морду как надо
                 ProgramCore.MainForm.EnableRotating();
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица

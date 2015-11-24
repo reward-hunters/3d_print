@@ -32,3 +32,10 @@ D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor
 D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.csproj.GenerateResource.Cache
 D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.exe
 D:\Projects\Фриланс\Старикан\HeadShop_print3D\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.pdb
+C:\Users\expertbook\Source\Repos\3d_print\Debug\FaceShop.exe
+C:\Users\expertbook\Source\Repos\3d_print\Debug\FaceShop.pdb
+C:\Users\expertbook\Source\Repos\3d_print\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.csprojResolveAssemblyReference.cache
+C:\Users\expertbook\Source\Repos\3d_print\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.Properties.Resources.resources
+C:\Users\expertbook\Source\Repos\3d_print\RH.FaceShopExecutor\obj\x86\Debug\RH.FaceShopExecutor.csproj.GenerateResource.Cache
+C:\Users\expertbook\Source\Repos\3d_print\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.exe
+C:\Users\expertbook\Source\Repos\3d_print\RH.FaceShopExecutor\obj\x86\Debug\FaceShop.pdb

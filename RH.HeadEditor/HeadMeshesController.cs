@@ -71,7 +71,7 @@ namespace RH.HeadEditor
 
         public float SetSize(float diagonal)
         {
-            float scale = RenderMesh.SetSize(diagonal);
+            var scale = RenderMesh.SetSize(diagonal);
             foreach (var part in RenderMesh.Parts)
                 part.UpdateBuffers();
             return scale;

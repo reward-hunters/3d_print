@@ -865,7 +865,7 @@ namespace RH.HeadEditor.Helpers
                         points.Reverse();
                     var plist = movedPoints.Select(i => ShapeInfo.Points[i].Value).ToList();
                     plist = TransformLine(plist, points);
-                    for (int i = 0; i < movedPoints.Count; i++)
+                    for (var i = 0; i < movedPoints.Count; i++)
                     {
                         var key = movedPoints[i];
                         var p = plist[i];
@@ -882,7 +882,7 @@ namespace RH.HeadEditor.Helpers
                         var indices = new List<int>();
                         var pointnsDict = new Dictionary<Vector2, int>(new VectorEqualityComparer());
                         var centerLine = false;
-                        for (int i = 0; i < points.Count; i++)
+                        for (var i = 0; i < points.Count; i++)
                         {
                             var p = points[i];
                             if (i > 0 && !centerLine && p.Equals(points[0]))
@@ -901,34 +901,34 @@ namespace RH.HeadEditor.Helpers
                         }
 
                         var lipLists = new List<Vector2>[3];
-                        for (int i = 0; i < 3; i++)
+                        for (var i = 0; i < 3; i++)
                             lipLists[i] = new List<Vector2>();
-                        for (int i = 0; i < indices.Count; i++)
+                        for (var i = 0; i < indices.Count; i++)
                             if (indices[i] < i)
                             {
                                 var first = indices[i];
                                 var last = indices[indices.Count - 1];
-                                for (int j = first; j <= last; j++)
+                                for (var j = first; j <= last; j++)
                                     lipLists[0].Add(lipPoints[indices[j]]);
-                                for (int j = last; j < i; j++)
+                                for (var j = last; j < i; j++)
                                     lipLists[1].Add(lipPoints[indices[j]]);
-                                for (int j = 0; j <= first; j++)
+                                for (var j = 0; j <= first; j++)
                                     lipLists[1].Add(lipPoints[indices[j]]);
-                                for (int j = i; j < indices.Count; j++)
+                                for (var j = i; j < indices.Count; j++)
                                     lipLists[2].Add(lipPoints[indices[j]]);
                                 break;
                             }
-                        for (int i = 0; i < 3; i++)
+                        for (var i = 0; i < 3; i++)
                             if (lipLists[i].Count == 0)
                                 return;
                         var lipCenter = lipLists[2];
                         var c = (lipCenter[0] + lipPoints[lipCenter.Count - 1]) * 0.5f;
                         var c0 = new Vector2(c.X, c.Y + 1000.0f);
                         var c1 = new Vector2(c.X, c.Y - 1000.0f);
-                        for (int i = 2; i > 0; i--)
+                        for (var i = 2; i > 0; i--)
                         {
                             var list = lipLists[i];
-                            for (int j = 0; j < list.Count - 1; j++)
+                            for (var j = 0; j < list.Count - 1; j++)
                             {
                                 var p0 = list[j];
                                 var p1 = list[j + 1];
@@ -952,11 +952,11 @@ namespace RH.HeadEditor.Helpers
                         var idx = 0;
                         var sourcePoints = new List<Vector2>();
                         var sourceIndices = new List<int>();
-                        for (int i = 0; i < 3; i++)
+                        for (var i = 0; i < 3; i++)
                         {
                             sourcePoints.Clear();
                             sourceIndices.Clear();
-                            for (int j = 0; j < tmpIndices[i]; j++, idx++)
+                            for (var j = 0; j < tmpIndices[i]; j++, idx++)
                             {
                                 var rect = rects[idx];
                                 sourcePoints.AddRange(rect.Points);
@@ -966,7 +966,7 @@ namespace RH.HeadEditor.Helpers
                             if ((sourcePoints[sourcePoints.Count - 1].X - sourcePoints[0].X) * (list[list.Count - 1].X - list[0].X) < 0.0f)
                                 list.Reverse();
                             sourcePoints = TransformLine(sourcePoints, list);
-                            for (int j = 0; j < sourcePoints.Count; j++)
+                            for (var j = 0; j < sourcePoints.Count; j++)
                             {
                                 var id = sourceIndices[j];
                                 if (movedPoints.Contains(id))
@@ -985,7 +985,7 @@ namespace RH.HeadEditor.Helpers
                     #region Profile
                     {
                         var index = 0;
-                        bool isFirst = true;
+                        var isFirst = true;
                         movedPoints.Clear();
                         foreach (var rect in ProfileRects)
                         {
@@ -1009,7 +1009,7 @@ namespace RH.HeadEditor.Helpers
                                 bz = b.X;
                             //Идем от index и ищем пересечение линии [i, i + 1] с прямой, парралельной oX проходящей через a.Y и b.Y
                             //Если дошли до конца и не нашли - что-то пошло не так, прекращаем все
-                            for (int i = index; i < points.Count - 1; i++)
+                            for (var i = index; i < points.Count - 1; i++)
                             {
                                 float ua, ub;
                                 var p0 = points[i];
@@ -1024,7 +1024,7 @@ namespace RH.HeadEditor.Helpers
                                 {
                                     if (rect.IsLast)
                                     {
-                                        for (int j = i + 1; j < points.Count - 1; j++)
+                                        for (var j = i + 1; j < points.Count - 1; j++)
                                             tmpPoints.Add(points[j]);
                                         tmpPoints.Add(b);
                                         break;
@@ -1103,23 +1103,23 @@ namespace RH.HeadEditor.Helpers
             //1. Нужно найти длину каждой линии
             var lengthBase = 0.0f;
             var lengthTransform = 0.0f;
-            for (int i = 1; i < basePoints.Count; i++)
+            for (var i = 1; i < basePoints.Count; i++)
                 lengthBase += (basePoints[i] - basePoints[i - 1]).Length;
-            for (int i = 1; i < targetPoints.Count; i++)
+            for (var i = 1; i < targetPoints.Count; i++)
                 lengthTransform += (targetPoints[i] - targetPoints[i - 1]).Length;
             //2. Находим отношение
-            float k = lengthTransform / lengthBase;
+            var k = lengthTransform / lengthBase;
             //3. Находим соответствующую позицию каждой точки на финальной линии
             lengthBase = 0.0f;
             lengthTransform = 0.0f;
-            int lastPoint = 0;
-            int prevPoint = -1;
-            for (int i = 0; i < basePoints.Count; i++)
+            var lastPoint = 0;
+            var prevPoint = -1;
+            for (var i = 0; i < basePoints.Count; i++)
             {
                 if (prevPoint > -1)
                     lengthBase += (basePoints[i] - basePoints[prevPoint]).Length * k;
                 prevPoint = i;
-                for (int j = lastPoint; j < targetPoints.Count; j++)
+                for (var j = lastPoint; j < targetPoints.Count; j++)
                 {
                     var last = j == targetPoints.Count - 1;
                     var l = last ? 100.0f : (targetPoints[j + 1] - targetPoints[j]).Length;
@@ -1699,7 +1699,7 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(12, rect.ShapeIndices[13]);
             //temp
 
-            for (int i = 0; i < rect.ShapeIndices.Length - 1; i++)
+            for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
                 indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             //верх носа
@@ -1738,7 +1738,7 @@ namespace RH.HeadEditor.Helpers
             //temp
 
             indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
-            for (int i = 0; i < rect.ShapeIndices.Length - 1; i++)
+            for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
                 indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             //низ носа
@@ -1775,7 +1775,7 @@ namespace RH.HeadEditor.Helpers
             //temp
 
             indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
-            for (int i = 0; i < rect.ShapeIndices.Length - 1; i++)
+            for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
                 indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             //верх губы
@@ -1809,7 +1809,7 @@ namespace RH.HeadEditor.Helpers
             //temp
 
             indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
-            for (int i = 0; i < rect.ShapeIndices.Length - 1; i++)
+            for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
                 indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             //низ губы
@@ -1843,7 +1843,7 @@ namespace RH.HeadEditor.Helpers
             //temp
 
             indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
-            for (int i = 0; i < rect.ShapeIndices.Length - 1; i++)
+            for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
                 indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             //подбородок
@@ -1887,7 +1887,7 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(42, rect.ShapeIndices[12]);
             //temp
 
-            for (int i = 0; i < rect.ShapeIndices.Length - 3; i++)
+            for (var i = 0; i < rect.ShapeIndices.Length - 3; i++)
                 indices.AddRange(new[] { index0, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             indices.AddRange(new[] { index0, rect.ShapeIndices[rect.ShapeIndices.Length - 3], index1 });
@@ -1939,7 +1939,7 @@ namespace RH.HeadEditor.Helpers
             var result = new HeadPoint[defaultDots.Count];
             foreach (var p in pointsDict)
                 result[p.Key] = p.Value;
-            for(int i = 0; i<result.Length; i++)
+            for(var i = 0; i<result.Length; i++)
                 if (result[i] == null)
                     result[i] = defaultDots[i];
 

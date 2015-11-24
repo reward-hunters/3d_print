@@ -30,7 +30,7 @@ namespace RH.HeadEditor.Data
                 return false;
             }
 
-            for (int i = 0; i < result.PointsMorph.Count; i++)
+            for (var i = 0; i < result.PointsMorph.Count; i++)
             {
                 var index = part.Points[i].Indices[0];
                 var p = (part.BaseVertices ?? part.Vertices)[index].OriginalPosition;
@@ -52,7 +52,7 @@ namespace RH.HeadEditor.Data
             if (part.IsMirrored)
             {
                 var verticesDictionary = new Dictionary<uint, Vector3>();
-                for (int i = 0; i < part.Points.Count; i++)
+                for (var i = 0; i < part.Points.Count; i++)
                 {
                     var point = part.Points[i];
                     var delta = morphInfos.Aggregate(Vector3.Zero, (current, mi) => current + mi.PointsMorph[i] * mi.Delta) * count;
@@ -62,7 +62,7 @@ namespace RH.HeadEditor.Data
                             verticesDictionary.Add(index, delta);
                     }
                 }
-                for (int i = 0; i < part.Vertices.Length; i++)
+                for (var i = 0; i < part.Vertices.Length; i++)
                 {
                     var vertex = part.Vertices[i];
                     if (vertex.OriginalPosition.X >= 0.0f && vertex.OriginalPosition.X <= 1.0f)
@@ -88,7 +88,7 @@ namespace RH.HeadEditor.Data
             }
             else
             {
-                for (int i = 0; i < part.Points.Count; i++)
+                for (var i = 0; i < part.Points.Count; i++)
                 {
                     var point = part.Points[i];
                     var delta = morphInfos.Aggregate(Vector3.Zero, (current, mi) => current + mi.PointsMorph[i] * mi.Delta) * count;

@@ -98,11 +98,23 @@
     <Compile Include="Controls\frmControlBox.designer.cs">
       <DependentUpon>frmControlBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\frmNewProfilePict1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\frmNewProfilePict1.designer.cs">
+      <DependentUpon>frmNewProfilePict1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\frmNewProject1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\frmNewProject1.designer.cs">
       <DependentUpon>frmNewProject1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\frmNewProfilePict2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\frmNewProfilePict2.designer.cs">
+      <DependentUpon>frmNewProfilePict2.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\frmNewProject2.cs">
       <SubType>Form</SubType>
@@ -366,8 +378,16 @@
       <DependentUpon>frmControlBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmNewProfilePict1.resx">
+      <DependentUpon>frmNewProfilePict1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmNewProject1.resx">
       <DependentUpon>frmNewProject1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmNewProfilePict2.resx">
+      <DependentUpon>frmNewProfilePict2.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmNewProject2.resx">
@@ -579,6 +599,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\color-picker.png" />
+    <None Include="Resources\newProfilePictPressed.png" />
+    <None Include="Resources\newProfilePictNormal.png" />
     <None Include="Resources\Logo.jpg" />
     <None Include="Resources\Logo_2.jpg" />
     <None Include="Resources\TutLineTool.png" />
