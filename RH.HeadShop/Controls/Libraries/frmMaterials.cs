@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenTK;
+using RH.HeadShop.Controls.PopupControl;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render;
-using RH.HeadShop.Render.Meshes;
 using RH.ImageListView;
 
 namespace RH.HeadShop.Controls.Libraries
@@ -18,6 +18,10 @@ namespace RH.HeadShop.Controls.Libraries
     public partial class frmMaterials : FormEx
     {
         private readonly Cursor colorPickerCursor;
+        Popup complex;
+        ctrlBrushesPopup brushesPopup;
+
+        private int currentBrush = -1;
 
         public frmMaterials()
         {
@@ -29,6 +33,10 @@ namespace RH.HeadShop.Controls.Libraries
                 var ptr = bitmap.GetHicon();
                 colorPickerCursor = new Cursor(ptr);
             }
+
+            brushesPopup = new ctrlBrushesPopup(currentBrush);
+            complex = new Popup(brushesPopup);
+            complex.Resizable = false;
 
             Sizeble = false;
             ProgramCore.MainForm.ctrlRenderControl.pickingController.OnSelectedMeshChanged += pickingController_OnSelectedMeshChanged;
@@ -310,6 +318,13 @@ namespace RH.HeadShop.Controls.Libraries
         public void SetColorFromPicker(Color color)
         {
             panelColor.BackColor = color;
+        }
+
+        private void pbBrush_MouseDown(object sender, MouseEventArgs e)
+        {
+            complex.Show(sender as PictureBox);
+
+            currentBrush = brushesPopup.CurrentBrush;   // получаем номер активной кисточки. с 5 до 300
         }
     }
 }

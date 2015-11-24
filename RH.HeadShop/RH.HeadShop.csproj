@@ -80,6 +80,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ctrlBrushesPopup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlBrushesPopup.designer.cs">
+      <DependentUpon>ctrlBrushesPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ctrlAngleSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -194,6 +200,21 @@
     <Compile Include="Controls\Panels\PanelShape.designer.cs">
       <DependentUpon>PanelShape.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PopupControl\ComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PopupControl\ComboBox.Designer.cs" />
+    <Compile Include="Controls\PopupControl\GripBounds.cs" />
+    <Compile Include="Controls\PopupControl\NativeMethods.cs" />
+    <Compile Include="Controls\PopupControl\Popup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PopupControl\Popup.Designer.cs" />
+    <Compile Include="Controls\PopupControl\PopupAnimations.cs" />
+    <Compile Include="Controls\PopupControl\PopupComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PopupControl\PopupComboBox.Designer.cs" />
     <Compile Include="Controls\Progress\Progress.cs" />
     <Compile Include="Controls\Progress\ProgressForm.cs">
       <SubType>Form</SubType>
@@ -363,6 +384,9 @@
     <Compile Include="Render\Obj\ObjLoader.cs" />
     <Compile Include="Render\Obj\ObjMaterial.cs" />
     <Compile Include="Render\Obj\ObjSaver.cs" />
+    <EmbeddedResource Include="Controls\ctrlBrushesPopup.resx">
+      <DependentUpon>ctrlBrushesPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrlAngleSelector.resx">
       <DependentUpon>ctrlAngleSelector.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -599,6 +623,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\brush300.png" />
+    <None Include="Resources\brush200.png" />
+    <None Include="Resources\brush100.png" />
+    <None Include="Resources\brush65.png" />
+    <None Include="Resources\brush45.png" />
+    <None Include="Resources\brush35.png" />
+    <None Include="Resources\brush27.png" />
+    <None Include="Resources\brush21.png" />
+    <None Include="Resources\brush17.png" />
+    <None Include="Resources\brush13.png" />
+    <None Include="Resources\brush9.png" />
+    <None Include="Resources\brush5.png" />
+    <None Include="Resources\brush.png" />
     <None Include="Resources\color-picker.png" />
     <None Include="Resources\newProfilePictPressed.png" />
     <None Include="Resources\newProfilePictNormal.png" />
