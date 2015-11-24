@@ -94,6 +94,55 @@ namespace RH.HeadShop.Render.Controllers
                 dot.ValueMirrored += delta;
         }
 
+        private Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative)
+        {
+            Bitmap result = null;
+            var xVector = new Vector2(1, 0);
+
+            var pointUpWorld = new Vector2(mouthRelative.X * sourceImage.Width,
+                                          mouthRelative.Y * sourceImage.Height);
+            var pointBottomWorld = new Vector2(eyeRelative.X * sourceImage.Width,
+                                          eyeRelative.Y * sourceImage.Height);
+
+            var vectorLeft = pointBottomWorld - pointUpWorld;
+            var length = vectorLeft.Length;
+            vectorLeft.Normalize();
+            var xDiff = xVector.X - vectorLeft.X;
+            var yDiff = xVector.Y - vectorLeft.Y;
+            var angleLeft = Math.Atan2(yDiff, xDiff);
+
+            var vectorRight = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[2].Value - ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[1].Value;
+            vectorRight.Normalize();
+            xDiff = xVector.X - vectorRight.X;
+            yDiff = xVector.Y - vectorRight.Y;
+            var angleRight = Math.Atan2(yDiff, xDiff);
+
+            var angleDiffRad = angleRight - angleLeft;
+            var angleDiff = angleDiffRad * 180.0 / Math.PI;
+            
+            var center = (pointUpWorld + pointBottomWorld) * 0.5f;
+            var left = (int)(center.X - length * 1.0f);
+            var right = (int)(center.X + length * 4.0f);
+            var top = (int)(center.Y - length * 2.5f);
+            var bottom = (int)(center.Y + length * 2.5f);
+            if (left < 0)
+                left = 0;
+            if (right > sourceImage.Width)
+                right = sourceImage.Width;
+            if (top < 0)
+                top = 0;
+            if (bottom > sourceImage.Height)
+                bottom = sourceImage.Height;
+
+            var faceRectangle = new Rectangle(left, top, right - left, bottom - top);
+            var croppedImage = ImageEx.Crop(sourceImage, faceRectangle);
+            //croppedImage.Save("C:\\2.bmp");
+            result = ImageEx.RotateImage2(croppedImage, (float)angleDiff);
+            //result.Save("C:\\1.bmp");
+            return result;
+        }
+
+
         /// <summary> Загрузить новое изображение как шаблон для профиля </summary>
         public void LoadNewProfileImage()
         {
@@ -102,6 +151,7 @@ namespace RH.HeadShop.Render.Controllers
                 return;
 
             //TODO: ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
+            InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative);
 
             var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, ctrl.TemplateImage, ctrl.MouthRelative, ctrl.EyeRelative);
             if (ProgramCore.ShowDialog(ctrl1, "Adjust profile template image", MessageBoxButtons.OK) != DialogResult.OK)
