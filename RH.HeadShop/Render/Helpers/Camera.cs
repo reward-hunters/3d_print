@@ -131,12 +131,7 @@ namespace RH.HeadShop.Render
             GL.LoadMatrix(ref lookat);
             ViewMatrix = lookat;
         }
-
-        public void StepTop()
-        {
-
-        }
-
+        
         public void LeftRight(double delta)
         {
             beta += delta;
@@ -186,6 +181,20 @@ namespace RH.HeadShop.Render
             dir.Normalize();
             var length = Vector3.Dot(dir, p);
             return p - dir * (length - depth);
+        }
+
+        public Vector2 GetScreenPoint(Vector3 worldPoint, int screenWidth, int screenHeight)
+        {
+            /*
+            var xyz = glControl.PointToClient(new Point(e.X, e.Y));
+            var mp = camera.GetWorldPoint(xyz.X, xyz.Y, Width, Height, 0.0f);
+            mp.X = 0f;
+            var wmp = camera.GetScreenPoint(mp, Width, Height);
+            */
+            var viewProj = ViewMatrix * ProjectMatrix;
+            var p = Vector3.Transform(worldPoint, viewProj);
+            return new Vector2( (1f -p.X) * screenWidth * 0.5f,
+                    (1f - p.Y) * screenHeight * 0.5f);
         }
     }
 }

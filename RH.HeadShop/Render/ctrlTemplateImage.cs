@@ -172,6 +172,22 @@ namespace RH.HeadShop.Render
 
             RecalcEyeMouthRect();
         }
+
+        public void ApplyScale(float s)
+        {
+            imageScale = s;
+            var w = OriginalImageTemplateWidth * imageScale;
+            var h = OriginalImageTemplateHeight * imageScale;
+            ImageTemplateWidth = (int)w;
+            ImageTemplateHeight = (int)h;
+            var k = ImageTemplateWidth * 1f / ImageTemplateOldWidth;
+            var cx = (int)(ImageTemplateCenterX * k);
+            var cy = (int)(ImageTemplateCenterY * k);
+            ImageTemplateOffsetX = pictureTemplate.Width / 2 - cx;
+            ImageTemplateOffsetY = pictureTemplate.Height / 2 - cy;
+        }
+
+
         private void RecalcEyeMouthRect()
         {
             EyesMouthRectTransformed = new RectangleF(ProgramCore.Project.FaceRectRelative.X * ImageTemplateWidth + ImageTemplateOffsetX,
@@ -1104,16 +1120,7 @@ namespace RH.HeadShop.Render
                                         imageScale = 5.0f;
                                     else
                                     {
-                                        imageScale = s;
-                                        var w = OriginalImageTemplateWidth * imageScale;
-                                        var h = OriginalImageTemplateHeight * imageScale;
-                                        ImageTemplateWidth = (int)w;
-                                        ImageTemplateHeight = (int)h;
-                                        var k = ImageTemplateWidth * 1f / ImageTemplateOldWidth;
-                                        var cx = (int)(ImageTemplateCenterX * k);
-                                        var cy = (int)(ImageTemplateCenterY * k);
-                                        ImageTemplateOffsetX = pictureTemplate.Width / 2 - cx;
-                                        ImageTemplateOffsetY = pictureTemplate.Height / 2 - cy;
+                                        ApplyScale(s);
                                         RefreshPictureBox();
                                     }
                                     headLastPoint = new Vector2(e.X, e.Y);

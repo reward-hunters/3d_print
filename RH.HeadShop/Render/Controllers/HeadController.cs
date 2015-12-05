@@ -94,33 +94,39 @@ namespace RH.HeadShop.Render.Controllers
                 dot.ValueMirrored += delta;
         }
 
-        private Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative)
+        private Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative, out float angle, out Point leftTopPoint)
         {
             Bitmap result = null;
-            var xVector = new Vector2(1, 0);
+            var xVector = new Vector2(1f, 0f);
 
-            var pointUpWorld = new Vector2(mouthRelative.X * sourceImage.Width,
-                                          mouthRelative.Y * sourceImage.Height);
-            var pointBottomWorld = new Vector2(eyeRelative.X * sourceImage.Width,
-                                          eyeRelative.Y * sourceImage.Height);
+            var pointEyeWorld = new Vector2(eyeRelative.X * sourceImage.Width, eyeRelative.Y * sourceImage.Height);
+            var pointMouthWorld = new Vector2(mouthRelative.X * sourceImage.Width, mouthRelative.Y * sourceImage.Height);
 
-            var vectorLeft = pointBottomWorld - pointUpWorld;
+            using (var grD = Graphics.FromImage(sourceImage))
+            {
+                grD.DrawLine(Pens.Red, new Point((int)pointEyeWorld.X, (int)pointEyeWorld.Y),
+                    new Point((int)pointMouthWorld.X, (int)pointMouthWorld.Y));
+            }
+
+            /*pointUpWorld.Y = sourceImage.Height - pointUpWorld.Y;
+            pointBottomWorld.Y = sourceImage.Height - pointBottomWorld.Y;*/
+            var vectorLeft = new Vector2(pointEyeWorld.X, sourceImage.Height - pointEyeWorld.Y) - new Vector2(pointMouthWorld.X, sourceImage.Height - pointMouthWorld.Y);
             var length = vectorLeft.Length;
             vectorLeft.Normalize();
             var xDiff = xVector.X - vectorLeft.X;
             var yDiff = xVector.Y - vectorLeft.Y;
-            var angleLeft = Math.Atan2(yDiff, xDiff);
+            var angleLeft = (float)Math.Atan2(yDiff, xDiff);
 
-            var vectorRight = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[2].Value - ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[1].Value;
+            var vectorRight = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[1].Value - ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[2].Value;
             vectorRight.Normalize();
             xDiff = xVector.X - vectorRight.X;
             yDiff = xVector.Y - vectorRight.Y;
-            var angleRight = Math.Atan2(yDiff, xDiff);
+            var angleRight = (float)Math.Atan2(yDiff, xDiff);
 
-            var angleDiffRad = angleRight - angleLeft;
-            var angleDiff = angleDiffRad * 180.0 / Math.PI;
+            angle = angleLeft - angleRight;
+            var angleDiff = angle * 180.0f / (float)Math.PI;
             
-            var center = (pointUpWorld + pointBottomWorld) * 0.5f;
+            var center = (pointEyeWorld + pointMouthWorld) * 0.5f;
             var left = (int)(center.X - length * 1.0f);
             var right = (int)(center.X + length * 4.0f);
             var top = (int)(center.Y - length * 2.5f);
@@ -134,14 +140,65 @@ namespace RH.HeadShop.Render.Controllers
             if (bottom > sourceImage.Height)
                 bottom = sourceImage.Height;
 
+            leftTopPoint = new Point(left, top);            
+
             var faceRectangle = new Rectangle(left, top, right - left, bottom - top);
-            var croppedImage = ImageEx.Crop(sourceImage, faceRectangle);
-            //croppedImage.Save("C:\\2.bmp");
-            result = ImageEx.RotateImage2(croppedImage, (float)angleDiff);
-            //result.Save("C:\\1.bmp");
+            using (var croppedImage = ImageEx.Crop(sourceImage, faceRectangle))
+            {
+                croppedImage.Save("C:\\2.bmp");
+                result = ImageEx.RotateImage2(croppedImage, angleDiff * 2f);
+            }
+
+            //Надо перенести и повернуть
+            var realEyeLocation = new Vector2(pointEyeWorld.X - left, pointEyeWorld.Y - top);
+            var realMouthLocation = new Vector2(pointMouthWorld.X - left, pointMouthWorld.Y - top);
+            var realCenter = new Vector2(faceRectangle.Width * 0.5f, faceRectangle.Height * 0.5f);
+            realEyeLocation -= realCenter;
+            realMouthLocation -= realCenter;
+
+            var sa = (float)Math.Sin(angle * 2f);
+            var ca = (float)Math.Cos(angle * 2f);
+
+            realEyeLocation = new Vector2(realEyeLocation.X * ca - realEyeLocation.Y * sa, realEyeLocation.X * sa + realEyeLocation.Y * ca);
+            realMouthLocation = new Vector2(realMouthLocation.X * ca - realMouthLocation.Y * sa, realMouthLocation.X * sa + realMouthLocation.Y * ca);
+
+            realEyeLocation += realCenter;
+            realMouthLocation += realCenter;
+
+            ProfileEyeLocation = realEyeLocation;
+            ProfileMouthLocation = realMouthLocation;
+
+            /*using (var grD = Graphics.FromImage(result))
+            {
+                grD.DrawLine(Pens.Green, new Point((int)realEyeLocation.X + 3, (int)realEyeLocation.Y),
+                    new Point((int)realMouthLocation.X + 3, (int)realMouthLocation.Y));
+            }
+
+            result.Save("C:\\1.bmp");*/
             return result;
         }
 
+        public Vector2 ProfileEyeLocation = Vector2.Zero;
+        public Vector2 ProfileMouthLocation = Vector2.Zero;
+
+        //Делаем так, чтобы мордас слева был такого же размера и так-же расположен, как мордас справа
+        public void UpdateProfileLocation()
+        {
+            var eyePoint = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[1].Value;
+            var mouthPoint = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[2].Value;
+            var worldEyePoint = new Vector3(0.0f, eyePoint.Y, eyePoint.X);
+            var worldMouthPoint = new Vector3(0.0f, mouthPoint.Y, mouthPoint.X);
+            var screenEyePoint = ProgramCore.MainForm.ctrlRenderControl.camera.GetScreenPoint(worldEyePoint, ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height);
+            var screenMouthPoint = ProgramCore.MainForm.ctrlRenderControl.camera.GetScreenPoint(worldMouthPoint, ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height);
+            var leftLength = (ProfileMouthLocation - ProfileEyeLocation).Length;
+            var rightLength = (screenMouthPoint - screenEyePoint).Length;
+            var scale = rightLength / leftLength;
+            var localOffset = ProfileEyeLocation * scale;
+            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth = (int)(ProgramCore.MainForm.ctrlTemplateImage.DrawingImage.Width * scale);
+            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight = (int)(ProgramCore.MainForm.ctrlTemplateImage.DrawingImage.Height * scale);
+            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX = (int)(screenEyePoint.X - localOffset.X);
+            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY = (int)(screenEyePoint.Y - localOffset.Y);
+        }
 
         /// <summary> Загрузить новое изображение как шаблон для профиля </summary>
         public void LoadNewProfileImage()
@@ -151,17 +208,25 @@ namespace RH.HeadShop.Render.Controllers
                 return;
 
             //TODO: ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
-            InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative);
+            float angle;
+            Point leftTopPoint;
+            var image = InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative, out angle, out leftTopPoint);
 
             var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, ctrl.TemplateImage, ctrl.MouthRelative, ctrl.EyeRelative);
             if (ProgramCore.ShowDialog(ctrl1, "Adjust profile template image", MessageBoxButtons.OK) != DialogResult.OK)
-                return;
+                 return;
 
-            var newPath = Project.CopyImgToProject(ctrl1.RotatedPath, "ProfileImage");
-            using (var bmp = new Bitmap(newPath))
-                ProgramCore.Project.ProfileImage = new Bitmap(bmp);
+             var newPath = Project.CopyImgToProject(ctrl1.RotatedPath, "ProfileImage");
+             using (var bmp = new Bitmap(newPath))
+                 ProgramCore.Project.ProfileImage = new Bitmap(bmp);
 
+            //ProgramCore.Project.ProfileImage = new Bitmap(image);
             ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage, false);
+
+            //UpdateProfileLocation();
+            //ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX = 0;
+            //ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY = 100;
+            //ProgramCore.MainForm.ctrlTemplateImage.ApplyScale(2.0f);
 
             /*   using (var ofd = new OpenFileDialogEx("Select template file", "JPG Files|*.jpg"))   // Старый вариант. пока оставить!
             {
@@ -1269,3 +1334,4 @@ namespace RH.HeadShop.Render.Controllers
 
 
 }
+

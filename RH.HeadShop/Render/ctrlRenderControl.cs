@@ -710,7 +710,7 @@ namespace RH.HeadShop.Render
         }
 
         private void glControl_MouseDown(object sender, MouseEventArgs e)
-        {
+        {            
             dblClick = e.Clicks == 2;
             if (e.Button == MouseButtons.Right)
             {
@@ -1613,7 +1613,7 @@ namespace RH.HeadShop.Render
                 }
                 DisableTransparent();
             }
-
+            DrawProfileControlTmpPoints();
             if (ProgramCore.Debug)
             {
                 if (showTriangles)
@@ -2275,6 +2275,18 @@ namespace RH.HeadShop.Render
                 GL.Vertex2(point.Value);
             }
             GL.End();
+            if (ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints.Count > 0)
+            {
+                GL.LineWidth(2.0f);
+                GL.Begin(PrimitiveType.Lines);
+                for (int i = 1; i < 3; ++i)
+                {
+                    GL.Color3(0.0f, 1.0f, 0.0f);
+                    var point = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[i];
+                    GL.Vertex2(point.Value);
+                }
+                GL.End();
+            }
 
             GL.DepthMask(true);
             GL.PopMatrix();
