@@ -98,6 +98,15 @@ namespace RH.HeadShop.Render
 
         private int profileControlPointIndex = 0;
         public List<MirroredHeadPoint> profileControlPoints = new List<MirroredHeadPoint>();
+
+        public Vector2 ProfileEyeLocation = Vector2.Zero;
+        public Vector2 ProfileMouthLocation = Vector2.Zero;
+
+        public Vector2 ProfileScreenTopLocation = Vector2.Zero;
+        public Vector2 ProfileScreenEyeLocation = Vector2.Zero;
+        public Vector2 ProfileScreenMouthLocation = Vector2.Zero;
+        public Vector2 ProfileScreenBottomLocation = Vector2.Zero;
+
         public ProfileControlPointsMode ControlPointsMode = ProfileControlPointsMode.None;
 
         public Image DrawingImage; //!!!
@@ -556,10 +565,39 @@ namespace RH.HeadShop.Render
             LineSelectionMode = false;
         }
 
+        private static Vector2 GetScreenPoint(Vector2 worldPoint)
+        {
+            var point = new Vector3(0.0f, worldPoint.Y, worldPoint.X);
+            return ProgramCore.MainForm.ctrlRenderControl.camera.GetScreenPoint(point, ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height);
+        }
+
+        public void UpdateProfileLocation()
+        {
+            var topPoint = profileControlPoints[0].Value;
+            var downPoint = profileControlPoints[3].Value;
+            var eyePoint = profileControlPoints[1].Value;
+            var mouthPoint = profileControlPoints[2].Value;
+            var worldEyePoint = new Vector3(0.0f, eyePoint.Y, eyePoint.X);
+            var worldMouthPoint = new Vector3(0.0f, mouthPoint.Y, mouthPoint.X);
+            ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
+            var screenEyeLoaction = GetScreenPoint(profileControlPoints[1].Value);
+            var screenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
+            ProfileScreenBottomLocation = GetScreenPoint(profileControlPoints[3].Value);
+            var leftLength = ProfileMouthLocation.X - ProfileEyeLocation.X;
+            var rightLength = screenMouthLocation.X - screenEyeLoaction.X;
+            var scale = rightLength / leftLength;
+            var localOffset = ProfileEyeLocation * scale;
+            ImageTemplateWidth = (int)(DrawingImage.Width * scale);
+            ImageTemplateHeight = (int)(DrawingImage.Height * scale);
+            ImageTemplateOffsetX = (int)(screenEyeLoaction.X - localOffset.X);
+            ImageTemplateOffsetY = (int)(screenEyeLoaction.Y - localOffset.Y);
+            ProfileScreenMouthLocation = screenMouthLocation;
+            ProfileScreenEyeLocation = screenEyeLoaction;
+        }
+
         #endregion
 
         #region Form's event
-
         private void ctrlTemplateImage_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyData == (Keys.A))
@@ -593,8 +631,18 @@ namespace RH.HeadShop.Render
 
                                     #endregion
 
-                                    var userPoints = ProgramCore.MainForm.ctrlRenderControl.headController.AllPoints.Select(x => x.Value).ToList();
-                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode, userPoints.Select(p => new Vector2(-p.X, p.Y)).ToList(), Vector2.Zero);
+                                    var userPoints = ProgramCore.MainForm.ctrlRenderControl.headController.AllPoints.Select(x => x.ValueMirrored).ToList();
+                                    List<Vector2> points = new List<Vector2>();
+                                    foreach (var p in userPoints)
+                                    {
+                                        var x = p.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX;
+                                        var y = p.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY;
+
+                                        points.Add(ProgramCore.MainForm.ctrlRenderControl.camera.GetWorldPoint((int)x, (int)y, 
+                                            ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height, 1.0f).Zy);
+                                        
+                                    }
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode, points, Vector2.Zero);
                                 }
 
                                 ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Clear();
@@ -714,17 +762,13 @@ namespace RH.HeadShop.Render
                             e.Graphics.DrawRectangle(DrawingTools.RedPen, ProfileFaceRectTransformed);
 
                         #region Верхняя и нижняя точки
-
-                        for (var i = 0; i < profileControlPoints.Count; i += 3)
+                        var points = new[] { ProfileScreenTopLocation, ProfileScreenEyeLocation, ProfileScreenMouthLocation, ProfileScreenBottomLocation };
+                        for (var i = 0; i < points.Length; i ++)
                         {
-                            var point = profileControlPoints[i];
-                            if (point.ValueMirrored == Vector2.Zero)
-                                continue;
-
-                            var pointK = new Vector2(point.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX,
-                                                     point.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY);
-                            var pointRect = new RectangleF(pointK.X - 5f, pointK.Y - 5f, 10f, 10f);
-                            e.Graphics.FillRectangle(point.Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
+                            var point = points[i];
+                          
+                            var pointRect = new RectangleF(point.X - 5f, point.Y - 5f, 10f, 10f);
+                            e.Graphics.FillRectangle(profileControlPoints[i].Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
                         }
 
                         #endregion
@@ -1605,28 +1649,23 @@ namespace RH.HeadShop.Render
                                             point.UpdateWorldPoint();
 
                                             #region Проверка на количество линий и режим выделения
-
-                                            if (ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Count > 1)
+                                            if (ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Count > 1) // если ничего не выделили - начинаем рисовать новую линию. иначе уходим в режим выделения и таскания точек
                                             {
-                                                if (ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Count > 1) // если ничего не выделили - начинаем рисовать новую линию. иначе уходим в режим выделения и таскания точек
-                                                {
-                                                    if (!shiftKeyPressed)
-                                                        ProgramCore.MainForm.ctrlRenderControl.headController.ClearPointsSelection();
+                                                if (!shiftKeyPressed)
+                                                    ProgramCore.MainForm.ctrlRenderControl.headController.ClearPointsSelection();
 
-                                                    if (ProgramCore.MainForm.ctrlRenderControl.headController.UpdatePointSelection(point.Value.X, point.Value.Y))
-                                                        LineSelectionMode = true;
-                                                    else
+                                                if (ProgramCore.MainForm.ctrlRenderControl.headController.UpdatePointSelection(point.Value.X, point.Value.Y))
+                                                    LineSelectionMode = true;
+                                                else
+                                                {
+                                                    if (LineSelectionMode)
                                                     {
-                                                        if (LineSelectionMode)
-                                                        {
-                                                            LineSelectionMode = false;
-                                                            ProgramCore.MainForm.ctrlRenderControl.headController.ClearPointsSelection();
-                                                            break;
-                                                        }
+                                                        LineSelectionMode = false;
+                                                        ProgramCore.MainForm.ctrlRenderControl.headController.ClearPointsSelection();
+                                                        break;
                                                     }
                                                 }
                                             }
-
                                             #endregion
 
                                             if (!LineSelectionMode)

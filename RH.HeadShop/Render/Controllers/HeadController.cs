@@ -165,8 +165,8 @@ namespace RH.HeadShop.Render.Controllers
             realEyeLocation += realCenter;
             realMouthLocation += realCenter;
 
-            ProfileEyeLocation = realEyeLocation;
-            ProfileMouthLocation = realMouthLocation;
+            ProgramCore.MainForm.ctrlTemplateImage.ProfileEyeLocation = realEyeLocation;
+            ProgramCore.MainForm.ctrlTemplateImage.ProfileMouthLocation = realMouthLocation;
 
             /*using (var grD = Graphics.FromImage(result))
             {
@@ -177,29 +177,7 @@ namespace RH.HeadShop.Render.Controllers
             result.Save("C:\\1.bmp");*/
             return result;
         }
-
-        public Vector2 ProfileEyeLocation = Vector2.Zero;
-        public Vector2 ProfileMouthLocation = Vector2.Zero;
-
-        //Делаем так, чтобы мордас слева был такого же размера и так-же расположен, как мордас справа
-        public void UpdateProfileLocation()
-        {
-            var eyePoint = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[1].Value;
-            var mouthPoint = ProgramCore.MainForm.ctrlTemplateImage.profileControlPoints[2].Value;
-            var worldEyePoint = new Vector3(0.0f, eyePoint.Y, eyePoint.X);
-            var worldMouthPoint = new Vector3(0.0f, mouthPoint.Y, mouthPoint.X);
-            var screenEyePoint = ProgramCore.MainForm.ctrlRenderControl.camera.GetScreenPoint(worldEyePoint, ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height);
-            var screenMouthPoint = ProgramCore.MainForm.ctrlRenderControl.camera.GetScreenPoint(worldMouthPoint, ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height);
-            var leftLength = (ProfileMouthLocation - ProfileEyeLocation).Length;
-            var rightLength = (screenMouthPoint - screenEyePoint).Length;
-            var scale = rightLength / leftLength;
-            var localOffset = ProfileEyeLocation * scale;
-            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth = (int)(ProgramCore.MainForm.ctrlTemplateImage.DrawingImage.Width * scale);
-            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight = (int)(ProgramCore.MainForm.ctrlTemplateImage.DrawingImage.Height * scale);
-            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX = (int)(screenEyePoint.X - localOffset.X);
-            ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY = (int)(screenEyePoint.Y - localOffset.Y);
-        }
-
+                
         /// <summary> Загрузить новое изображение как шаблон для профиля </summary>
         public void LoadNewProfileImage()
         {
@@ -212,21 +190,17 @@ namespace RH.HeadShop.Render.Controllers
             Point leftTopPoint;
             var image = InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative, out angle, out leftTopPoint);
 
-            var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, ctrl.TemplateImage, ctrl.MouthRelative, ctrl.EyeRelative);
+         /*   var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, ctrl.TemplateImage, ctrl.MouthRelative, ctrl.EyeRelative);
             if (ProgramCore.ShowDialog(ctrl1, "Adjust profile template image", MessageBoxButtons.OK) != DialogResult.OK)
                  return;
 
              var newPath = Project.CopyImgToProject(ctrl1.RotatedPath, "ProfileImage");
              using (var bmp = new Bitmap(newPath))
-                 ProgramCore.Project.ProfileImage = new Bitmap(bmp);
+                 ProgramCore.Project.ProfileImage = new Bitmap(bmp);*/
 
-            //ProgramCore.Project.ProfileImage = new Bitmap(image);
+            ProgramCore.Project.ProfileImage = new Bitmap(image);
             ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage, false);
-
-            //UpdateProfileLocation();
-            //ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX = 0;
-            //ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY = 100;
-            //ProgramCore.MainForm.ctrlTemplateImage.ApplyScale(2.0f);
+            ProgramCore.MainForm.ctrlTemplateImage.UpdateProfileLocation();
 
             /*   using (var ofd = new OpenFileDialogEx("Select template file", "JPG Files|*.jpg"))   // Старый вариант. пока оставить!
             {

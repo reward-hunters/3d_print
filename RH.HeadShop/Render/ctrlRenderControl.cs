@@ -1613,7 +1613,7 @@ namespace RH.HeadShop.Render
                 }
                 DisableTransparent();
             }
-            DrawProfileControlTmpPoints();
+            //DrawProfileControlTmpPoints();
             if (ProgramCore.Debug)
             {
                 if (showTriangles)
@@ -1707,9 +1707,9 @@ namespace RH.HeadShop.Render
             }
             if (sliceController != null && sliceController.Lines.Count > 00)
                 DrawSlice();
-
             glControl.SwapBuffers();
         }
+        
 
         private bool isFullPointsInfo = true;
         private bool showInfo = true;
@@ -3346,6 +3346,7 @@ namespace RH.HeadShop.Render
 
             ProfileFaceRect = new RectangleF(center.X - width * 0.5f, center.Y - height * 0.5f, width, height);
         }
+
         public void ApplySmoothedTextures()
         {
             foreach (var smoothTex in SmoothedTextures)

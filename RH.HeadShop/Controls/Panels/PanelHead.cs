@@ -652,6 +652,7 @@ namespace RH.HeadShop.Controls.Panels
                 if (ProgramCore.MainForm.HeadProfile)
                 {
                     ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = MeshPartType.ProfileTop;
+                    ProgramCore.MainForm.ctrlTemplateImage.UpdateProfileLocation();
                 }
             }
             else
