@@ -1867,6 +1867,11 @@ namespace RH.HeadShop.Render
                 ProgramCore.Project.ProfileImage = new Bitmap(img);
             }
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
+           
+            ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
+            ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
+            ProfileMouthLocation = ProfileScreenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
+            ProfileScreenBottomLocation = GetScreenPoint(profileControlPoints[3].Value);
 
             RecalcProfilePoints();
         }
