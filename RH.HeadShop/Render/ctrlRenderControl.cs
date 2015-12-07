@@ -1619,7 +1619,7 @@ namespace RH.HeadShop.Render
                 }
                 DisableTransparent();
             }
-            //DrawProfileControlTmpPoints();
+            DrawProfileControlTmpPoints();
             if (ProgramCore.Debug)
             {
                 if (showTriangles)

@@ -126,9 +126,16 @@ namespace RH.HeadShop.Render
             if (headController.ShapeDots.Count == 0)
                 return;
 
+            var eyeX = -7.8f;
+            var mouthX = -9.1f;
+            if (ProgramCore.Project.ManType == ManType.Child)
+            {
+                eyeX = -7.2f;
+                mouthX = -8.2f;
+            }
             profileControlPoints.Add(new MirroredHeadPoint(new Vector2(0.0f, headController.ShapeDots[0].Value.Y), Vector2.Zero, false));       // верх
-            profileControlPoints.Add(new MirroredHeadPoint(new Vector2(-6.8f, (headController.ShapeDots[18].Value.Y + headController.ShapeDots[40].Value.Y) * 0.5f), Vector2.Zero, false)); // глаз
-            profileControlPoints.Add(new MirroredHeadPoint(new Vector2(-8f, headController.ShapeDots[51].Value.Y), Vector2.Zero, false));      //рот
+            profileControlPoints.Add(new MirroredHeadPoint(new Vector2(eyeX, (headController.ShapeDots[18].Value.Y + headController.ShapeDots[40].Value.Y) * 0.5f), Vector2.Zero, false)); // глаз
+            profileControlPoints.Add(new MirroredHeadPoint(new Vector2(mouthX, headController.ShapeDots[51].Value.Y), Vector2.Zero, false));      //рот
             profileControlPoints.Add(new MirroredHeadPoint(new Vector2(-3.0f, (headController.ShapeDots[11].Value.Y + headController.ShapeDots[33].Value.Y) * 0.5f), Vector2.Zero, false));
 
             for (var i = 0; i < 4; i++)
@@ -1873,8 +1880,6 @@ namespace RH.HeadShop.Render
                 ProgramCore.Project.ProfileImage = new Bitmap(img);
             }
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
-
-
 
             ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
             ProgramCore.Project.ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
