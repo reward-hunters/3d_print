@@ -126,15 +126,20 @@ namespace RH.HeadShop.Render
             if (headController.ShapeDots.Count == 0)
                 return;
 
-            var eyeX = -7.8f;
-            var mouthX = -9.1f;
+            var eyeX = -7.55f;
+            var mouthX = -9.2f;
             if (ProgramCore.Project.ManType == ManType.Child)
             {
                 eyeX = -7.2f;
                 mouthX = -8.2f;
             }
+            else if (ProgramCore.Project.ManType == ManType.Female)
+            {
+                eyeX = -7.8f;
+                mouthX = -9.1f;
+            }
             profileControlPoints.Add(new MirroredHeadPoint(new Vector2(0.0f, headController.ShapeDots[0].Value.Y), Vector2.Zero, false));       // верх
-            profileControlPoints.Add(new MirroredHeadPoint(new Vector2(eyeX, (headController.ShapeDots[18].Value.Y + headController.ShapeDots[40].Value.Y) * 0.5f), Vector2.Zero, false)); // глаз
+            profileControlPoints.Add(new MirroredHeadPoint(new Vector2(eyeX, (headController.ShapeDots[21].Value.Y + headController.ShapeDots[23].Value.Y) * 0.5f), Vector2.Zero, false)); // глаз
             profileControlPoints.Add(new MirroredHeadPoint(new Vector2(mouthX, headController.ShapeDots[51].Value.Y), Vector2.Zero, false));      //рот
             profileControlPoints.Add(new MirroredHeadPoint(new Vector2(-3.0f, (headController.ShapeDots[11].Value.Y + headController.ShapeDots[33].Value.Y) * 0.5f), Vector2.Zero, false));
 
@@ -706,10 +711,7 @@ namespace RH.HeadShop.Render
             e.Graphics.DrawImage(DrawingImage, ImageTemplateOffsetX, ImageTemplateOffsetY, ImageTemplateWidth, ImageTemplateHeight);
 
             if (ProgramCore.Debug && ProgramCore.MainForm.HeadFront)
-                e.Graphics.DrawRectangle(DrawingTools.GreenPen, EyesMouthRectTransformed.X, EyesMouthRectTransformed.Y, EyesMouthRectTransformed.Width, EyesMouthRectTransformed.Height);
-
-            if (ImageTemplateOffsetX != -1)
-                ProgramCore.MainForm.ctrlRenderControl.headController.DrawOnPictureBox(e.Graphics);
+                e.Graphics.DrawRectangle(DrawingTools.GreenPen, EyesMouthRectTransformed.X, EyesMouthRectTransformed.Y, EyesMouthRectTransformed.Width, EyesMouthRectTransformed.Height);            
 
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
@@ -767,11 +769,11 @@ namespace RH.HeadShop.Render
 
                         #region Верхняя и нижняя точки
                         var points = new[] { ProfileScreenTopLocation, ProfileScreenEyeLocation, ProfileScreenMouthLocation, ProfileScreenBottomLocation };
-                        for (var i = 0; i < points.Length; i++)
+                        for (var i = 0; i < points.Length; i+= 3)
                         {
                             var point = points[i];
 
-                            var pointRect = new RectangleF(point.X - 5f, point.Y - 5f, 10f, 10f);
+                            var pointRect = new RectangleF(point.X - 5f, point.Y - 5f, 5f, 5f);
                             e.Graphics.FillRectangle(profileControlPoints[i].Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
                         }
 
@@ -842,6 +844,8 @@ namespace RH.HeadShop.Render
                     break;
             }
 
+            if (ImageTemplateOffsetX != -1)
+                ProgramCore.MainForm.ctrlRenderControl.headController.DrawOnPictureBox(e.Graphics);
         }
 
         public void pictureTemplate_MouseDown(object sender, MouseEventArgs e)
@@ -1880,7 +1884,8 @@ namespace RH.HeadShop.Render
                 ProgramCore.Project.ProfileImage = new Bitmap(img);
             }
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
-
+            ProgramCore.Project.ProfileEyeLocation = Vector2.Zero;
+            ProgramCore.Project.ProfileMouthLocation = Vector2.Zero;
             RecalcProfilePoints();
         }
 
