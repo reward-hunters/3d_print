@@ -51,30 +51,28 @@
             // textName
             // 
             this.textName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.textName.Location = new System.Drawing.Point(121, 15);
-            this.textName.Margin = new System.Windows.Forms.Padding(4);
+            this.textName.Location = new System.Drawing.Point(91, 12);
             this.textName.Name = "textName";
             this.textName.ReadOnly = true;
-            this.textName.Size = new System.Drawing.Size(953, 28);
+            this.textName.Size = new System.Drawing.Size(716, 24);
             this.textName.TabIndex = 13;
+            this.textName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnNext_KeyDown);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(17, 20);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(13, 16);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 22);
+            this.label5.Size = new System.Drawing.Size(46, 17);
             this.label5.TabIndex = 12;
             this.label5.Text = "Name";
             // 
             // pictureTemplate
             // 
-            this.pictureTemplate.Location = new System.Drawing.Point(16, 52);
-            this.pictureTemplate.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureTemplate.Location = new System.Drawing.Point(12, 42);
             this.pictureTemplate.Name = "pictureTemplate";
-            this.pictureTemplate.Size = new System.Drawing.Size(1060, 565);
+            this.pictureTemplate.Size = new System.Drawing.Size(795, 459);
             this.pictureTemplate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureTemplate.TabIndex = 15;
             this.pictureTemplate.TabStop = false;
@@ -92,10 +90,9 @@
             this.panel1.Controls.Add(this.btnQuestion);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.btnNext);
-            this.panel1.Location = new System.Drawing.Point(16, 629);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Location = new System.Drawing.Point(12, 511);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1060, 123);
+            this.panel1.Size = new System.Drawing.Size(795, 100);
             this.panel1.TabIndex = 14;
             // 
             // label1
@@ -103,20 +100,18 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(324, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(150, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 22);
+            this.label1.Size = new System.Drawing.Size(315, 17);
             this.label1.TabIndex = 15;
-            this.label1.Text = "Move dots if needed";
+            this.label1.Text = "Move dots if needed and press \'Space\' to apply";
             // 
             // btnInfo
             // 
             this.btnInfo.Image = global::RH.HeadShop.Properties.Resources.btnInfoNormal;
-            this.btnInfo.Location = new System.Drawing.Point(975, 14);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInfo.Location = new System.Drawing.Point(731, 11);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(45, 42);
+            this.btnInfo.Size = new System.Drawing.Size(34, 34);
             this.btnInfo.TabIndex = 14;
             this.btnInfo.TabStop = false;
             this.btnInfo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnInfo_MouseDown);
@@ -125,10 +120,9 @@
             // btnPlay
             // 
             this.btnPlay.Image = global::RH.HeadShop.Properties.Resources.btnPlayNormal;
-            this.btnPlay.Location = new System.Drawing.Point(909, 14);
-            this.btnPlay.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPlay.Location = new System.Drawing.Point(682, 11);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(45, 42);
+            this.btnPlay.Size = new System.Drawing.Size(34, 34);
             this.btnPlay.TabIndex = 13;
             this.btnPlay.TabStop = false;
             this.btnPlay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnPlay_MouseDown);
@@ -137,10 +131,9 @@
             // btnQuestion
             // 
             this.btnQuestion.Image = global::RH.HeadShop.Properties.Resources.btnQuestionNormal;
-            this.btnQuestion.Location = new System.Drawing.Point(844, 14);
-            this.btnQuestion.Margin = new System.Windows.Forms.Padding(4);
+            this.btnQuestion.Location = new System.Drawing.Point(633, 11);
             this.btnQuestion.Name = "btnQuestion";
-            this.btnQuestion.Size = new System.Drawing.Size(45, 42);
+            this.btnQuestion.Size = new System.Drawing.Size(34, 34);
             this.btnQuestion.TabIndex = 12;
             this.btnQuestion.TabStop = false;
             this.btnQuestion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnQuestion_MouseDown);
@@ -150,10 +143,9 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::RH.HeadShop.Properties.Resources.splitter;
-            this.pictureBox2.Location = new System.Drawing.Point(809, -5);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox2.Location = new System.Drawing.Point(607, -4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(13, 119);
+            this.pictureBox2.Size = new System.Drawing.Size(10, 97);
             this.pictureBox2.TabIndex = 10;
             this.pictureBox2.TabStop = false;
             // 
@@ -161,13 +153,13 @@
             // 
             this.btnNext.BackColor = System.Drawing.SystemColors.Control;
             this.btnNext.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnNext.Location = new System.Drawing.Point(925, 69);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNext.Location = new System.Drawing.Point(694, 56);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(127, 46);
+            this.btnNext.Size = new System.Drawing.Size(95, 37);
             this.btnNext.TabIndex = 0;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = false;
+            this.btnNext.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnNext_KeyDown);
             // 
             // RenderTimer
             // 
@@ -176,15 +168,14 @@
             // 
             // frmNewProfilePict2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pictureTemplate);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textName);
             this.Controls.Add(this.label5);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmNewProfilePict2";
-            this.Size = new System.Drawing.Size(1092, 767);
+            this.Size = new System.Drawing.Size(819, 623);
             this.Resize += new System.EventHandler(this.frmNewProject2_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTemplate)).EndInit();
             this.panel1.ResumeLayout(false);

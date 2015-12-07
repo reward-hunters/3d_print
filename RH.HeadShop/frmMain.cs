@@ -129,7 +129,7 @@ namespace RH.HeadShop
                 }
                 else
                     if ((fn.Contains(".hds") || fn.Contains(".hrs")) && File.Exists(fn)) // open associated files
-                        OpenProject(fn);
+                    OpenProject(fn);
             }
         }
         private void exitBtn_Click(object sender, EventArgs e)
@@ -242,7 +242,7 @@ namespace RH.HeadShop
             panelFront.OnUndo += OnUndo_Click;
             panelFront.OnShapeTool += OnShapeTool_Click;
 
-           panelFeatures = new PanelFeatures
+            panelFeatures = new PanelFeatures
             {
                 Dock = DockStyle.Fill
             };
@@ -344,7 +344,7 @@ namespace RH.HeadShop
         {
             UserConfig.ByName("Tutorials")["Links", "Start"] = "http://youtu.be/JC5z64YP1xA";
             UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Shapedots"]="http://youtu.be/pIlrJUByJj8";
+            UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
             UserConfig.ByName("Tutorials")["Links", "Profile"] = "http://youtu.be/Olc7oeQUmWk";
             UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
             UserConfig.ByName("Tutorials")["Links", "LineTool"] = "https://www.youtube.com/watch?v=c7YbRsm8m9I";
@@ -664,7 +664,7 @@ namespace RH.HeadShop
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
 
-                panelMenuFront.Tag  = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
@@ -709,7 +709,7 @@ namespace RH.HeadShop
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
                 panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
 
-                panelMenuFront.Tag  = panelMenuFeatures.Tag = "2";
+                panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
@@ -771,7 +771,7 @@ namespace RH.HeadShop
                     frmTutAutodots.ShowDialog(this);
             }
         }
-       
+
         private void panelMenuFeatures_Click(object sender, EventArgs e)
         {
             if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomControlPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomProfilePoints)
@@ -803,7 +803,7 @@ namespace RH.HeadShop
 
                 panelMenuFront.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
-                
+
                 ProgramCore.MainForm.ctrlRenderControl.StagesDeactivate(-1);
 
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
@@ -1306,7 +1306,7 @@ namespace RH.HeadShop
             UpdateProjectControls(false);
 
             ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper();         // инициализация точек головы.
-           ProgramCore.MainForm.ctrlTemplateImage.RecalcProfilePoints();            // пидоры сломали все. инициализируем профиль.
+            ProgramCore.MainForm.ctrlTemplateImage.RecalcProfilePoints();            // пидоры сломали все. инициализируем профиль.
 
             if (ProgramCore.Project.AgeCoefficient != 0 || ProgramCore.Project.FatCoefficient != 0)  // восстанавливаем морфинги
             {

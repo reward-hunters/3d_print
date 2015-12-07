@@ -99,9 +99,6 @@ namespace RH.HeadShop.Render
         private int profileControlPointIndex = 0;
         public List<MirroredHeadPoint> profileControlPoints = new List<MirroredHeadPoint>();
 
-        public Vector2 ProfileEyeLocation = Vector2.Zero;
-        public Vector2 ProfileMouthLocation = Vector2.Zero;
-
         public Vector2 ProfileScreenTopLocation = Vector2.Zero;
         public Vector2 ProfileScreenEyeLocation = Vector2.Zero;
         public Vector2 ProfileScreenMouthLocation = Vector2.Zero;
@@ -583,10 +580,10 @@ namespace RH.HeadShop.Render
             var screenEyeLoaction = GetScreenPoint(profileControlPoints[1].Value);
             var screenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
             ProfileScreenBottomLocation = GetScreenPoint(profileControlPoints[3].Value);
-            var leftLength = ProfileMouthLocation.X - ProfileEyeLocation.X;
+            var leftLength = ProgramCore.Project.ProfileMouthLocation.X - ProgramCore.Project.ProfileEyeLocation.X;
             var rightLength = screenMouthLocation.X - screenEyeLoaction.X;
             var scale = rightLength / leftLength;
-            var localOffset = ProfileEyeLocation * scale;
+            var localOffset = ProgramCore.Project.ProfileEyeLocation * scale;
             ImageTemplateWidth = (int)(DrawingImage.Width * scale);
             ImageTemplateHeight = (int)(DrawingImage.Height * scale);
             ImageTemplateOffsetX = (int)(screenEyeLoaction.X - localOffset.X);
@@ -638,9 +635,9 @@ namespace RH.HeadShop.Render
                                         var x = p.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX;
                                         var y = p.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY;
 
-                                        points.Add(ProgramCore.MainForm.ctrlRenderControl.camera.GetWorldPoint((int)x, (int)y, 
+                                        points.Add(ProgramCore.MainForm.ctrlRenderControl.camera.GetWorldPoint((int)x, (int)y,
                                             ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height, 1.0f).Zy);
-                                        
+
                                     }
                                     ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode, points, Vector2.Zero);
                                 }
@@ -763,10 +760,10 @@ namespace RH.HeadShop.Render
 
                         #region Верхняя и нижняя точки
                         var points = new[] { ProfileScreenTopLocation, ProfileScreenEyeLocation, ProfileScreenMouthLocation, ProfileScreenBottomLocation };
-                        for (var i = 0; i < points.Length; i ++)
+                        for (var i = 0; i < points.Length; i++)
                         {
                             var point = points[i];
-                          
+
                             var pointRect = new RectangleF(point.X - 5f, point.Y - 5f, 10f, 10f);
                             e.Graphics.FillRectangle(profileControlPoints[i].Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
                         }
@@ -865,9 +862,14 @@ namespace RH.HeadShop.Render
                             case Mode.HeadAutodotsFirstTime:
                             case Mode.HeadAutodotsLassoStart:
                             case Mode.HeadAutodotsLassoActive:
-                                ImageTemplateCenterX = pictureTemplate.Width / 2 - ImageTemplateOffsetX;
-                                ImageTemplateCenterY = pictureTemplate.Height / 2 - ImageTemplateOffsetY;
-                                ImageTemplateOldWidth = ImageTemplateWidth;
+                                {
+                                    if (ProgramCore.MainForm.HeadProfile)
+                                        break;
+
+                                    ImageTemplateCenterX = pictureTemplate.Width / 2 - ImageTemplateOffsetX;
+                                    ImageTemplateCenterY = pictureTemplate.Height / 2 - ImageTemplateOffsetY;
+                                    ImageTemplateOldWidth = ImageTemplateWidth;
+                                }
                                 break;
                         }
                         break;
@@ -880,8 +882,12 @@ namespace RH.HeadShop.Render
                             case Mode.HeadAutodotsFirstTime:
                             case Mode.HeadAutodotsLassoStart:
                             case Mode.HeadAutodotsLassoActive:
+                                {
+                                    if (ProgramCore.MainForm.HeadProfile)
+                                        break;
 
-                                tempOffsetPoint = new Vector2(ImageTemplateOffsetX, ImageTemplateOffsetY);
+                                    tempOffsetPoint = new Vector2(ImageTemplateOffsetX, ImageTemplateOffsetY);
+                                }
                                 break;
                         }
                         break;
@@ -1867,10 +1873,12 @@ namespace RH.HeadShop.Render
                 ProgramCore.Project.ProfileImage = new Bitmap(img);
             }
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
-           
+
+
+
             ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
-            ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
-            ProfileMouthLocation = ProfileScreenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
+            ProgramCore.Project.ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
+            ProgramCore.Project.ProfileMouthLocation = ProfileScreenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
             ProfileScreenBottomLocation = GetScreenPoint(profileControlPoints[3].Value);
 
             RecalcProfilePoints();

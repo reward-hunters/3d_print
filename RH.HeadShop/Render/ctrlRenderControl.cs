@@ -710,7 +710,7 @@ namespace RH.HeadShop.Render
         }
 
         private void glControl_MouseDown(object sender, MouseEventArgs e)
-        {            
+        {
             dblClick = e.Clicks == 2;
             if (e.Button == MouseButtons.Right)
             {
@@ -1021,9 +1021,15 @@ namespace RH.HeadShop.Render
                         break;
                     case ScaleMode.Move:
                         camera.dy -= (e.Location.Y - mY) * camera.Scale;
+
+                        if (ProgramCore.MainForm.HeadProfile)
+                            ProgramCore.MainForm.ctrlTemplateImage.UpdateProfileLocation();
                         break;
                     case ScaleMode.Zoom:
                         camera.Wheel((e.Location.Y - mY) / 150f * camera.Scale);
+
+                        if (ProgramCore.MainForm.HeadProfile)
+                            ProgramCore.MainForm.ctrlTemplateImage.UpdateProfileLocation();
                         break;
                     case ScaleMode.None:
 
@@ -1709,7 +1715,7 @@ namespace RH.HeadShop.Render
                 DrawSlice();
             glControl.SwapBuffers();
         }
-        
+
 
         private bool isFullPointsInfo = true;
         private bool showInfo = true;
@@ -2490,9 +2496,9 @@ namespace RH.HeadShop.Render
                     GL.Color3(1.0f, 0.0f, 0.0f);
                 else
                     if (baseProfilePoints.Contains(i))
-                        GL.Color3(0.0f, 0.0f, 1.0f);
-                    else
-                        GL.Color3(0.0f, 1.0f, 0.0f);
+                    GL.Color3(0.0f, 0.0f, 1.0f);
+                else
+                    GL.Color3(0.0f, 1.0f, 0.0f);
 
                 GL.Vertex2(-point.Value.X, point.Value.Y);
             }

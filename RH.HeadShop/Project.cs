@@ -61,6 +61,9 @@ namespace RH.HeadShop
         public float AgeCoefficient = 0;            // коэффициенты features для сохранения возраста и толщины.
         public float FatCoefficient = 0;
 
+        public Vector2 ProfileEyeLocation = Vector2.Zero;
+        public Vector2 ProfileMouthLocation = Vector2.Zero;
+
         #region Все нужное, для работы с моделью головы
 
         public HeadPoints<HeadPoint> BaseDots; // опорные точки для произвольной башки. по дефолту - женские точки 
@@ -403,6 +406,11 @@ namespace RH.HeadShop
                     bw.Write(CustomHeadNeedProfileSetup);
 
                     #endregion
+
+                    bw.Write(ProfileEyeLocation.X);
+                    bw.Write(ProfileEyeLocation.Y);
+                    bw.Write(ProfileMouthLocation.X);
+                    bw.Write(ProfileMouthLocation.Y);
                 }
             }
             catch (Exception e)
@@ -530,13 +538,16 @@ namespace RH.HeadShop
 
                 #endregion
 
+                result.ProfileEyeLocation = new Vector2(br.ReadSingle(), br.ReadSingle());
+                result.ProfileMouthLocation = new Vector2(br.ReadSingle(), br.ReadSingle());
+
                 var fi1 = new FileInfo(Path.Combine(projectFi.DirectoryName, "ProfileImage.jpg"));
                 if (fi1.Exists)
                 {
                     using (var fs = new FileStream(fi1.FullName, FileMode.Open))
                     {
-                        var bmp = new Bitmap(fs);
-                        result.ProfileImage = (Bitmap)bmp.Clone();
+                        using (var bmp = new Bitmap(fs))
+                            result.ProfileImage = (Bitmap)bmp.Clone();
                     }
                 }
             }
@@ -575,6 +586,16 @@ namespace RH.HeadShop
                 return newImagePath;
             }
             return string.Empty;
+        }
+        public static string CopyImgToProject(Image image, string imageType)
+        {
+            var newImagePath = Path.Combine(ProgramCore.Project.ProjectPath, imageType + ".jpg");
+
+            if (System.IO.File.Exists(newImagePath))
+                System.IO.File.Delete(newImagePath);
+
+            image.Save(newImagePath);
+            return newImagePath;
         }
     }
 

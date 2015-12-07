@@ -100,6 +100,8 @@ namespace RH.HeadShop.Controls.Panels
 
                 btnFlipLeft.Enabled = false;
                 btnFlipRight.Enabled = false;
+
+                btnProfile.Enabled = true;
             }
             else
             {
@@ -114,6 +116,8 @@ namespace RH.HeadShop.Controls.Panels
 
                 btnFlipLeft.Enabled = false;
                 btnFlipRight.Enabled = false;
+
+                btnProfile.Enabled = false;
             }
         }
 
@@ -569,6 +573,7 @@ namespace RH.HeadShop.Controls.Panels
                     }
 
                     ProgramCore.Project.AutodotsUsed = true;
+                    btnProfile.Enabled = true;
                     ProgramCore.MainForm.ctrlRenderControl.headController.EndAutodots();
                     ProgramCore.MainForm.ctrlRenderControl.ApplySmoothedTextures();
                 }
@@ -893,6 +898,8 @@ namespace RH.HeadShop.Controls.Panels
 
                 if (ProgramCore.Project.CustomHeadNeedProfileSetup)     // произвольная модель. при первом включении нужно произвести первоначальную настройку.
                     ProgramCore.MainForm.ctrlRenderControl.SetCustomProfileSetup();
+
+                ProgramCore.MainForm.ctrlTemplateImage.UpdateProfileLocation();
 
                 if (UserConfig.ByName("Options")["Tutorials", "Profile", "1"] == "1")
                     ProgramCore.MainForm.frmTutProfile.ShowDialog(this);

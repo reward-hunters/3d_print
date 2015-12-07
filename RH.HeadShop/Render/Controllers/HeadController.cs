@@ -9,9 +9,7 @@ using OpenTK.Graphics.OpenGL;
 using RH.HeadEditor.Data;
 using RH.HeadShop.Controls;
 using RH.HeadShop.Helpers;
-using RH.HeadShop.IO;
 using RH.HeadShop.Render.Helpers;
-using PrimitiveType = OpenTK.Graphics.OpenGL.PrimitiveType;
 
 namespace RH.HeadShop.Render.Controllers
 {
@@ -94,7 +92,7 @@ namespace RH.HeadShop.Render.Controllers
                 dot.ValueMirrored += delta;
         }
 
-        private Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative, out float angle, out Point leftTopPoint)
+        public Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative, out float angle, out Point leftTopPoint)
         {
             Bitmap result = null;
             var xVector = new Vector2(1f, 0f);
@@ -102,11 +100,11 @@ namespace RH.HeadShop.Render.Controllers
             var pointEyeWorld = new Vector2(eyeRelative.X * sourceImage.Width, eyeRelative.Y * sourceImage.Height);
             var pointMouthWorld = new Vector2(mouthRelative.X * sourceImage.Width, mouthRelative.Y * sourceImage.Height);
 
-            using (var grD = Graphics.FromImage(sourceImage))
-            {
-                grD.DrawLine(Pens.Red, new Point((int)pointEyeWorld.X, (int)pointEyeWorld.Y),
-                    new Point((int)pointMouthWorld.X, (int)pointMouthWorld.Y));
-            }
+            /*    using (var grD = Graphics.FromImage(sourceImage))                             // в ТЗ старикан только для нас это сделал
+                {
+                    grD.DrawLine(Pens.Red, new Point((int)pointEyeWorld.X, (int)pointEyeWorld.Y),
+                        new Point((int)pointMouthWorld.X, (int)pointMouthWorld.Y));
+                }*/
 
             /*pointUpWorld.Y = sourceImage.Height - pointUpWorld.Y;
             pointBottomWorld.Y = sourceImage.Height - pointBottomWorld.Y;*/
@@ -125,7 +123,7 @@ namespace RH.HeadShop.Render.Controllers
 
             angle = angleLeft - angleRight;
             var angleDiff = angle * 180.0f / (float)Math.PI;
-            
+
             var center = (pointEyeWorld + pointMouthWorld) * 0.5f;
             var left = (int)(center.X - length * 1.0f);
             var right = (int)(center.X + length * 4.0f);
@@ -140,12 +138,12 @@ namespace RH.HeadShop.Render.Controllers
             if (bottom > sourceImage.Height)
                 bottom = sourceImage.Height;
 
-            leftTopPoint = new Point(left, top);            
+            leftTopPoint = new Point(left, top);
 
             var faceRectangle = new Rectangle(left, top, right - left, bottom - top);
             using (var croppedImage = ImageEx.Crop(sourceImage, faceRectangle))
             {
-                croppedImage.Save("C:\\2.bmp");
+                //   croppedImage.Save("C:\\2.bmp");
                 result = ImageEx.RotateImage2(croppedImage, angleDiff * 2f);
             }
 
@@ -165,8 +163,8 @@ namespace RH.HeadShop.Render.Controllers
             realEyeLocation += realCenter;
             realMouthLocation += realCenter;
 
-            ProgramCore.MainForm.ctrlTemplateImage.ProfileEyeLocation = realEyeLocation;
-            ProgramCore.MainForm.ctrlTemplateImage.ProfileMouthLocation = realMouthLocation;
+            ProgramCore.Project.ProfileEyeLocation = realEyeLocation;
+            ProgramCore.Project.ProfileMouthLocation = realMouthLocation;
 
             /*using (var grD = Graphics.FromImage(result))
             {
@@ -177,7 +175,7 @@ namespace RH.HeadShop.Render.Controllers
             result.Save("C:\\1.bmp");*/
             return result;
         }
-                
+
         /// <summary> Загрузить новое изображение как шаблон для профиля </summary>
         public void LoadNewProfileImage()
         {
@@ -185,20 +183,22 @@ namespace RH.HeadShop.Render.Controllers
             if (ProgramCore.ShowDialog(ctrl, "Select profile template image", MessageBoxButtons.OK) != DialogResult.OK)
                 return;
 
-            //TODO: ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
+            //ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
             float angle;
             Point leftTopPoint;
             var image = InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative, out angle, out leftTopPoint);
 
-         /*   var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, ctrl.TemplateImage, ctrl.MouthRelative, ctrl.EyeRelative);
+            var eyeRelative = new Vector2(ProgramCore.Project.ProfileEyeLocation.X / (image.Width * 1f), ProgramCore.Project.ProfileEyeLocation.Y / (image.Height * 1f));
+            var mouthRelative = new Vector2(ProgramCore.Project.ProfileMouthLocation.X / (image.Width * 1f), ProgramCore.Project.ProfileMouthLocation.Y / (image.Height * 1f));
+
+            var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, image, mouthRelative, eyeRelative, angle, leftTopPoint);
             if (ProgramCore.ShowDialog(ctrl1, "Adjust profile template image", MessageBoxButtons.OK) != DialogResult.OK)
-                 return;
+                return;
 
-             var newPath = Project.CopyImgToProject(ctrl1.RotatedPath, "ProfileImage");
-             using (var bmp = new Bitmap(newPath))
-                 ProgramCore.Project.ProfileImage = new Bitmap(bmp);*/
+            var newPath = Project.CopyImgToProject(ctrl1.RotatedImage, "ProfileImage");
+            using (var bmp = new Bitmap(newPath))
+                ProgramCore.Project.ProfileImage = (Bitmap)bmp.Clone();
 
-            ProgramCore.Project.ProfileImage = new Bitmap(image);
             ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.ProfileImage, false);
             ProgramCore.MainForm.ctrlTemplateImage.UpdateProfileLocation();
 
@@ -528,11 +528,11 @@ namespace RH.HeadShop.Render.Controllers
                 11, 14, 36,
                 11, 36, 33,
                 12, 13, 10,
-                13, 14, 11,                
+                13, 14, 11,
                 15, 16, 20,
                 15, 20, 19,
                 16, 2, 20,
-                16, 38, 2,                
+                16, 38, 2,
                 1, 33, 32,
                 1, 32, 39,
                 23, 19, 18,
@@ -575,10 +575,10 @@ namespace RH.HeadShop.Render.Controllers
                 39, 51, 17,
                 51, 39, 37,
                 51, 37, 38,
-                16, 51, 38,  
-                23, 22, 21,   
-                23, 21, 24,  
-                43, 44, 45, 
+                16, 51, 38,
+                23, 22, 21,
+                23, 21, 24,
+                43, 44, 45,
                 43, 45, 46,
 
                 //TODO: clean
