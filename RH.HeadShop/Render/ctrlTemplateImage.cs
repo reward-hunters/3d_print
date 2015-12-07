@@ -1881,11 +1881,6 @@ namespace RH.HeadShop.Render
             }
             SetTemplateImage(ProgramCore.Project.ProfileImage, false);
 
-            ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
-            ProgramCore.Project.ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
-            ProgramCore.Project.ProfileMouthLocation = ProfileScreenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
-            ProfileScreenBottomLocation = GetScreenPoint(profileControlPoints[3].Value);
-
             RecalcProfilePoints();
         }
 
@@ -1902,6 +1897,14 @@ namespace RH.HeadShop.Render
 
         public void RecalcProfilePoints()
         {
+
+            if (profileControlPoints.Count > 0 &&(ProgramCore.Project.ProfileEyeLocation == Vector2.Zero || ProgramCore.Project.ProfileMouthLocation == Vector2.Zero))
+            {
+                ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
+                ProgramCore.Project.ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
+                ProgramCore.Project.ProfileMouthLocation = ProfileScreenMouthLocation = GetScreenPoint(profileControlPoints[2].Value);
+                ProfileScreenBottomLocation = GetScreenPoint(profileControlPoints[3].Value);
+            }
 
             #region Пересчитываем точки справа на лево
 
