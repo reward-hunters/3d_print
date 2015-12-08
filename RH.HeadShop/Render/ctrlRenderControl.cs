@@ -128,6 +128,7 @@ namespace RH.HeadShop.Render
         }
 
         public bool SimpleDrawing;
+        private bool profileTrianglesDrowing;
 
         private Vector3 meshPoint;
         private float HeadShapeZ;
@@ -590,6 +591,18 @@ namespace RH.HeadShop.Render
             shiftPressed = e.Shift;
             switch (e.KeyData)
             {
+                case Keys.T:
+                    showTriangles = !showTriangles;
+                    break;
+                case Keys.R:
+                    showInfo = !showInfo;
+                    break;
+                case Keys.P:
+                    profileTrianglesDrowing = !profileTrianglesDrowing;
+                    break;
+                case Keys.S:
+                    SimpleDrawing = !SimpleDrawing;
+                    break;
                 case Keys.Left:
                     TimerMode = Mode.TimerTurnLeft;
                     keyTimer.Start();
@@ -661,11 +674,7 @@ namespace RH.HeadShop.Render
         //temp
 
         private void glControl_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.T)
-                showTriangles = !showTriangles;
-            if (e.KeyCode == Keys.R)
-                showInfo = !showInfo;
+        {            
             if (e.KeyCode == Keys.Enter)
             {
                 switch (Mode)
@@ -1558,12 +1567,19 @@ namespace RH.HeadShop.Render
             idleShader.Begin();
             DrawHead();
 
-            if (SimpleDrawing)
+            if (ProgramCore.Debug)
             {
-                GL.LineWidth(1.0f);
-                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+                if (SimpleDrawing)
+                {
+                    GL.LineWidth(1.0f);
+                    GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+                }
+                else
+                {
+                    GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+                }
             }
-
+            
             var shader = idleShader;
             GL.Enable(EnableCap.DepthTest);
             DrawMeshes(pickingController.HairMeshes, ref shader, false);
@@ -1579,7 +1595,35 @@ namespace RH.HeadShop.Render
             GL.Disable(EnableCap.Texture2D);
             GL.Disable(EnableCap.DepthTest);
             if (ProgramCore.Debug)
+            {
                 DrawAxis();
+                if (profileTrianglesDrowing)
+                {
+                    if (autodotsShapeHelper.ShapeProfileInfo.Points != null)
+                    {
+                        GL.Begin(PrimitiveType.Lines);
+                        GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
+                        for (var i = 0; i < autodotsShapeHelper.ShapeProfileInfo.Indices.Length; i += 3)
+                        {
+                            var a = autodotsShapeHelper.ShapeProfileInfo.Indices[i];
+                            var b = autodotsShapeHelper.ShapeProfileInfo.Indices[i + 1];
+                            var c = autodotsShapeHelper.ShapeProfileInfo.Indices[i + 2];
+
+                            var p0 = autodotsShapeHelper.ShapeProfileInfo.Points[a];
+                            var p1 = autodotsShapeHelper.ShapeProfileInfo.Points[b];
+                            var p2 = autodotsShapeHelper.ShapeProfileInfo.Points[c];
+
+                            GL.Vertex3(0.0f, p0.Value.Y, p0.Value.X);
+                            GL.Vertex3(0.0f, p1.Value.Y, p1.Value.X);
+                            GL.Vertex3(0.0f, p1.Value.Y, p1.Value.X);
+                            GL.Vertex3(0.0f, p2.Value.Y, p2.Value.X);
+                            GL.Vertex3(0.0f, p2.Value.Y, p2.Value.X);
+                            GL.Vertex3(0.0f, p0.Value.Y, p0.Value.X);
+                        }
+                        GL.End();
+                    }
+                }
+            }
 
             if (pickingController.SelectedMeshes.Count == 1 && pickingController.SelectedMeshes[0].meshType == MeshType.Accessory)
             {
