@@ -1133,51 +1133,59 @@ namespace RH.HeadShop.Render
                 switch (ProgramCore.MainForm.ctrlRenderControl.ScaleMode)
                 {
                     case ScaleMode.Move:
-                        switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
-                            case Mode.HeadShapedots:
-                            case Mode.HeadLine: // эти моды только для этих режимов!
-                            case Mode.HeadAutodots:
-                            case Mode.HeadAutodotsFirstTime:
-                            case Mode.HeadAutodotsLassoStart:
-                            case Mode.HeadAutodotsLassoActive:
-
-                                newPoint = new Vector2(e.X, e.Y);
-                                delta2 = newPoint - headLastPoint;
-                                ImageTemplateOffsetX = (int)(tempOffsetPoint.X + delta2.X);
-                                ImageTemplateOffsetY = (int)(tempOffsetPoint.Y + delta2.Y);
-                                RecalcEyeMouthRect();
-                                UpdateFaceRect();
+                            if (ProgramCore.MainForm.HeadProfile)
                                 break;
+
+                            switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                            {
+                                case Mode.HeadShapedots:
+                                case Mode.HeadLine: // эти моды только для этих режимов!
+                                case Mode.HeadAutodots:
+                                case Mode.HeadAutodotsFirstTime:
+                                case Mode.HeadAutodotsLassoStart:
+                                case Mode.HeadAutodotsLassoActive:
+
+                                    newPoint = new Vector2(e.X, e.Y);
+                                    delta2 = newPoint - headLastPoint;
+                                    ImageTemplateOffsetX = (int)(tempOffsetPoint.X + delta2.X);
+                                    ImageTemplateOffsetY = (int)(tempOffsetPoint.Y + delta2.Y);
+                                    RecalcEyeMouthRect();
+                                    UpdateFaceRect();
+                                    break;
+                            }
                         }
                         break;
                     case ScaleMode.Zoom:
-
-                        switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
-                            case Mode.HeadShapedots:
-                            case Mode.HeadLine: // эти моды только для этих режимов!
-                            case Mode.HeadAutodots:
-                            case Mode.HeadAutodotsFirstTime:
-                            case Mode.HeadAutodotsLassoStart:
-                            case Mode.HeadAutodotsLassoActive:
-                                if (startMove)
-                                {
-                                    var s = imageScale + (headLastPoint.Y - e.Y) * 0.01f;
-                                    if (s < 1.0f)
-                                        imageScale = 1.0f;
-                                    else if (s > 5.0f)
-                                        imageScale = 5.0f;
-                                    else
-                                    {
-                                        ApplyScale(s);
-                                        RefreshPictureBox();
-                                    }
-                                    headLastPoint = new Vector2(e.X, e.Y);
-                                    RecalcEyeMouthRect();
-                                    UpdateFaceRect();
-                                }
+                            if (ProgramCore.MainForm.HeadProfile)
                                 break;
+                            switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                            {
+                                case Mode.HeadShapedots:
+                                case Mode.HeadLine: // эти моды только для этих режимов!
+                                case Mode.HeadAutodots:
+                                case Mode.HeadAutodotsFirstTime:
+                                case Mode.HeadAutodotsLassoStart:
+                                case Mode.HeadAutodotsLassoActive:
+                                    if (startMove)
+                                    {
+                                        var s = imageScale + (headLastPoint.Y - e.Y) * 0.01f;
+                                        if (s < 1.0f)
+                                            imageScale = 1.0f;
+                                        else if (s > 5.0f)
+                                            imageScale = 5.0f;
+                                        else
+                                        {
+                                            ApplyScale(s);
+                                            RefreshPictureBox();
+                                        }
+                                        headLastPoint = new Vector2(e.X, e.Y);
+                                        RecalcEyeMouthRect();
+                                        UpdateFaceRect();
+                                    }
+                                    break;
+                            }
                         }
                         break;
                     case ScaleMode.None:
@@ -1891,7 +1899,7 @@ namespace RH.HeadShop.Render
         public void RecalcProfilePoints()
         {
 
-            if (profileControlPoints.Count > 0 &&(ProgramCore.Project.ProfileEyeLocation == Vector2.Zero || ProgramCore.Project.ProfileMouthLocation == Vector2.Zero))
+            if (profileControlPoints.Count > 0 && (ProgramCore.Project.ProfileEyeLocation == Vector2.Zero || ProgramCore.Project.ProfileMouthLocation == Vector2.Zero))
             {
                 ProfileScreenTopLocation = GetScreenPoint(profileControlPoints[0].Value);
                 ProgramCore.Project.ProfileEyeLocation = ProfileScreenEyeLocation = GetScreenPoint(profileControlPoints[1].Value);
