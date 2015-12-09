@@ -1621,6 +1621,13 @@ namespace RH.HeadShop.Render
                             GL.Vertex3(0.0f, p0.Value.Y, p0.Value.X);
                         }
                         GL.End();
+
+                        GL.PointSize(5.0f);
+                        GL.Begin(PrimitiveType.Points);
+                        GL.Color4(0.0f, 0.75f, 0.25f, 1.0f);
+                        foreach (var p in autodotsShapeHelper.ShapeProfileInfo.Points)
+                            GL.Vertex3(0.0f, p.Value.Y, p.Value.X);
+                        GL.End();
                     }
                 }
             }

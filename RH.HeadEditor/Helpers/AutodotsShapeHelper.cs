@@ -1625,7 +1625,7 @@ namespace RH.HeadEditor.Helpers
             var result = new List<int>();
             ProfileRects.Clear();
             linkedPoints.Clear();
-            var indices = new List<int>();
+            //var indices = new List<int>();
             var shapePoints = new List<Vector2>();
             var tmpLinks = new Dictionary<int, int>
                            {
@@ -1699,8 +1699,8 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(12, rect.ShapeIndices[13]);
             //temp
 
-            for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
-                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
+           /* for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
+                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });*/
 
             //верх носа
             rect = new AutodotsShapeRect
@@ -1737,9 +1737,9 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(19, rect.ShapeIndices[7]);
             //temp
 
-            indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
+            /*indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
             for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
-                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
+                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });*/
 
             //низ носа
             rect = new AutodotsShapeRect
@@ -1774,9 +1774,9 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(24, rect.ShapeIndices[5]);
             //temp
 
-            indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
+            /*indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
             for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
-                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
+                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });*/
 
             //верх губы
             rect = new AutodotsShapeRect
@@ -1808,9 +1808,9 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(27, rect.ShapeIndices[3]);
             //temp
 
-            indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
+            /*indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
             for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
-                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
+                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });*/
 
             //низ губы
             rect = new AutodotsShapeRect
@@ -1842,9 +1842,9 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(30, rect.ShapeIndices[3]);
             //temp
 
-            indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
+            /*indices.AddRange(new[] { index1, index0, rect.ShapeIndices[0] });
             for (var i = 0; i < rect.ShapeIndices.Length - 1; i++)
-                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
+                indices.AddRange(new[] { index1, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });*/
 
             //подбородок
             rect = new AutodotsShapeRect
@@ -1887,16 +1887,70 @@ namespace RH.HeadEditor.Helpers
             profileDotsDictionary.Add(42, rect.ShapeIndices[12]);
             //temp
 
-            for (var i = 0; i < rect.ShapeIndices.Length - 3; i++)
+            /*for (var i = 0; i < rect.ShapeIndices.Length - 3; i++)
                 indices.AddRange(new[] { index0, rect.ShapeIndices[i], rect.ShapeIndices[i + 1] });
 
             indices.AddRange(new[] { index0, rect.ShapeIndices[rect.ShapeIndices.Length - 3], index1 });
-            indices.AddRange(new[] { index1, rect.ShapeIndices[rect.ShapeIndices.Length - 3], rect.ShapeIndices[rect.ShapeIndices.Length - 2] });
+            indices.AddRange(new[] { index1, rect.ShapeIndices[rect.ShapeIndices.Length - 3], rect.ShapeIndices[rect.ShapeIndices.Length - 2] });*/
 
             ShapeProfileInfo.Points = new HeadPoints<HeadPoint>();
             ShapeProfileInfo.Points.AddRange(shapePoints.Select(p => new HeadPoint(p)).ToArray());
+            var list = ShapeProfileInfo.Points.Select(p => p.Value).ToList();
 
-            ShapeProfileInfo.Indices = indices.ToArray();
+            ShapeProfileInfo.Indices = new[] { //indices.ToArray(); 
+                1, 0, 2,
+                1, 2, 3,
+                1, 3, 4,
+                1, 4, 5,
+                1, 5, 6,
+                1, 6, 7,
+                1, 7, 8,
+                1, 8, 9,
+                1, 9, 10,
+                1, 10, 11,
+                1, 11, 12,
+                1, 12, 13,
+                1, 13, 14,
+                1, 14, 15,
+                1, 15, 17,
+                1, 17, 18,
+                1, 18, 19,
+                1, 19, 20,
+                1, 20, 21,
+                1, 21, 22,
+                1, 22, 23,
+                1, 23, 24,
+                1, 24, 16,
+                16, 24, 26,
+                16, 26, 27,
+                16, 27, 28,
+                16, 28, 29,
+                16, 29, 30,
+                16, 30, 31,
+                16, 31, 25,
+                25, 31, 33,
+                25, 33, 34,
+                25, 34, 35,
+                25, 35, 32,
+                35, 36, 32,
+                32, 36, 38,
+                32, 38, 37,
+                37, 38, 39,
+                37, 39, 40,
+                37, 40, 41,
+                37, 41, 43,
+                37, 43, 44,
+                37, 44, 45,
+                37, 45, 46,
+                37, 46, 47,
+                37, 47, 48,
+                37, 48, 49,
+                37, 49, 50,
+                37, 50, 51,
+                37, 51, 52,
+                37, 52, 53,
+                37, 53, 42,
+                42, 53, 54};
             return result;
         }
 
