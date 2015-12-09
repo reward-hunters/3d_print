@@ -237,7 +237,7 @@ namespace RH.HeadEditor.Data
     {
         public HeadPoints<HeadPoint> Points;
         public Vector2[] TexCoords;
-        public Int32[] Indices;
+        public int[] Indices;
 
         public void UpdatePointsInfo(Vector2 scale, Vector2 center)
         {
