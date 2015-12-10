@@ -641,21 +641,45 @@ namespace RH.HeadShop.Render
                                     #endregion
 
                                     var userPoints = ProgramCore.MainForm.ctrlRenderControl.headController.AllPoints.Select(x => x.ValueMirrored).ToList();
-                                    List<Vector2> points = new List<Vector2>();
-                                    foreach (var p in userPoints)
+                                    List<Vector2> pointsTop = new List<Vector2>();
+                                    List<Vector2> pointsBottom = null;
+                                    var lipsY = ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetLipsTopY();
+                                    var prevPoint = Vector2.Zero;
+                                    for(int i = 0; i< userPoints.Count; ++i)
                                     {
+                                        var p = userPoints[i];
                                         var x = p.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX;
                                         var y = p.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY;
+                                        var point = ProgramCore.MainForm.ctrlRenderControl.camera.GetWorldPoint((int)x, (int)y,
+                                            ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height, 1.0f).Zy;
 
-                                        points.Add(ProgramCore.MainForm.ctrlRenderControl.camera.GetWorldPoint((int)x, (int)y,
-                                            ProgramCore.MainForm.ctrlRenderControl.Width, ProgramCore.MainForm.ctrlRenderControl.Height, 1.0f).Zy);
-
+                                        if (point.Y < lipsY && i > 0)
+                                        {
+                                            if(pointsBottom == null)
+                                            {
+                                                var tempPoint = point - prevPoint;
+                                                var d = (point.Y - prevPoint.Y) / (prevPoint.Y - lipsY);
+                                                var center = prevPoint + tempPoint * d;
+                                                pointsTop.Add(center);
+                                                pointsBottom = new List<Vector2>();
+                                                pointsBottom.Add(center);
+                                            }
+                                            pointsBottom.Add(point);
+                                        }
+                                        else
+                                        {
+                                            prevPoint = point;
+                                            pointsTop.Add(point);
+                                        }
                                     }
-                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode, points, Vector2.Zero);
+
+
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileTop, pointsTop, Vector2.Zero);
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileBottom, pointsBottom, Vector2.Zero);
                                 }
 
                                 ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Clear();
-                                ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.ProfileTop ? MeshPartType.ProfileBottom : MeshPartType.ProfileTop;
+                                //ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.ProfileTop ? MeshPartType.ProfileBottom : MeshPartType.ProfileTop;
                                 ProgramCore.MainForm.ctrlRenderControl.UpdateProfileRectangle();
                             }
                             else

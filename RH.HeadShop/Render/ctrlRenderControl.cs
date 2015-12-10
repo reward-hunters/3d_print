@@ -2264,7 +2264,7 @@ namespace RH.HeadShop.Render
             foreach (var rect in autodotsShapeHelper.ProfileRects)
                 if (rect.LinkedShapeRect != null)
                 {
-                    GL.Color3(rect.Type == HeadLineMode ? Color.Red : Color.Green);
+                    GL.Color3(Color.Red);
 
                     for (var i = 1; i < rect.Points.Length; i++)
                     {

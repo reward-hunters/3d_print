@@ -298,7 +298,8 @@ namespace RH.HeadEditor.Helpers
                 var v1 = s.Points[s.Indices[ti]].Value;
                 var v2 = s.Points[s.Indices[ti + 1]].Value;
                 var v3 = s.Points[s.Indices[ti + 2]].Value;
-                p.Position.Z = p.ProfileShapeTrinagleInfo.U * v1.X + p.ProfileShapeTrinagleInfo.V * v2.X + p.ProfileShapeTrinagleInfo.W * v3.X;
+                var z = p.Position.Y;
+                p.Position.Z = p.ProfileShapeTrinagleInfo.U * v1.X + p.ProfileShapeTrinagleInfo.V * v2.X + p.ProfileShapeTrinagleInfo.W * v3.X;                
                 p.Position.Y = p.ProfileShapeTrinagleInfo.U * v1.Y + p.ProfileShapeTrinagleInfo.V * v2.Y + p.ProfileShapeTrinagleInfo.W * v3.Y;
                 foreach (var i in p.Indices)
                 {

@@ -1912,7 +1912,17 @@ namespace RH.HeadEditor.Helpers
                 1, 12, 13,
                 1, 13, 14,
                 1, 14, 15,
-                1, 15, 17,
+
+                1, 15, 16,
+                16, 15, 17,
+                16, 17, 18,
+                16, 18, 19,
+                16, 19, 20,
+                16, 20, 21,
+                16, 21, 22,
+                16, 22, 23,
+                16, 23, 24,
+                /*1, 15, 17,
                 1, 17, 18,
                 1, 18, 19,
                 1, 19, 20,
@@ -1920,7 +1930,7 @@ namespace RH.HeadEditor.Helpers
                 1, 21, 22,
                 1, 22, 23,
                 1, 23, 24,
-                1, 24, 16,
+                1, 24, 16,*/
                 16, 24, 26,
                 16, 26, 27,
                 16, 27, 28,
@@ -1979,6 +1989,13 @@ namespace RH.HeadEditor.Helpers
                 return result.ToList();
             }
         }
+
+        public float GetLipsTopY()
+        {
+            var rect = ProfileRects.FirstOrDefault(r => r.LinkedShapeRect != null && r.Type == MeshPartType.ProfileTop && r.IsLast);
+            return rect == null ? 0.0f : rect.Points.Last().Y;
+        }
+
 
         public List<HeadPoint> GetBaseDots()
         {
