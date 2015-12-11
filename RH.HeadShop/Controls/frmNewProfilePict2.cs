@@ -40,13 +40,13 @@ namespace RH.HeadShop.Controls
         private string originalPath;
 
         private float Angle;
-        private Point LeftTopPoint;
+        private Rectangle FaceRectangle;
 
         public Image RotatedImage { get { return pictureTemplate.Image; } }
 
         #endregion
 
-        public frmNewProfilePict2(string originalImagePath, Bitmap rotatedImage, Vector2 mouthRelative, Vector2 eyeRelative, float angle, Point leftTopPoint)
+        public frmNewProfilePict2(string originalImagePath, Bitmap rotatedImage, Vector2 mouthRelative, Vector2 eyeRelative, Vector2 originalMouthRelative, Vector2 originalEyeRelative, float angle, Rectangle faceRectangle)
         {
             InitializeComponent();
 
@@ -54,7 +54,7 @@ namespace RH.HeadShop.Controls
             originalPath = originalImagePath;
 
             Angle = angle;
-            LeftTopPoint = leftTopPoint;
+            FaceRectangle = faceRectangle;
 
             MouthRelative = mouthRelative;
             EyeRelative = eyeRelative;
@@ -155,19 +155,19 @@ namespace RH.HeadShop.Controls
         /// <angle>Угол, на который повернута картинка</angle>
         /// <leftTopPoint> После твоей функции воваш</leftTopPoint>
         /// <returns>Точка в пространстве оригинальной картинки в относительных координатах</returns>
-        private Vector2 CalcRotatedOriginalPoint(Bitmap originalImage, Vector2 relativeSourcePoint, float angle, Point leftTopPoint)
+        private Vector2 CalcRotatedOriginalPoint(Bitmap originalImage, Vector2 relativeSourcePoint)
         {
-            var pointWorld = new Vector2(relativeSourcePoint.X * pictureTemplate.Image.Width, relativeSourcePoint.Y * pictureTemplate.Image.Height);   // 1.Переводим точку в мировые координаты
+            var pointWorld = new Vector2(relativeSourcePoint.X * FaceRectangle.Width, relativeSourcePoint.Y * FaceRectangle.Height);   // 1.Переводим точку в мировые координаты
 
-            var center = new Vector2(pictureTemplate.Image.Width * 0.5f, pictureTemplate.Image.Height * 0.5f);          //2.Находим центр картинки
+            var center = new Vector2(FaceRectangle.Width * 0.5f, FaceRectangle.Height * 0.5f);          //2.Находим центр картинки
 
             pointWorld -= center;       // 3.Переносим и вращаем
-            var a = -angle;
-            var sa = Math.Sin(a);
-            var ca = Math.Cos(a);
-            pointWorld = new Vector2((float)(pointWorld.X * ca - pointWorld.Y * sa), (float)(pointWorld.X * sa + pointWorld.Y * ca));
+            var a = -Angle;
+            var sa = (float)Math.Sin(a);
+            var ca = (float)Math.Cos(a);
+            pointWorld = new Vector2(pointWorld.X * ca - pointWorld.Y * sa, (pointWorld.X * sa + pointWorld.Y * ca));
             pointWorld += center;
-            pointWorld = new Vector2(pointWorld.X + leftTopPoint.X, pointWorld.Y + leftTopPoint.Y);
+            pointWorld = new Vector2(pointWorld.X + FaceRectangle.Left, pointWorld.Y + FaceRectangle.Top);
 
             return new Vector2(pointWorld.X / (originalImage.Width * 1f), pointWorld.Y / (originalImage.Height * 1f));        //4.Находим координаты, которые нужны будут для нового поворота и обрезания
         }
@@ -239,8 +239,8 @@ namespace RH.HeadShop.Controls
                 ImageTemplateHeight = pb.Height;
             }
 
-            ImageTemplateOffsetX = (pb.Width - ImageTemplateWidth) / 2;
-            ImageTemplateOffsetY = (pb.Height - ImageTemplateHeight) / 2;
+            ImageTemplateOffsetX = (int)((pb.Width - ImageTemplateWidth) * 0.5f);
+            ImageTemplateOffsetY = (int)((pb.Height - ImageTemplateHeight) * 0.5f);
 
             MouthTransformed = new PointF(MouthRelative.X * ImageTemplateWidth + ImageTemplateOffsetX,
                                           MouthRelative.Y * ImageTemplateHeight + ImageTemplateOffsetY);
@@ -261,15 +261,15 @@ namespace RH.HeadShop.Controls
                 {
                     var originalImage = (Bitmap)bmp.Clone();
                     //ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
-                    var originalMouthPoint = CalcRotatedOriginalPoint(originalImage, MouthRelative, Angle, LeftTopPoint);
-                    var originalEyePoint = CalcRotatedOriginalPoint(originalImage, EyeRelative, Angle, LeftTopPoint);
+                    var originalMouthPoint = CalcRotatedOriginalPoint(originalImage, MouthRelative);
+                    var originalEyePoint = CalcRotatedOriginalPoint(originalImage, EyeRelative);
 
                     float angle;
-                    Point leftTopPoint;
+                    Rectangle faceRectangle;
 
-                    pictureTemplate.Image = ProgramCore.MainForm.ctrlRenderControl.headController.InitProfileImage(originalImage, originalMouthPoint, originalEyePoint, out angle, out leftTopPoint);
+                    pictureTemplate.Image = ProgramCore.MainForm.ctrlRenderControl.headController.InitProfileImage(originalImage, originalMouthPoint, originalEyePoint, out angle, out faceRectangle);
 
-                    LeftTopPoint = leftTopPoint;
+                    FaceRectangle = faceRectangle;
                     Angle = angle;
 
                     EyeRelative = new Vector2(ProgramCore.Project.ProfileEyeLocation.X / (pictureTemplate.Image.Width * 1f), ProgramCore.Project.ProfileEyeLocation.Y / (pictureTemplate.Image.Height * 1f));

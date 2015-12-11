@@ -92,7 +92,7 @@ namespace RH.HeadShop.Render.Controllers
                 dot.ValueMirrored += delta;
         }
 
-        public Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative, out float angle, out Point leftTopPoint)
+        public Bitmap InitProfileImage(Bitmap sourceImage, Vector2 mouthRelative, Vector2 eyeRelative, out float angle, out Rectangle faceRectangle)
         {
             Bitmap result = null;
             var xVector = new Vector2(1f, 0f);
@@ -121,7 +121,7 @@ namespace RH.HeadShop.Render.Controllers
             yDiff = xVector.Y - vectorRight.Y;
             var angleRight = (float)Math.Atan2(yDiff, xDiff);
 
-            angle = angleLeft - angleRight;
+            angle = (angleLeft - angleRight) * 2f;
             var angleDiff = angle * 180.0f / (float)Math.PI;
 
             var center = (pointEyeWorld + pointMouthWorld) * 0.5f;
@@ -138,13 +138,11 @@ namespace RH.HeadShop.Render.Controllers
             if (bottom > sourceImage.Height)
                 bottom = sourceImage.Height;
 
-            leftTopPoint = new Point(left, top);
-
-            var faceRectangle = new Rectangle(left, top, right - left, bottom - top);
+            faceRectangle = new Rectangle(left, top, right - left, bottom - top);
             using (var croppedImage = ImageEx.Crop(sourceImage, faceRectangle))
             {
                 //   croppedImage.Save("C:\\2.bmp");
-                result = ImageEx.RotateImage2(croppedImage, angleDiff * 2f);
+                result = ImageEx.RotateImage2(croppedImage, angleDiff);
             }
 
             //Надо перенести и повернуть
@@ -154,8 +152,8 @@ namespace RH.HeadShop.Render.Controllers
             realEyeLocation -= realCenter;
             realMouthLocation -= realCenter;
 
-            var sa = (float)Math.Sin(angle * 2f);
-            var ca = (float)Math.Cos(angle * 2f);
+            var sa = (float)Math.Sin(angle);
+            var ca = (float)Math.Cos(angle);
 
             realEyeLocation = new Vector2(realEyeLocation.X * ca - realEyeLocation.Y * sa, realEyeLocation.X * sa + realEyeLocation.Y * ca);
             realMouthLocation = new Vector2(realMouthLocation.X * ca - realMouthLocation.Y * sa, realMouthLocation.X * sa + realMouthLocation.Y * ca);
@@ -185,13 +183,13 @@ namespace RH.HeadShop.Render.Controllers
 
             //ДЕЛАЕМ ПОВОРОТ И ОБРЕЗКУ ФОТКИ!
             float angle;
-            Point leftTopPoint;
-            var image = InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative, out angle, out leftTopPoint);
+            Rectangle faceRectangle;
+            var image = InitProfileImage(new Bitmap(ctrl.TemplateImage), ctrl.MouthRelative, ctrl.EyeRelative, out angle, out faceRectangle);
 
             var eyeRelative = new Vector2(ProgramCore.Project.ProfileEyeLocation.X / (image.Width * 1f), ProgramCore.Project.ProfileEyeLocation.Y / (image.Height * 1f));
             var mouthRelative = new Vector2(ProgramCore.Project.ProfileMouthLocation.X / (image.Width * 1f), ProgramCore.Project.ProfileMouthLocation.Y / (image.Height * 1f));
 
-            var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, image, mouthRelative, eyeRelative, angle, leftTopPoint);
+            var ctrl1 = new frmNewProfilePict2(ctrl.TemplateImage, image, mouthRelative, eyeRelative, ctrl.MouthRelative, ctrl.EyeRelative, angle, faceRectangle);
             if (ProgramCore.ShowDialog(ctrl1, "Adjust profile template image", MessageBoxButtons.OK) != DialogResult.OK)
                 return;
 
