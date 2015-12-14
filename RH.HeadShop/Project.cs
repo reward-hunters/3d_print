@@ -304,6 +304,7 @@ namespace RH.HeadShop
                         bw.Write(part.Key);
                         bw.Write(part.Value[0].meshType == MeshType.Accessory);
                         bw.Write(part.Value[0].IsVisible);
+                        bw.Write(part.Value[0].Path);
 
                         bw.Write(part.Value.Count);
                         foreach (var selMesh in part.Value)
@@ -460,6 +461,7 @@ namespace RH.HeadShop
                     var title = br.ReadString();
                     var meshType = br.ReadBoolean() ? MeshType.Accessory : MeshType.Hair;
                     var meshVisible = br.ReadBoolean();
+                    var meshPath = br.ReadString();
 
                     var meshCounts = br.ReadInt32();
                     for (var j = 0; j < meshCounts; j++)
@@ -475,6 +477,7 @@ namespace RH.HeadShop
 
                         mesh.Title = title + "_" + j;
                         mesh.IsVisible = meshVisible;
+                        mesh.Path = meshPath;
 
                         if (!ProgramCore.MainForm.ctrlRenderControl.PartsLibraryMeshes.ContainsKey(title))
                             ProgramCore.MainForm.ctrlRenderControl.PartsLibraryMeshes.Add(title, new DynamicRenderMeshes());

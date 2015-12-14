@@ -110,14 +110,14 @@ namespace RH.HeadShop.Controls.Libraries
             // trackBarSize
             // 
             this.trackBarSize.Location = new System.Drawing.Point(23, 33);
-            this.trackBarSize.Maximum = 20;
+            this.trackBarSize.Maximum = 100;
             this.trackBarSize.Minimum = 1;
             this.trackBarSize.Name = "trackBarSize";
             this.trackBarSize.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarSize.Size = new System.Drawing.Size(40, 163);
+            this.trackBarSize.Size = new System.Drawing.Size(45, 163);
             this.trackBarSize.TabIndex = 0;
             this.trackBarSize.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBarSize.Value = 10;
+            this.trackBarSize.Value = 50;
             this.trackBarSize.Scroll += new System.EventHandler(this.trackBarSize_Scroll);
             this.trackBarSize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trackBarSize_MouseDown);
             // 

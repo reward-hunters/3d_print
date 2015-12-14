@@ -114,7 +114,7 @@ namespace RH.HeadShop.Controls.Libraries
 
             if (hairPath != filePath)
                 File.Copy(hairPath, filePath, true);
-           
+
             var mtl = oldFileName + ".mtl";
             var newMtlName = newFileName + ".mtl";
             if (mtl != newMtlName)
@@ -190,6 +190,30 @@ namespace RH.HeadShop.Controls.Libraries
                 mesh.InterpolateMesh((trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum));
         }
 
+        private void btnClearProperties_Click(object sender, EventArgs e)
+        {
+            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
+                return;
+
+            var mesh = ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes[0];
+            if (string.IsNullOrEmpty(mesh.Path))
+                return;
+
+            UserConfig.ByName("Parts").Remove(mesh.Path);
+        }
+
+        private void btnSavePositionAndSize_Click(object sender, EventArgs e)
+        {
+            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
+                return;
+
+            var mesh = ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes[0];
+            if (string.IsNullOrEmpty(mesh.Path))
+                return;
+
+            UserConfig.ByName("Parts")[mesh.Path, "Size"] = ((trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum)).ToString();
+            UserConfig.ByName("Parts")[mesh.Path, "Position"] = mesh.Position.X + "/" + mesh.Position.Y + "/" + mesh.Position.Z;
+        }
     }
 }
 

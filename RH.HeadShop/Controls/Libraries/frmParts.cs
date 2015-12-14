@@ -32,7 +32,7 @@ namespace RH.HeadShop.Controls.Libraries
                     trackBarSize.Value = 1;
                 else
                 {
-                    trackBarSize.Value = (int)(ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].MeshSize * 10);
+                    trackBarSize.Value = (int)(ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].MeshSize * 50);
 
                     foreach (var mesh in ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes)
                         transforms.Add(mesh, new Tuple<Matrix4, float>(mesh.Transform, mesh.MeshSize));
@@ -128,7 +128,7 @@ namespace RH.HeadShop.Controls.Libraries
             if (ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes == null)
                 return;
 
-            var size = trackBarSize.Value / 10f;
+            var size = trackBarSize.Value / 50f;
             foreach (var mesh in ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes)
             {
                 mesh.MeshSize = size;

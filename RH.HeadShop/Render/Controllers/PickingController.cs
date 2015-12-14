@@ -255,7 +255,8 @@ namespace RH.HeadShop.Render.Controllers
                         break;
                     }
                 case MeshType.Accessory:
-                    return objModel.accessoryByHeadShop ? LoadSpecialAccessoryMesh(objModel) : new List<DynamicRenderMesh> { LoadAccessoryMesh(objModel) };
+                    result.AddRange(objModel.accessoryByHeadShop ? LoadSpecialAccessoryMesh(objModel) : new List<DynamicRenderMesh> { LoadAccessoryMesh(objModel) });
+                    break;
                 case MeshType.Head:
                     {
                         var tempPluginTexture = string.Empty;
@@ -298,7 +299,7 @@ namespace RH.HeadShop.Render.Controllers
                         {
                             HeadMeshes.Add(renderMesh);
 
-                            if (ProgramCore.PluginMode &&  ProgramCore.MainForm.PluginUvGroups.Contains(renderMesh.Material.Name))
+                            if (ProgramCore.PluginMode && ProgramCore.MainForm.PluginUvGroups.Contains(renderMesh.Material.Name))
                             {
                                 if (string.IsNullOrEmpty(renderMesh.Material.DiffuseTextureMap))
                                     renderMesh.Material.DiffuseTextureMap = tempPluginTexture;
@@ -339,6 +340,10 @@ namespace RH.HeadShop.Render.Controllers
                 default:
                     return result;
             }
+
+            foreach (var item in result)
+                item.Path = path;
+
             return result;
         }
 
@@ -645,7 +650,7 @@ namespace RH.HeadShop.Render.Controllers
                 }
                 center /= count;
                 renderMesh.Transform = Matrix4.CreateScale(scale);
-                renderMesh.Transform[3, 0] = -center.X;                
+                renderMesh.Transform[3, 0] = -center.X;
                 renderMesh.Transform[3, 1] = -center.Y;
                 renderMesh.Transform[3, 2] = -center.Z;
                 renderMesh.Position = center;

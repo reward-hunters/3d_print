@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenTK;
+using RH.HeadEditor.Data;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render.Meshes;
@@ -44,7 +45,7 @@ namespace RH.HeadShop.Controls.Libraries
                 }
                 else
                 {
-                    trackBarSize.Value = (int)(ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].MeshSize * 10);
+                    trackBarSize.Value = (int)(ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].MeshSize * 50);
 
                     tempTransform = ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].Transform;
 
@@ -111,7 +112,7 @@ namespace RH.HeadShop.Controls.Libraries
             if (ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes.Count != 1 || ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].meshType != MeshType.Accessory)
                 return;
 
-            var size = trackBarSize.Value / 10f;
+            var size = trackBarSize.Value / 50f;
             ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].MeshSize = size;
 
             ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].Transform = tempTransform;
@@ -259,9 +260,32 @@ namespace RH.HeadShop.Controls.Libraries
             }
             InitializeListView();
         }
+        private void btnSavePositionAndSize_Click(object sender, EventArgs e)
+        {
+            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes.Count != 1 || ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].meshType != MeshType.Accessory)
+                return;
+
+            var mesh = ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0];
+            if (string.IsNullOrEmpty(mesh.Path))
+                return;
+
+            UserConfig.ByName("Parts")[mesh.Path, "Size"] = mesh.MeshSize.ToString();
+            UserConfig.ByName("Parts")[mesh.Path, "Position"] = mesh.Position.X + "/" + mesh.Position.Y+ "/" + mesh.Position.Z;
+        }
 
         #endregion
 
+        private void btnClearProperties_Click(object sender, EventArgs e)
+        {
+            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes.Count != 1 || ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].meshType != MeshType.Accessory)
+                return;
+
+            var mesh = ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0];
+            if (string.IsNullOrEmpty(mesh.Path))
+                return;
+
+            UserConfig.ByName("Parts").Remove(mesh.Path);
+        }
     }
 }
 

@@ -216,6 +216,29 @@ namespace RH.HeadShop.IO
             return data.Count > 0;
         }
 
+        public bool Contains(string sectionName)
+        {
+            foreach (var item in data)
+            {
+                if (item.s1.Equals(sectionName, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void Remove(string sectionName)
+        {
+            for (int index = data.Count - 1; index >= 0; index--)
+            {
+                var item = data[index];
+                if (item.s1.Equals(sectionName, StringComparison.CurrentCultureIgnoreCase))
+                    data.Remove(item);
+            }
+        }
+
+
         /// <summary> Add new value to cfg file </summary>
         /// <param name="sectionName">Section title</param>
         /// <param name="keyName">Key title</param>

@@ -36,6 +36,8 @@
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.imageListView = new RH.ImageListView.ImageListViewEx();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnClearProperties = new System.Windows.Forms.Button();
+            this.btnSavePositionAndSize = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -44,6 +46,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnClearProperties);
+            this.panel1.Controls.Add(this.btnSavePositionAndSize);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnAddNewMaterial);
             this.panel1.Controls.Add(this.label1);
@@ -51,13 +55,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(277, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(93, 360);
+            this.panel1.Size = new System.Drawing.Size(93, 393);
             this.panel1.TabIndex = 1;
             // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDelete.Location = new System.Drawing.Point(1, 326);
+            this.btnDelete.Location = new System.Drawing.Point(1, 359);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(87, 29);
             this.btnDelete.TabIndex = 9;
@@ -68,7 +72,7 @@
             // btnAddNewMaterial
             // 
             this.btnAddNewMaterial.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnAddNewMaterial.Location = new System.Drawing.Point(1, 294);
+            this.btnAddNewMaterial.Location = new System.Drawing.Point(1, 289);
             this.btnAddNewMaterial.Name = "btnAddNewMaterial";
             this.btnAddNewMaterial.Size = new System.Drawing.Size(87, 29);
             this.btnAddNewMaterial.TabIndex = 8;
@@ -93,7 +97,7 @@
             this.trackBarSize.Minimum = 1;
             this.trackBarSize.Name = "trackBarSize";
             this.trackBarSize.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarSize.Size = new System.Drawing.Size(40, 237);
+            this.trackBarSize.Size = new System.Drawing.Size(45, 237);
             this.trackBarSize.TabIndex = 0;
             this.trackBarSize.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarSize.Value = 10;
@@ -110,18 +114,40 @@
             this.imageListView.Name = "imageListView";
             this.imageListView.PersistentCacheFile = "";
             this.imageListView.PersistentCacheSize = ((long)(100));
-            this.imageListView.Size = new System.Drawing.Size(277, 360);
+            this.imageListView.Size = new System.Drawing.Size(277, 393);
             this.imageListView.TabIndex = 3;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // btnClearProperties
+            // 
+            this.btnClearProperties.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnClearProperties.Location = new System.Drawing.Point(63, 324);
+            this.btnClearProperties.Name = "btnClearProperties";
+            this.btnClearProperties.Size = new System.Drawing.Size(25, 29);
+            this.btnClearProperties.TabIndex = 13;
+            this.btnClearProperties.Text = "X";
+            this.btnClearProperties.UseVisualStyleBackColor = true;
+            this.btnClearProperties.Click += new System.EventHandler(this.btnClearProperties_Click);
+            // 
+            // btnSavePositionAndSize
+            // 
+            this.btnSavePositionAndSize.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSavePositionAndSize.Location = new System.Drawing.Point(1, 324);
+            this.btnSavePositionAndSize.Name = "btnSavePositionAndSize";
+            this.btnSavePositionAndSize.Size = new System.Drawing.Size(59, 29);
+            this.btnSavePositionAndSize.TabIndex = 12;
+            this.btnSavePositionAndSize.Text = "Save";
+            this.btnSavePositionAndSize.UseVisualStyleBackColor = true;
+            this.btnSavePositionAndSize.Click += new System.EventHandler(this.btnSavePositionAndSize_Click);
+            // 
             // frmStyles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 360);
+            this.ClientSize = new System.Drawing.Size(370, 393);
             this.Controls.Add(this.imageListView);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -152,5 +178,7 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnAddNewMaterial;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnClearProperties;
+        private System.Windows.Forms.Button btnSavePositionAndSize;
     }
 }

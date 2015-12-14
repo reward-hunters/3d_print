@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RH.HeadEditor.Helpers;
@@ -567,6 +568,15 @@ namespace RH.HeadEditor.Data
             var result = new Vector3(br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
             return result;
         }
+
+        public static Vector3 FromString(string str)
+        {
+            var strs = str.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            if (strs.Length != 3)
+                return Vector3.Zero;
+            return new Vector3(float.Parse(strs[0]), float.Parse(strs[1]), float.Parse(strs[2]));
+        }
+
     }
     public static class Vector4Ex
     {

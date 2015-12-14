@@ -674,7 +674,7 @@ namespace RH.HeadShop.Render
         //temp
 
         private void glControl_KeyUp(object sender, KeyEventArgs e)
-        {            
+        {
             if (e.KeyCode == Keys.Enter)
             {
                 switch (Mode)
@@ -1498,6 +1498,16 @@ namespace RH.HeadShop.Render
 
             var objPath = Path.Combine(fi.DirectoryName, Path.GetFileNameWithoutExtension(fi.Name) + ".obj");
             var meshes = pickingController.AddMehes(objPath, meshType, true, ProgramCore.Project.ManType, false);
+
+            var meshSize = float.NaN;
+            var meshPosition = Vector3.Zero;
+            if (meshes.Count >= 0 && UserConfig.ByName("Parts").Contains(meshes[0].Path))
+            {
+                var mesh = meshes[0];
+                meshSize = HeadShop.Helpers.StringConverter.ToFloat(UserConfig.ByName("Parts")[mesh.Path, "Size"]);
+                meshPosition = Vector3Ex.FromString(UserConfig.ByName("Parts")[mesh.Path, "Position"]);
+            }
+
             for (var i = 0; i < meshes.Count; i++)
             {
                 var mesh = meshes[i];
@@ -1505,12 +1515,37 @@ namespace RH.HeadShop.Render
                     continue;
 
                 var xy = glControl.PointToClient(new Point(e.X, e.Y));
-                var s = camera.GetWorldPoint(xy.X, xy.Y, Width, Height, 15.0f);
+
+                Vector3 s;
+                if (!float.IsNaN(meshSize))
+                {
+                    s = meshPosition;
+
+                }
+                else
+                    s = camera.GetWorldPoint(xy.X, xy.Y, Width, Height, 15.0f);
 
                 mesh.Position = new Vector3(s[0], s[1], s[2]);
                 mesh.Transform[3, 0] += s[0];
                 mesh.Transform[3, 1] += s[1];
                 mesh.Transform[3, 2] += s[2];
+
+                if (!float.IsNaN(meshSize))
+                {
+                    if (meshType == MeshType.Accessory)
+                    {
+                        mesh.Transform[3, 0] -= s[0]; // применяем изменение размера
+                        mesh.Transform[3, 1] -= s[1];
+                        mesh.Transform[3, 2] -= s[2];
+                        mesh.Transform *= Matrix4.CreateScale(meshSize / mesh.MeshSize);
+                        mesh.Transform[3, 0] += s[0];
+                        mesh.Transform[3, 1] += s[1];
+                        mesh.Transform[3, 2] += s[2];
+                        mesh.IsChanged = true;
+                        mesh.MeshSize = meshSize;
+                    }
+                    else mesh.InterpolateMesh(meshSize);
+                }
 
                 mesh.Title = ctrl.Title + "_" + i;
                 PartsLibraryMeshes[ctrl.Title].Add(mesh);
@@ -1579,7 +1614,7 @@ namespace RH.HeadShop.Render
                     GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
                 }
             }
-            
+
             var shader = idleShader;
             GL.Enable(EnableCap.DepthTest);
             DrawMeshes(pickingController.HairMeshes, ref shader, false);

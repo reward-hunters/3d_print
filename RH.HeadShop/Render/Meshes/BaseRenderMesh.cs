@@ -44,6 +44,7 @@ namespace RH.HeadShop.Render.Meshes
 
 
         public string Title;
+        public string Path;
         public bool IsVisible = true;
         public Guid Id;
 
