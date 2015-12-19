@@ -322,6 +322,10 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void pbBrush_MouseDown(object sender, MouseEventArgs e)
         {
+            if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.Brush)
+                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
+            else
+                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.Brush;
             complex.Show(sender as PictureBox);
 
             currentBrush = brushesPopup.CurrentBrush;   // получаем номер активной кисточки. с 5 до 300

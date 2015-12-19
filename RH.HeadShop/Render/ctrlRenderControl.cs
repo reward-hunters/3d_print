@@ -55,6 +55,7 @@ namespace RH.HeadShop.Render
         public readonly Camera camera = new Camera();
         public readonly Dictionary<String, int> textures = new Dictionary<String, int>();
         private List<int> baseProfilePoints = new List<int>();
+        private BrushTool brushTool = new BrushTool();
 
         private readonly Panel renderPanel = new Panel();
         private GraphicsContext graphicsContext;
@@ -434,7 +435,8 @@ namespace RH.HeadShop.Render
                 if (pickingController.ObjExport != null)
                     pickingController.ObjExport.Scale = scale;
             }
-            ProgramCore.MainForm.ctrlRenderControl.HeadShapeController.Initialize(ProgramCore.MainForm.ctrlRenderControl.headMeshesController);
+            HeadShapeController.Initialize(headMeshesController);
+            brushTool.InitializeBrush(headMeshesController);
 
             autodotsShapeHelper.SetType((int)ProgramCore.Project.ManType);
 
@@ -875,7 +877,7 @@ namespace RH.HeadShop.Render
                     #region Обычная левая кнопка
 
                     switch (Mode)
-                    {
+                    {                        
                         case Mode.ColorPicker:
                             {
                                 using (var img = ProgramCore.MainForm.ctrlRenderControl.GrabScreenshot(string.Empty, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Width, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Height))
@@ -1005,6 +1007,13 @@ namespace RH.HeadShop.Render
                                 }
                             }
                             break;
+                        case Mode.Brush:
+                            {
+                                brushTool.StartBrush(camera.ViewMatrix);
+                                var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
+                                brushTool.DrawBrush(point, 1.5f);
+                            }
+                            break;
                     }
 
                     #endregion
@@ -1046,6 +1055,12 @@ namespace RH.HeadShop.Render
 
                         switch (Mode)
                         {
+                            case Mode.Brush:
+                                {
+                                    //var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
+                                    //brushTool.DrawBrush(point, camera.ViewMatrix, 10.0f);
+                                }
+                                break;
                             case Mode.AccessoryRotateSetCircle:
                                 {
                                     accessoryRotateCircleMousePoint = new Vector2(e.X, e.Y);
@@ -3653,7 +3668,8 @@ namespace RH.HeadShop.Render
         SetCustomControlPoints,     // произвольная модель. этап 1. расставить 4 главные опорные точки
         SetCustomPoints,            // расставить остальные точки во фронте. этап 2
         SetCustomProfilePoints,      // расставить остальные точки в профиле. этап 3
-        ColorPicker   // пипетка
+        ColorPicker,   // пипетка
+        Brush
     }
 
     public enum ScaleMode

@@ -65,6 +65,5 @@ namespace RH.HeadShop.Controls
                 pb.BackColor = pbBrush == CurrentBrush ? SystemColors.ScrollBar : SystemColors.Control;
             }
         }
-
     }
 }
