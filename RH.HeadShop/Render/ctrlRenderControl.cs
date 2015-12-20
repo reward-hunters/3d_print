@@ -2844,7 +2844,7 @@ namespace RH.HeadShop.Render
             shader.Begin();
             
             shader.UpdateUniform("u_World", Matrix4.Identity);
-            shader.UpdateUniform("u_BrushColor", new Vector3(1.0f, 0.0f, 0.0f));
+            shader.UpdateUniform("u_BrushColor", new Vector3(0.1f, 0.1f, 0.1f));
             shader.UpdateUniform("u_SphereCenter", brushTool.SphereCenter);
             shader.UpdateUniform("u_SphereRadius", 1.5f);
 
