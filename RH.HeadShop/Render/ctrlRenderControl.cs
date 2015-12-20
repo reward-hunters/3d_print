@@ -2835,11 +2835,11 @@ namespace RH.HeadShop.Render
 
         public bool DrawToBrushTexture(ShaderController shader, int oldTextureId, int textureId)
         {
-            GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.One);
-            GL.Enable(EnableCap.Blend);
-
             GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
             DrawQuad(1f, 1f, 1f, 1f);
+
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.Blend);
 
             shader.Begin();
 

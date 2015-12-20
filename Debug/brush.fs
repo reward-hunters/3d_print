@@ -15,6 +15,6 @@ void main(void)
 	else
 	{
 		float k = 1.0 - (l / u_SphereRadius);
-		gl_FragColor = vec4(u_BrushColor, k);
+		gl_FragColor = vec4(u_BrushColor, 0.75 + (k * 0.25));
 	}
 }
