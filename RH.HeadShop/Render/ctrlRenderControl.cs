@@ -53,7 +53,7 @@ namespace RH.HeadShop.Render
         private bool startPress = true;
 
         public readonly Camera camera = new Camera();
-        public readonly Dictionary<String, int> textures = new Dictionary<String, int>();
+        public readonly Dictionary<String, TextureInfo> textures = new Dictionary<String, TextureInfo>();
         private List<int> baseProfilePoints = new List<int>();
         private BrushTool brushTool = new BrushTool();
 
@@ -80,7 +80,8 @@ namespace RH.HeadShop.Render
             }
         }
         private ShaderController idleShader;
-        private ShaderController blenShader;
+        private ShaderController blendShader;
+        private ShaderController brushShader;
 
         public bool IsShapeChanged = false;
         public ShapeController shapeController = new ShapeController();
@@ -228,7 +229,7 @@ namespace RH.HeadShop.Render
             {
                 GL.BindTexture(TextureTarget.Texture2D, 0);
                 foreach (var t in textures)
-                    GL.DeleteTexture(t.Value);
+                    GL.DeleteTexture(t.Value.Texture);
             }
         }
 
@@ -247,18 +248,23 @@ namespace RH.HeadShop.Render
             idleShader.SetUniformLocation("u_UseTexture");
             idleShader.SetUniformLocation("u_Color");
             idleShader.SetUniformLocation("u_Texture");
-            idleShader.SetUniformLocation("u_UseTransparent");
+            idleShader.SetUniformLocation("u_BrushMap");
             idleShader.SetUniformLocation("u_TransparentMap");
             idleShader.SetUniformLocation("u_World");
             idleShader.SetUniformLocation("u_WorldView");
             idleShader.SetUniformLocation("u_ViewProjection");
             idleShader.SetUniformLocation("u_LightDirection");
 
+            blendShader = new ShaderController(ProgramCore.PluginMode ? "blendingPl.vs" : "blending.vs", "blending.fs");
+            blendShader.SetUniformLocation("u_Texture");
+            blendShader.SetUniformLocation("u_BlendStartDepth");
+            blendShader.SetUniformLocation("u_BlendDepth");
 
-            blenShader = new ShaderController(ProgramCore.PluginMode ? "blendingPl.vs" : "blending.vs", "blending.fs");
-            blenShader.SetUniformLocation("u_Texture");
-            blenShader.SetUniformLocation("u_BlendStartDepth");
-            blenShader.SetUniformLocation("u_BlendDepth");
+            brushShader = new ShaderController("brush.vs", "brush.fs");
+            brushShader.SetUniformLocation("u_World");
+            brushShader.SetUniformLocation("u_BrushColor");
+            brushShader.SetUniformLocation("u_SphereCenter");
+            brushShader.SetUniformLocation("u_SphereRadius");
 
             SetupViewport(glControl);
 
@@ -496,6 +502,7 @@ namespace RH.HeadShop.Render
             UpdateMeshProportions();
             RenderTimer.Start();
         }
+
         public void LoadModel(string path, bool needClean, ManType manType, MeshType type)
         {
             if (needClean)
@@ -1012,6 +1019,7 @@ namespace RH.HeadShop.Render
                                 brushTool.StartBrush(camera.ViewMatrix);
                                 var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
                                 brushTool.DrawBrush(point, 1.5f);
+                                RenderBrush();
                             }
                             break;
                     }
@@ -1020,6 +1028,9 @@ namespace RH.HeadShop.Render
                 }
             }
         }
+
+        
+
         private void glControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (startMousePoint == Point.Empty)
@@ -1057,8 +1068,9 @@ namespace RH.HeadShop.Render
                         {
                             case Mode.Brush:
                                 {
-                                    //var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
-                                    //brushTool.DrawBrush(point, camera.ViewMatrix, 10.0f);
+                                    var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
+                                    brushTool.DrawBrush(point, 1.5f);
+                                    RenderBrush();
                                 }
                                 break;
                             case Mode.AccessoryRotateSetCircle:
@@ -2237,17 +2249,28 @@ namespace RH.HeadShop.Render
                 DisableTransparent();
 
             var shader = idleShader;
+            var useTextures = Vector3.Zero;
+
+            if (brushTextures.ContainsKey(part.Texture))
+            {
+                GL.ActiveTexture(TextureUnit.Texture2);
+                GL.BindTexture(TextureTarget.Texture2D, brushTextures[part.Texture].Key);
+                shader.UpdateUniform("u_BrushMap", 2);
+                useTextures.Z = 1.0f;
+            }
+
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, part.TransparentTexture);
             shader.UpdateUniform("u_TransparentMap", 1);
-            shader.UpdateUniform("u_UseTransparent", transparent);
-
+            //shader.UpdateUniform("u_UseTransparent", transparent);            
+            useTextures.Y = transparent;
             if (!ProgramCore.PluginMode)
             {
                 GL.ActiveTexture(TextureUnit.Texture0);
                 GL.BindTexture(TextureTarget.Texture2D, part.Texture);
                 shader.UpdateUniform("u_Texture", 0);
-                shader.UpdateUniform("u_UseTexture", UseTexture ? part.Texture : 0.0f);
+                useTextures.X = UseTexture ? part.Texture : 0.0f;
+                //shader.UpdateUniform("u_UseTexture", UseTexture ? part.Texture : 0.0f);
                 shader.UpdateUniform("u_Color", part.Color);
             }
             else
@@ -2257,10 +2280,12 @@ namespace RH.HeadShop.Render
                 var texture = ProgramCore.Project.ManType != ManType.Custom || ProgramCore.MainForm.PluginUvGroups.Contains(pName) ? part.Texture : 0;
                 GL.BindTexture(TextureTarget.Texture2D, texture);
                 shader.UpdateUniform("u_Texture", 0);
-                shader.UpdateUniform("u_UseTexture", UseTexture ? texture : 0.0f);
+                useTextures.X = UseTexture ? texture : 0.0f;
+                //shader.UpdateUniform("u_UseTexture", UseTexture ? texture : 0.0f);
                 shader.UpdateUniform("u_Color", part.Color);
+            }            
 
-            }
+            shader.UpdateUniform("u_UseTexture", useTextures);
         }
 
         private void DrawHeadTools()
@@ -2754,6 +2779,83 @@ namespace RH.HeadShop.Render
             IsShapeChanged = true;
         }
 
+        private Dictionary<int, KeyValuePair<int, Bitmap>> brushTextures = new Dictionary<int, KeyValuePair<int, Bitmap>>();
+        private DateTime lastPaintTime;
+        public void RenderBrush()
+        {
+            var time = DateTime.Now;
+            if ((time - lastPaintTime).Milliseconds < 40)
+                return;
+            lastPaintTime = time;
+
+            if (brushTool.ResultIndices != null && brushTool.ResultIndices.Any())
+            {
+                var parts = new Dictionary<int, List<RenderMeshPart>>();
+                foreach (var part in headMeshesController.RenderMesh.Parts)
+                {
+                    List<uint> indices;
+                    if(brushTool.ResultIndices.TryGetValue(part.Guid, out indices))
+                    {
+                        part.UpdateIndexBuffer(indices);
+                        List<RenderMeshPart> prts;
+                        if(!parts.TryGetValue(part.Texture, out prts))
+                        {
+                            prts = new List<RenderMeshPart>();
+                            parts.Add(part.Texture, prts);
+                        }
+                        prts.Add(part);
+                        if (!brushTextures.ContainsKey(part.Texture))
+                        {
+                            var partTexture = textures.Values.FirstOrDefault(p => p.Texture == part.Texture);
+                            if (partTexture == null)
+                                return;
+                            var bitmap = new Bitmap(partTexture.Width, partTexture.Height);
+                            var texture = GetTexture(bitmap);
+                            if (texture == 0)
+                                return;
+                            brushTextures.Add(part.Texture, new KeyValuePair<int, Bitmap>(texture, bitmap));
+                        }
+                    }
+                }
+
+                foreach (var part in parts)
+                {
+                    var texture = brushTextures[part.Key];
+                    var result = RenderToTexture(texture.Key, part.Key, texture.Value.Width, texture.Value.Height, brushShader, DrawToBrushTexture, true);
+                    brushTextures[part.Key] = new KeyValuePair<int, Bitmap>(texture.Key, result);
+                    SetTexture(texture.Key, result);
+                    //result.Save(String.Format("C:\\{0}_brush.png", texture.Key));
+                }
+
+                foreach (var part in parts)
+                    foreach (var p in part.Value)
+                        p.UpdateIndexBuffer();
+            }
+        }
+
+        public bool DrawToBrushTexture(ShaderController shader, int oldTextureId, int textureId)
+        {
+            GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.One);
+            GL.Enable(EnableCap.Blend);
+
+            GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
+            DrawQuad(1f, 1f, 1f, 1f);            
+
+            shader.Begin();
+            
+            shader.UpdateUniform("u_World", Matrix4.Identity);
+            shader.UpdateUniform("u_BrushColor", new Vector3(1.0f, 0.0f, 0.0f));
+            shader.UpdateUniform("u_SphereCenter", brushTool.SphereCenter);
+            shader.UpdateUniform("u_SphereRadius", 1.5f);
+
+            headMeshesController.RenderMesh.DrawToTexture(headMeshesController.RenderMesh.Parts.Where(p => p.Texture == textureId));
+
+            shader.End();
+            GL.Disable(EnableCap.Blend);
+
+            return true;
+        }
+
         public Bitmap RenderToTexture(int oldTextureId, int textureId)
         {
             var textureWidth = 0;
@@ -2764,6 +2866,51 @@ namespace RH.HeadShop.Render
                 textureWidth = img.Width;
                 textureHeight = img.Height;
             }
+            return RenderToTexture(oldTextureId, textureId, textureWidth, textureHeight, blendShader, DrawToTexture);
+        }
+
+        private bool DrawToTexture(ShaderController shader, int oldTextureId, int textureId)
+        {
+            GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
+            DrawQuad(1f, 1f, 1f, 1f);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.Blend);
+
+            shader.Begin();
+
+            GL.ActiveTexture(TextureUnit.Texture0);
+            GL.BindTexture(TextureTarget.Texture2D, ProgramCore.MainForm.ctrlRenderControl.HeadTextureId);
+            shader.UpdateUniform("u_Texture", 0);
+            shader.UpdateUniform("u_BlendStartDepth", -0.5f);
+            shader.UpdateUniform("u_BlendDepth", 4f);
+
+            headMeshesController.RenderMesh.DrawToTexture(headMeshesController.RenderMesh.Parts.Where(p => p.Texture == textureId));
+
+            shader.End();
+            GL.Disable(EnableCap.Blend);
+            return true;
+        }
+
+        private void DrawQuad(float r, float g, float b, float a)
+        {
+            GL.Color4(r, g, b, a);
+            GL.Begin(PrimitiveType.Quads);
+
+            GL.TexCoord2(0.0f, 1.0f);
+            GL.Vertex2(-1.0f, -1.0f);
+            GL.TexCoord2(1.0f, 1.0f);
+            GL.Vertex2(1.0f, -1.0f);
+            GL.TexCoord2(1.0f, 0.0f);
+            GL.Vertex2(1.0f, 1.0f);
+            GL.TexCoord2(0.0f, 0.0f);
+            GL.Vertex2(-1.0f, 1.0f);
+
+            GL.End();
+        }
+
+        public Bitmap RenderToTexture(int oldTextureId, int textureId, int textureWidth, int textureHeight, ShaderController shader, 
+            Func<ShaderController, int, int, bool> renderFunc, bool useAlpha = false)
+        {
             graphicsContext.MakeCurrent(windowInfo);
             renderPanel.Size = new Size(textureWidth, textureHeight);
             GL.Viewport(0, 0, textureWidth, textureHeight);
@@ -2779,54 +2926,26 @@ namespace RH.HeadShop.Render
 
             GL.Enable(EnableCap.Texture2D);
             GL.DepthMask(false);
-            GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
-            GL.Color4(1.0f, 1.0f, 1.0f, 1.0f);
-            GL.Begin(PrimitiveType.Quads);
 
-            GL.TexCoord2(0.0f, 1.0f);
-            GL.Vertex2(-1.0f, -1.0f);
-            GL.TexCoord2(1.0f, 1.0f);
-            GL.Vertex2(1.0f, -1.0f);
-            GL.TexCoord2(1.0f, 0.0f);
-            GL.Vertex2(1.0f, 1.0f);
-            GL.TexCoord2(0.0f, 0.0f);
-            GL.Vertex2(-1.0f, 1.0f);
+            renderFunc(shader, oldTextureId, textureId);
 
-            GL.End();
-
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-            GL.Enable(EnableCap.Blend);
-
-            blenShader.Begin();
-
-            GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.Texture2D, ProgramCore.MainForm.ctrlRenderControl.HeadTextureId);
-            blenShader.UpdateUniform("u_Texture", 0);
-            blenShader.UpdateUniform("u_BlendStartDepth", -0.5f);
-            blenShader.UpdateUniform("u_BlendDepth", 4f);
-
-            headMeshesController.RenderMesh.DrawToTexture(textureId);
-
-            blenShader.End();
-
-            GL.Disable(EnableCap.Blend);
             GL.DepthMask(true);
             GL.BindTexture(TextureTarget.Texture2D, 0);
             GL.MatrixMode(MatrixMode.Projection);
             GL.PopMatrix();
 
-            var result = GrabScreenshot(String.Empty, textureWidth, textureHeight);
+            var result = GrabScreenshot(String.Empty, textureWidth, textureHeight, useAlpha);
             glControl.Context.MakeCurrent(glControl.WindowInfo);
             SetupViewport(glControl);
             return result;
         }
 
-        public Bitmap GrabScreenshot(string filePath, int width, int height)
+        public Bitmap GrabScreenshot(string filePath, int width, int height, bool useAlpha = false)
         {
             var bmp = new Bitmap(width, height);
             var rect = new Rectangle(0, 0, width, height);
-            var data = bmp.LockBits(rect, ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            GL.ReadPixels(0, 0, width, height, PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
+            var data = bmp.LockBits(rect, ImageLockMode.WriteOnly, useAlpha ? System.Drawing.Imaging.PixelFormat.Format32bppArgb : System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            GL.ReadPixels(0, 0, width, height, useAlpha ? PixelFormat.Bgra : PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
             GL.Finish();
             bmp.UnlockBits(data);
             bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
@@ -2849,37 +2968,37 @@ namespace RH.HeadShop.Render
         /// <returns>Texture id</returns>
         public int GetTexture(String textureName)
         {
+            int textureId = 0;
+            if (textureName != String.Empty && File.Exists(textureName))
+            {
+                
+                if (textures.ContainsKey(textureName))
+                    return textures[textureName].Texture;
+
+                Bitmap bitmap;
+                using (var ms = new MemoryStream(File.ReadAllBytes(textureName)))
+                    bitmap = (Bitmap)Bitmap.FromStream(ms);
+
+                textureId = GetTexture(bitmap);
+                textures.Add(textureName, new TextureInfo
+                    {
+                        Texture = textureId,
+                        Width = bitmap.Width,
+                        Height = bitmap.Height
+                    });
+            }
+            return textureId;
+        }
+
+        public int GetTexture(Bitmap bitmap)
+        {
             try
             {
-                if (textureName != String.Empty && File.Exists(textureName))
-                {
-                    int textureId;
-                    if (textures.ContainsKey(textureName))
-                        return textures[textureName];
+                int textureId;
+                GL.GenTextures(1, out textureId);
 
-                    GL.GenTextures(1, out textureId);
-                    GL.BindTexture(TextureTarget.Texture2D, textureId);
-
-                    Bitmap bitmap;
-                    using (var ms = new MemoryStream(File.ReadAllBytes(textureName)))
-                        bitmap = (Bitmap)Bitmap.FromStream(ms);
-
-                    var data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-                    bitmap.UnlockBits(data);
-
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
-
-                    GL.BindTexture(TextureTarget.Texture2D, 0);
-
-                    textures.Add(textureName, textureId);
-                    return textureId;
-                }
-                return 0;
+                SetTexture(textureId, bitmap);
+                return textureId;
             }
             catch
             {
@@ -2891,7 +3010,7 @@ namespace RH.HeadShop.Render
             if (id == 0)
                 return string.Empty;
             foreach (var t in textures)
-                if (t.Value == id)
+                if (t.Value.Texture == id)
                     return t.Key;
             return string.Empty;
         }
@@ -3103,10 +3222,10 @@ namespace RH.HeadShop.Render
                 switch (ProgramCore.Project.TextureFlip)
                 {
                     case FlipType.LeftToRight:
-                        ProgramCore.MainForm.ctrlRenderControl.reflectedLeft.Save(newTextureFullPath, ImageFormat.Jpeg);
+                        reflectedLeft.Save(newTextureFullPath, ImageFormat.Jpeg);
                         break;
                     case FlipType.RightToLeft:
-                        ProgramCore.MainForm.ctrlRenderControl.reflectedRight.Save(newTextureFullPath, ImageFormat.Jpeg);
+                        reflectedRight.Save(newTextureFullPath, ImageFormat.Jpeg);
                         break;
                 }
 

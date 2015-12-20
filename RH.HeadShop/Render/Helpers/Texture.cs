@@ -8,6 +8,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace RH.HeadShop.Render.Helpers
 {
+    public class TextureInfo
+    {
+        public int Texture;
+        public int Width;
+        public int Height;
+    }
+
     public class Texture : IDisposable
     {
         public int GlHandle { get; protected set; }

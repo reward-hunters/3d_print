@@ -302,18 +302,15 @@ namespace RH.HeadEditor.Data
                 OpenGlHelper.DrawAABB(AABB.A, AABB.B);
         }
 
-        public void DrawToTexture(int newTextureId)
+        public void DrawToTexture(IEnumerable<RenderMeshPart> parts)
         {
             GL.Color3(1.0f, 1.0f, 1.0f);
             GL.EnableClientState(ArrayCap.VertexArray);
             GL.EnableClientState(ArrayCap.NormalArray);
             GL.EnableClientState(ArrayCap.TextureCoordArray);
 
-            foreach (var part in Parts)
+            foreach (var part in parts)
             {
-                if (part.Texture != newTextureId)
-                    continue;
-
                 GL.BindBuffer(BufferTarget.ArrayBuffer, part.VertexBuffer);
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, part.IndexBuffer);
 

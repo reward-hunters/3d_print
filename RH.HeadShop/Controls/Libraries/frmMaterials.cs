@@ -74,7 +74,7 @@ namespace RH.HeadShop.Controls.Libraries
 
                     if (ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].Material.Texture > 0)
                     {
-                        var texturePath = ProgramCore.MainForm.ctrlRenderControl.textures.FirstOrDefault(x => x.Value == ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].Material.Texture).Key;
+                        var texturePath = ProgramCore.MainForm.ctrlRenderControl.textures.FirstOrDefault(x => x.Value.Texture == ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedMeshes[0].Material.Texture).Key;
                         foreach (var item in imageListView.Items)
                             if (item.FileName == texturePath)
                             {

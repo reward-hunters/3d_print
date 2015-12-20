@@ -929,15 +929,16 @@ namespace RH.HeadEditor.Helpers
             OpenGlHelper.CheckErrors();
         }
 
-        private void UpdateIndexBuffer()
+        public void UpdateIndexBuffer()
         {
-            /*if (TempIndices != null)
-            {
-                TempUpdateIndexBuffer();
-                return;
-            }*/
+            UpdateIndexBuffer(Indices);
+        }
+
+        public void UpdateIndexBuffer(List<uint> indices)
+        {
+            CountIndices = indices.Count;
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBuffer);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(CountIndices * sizeof(uint)), Indices.ToArray(), BufferUsageHint.DynamicDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(CountIndices * sizeof(uint)), indices.ToArray(), BufferUsageHint.DynamicDraw);
             OpenGlHelper.CheckErrors();
         }
 
@@ -974,9 +975,7 @@ namespace RH.HeadEditor.Helpers
 
         private void TempUpdateIndexBuffer()
         {
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBuffer);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(CountIndices * sizeof(uint)), TempIndices.ToArray(), BufferUsageHint.DynamicDraw);
-            OpenGlHelper.CheckErrors();
+            UpdateIndexBuffer(TempIndices);            
         }
 
         #endregion
