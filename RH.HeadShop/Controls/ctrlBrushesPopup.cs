@@ -35,9 +35,10 @@ namespace RH.HeadShop.Controls
         {
             var pb = sender as PictureBox;
             var newBrush = int.Parse(pb.Tag.ToString());
-            CurrentBrush =  newBrush == CurrentBrush ? -1 : newBrush;  // если туда же щелкнули - отключаем
+            CurrentBrush = newBrush == CurrentBrush ? -1 : newBrush;  // если туда же щелкнули - отключаем
             InitializeControls();
 
+            ProgramCore.MainForm.frmMaterial.CurrentBrusn = CurrentBrush;
             var parent = Parent as Popup;
             parent.Close();
         }

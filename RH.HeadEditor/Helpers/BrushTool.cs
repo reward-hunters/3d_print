@@ -34,7 +34,10 @@ namespace RH.HeadEditor.Helpers
         private Matrix4 viewMatrix;
         private BrushTriangle startTriangle = null;        
         private List<BrushTriangle> triangles = new List<BrushTriangle>();
-        private List<BrushPoint> points = new List<BrushPoint>();        
+        private List<BrushPoint> points = new List<BrushPoint>();
+
+        public float Radius = 1.5f;
+        public Vector3 Color;
 
         public void InitializeBrush(HeadMeshesController headMeshController)
         {
@@ -151,9 +154,9 @@ namespace RH.HeadEditor.Helpers
             }
         }
 
-        public void DrawBrush(Vector2 point, float radius)
+        public void DrawBrush(Vector2 point)
         {
-            quadRadius = radius * radius;
+            quadRadius = Radius * Radius;
             if (!GetStartPoint(new Vector3(point.X, point.Y, 0.0f)))
                 return;
             foreach (var p in points)

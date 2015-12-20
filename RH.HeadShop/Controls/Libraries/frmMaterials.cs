@@ -22,6 +22,25 @@ namespace RH.HeadShop.Controls.Libraries
         ctrlBrushesPopup brushesPopup;
 
         private int currentBrush = -1;
+        public int CurrentBrusn
+        {
+            get { return currentBrush; }
+            set
+            {
+                if (brushesPopup.CurrentBrush == currentBrush || brushesPopup.CurrentBrush == -1)
+                {
+                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
+                    currentBrush = -1;
+                }
+                else
+                {
+                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.Brush;
+                    currentBrush = brushesPopup.CurrentBrush;   // получаем номер активной кисточки. с 5 до 300
+                    ProgramCore.MainForm.ctrlRenderControl.brushTool.Radius = currentBrush / 100f;
+                }
+
+            }
+        }
 
         public frmMaterials()
         {
@@ -34,7 +53,7 @@ namespace RH.HeadShop.Controls.Libraries
                 colorPickerCursor = new Cursor(ptr);
             }
 
-            brushesPopup = new ctrlBrushesPopup(currentBrush);
+            brushesPopup = new ctrlBrushesPopup(CurrentBrusn);
             complex = new Popup(brushesPopup);
             complex.Resizable = false;
 
@@ -157,6 +176,7 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void btnPickColor_Click(object sender, EventArgs e)
         {
+            ProgramCore.MainForm.ctrlRenderControl.brushTool.Color = new Vector3(panelColor.BackColor.R / 255f, panelColor.BackColor.G / 255f, panelColor.BackColor.B / 255f);
             for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor.Keys.Count; i++)
             {
                 var key = ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor.Keys.ElementAt(i);
@@ -318,17 +338,12 @@ namespace RH.HeadShop.Controls.Libraries
         public void SetColorFromPicker(Color color)
         {
             panelColor.BackColor = color;
+            ProgramCore.MainForm.ctrlRenderControl.brushTool.Color = new Vector3(panelColor.BackColor.R / 255f, panelColor.BackColor.G / 255f, panelColor.BackColor.B / 255f);
         }
 
         private void pbBrush_MouseDown(object sender, MouseEventArgs e)
         {
-            if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.Brush)
-                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
-            else
-                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.Brush;
             complex.Show(sender as PictureBox);
-
-            currentBrush = brushesPopup.CurrentBrush;   // получаем номер активной кисточки. с 5 до 300
         }
     }
 }

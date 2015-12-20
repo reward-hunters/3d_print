@@ -55,7 +55,7 @@ namespace RH.HeadShop.Render
         public readonly Camera camera = new Camera();
         public readonly Dictionary<String, TextureInfo> textures = new Dictionary<String, TextureInfo>();
         private List<int> baseProfilePoints = new List<int>();
-        private BrushTool brushTool = new BrushTool();
+        internal BrushTool brushTool = new BrushTool();
 
         private readonly Panel renderPanel = new Panel();
         private GraphicsContext graphicsContext;
@@ -884,7 +884,7 @@ namespace RH.HeadShop.Render
                     #region Обычная левая кнопка
 
                     switch (Mode)
-                    {                        
+                    {
                         case Mode.ColorPicker:
                             {
                                 using (var img = ProgramCore.MainForm.ctrlRenderControl.GrabScreenshot(string.Empty, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Width, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Height))
@@ -1018,7 +1018,7 @@ namespace RH.HeadShop.Render
                             {
                                 brushTool.StartBrush(camera.ViewMatrix);
                                 var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
-                                brushTool.DrawBrush(point, 1.5f);
+                                brushTool.DrawBrush(point);
                                 RenderBrush();
                             }
                             break;
@@ -1029,7 +1029,7 @@ namespace RH.HeadShop.Render
             }
         }
 
-        
+
 
         private void glControl_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1069,7 +1069,7 @@ namespace RH.HeadShop.Render
                             case Mode.Brush:
                                 {
                                     var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
-                                    brushTool.DrawBrush(point, 1.5f);
+                                    brushTool.DrawBrush(point);
                                     RenderBrush();
                                 }
                                 break;
@@ -2283,7 +2283,7 @@ namespace RH.HeadShop.Render
                 useTextures.X = UseTexture ? texture : 0.0f;
                 //shader.UpdateUniform("u_UseTexture", UseTexture ? texture : 0.0f);
                 shader.UpdateUniform("u_Color", part.Color);
-            }            
+            }
 
             shader.UpdateUniform("u_UseTexture", useTextures);
         }
@@ -2794,11 +2794,11 @@ namespace RH.HeadShop.Render
                 foreach (var part in headMeshesController.RenderMesh.Parts)
                 {
                     List<uint> indices;
-                    if(brushTool.ResultIndices.TryGetValue(part.Guid, out indices))
+                    if (brushTool.ResultIndices.TryGetValue(part.Guid, out indices))
                     {
                         part.UpdateIndexBuffer(indices);
                         List<RenderMeshPart> prts;
-                        if(!parts.TryGetValue(part.Texture, out prts))
+                        if (!parts.TryGetValue(part.Texture, out prts))
                         {
                             prts = new List<RenderMeshPart>();
                             parts.Add(part.Texture, prts);
@@ -2839,14 +2839,14 @@ namespace RH.HeadShop.Render
             GL.Enable(EnableCap.Blend);
 
             GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
-            DrawQuad(1f, 1f, 1f, 1f);            
+            DrawQuad(1f, 1f, 1f, 1f);
 
             shader.Begin();
-            
+
             shader.UpdateUniform("u_World", Matrix4.Identity);
-            shader.UpdateUniform("u_BrushColor", new Vector3(0.1f, 0.1f, 0.1f));
+            shader.UpdateUniform("u_BrushColor", brushTool.Color);
             shader.UpdateUniform("u_SphereCenter", brushTool.SphereCenter);
-            shader.UpdateUniform("u_SphereRadius", 1.5f);
+            shader.UpdateUniform("u_SphereRadius", brushTool.Radius);
 
             headMeshesController.RenderMesh.DrawToTexture(headMeshesController.RenderMesh.Parts.Where(p => p.Texture == textureId));
 
@@ -2908,7 +2908,7 @@ namespace RH.HeadShop.Render
             GL.End();
         }
 
-        public Bitmap RenderToTexture(int oldTextureId, int textureId, int textureWidth, int textureHeight, ShaderController shader, 
+        public Bitmap RenderToTexture(int oldTextureId, int textureId, int textureWidth, int textureHeight, ShaderController shader,
             Func<ShaderController, int, int, bool> renderFunc, bool useAlpha = false)
         {
             graphicsContext.MakeCurrent(windowInfo);
@@ -2971,7 +2971,7 @@ namespace RH.HeadShop.Render
             int textureId = 0;
             if (textureName != String.Empty && File.Exists(textureName))
             {
-                
+
                 if (textures.ContainsKey(textureName))
                     return textures[textureName].Texture;
 
@@ -2981,11 +2981,11 @@ namespace RH.HeadShop.Render
 
                 textureId = GetTexture(bitmap);
                 textures.Add(textureName, new TextureInfo
-                    {
-                        Texture = textureId,
-                        Width = bitmap.Width,
-                        Height = bitmap.Height
-                    });
+                {
+                    Texture = textureId,
+                    Width = bitmap.Width,
+                    Height = bitmap.Height
+                });
             }
             return textureId;
         }
