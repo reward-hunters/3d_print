@@ -261,6 +261,7 @@ namespace RH.HeadShop.Render
             blendShader.SetUniformLocation("u_BlendDepth");
 
             brushShader = new ShaderController("brush.vs", "brush.fs");
+            brushShader.SetUniformLocation("u_Texture");
             brushShader.SetUniformLocation("u_World");
             brushShader.SetUniformLocation("u_BrushColor");
             brushShader.SetUniformLocation("u_SphereCenter");
@@ -2838,11 +2839,14 @@ namespace RH.HeadShop.Render
             GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
             DrawQuad(1f, 1f, 1f, 1f);
 
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-            GL.Enable(EnableCap.Blend);
+            //GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            //GL.Enable(EnableCap.Blend);
 
             shader.Begin();
 
+            GL.ActiveTexture(TextureUnit.Texture0);
+            GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
+            shader.UpdateUniform("u_Texture", 0);
             shader.UpdateUniform("u_World", Matrix4.Identity);
             shader.UpdateUniform("u_BrushColor", brushTool.Color);
             shader.UpdateUniform("u_SphereCenter", brushTool.SphereCenter);
@@ -2851,7 +2855,7 @@ namespace RH.HeadShop.Render
             headMeshesController.RenderMesh.DrawToTexture(headMeshesController.RenderMesh.Parts.Where(p => p.Texture == textureId));
 
             shader.End();
-            GL.Disable(EnableCap.Blend);
+            //GL.Disable(EnableCap.Blend);
 
             return true;
         }
