@@ -189,6 +189,7 @@ namespace RH.HeadEditor.Helpers
         public int Texture = 0;
         public int TransparentTexture = 0;
 
+        public string DefaultTextureName = string.Empty;
         public string TextureName = string.Empty;
         public string TransparentTextureName = string.Empty;
 
@@ -199,7 +200,7 @@ namespace RH.HeadEditor.Helpers
         private readonly List<uint> baseIndices = new List<uint>();
 
         public bool IsLeftToRight = false;
-        public bool IsBaseTexture;
+        public bool IsBaseTexture = false;
         public bool IsShaped
         {
             get
@@ -698,7 +699,7 @@ namespace RH.HeadEditor.Helpers
             Color = info.Color;
             Texture = info.Texture;
             TransparentTexture = info.TransparentTexture;
-            TextureName = info.TextureName;
+            DefaultTextureName = TextureName = info.TextureName;
             TransparentTextureName = info.TransparentTextureName;
 
             //Name.Contains("SkinHead") || Name.Contains("SkinNeck")
@@ -823,6 +824,7 @@ namespace RH.HeadEditor.Helpers
             foreach (var point in Points)
                 point.ToStream(bw);
 
+            bw.Write(DefaultTextureName ?? string.Empty);
             bw.Write(TextureName?? string.Empty);              // если isBase - нужно будет фотку текстуры подсунуть
             bw.Write(TransparentTextureName ?? string.Empty);
 
@@ -853,6 +855,7 @@ namespace RH.HeadEditor.Helpers
             for (var i = 0; i < cnt; i++)
                 result.Points.Add(Point3d.FromStream(br));
 
+            result.DefaultTextureName = br.ReadString();
             result.TextureName = br.ReadString();
             result.TransparentTextureName = br.ReadString();
 

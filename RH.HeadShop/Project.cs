@@ -263,7 +263,10 @@ namespace RH.HeadShop
             try
             {
                 if (ProgramCore.Project.AutodotsUsed)
+                {
                     ProgramCore.MainForm.ctrlRenderControl.SaveSmoothedTextures();
+                    ProgramCore.MainForm.ctrlRenderControl.SaveBrushTextures();
+                }
 
                 var path = Path.Combine(ProjectPath, string.Format("{0}.hds", ProjectName));
                 using (var bw = new BinaryWriter(File.Open(path, FileMode.OpenOrCreate)))

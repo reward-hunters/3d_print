@@ -467,27 +467,47 @@ namespace RH.HeadShop.Render
                 var part = headMeshesController.RenderMesh.Parts[i];
                 if (part.Texture == -1)
                     continue;
-
-                var oldTexture = part.Texture;
-                if (!SmoothedTextures.ContainsKey(part.Texture))
+                                
+                var oldTexture = GetTexture(part.DefaultTextureName);
+                if (!SmoothedTextures.ContainsKey(oldTexture))
                 {
-                    if (part.Texture == 0)
+                    if (part.Texture == 0 || part.IsBaseTexture)
+                    {
                         part.IsBaseTexture = true;
+                        part.Texture = 0;
+                    }
                     else
                     {
-                        var path = GetTexturePath(part.Texture);
-
+                        var path = part.DefaultTextureName;//GetTexturePath(part.Texture);                        
                         var newImagePath = Path.Combine(ProgramCore.Project.ProjectPath, "SmoothedModelTextures");
                         var di = new DirectoryInfo(newImagePath);
                         if (!di.Exists)
                             di.Create();
 
-                        newImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + "_smoothed" + Path.GetExtension(path));
-                        File.Copy(path, newImagePath, true);
-
-                        var smoothedTexture = GetTexture(newImagePath); // по старому пути у нас будут храниться сглаженные текстуры (что бы сохранение модельки сильно не менять)
+                        var brushImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + "_brush.png");
+                        var smoothedImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + "_smoothed" + Path.GetExtension(path));
+                        if(!File.Exists(smoothedImagePath))
+                            File.Copy(path, smoothedImagePath, true);                        
+                        
+                        //newImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+                        //File.Copy(path, newImagePath, true);                        
+                        var smoothedTexture = GetTexture(smoothedImagePath); // по старому пути у нас будут храниться сглаженные текстуры (что бы сохранение модельки сильно не менять)
+                        part.Texture = oldTexture;
                         SmoothedTextures.Add(oldTexture, smoothedTexture); // связка - айди старой-новой текстур
+
+                        if (File.Exists(brushImagePath) && !brushTextures.ContainsKey(part.Texture))
+                        {
+                            var texture = GetTexture(brushImagePath);
+                            Bitmap bitmap;
+                            using (var ms = new MemoryStream(File.ReadAllBytes(brushImagePath)))
+                                bitmap = (Bitmap)Image.FromStream(ms);
+                            brushTextures.Add(smoothedTexture, new BrushTextureInfo { Texture = texture, TextureData = bitmap, LinkedTextureName = smoothedImagePath });
+                        }
                     }
+                }
+                else
+                {
+                    part.Texture = oldTexture;
                 }
 
                 if (part.Texture != 0)      //все кроме отсутствующих. после первых автоточек - станет фоткой
@@ -2255,7 +2275,7 @@ namespace RH.HeadShop.Render
             if (brushTextures.ContainsKey(part.Texture))
             {
                 GL.ActiveTexture(TextureUnit.Texture2);
-                GL.BindTexture(TextureTarget.Texture2D, brushTextures[part.Texture].Key);
+                GL.BindTexture(TextureTarget.Texture2D, brushTextures[part.Texture].Texture);
                 shader.UpdateUniform("u_BrushMap", 2);
                 useTextures.Z = 1.0f;
             }
@@ -2780,7 +2800,14 @@ namespace RH.HeadShop.Render
             IsShapeChanged = true;
         }
 
-        private Dictionary<int, KeyValuePair<int, Bitmap>> brushTextures = new Dictionary<int, KeyValuePair<int, Bitmap>>();
+        private class BrushTextureInfo
+        {
+            public int Texture = 0;
+            public Bitmap TextureData = null;
+            public String LinkedTextureName = String.Empty;
+        }
+
+        private Dictionary<int, BrushTextureInfo> brushTextures = new Dictionary<int, BrushTextureInfo>();
         private DateTime lastPaintTime;
         public void RenderBrush()
         {
@@ -2807,14 +2834,12 @@ namespace RH.HeadShop.Render
                         prts.Add(part);
                         if (!brushTextures.ContainsKey(part.Texture))
                         {
-                            var partTexture = textures.Values.FirstOrDefault(p => p.Texture == part.Texture);
-                            if (partTexture == null)
-                                return;
-                            var bitmap = new Bitmap(partTexture.Width, partTexture.Height);
+                            var partTexture = textures.FirstOrDefault(p => p.Value.Texture == part.Texture);                   
+                            var bitmap = new Bitmap(partTexture.Value.Width, partTexture.Value.Height);
                             var texture = GetTexture(bitmap);
                             if (texture == 0)
                                 return;
-                            brushTextures.Add(part.Texture, new KeyValuePair<int, Bitmap>(texture, bitmap));
+                            brushTextures.Add(part.Texture, new BrushTextureInfo { Texture = texture, TextureData = bitmap, LinkedTextureName = partTexture.Key });
                         }
                     }
                 }
@@ -2822,9 +2847,9 @@ namespace RH.HeadShop.Render
                 foreach (var part in parts)
                 {
                     var texture = brushTextures[part.Key];
-                    var result = RenderToTexture(texture.Key, part.Key, texture.Value.Width, texture.Value.Height, brushShader, DrawToBrushTexture, true);
-                    brushTextures[part.Key] = new KeyValuePair<int, Bitmap>(texture.Key, result);
-                    SetTexture(texture.Key, result);
+                    var result = RenderToTexture(texture.Texture, part.Key, texture.TextureData.Width, texture.TextureData.Height, brushShader, DrawToBrushTexture, true);
+                    texture.TextureData = result;
+                    SetTexture(texture.Texture, result);
                     //result.Save(String.Format("C:\\{0}_brush.png", texture.Key));
                 }
 
@@ -2839,9 +2864,6 @@ namespace RH.HeadShop.Render
             GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
             DrawQuad(1f, 1f, 1f, 1f);
 
-            //GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-            //GL.Enable(EnableCap.Blend);
-
             shader.Begin();
 
             GL.ActiveTexture(TextureUnit.Texture0);
@@ -2855,7 +2877,6 @@ namespace RH.HeadShop.Render
             headMeshesController.RenderMesh.DrawToTexture(headMeshesController.RenderMesh.Parts.Where(p => p.Texture == textureId));
 
             shader.End();
-            //GL.Disable(EnableCap.Blend);
 
             return true;
         }
@@ -3009,6 +3030,7 @@ namespace RH.HeadShop.Render
                 return 0;
             }
         }
+
         public string GetTexturePath(int id)
         {
             if (id == 0)
@@ -3209,32 +3231,38 @@ namespace RH.HeadShop.Render
         }
         private void SaveHead(string path)
         {
-            if (ProgramCore.Project.AutodotsUsed)
-                SaveSmoothedTextures();
-
-            ObjSaver.SaveObjFile(path, headMeshesController.RenderMesh, MeshType.Hair, pickingController.ObjExport);
-
-            #region Сохраняем отраженную текстуру
-
-            if (ProgramCore.Project.TextureFlip != FlipType.None && !ProgramCore.PluginMode)
+            try
             {
-                var newTexturePath = Path.Combine(Path.GetDirectoryName(path), "Textures");
-                var newTextureFullPath = Path.Combine(newTexturePath, Path.GetFileName(ProgramCore.Project.FrontImagePath));
+                if (ProgramCore.Project.AutodotsUsed)
+                    SaveBlendingTextures();
 
-                FolderEx.CreateDirectory(new DirectoryInfo(newTexturePath));
+                ObjSaver.SaveObjFile(path, headMeshesController.RenderMesh, MeshType.Hair, pickingController.ObjExport);
 
-                switch (ProgramCore.Project.TextureFlip)
+                #region Сохраняем отраженную текстуру
+
+                if (ProgramCore.Project.TextureFlip != FlipType.None && !ProgramCore.PluginMode)
                 {
-                    case FlipType.LeftToRight:
-                        reflectedLeft.Save(newTextureFullPath, ImageFormat.Jpeg);
-                        break;
-                    case FlipType.RightToLeft:
-                        reflectedRight.Save(newTextureFullPath, ImageFormat.Jpeg);
-                        break;
+                    var newTexturePath = Path.Combine(Path.GetDirectoryName(path), "Textures");
+                    var newTextureFullPath = Path.Combine(newTexturePath, Path.GetFileName(ProgramCore.Project.FrontImagePath));
+
+                    FolderEx.CreateDirectory(new DirectoryInfo(newTexturePath));
+
+                    switch (ProgramCore.Project.TextureFlip)
+                    {
+                        case FlipType.LeftToRight:
+                            reflectedLeft.Save(newTextureFullPath, ImageFormat.Jpeg);
+                            break;
+                        case FlipType.RightToLeft:
+                            reflectedRight.Save(newTextureFullPath, ImageFormat.Jpeg);
+                            break;
+                    }
+
                 }
-
             }
-
+            finally
+            {
+                SaveSmoothedTextures();
+            }
             #endregion
         }
 
@@ -3589,6 +3617,50 @@ namespace RH.HeadShop.Render
             }
         }
 
+        public void SaveBlendingTextures()
+        {
+            var newFolderPath = Path.Combine(ProgramCore.Project.ProjectPath, "SmoothedModelTextures");
+            var di = new DirectoryInfo(newFolderPath);
+            if (!di.Exists)
+                di.Create();
+
+            foreach (var smoothTex in SmoothedTextures.Where(s => s.Key != 0))
+            {
+                var oldTexturePath = GetTexturePath(smoothTex.Key);
+                var newImagePath = Path.Combine(newFolderPath, Path.GetFileNameWithoutExtension(oldTexturePath) + "_smoothed" + Path.GetExtension(oldTexturePath));
+                var bitmap = RenderToTexture(smoothTex.Key, smoothTex.Value);
+
+                var brush = brushTextures.Select(b => b.Value).FirstOrDefault(b => b.LinkedTextureName.Equals(newImagePath));
+                if(brush != null)
+                {
+                    using (Graphics grfx = Graphics.FromImage(bitmap))
+                    {
+                        grfx.DrawImage(brush.TextureData, 0, 0);
+                    }
+                }
+
+                bitmap.Save(newImagePath, ImageFormat.Jpeg);
+            }
+        }
+
+        public void SaveBrushTextures()
+        {
+            var newFolderPath = Path.Combine(ProgramCore.Project.ProjectPath, "SmoothedModelTextures");
+            var di = new DirectoryInfo(newFolderPath);
+            if (!di.Exists)
+                di.Create();
+
+            foreach (var texture in brushTextures)
+            {
+                var texturePath = texture.Value.LinkedTextureName.Contains("_smoothed.") ?
+                    texture.Value.LinkedTextureName.Replace("_smoothed" + Path.GetExtension(texture.Value.LinkedTextureName), String.Empty) :
+                    texture.Value.LinkedTextureName;
+
+                texturePath = Path.Combine(newFolderPath, Path.GetFileNameWithoutExtension(texturePath) + "_brush.png");
+                texture.Value.TextureData.Save(texturePath, ImageFormat.Png);
+            }
+        }
+
         public void SaveSmoothedTextures()
         {
             var newFolderPath = Path.Combine(ProgramCore.Project.ProjectPath, "SmoothedModelTextures");
@@ -3624,7 +3696,6 @@ namespace RH.HeadShop.Render
                 headMeshesController.RenderMesh.BeginMorph();
                 headMeshesController.RenderMesh.DoMorph(k.Value);
             }
-
         }
 
         /// <summary> Пересчет прямоугольника лица для таскания точек настройки головы (при выборе режима загрузки custom) </summary>
