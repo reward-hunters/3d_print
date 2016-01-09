@@ -37,7 +37,7 @@ namespace RH.HeadEditor.Helpers
         private List<BrushPoint> points = new List<BrushPoint>();
 
         public float Radius = 1.5f;
-        public Vector3 Color;
+        public Vector4 Color;
 
         public void InitializeBrush(HeadMeshesController headMeshController)
         {

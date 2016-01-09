@@ -2832,7 +2832,7 @@ namespace RH.HeadShop.Render
                             parts.Add(part.Texture, prts);
                         }
                         prts.Add(part);
-                        if (!brushTextures.ContainsKey(part.Texture))
+                        if ((!brushTextures.ContainsKey(part.Texture)) && textures.Values.Any(p => p.Texture == part.Texture))
                         {
                             var partTexture = textures.FirstOrDefault(p => p.Value.Texture == part.Texture);                   
                             var bitmap = new Bitmap(partTexture.Value.Width, partTexture.Value.Height);
@@ -2846,6 +2846,8 @@ namespace RH.HeadShop.Render
 
                 foreach (var part in parts)
                 {
+                    if (!brushTextures.ContainsKey(part.Key))
+                        continue;
                     var texture = brushTextures[part.Key];
                     var result = RenderToTexture(texture.Texture, part.Key, texture.TextureData.Width, texture.TextureData.Height, brushShader, DrawToBrushTexture, true);
                     texture.TextureData = result;

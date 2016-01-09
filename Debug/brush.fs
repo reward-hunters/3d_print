@@ -1,6 +1,6 @@
 #version 110
 
-uniform vec3		u_BrushColor;
+uniform vec4		u_BrushColor;
 uniform vec3		u_SphereCenter;
 uniform float		u_SphereRadius;
 uniform sampler2D	u_Texture;
@@ -17,9 +17,9 @@ void main(void)
 		gl_FragColor = baseColor;
 	else
 	{
-		float k = 1.0 - (l / u_SphereRadius);
-		k = k * k;
-
-		gl_FragColor = vec4((u_BrushColor * k) + ((1.0 - k) * baseColor.xyz), clamp(k + baseColor.w, 0.0, 0.6));
+		float k = (1.0 - (l / u_SphereRadius)) * u_BrushColor.w;		
+		float summ = k + baseColor.w;
+		float k1 = baseColor.w / summ;
+		gl_FragColor = vec4((u_BrushColor.xyz * k / summ) + (baseColor.xyz * k1), k + baseColor.w); //, 0.0, 0.6
 	}
 }
