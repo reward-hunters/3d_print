@@ -1239,7 +1239,7 @@ namespace RH.HeadShop
                                 }
                             }
 
-                            ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(ProgramCore.Project.HeadModelPath), "", Path.GetFileNameWithoutExtension(sfd.FileName));
+                            ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(ProgramCore.Project.HeadModelPath), "", Path.GetDirectoryName(sfd.FileName));
 
                             #endregion
 
