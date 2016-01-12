@@ -83,20 +83,27 @@ namespace RH.HeadShop.Render.Meshes
             if (!IsVisible)
                 return;
 
+            var useTextures = Vector3.Zero;
             var useTexture = ProgramCore.MainForm.ctrlRenderControl.UseTexture;
 
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, Material.TransparentTexture);
             shader.UpdateUniform("u_TransparentMap", 1);
-            shader.UpdateUniform("u_UseTransparent", (float)Material.TransparentTexture);
+            useTextures.Y = Material.TransparentTexture;
+            //shader.UpdateUniform("u_UseTransparent", (float)Material.TransparentTexture);
 
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, Material.Texture);
             shader.UpdateUniform("u_Texture", 0);
 
             if (useTexture)     // заказ старичка. что типа проги не отрабатывают текстуры (которые 3д печать) и надо со всего убрать
+            {
                 shader.UpdateUniform("u_Color", Material.DiffuseColor);
-            shader.UpdateUniform("u_UseTexture", useTexture ? (float)Material.Texture : 0);
+                useTextures.X = Material.Texture;
+            }
+            //shader.UpdateUniform("u_UseTexture", useTexture ? (float)Material.Texture : 0);
+            
+            shader.UpdateUniform("u_UseTexture", useTextures);
 
             GL.EnableClientState(ArrayCap.VertexArray);
             GL.EnableClientState(ArrayCap.NormalArray);
