@@ -416,7 +416,7 @@ namespace RH.HeadShop
         private void materialLibraryOnOpen_Click(object sender, EventArgs e)
         {
             if (frmMaterial.Visible)
-                frmMaterial.Hide();
+                frmMaterial.HideUp();
             else
                 frmMaterial.Show(this);
         }
@@ -1611,6 +1611,13 @@ namespace RH.HeadShop
         private void flipToRightToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelFront.btnFlipRight_Click(null, EventArgs.Empty);
+        }
+
+        public void ChangeCursors(Cursor cursor)
+        {
+            Cursor = cursor;
+            ctrlTemplateImage.Cursor = cursor;
+            ctrlRenderControl.Cursor = cursor;
         }
     }
 }

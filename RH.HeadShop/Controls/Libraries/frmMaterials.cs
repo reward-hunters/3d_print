@@ -77,7 +77,7 @@ namespace RH.HeadShop.Controls.Libraries
 
                     imageListView.ClearSelection();
 
-                    trackBarSize.Enabled = ctrlAngle.Enabled = teAngle.Enabled = teAlpha.Enabled = btnPickColor.Enabled = false;
+                    trackBarSize.Enabled = ctrlAngle.Enabled = teAngle.Enabled = btnPickColor.Enabled = false;
                 }
                 else
                 {
@@ -162,6 +162,14 @@ namespace RH.HeadShop.Controls.Libraries
 
         #endregion
 
+        public void HideUp()
+        {
+            Hide();
+            ProgramCore.MainForm.ChangeCursors(DefaultCursor);
+            DisableColorPicker();
+            DisableBrushes();
+        }
+
         #region Form's event
 
         private void frmMaterials_Activated(object sender, EventArgs e)
@@ -170,12 +178,15 @@ namespace RH.HeadShop.Controls.Libraries
         }
         private void frmMaterials_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Hide();
+            HideUp();
             e.Cancel = true;            // this cancels the close event.
         }
 
         private void btnPickColor_Click(object sender, EventArgs e)
         {
+            DisableColorPicker();
+            ProgramCore.MainForm.ChangeCursors(DefaultCursor);
+
             ProgramCore.MainForm.ctrlRenderControl.brushTool.Color = new Vector4(panelColor.BackColor.R / 255f, panelColor.BackColor.G / 255f, panelColor.BackColor.B / 255f, Helpers.StringConverter.ToFloat(teAlpha.Text, 255) / 255f);
             for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.pickingController.SelectedColor.Keys.Count; i++)
             {
@@ -313,7 +324,7 @@ namespace RH.HeadShop.Controls.Libraries
                 btnColorPicker.BackColor = SystemColors.ControlDarkDark;
                 btnColorPicker.ForeColor = Color.White;
 
-                ChangeCursors(colorPickerCursor);
+                ProgramCore.MainForm.ChangeCursors(colorPickerCursor);
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.ColorPicker;
             }
             else
@@ -322,17 +333,10 @@ namespace RH.HeadShop.Controls.Libraries
                 btnColorPicker.BackColor = SystemColors.Control;
                 btnColorPicker.ForeColor = Color.Black;
 
-                ChangeCursors(DefaultCursor);
+                ProgramCore.MainForm.ChangeCursors(DefaultCursor);
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
             }
             EndUpdate();
-        }
-
-        private void ChangeCursors(Cursor cursor)
-        {
-            Cursor = cursor;
-            ProgramCore.MainForm.ctrlTemplateImage.Cursor = cursor;
-            ProgramCore.MainForm.ctrlRenderControl.Cursor = cursor;
         }
 
         public void SetColorFromPicker(Color color)
@@ -341,8 +345,21 @@ namespace RH.HeadShop.Controls.Libraries
             ProgramCore.MainForm.ctrlRenderControl.brushTool.Color = new Vector4(panelColor.BackColor.R / 255f, panelColor.BackColor.G / 255f, panelColor.BackColor.B / 255f, Helpers.StringConverter.ToFloat(teAlpha.Text, 255) / 255f);
         }
 
+        private void DisableColorPicker()
+        {
+            if (btnColorPicker.Tag.ToString() == "1")
+                btnColorPicker_MouseDown(null, null);
+        }
+
+        private void DisableBrushes()
+        {
+            brushesPopup.CurrentBrush = -1;
+        }
+
         private void pbBrush_MouseDown(object sender, MouseEventArgs e)
         {
+            DisableColorPicker();
+
             complex.Show(sender as PictureBox);
         }
     }

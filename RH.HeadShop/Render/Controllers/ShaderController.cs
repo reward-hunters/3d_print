@@ -136,7 +136,7 @@ namespace RH.HeadShop.Render.Controllers
 
             CheckError();
             return true;
-        }        
+        }
         public bool UpdateUniform(String name, OpenTK.Vector4 vec)
         {
             GL.Uniform4(uniforms[name], ref vec);

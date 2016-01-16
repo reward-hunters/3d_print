@@ -8,6 +8,7 @@ namespace RH.HeadShop.Controls
     public partial class ctrlBrushesPopup : UserControlEx
     {
         internal int CurrentBrush = -1;
+        private readonly Cursor brushCursor;
 
         public ctrlBrushesPopup(int currentBrush)
         {
@@ -18,6 +19,12 @@ namespace RH.HeadShop.Controls
             ResizeRedraw = true;
 
             CurrentBrush = currentBrush;
+
+            using (var bitmap = new Bitmap(Properties.Resources.brush, new Size(24, 24)))
+            {
+                var ptr = bitmap.GetHicon();
+                brushCursor = new Cursor(ptr);
+            }
 
             InitializeControls();
         }
@@ -35,7 +42,18 @@ namespace RH.HeadShop.Controls
         {
             var pb = sender as PictureBox;
             var newBrush = int.Parse(pb.Tag.ToString());
-            CurrentBrush = newBrush == CurrentBrush ? -1 : newBrush;  // если туда же щелкнули - отключаем
+
+            if (newBrush == CurrentBrush) // если туда же щелкнули - отключаем
+            {
+                CurrentBrush = -1;
+                ProgramCore.MainForm.ChangeCursors(DefaultCursor);
+            }
+            else
+            {
+                CurrentBrush = newBrush;
+                ProgramCore.MainForm.ChangeCursors(brushCursor);
+            }
+
             InitializeControls();
 
             ProgramCore.MainForm.frmMaterial.CurrentBrusn = CurrentBrush;
