@@ -621,6 +621,9 @@ namespace RH.HeadShop.Render
             shiftPressed = e.Shift;
             switch (e.KeyData)
             {
+                case Keys.X:
+                    ExportCollada();
+                    break;
                 case Keys.T:
                     showTriangles = !showTriangles;
                     break;
@@ -3420,6 +3423,22 @@ namespace RH.HeadShop.Render
 
             //AssimpContext importer = new AssimpContext();
             //Scene model = importer.ImportFile(fileName, PostProcessPreset.TargetRealTimeMaximumQuality);
+        }
+
+        public void ExportCollada()
+        {
+            var temp = COLLADA.Load("C:\\elance\\github\\DressShopPro\\Source\\Debug\\Models\\Model\\man.dae");
+
+            var fiName = string.Empty;
+            var diName = string.Empty;
+
+            pickingController.SelectedMeshes.Clear();            
+
+            var collada = new COLLADA();
+            ColladaExporter.Initialize(collada);
+
+
+            collada.Save("C:\\1.dae");
         }
 
         /// <summary> Экспорт для 3Д печати </summary>

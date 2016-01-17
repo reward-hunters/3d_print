@@ -368,6 +368,8 @@
       <DependentUpon>ctrlRenderControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Render\Helpers\BezierCurve.cs" />
+    <Compile Include="Render\Helpers\Collada.cs" />
+    <Compile Include="Render\Helpers\ColladaExporter.cs" />
     <Compile Include="Render\Helpers\DrawingTools.cs" />
     <Compile Include="Render\Helpers\Camera.cs" />
     <Compile Include="Render\Helpers\ImageEx.cs" />
