@@ -310,6 +310,31 @@ namespace RH.HeadShop.Render.Controllers
         }
     }
 
+    public class HistoryBrush : IHistoryItem
+    {
+        private Dictionary<int, ctrlRenderControl.BrushTextureInfo> brushTextures;
+
+        public HistoryBrush(Dictionary<int, ctrlRenderControl.BrushTextureInfo> data)
+        {
+            brushTextures = new Dictionary<int, ctrlRenderControl.BrushTextureInfo>();
+            foreach (var d in data)
+            {
+                brushTextures.Add(d.Key,
+                    new ctrlRenderControl.BrushTextureInfo
+                    {
+                        LinkedTextureName = d.Value.LinkedTextureName,
+                        Texture = d.Value.Texture,
+                        TextureData = d.Value.TextureData
+                    });
+            }
+        }
+
+        public override void Undo()
+        {
+            ProgramCore.MainForm.ctrlRenderControl.SetBrushTextures(brushTextures);
+        }
+    }
+
     /// <summary> Контроллер истории изменений </summary>
     public class HistoryController
     {

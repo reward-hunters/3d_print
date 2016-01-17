@@ -1040,6 +1040,7 @@ namespace RH.HeadShop.Render
                             break;
                         case Mode.Brush:
                             {
+                                historyController.Add(new HistoryBrush(brushTextures));
                                 brushTool.StartBrush(camera.ViewMatrix);
                                 var point = SliceController.UnprojectPoint(new Vector2(e.X, e.Y), camera.WindowWidth, camera.WindowHeight, camera.ProjectMatrix.Inverted());
                                 brushTool.DrawBrush(point);
@@ -2803,7 +2804,7 @@ namespace RH.HeadShop.Render
             IsShapeChanged = true;
         }
 
-        private class BrushTextureInfo
+        public class BrushTextureInfo
         {
             public int Texture = 0;
             public Bitmap TextureData = null;
@@ -2861,6 +2862,15 @@ namespace RH.HeadShop.Render
                 foreach (var part in parts)
                     foreach (var p in part.Value)
                         p.UpdateIndexBuffer();
+            }
+        }
+
+        public void SetBrushTextures(Dictionary<int, BrushTextureInfo> bt)
+        {
+            brushTextures = bt;
+            foreach(var b in bt)
+            {
+                SetTexture(b.Value.Texture, b.Value.TextureData);
             }
         }
 
