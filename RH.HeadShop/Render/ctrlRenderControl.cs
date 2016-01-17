@@ -837,7 +837,7 @@ namespace RH.HeadShop.Render
                 leftMousePressed = true;
                 startPress = true;
 
-                if (pickingController.SelectedMeshes.Count > 0)
+                if (pickingController.SelectedMeshes.Count > 0 && Mode != Mode.ColorPicker)
                 {
                     #region Левая кнопка с выделенными мешами волос или аксессуаров
 
