@@ -3457,12 +3457,17 @@ namespace RH.HeadShop.Render
                 headMeshesController.RenderMesh.RealScale);
 
             var importer = new AssimpImporter();
-            importer.ConvertFromFileToFile(fiName, daeName, "COLLADA");
+            importer.ConvertFromFileToFile(fiName, daeName, "collada");
 
             if (ProgramCore.Project.FrontImage != null)
                 ProgramCore.Project.FrontImage.Save(Path.Combine(newDirectory, "tempHaarImage.jpg"));
             if (ProgramCore.Project.ProfileImage != null)
                 ProgramCore.Project.ProfileImage.Save(Path.Combine(newDirectory, "ProfileImage.jpg"));
+
+            File.Delete(fiName);
+            var mtlName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".mtl");
+            if (File.Exists(mtlName))
+                File.Delete(mtlName);
 
             using (var zip = new ZipFile())
             {
@@ -3470,7 +3475,7 @@ namespace RH.HeadShop.Render
                 foreach (var dir in Directory.GetDirectories(newDirectory))
                     zip.AddDirectory(dir);
 
-                zip.Save(newDirectory);
+                zip.Save(Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".zip"));
             }
         }
 
