@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
@@ -35,6 +36,7 @@ using Size = System.Drawing.Size;
 using TextureWrapMode = OpenTK.Graphics.OpenGL.TextureWrapMode;
 using Assimp;
 using Assimp.Configs;
+using Ionic.Zip;
 
 namespace RH.HeadShop.Render
 {
@@ -467,7 +469,7 @@ namespace RH.HeadShop.Render
                 var part = headMeshesController.RenderMesh.Parts[i];
                 if (part.Texture == -1)
                     continue;
-                                
+
                 var oldTexture = GetTexture(part.DefaultTextureName);
                 if (!SmoothedTextures.ContainsKey(oldTexture))
                 {
@@ -486,9 +488,9 @@ namespace RH.HeadShop.Render
 
                         var brushImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + "_brush.png");
                         var smoothedImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + "_smoothed" + Path.GetExtension(path));
-                        if(!File.Exists(smoothedImagePath))
-                            File.Copy(path, smoothedImagePath, true);                        
-                        
+                        if (!File.Exists(smoothedImagePath))
+                            File.Copy(path, smoothedImagePath, true);
+
                         //newImagePath = Path.Combine(newImagePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
                         //File.Copy(path, newImagePath, true);                        
                         var smoothedTexture = GetTexture(smoothedImagePath); // по старому пути у нас будут храниться сглаженные текстуры (что бы сохранение модельки сильно не менять)
@@ -2838,7 +2840,7 @@ namespace RH.HeadShop.Render
                         prts.Add(part);
                         if ((!brushTextures.ContainsKey(part.Texture)) && textures.Values.Any(p => p.Texture == part.Texture))
                         {
-                            var partTexture = textures.FirstOrDefault(p => p.Value.Texture == part.Texture);                   
+                            var partTexture = textures.FirstOrDefault(p => p.Value.Texture == part.Texture);
                             var bitmap = new Bitmap(partTexture.Value.Width, partTexture.Value.Height);
                             var texture = GetTexture(bitmap);
                             if (texture == 0)
@@ -2868,7 +2870,7 @@ namespace RH.HeadShop.Render
         public void SetBrushTextures(Dictionary<int, BrushTextureInfo> bt)
         {
             brushTextures = bt;
-            foreach(var b in bt)
+            foreach (var b in bt)
             {
                 SetTexture(b.Value.Texture, b.Value.TextureData);
             }
@@ -3403,7 +3405,7 @@ namespace RH.HeadShop.Render
             }
         }
 
-
+        /// <summary> Формат stl </summary>
         public void Export3DPrint()
         {
             var fiName = string.Empty;
@@ -3420,35 +3422,56 @@ namespace RH.HeadShop.Render
             foreach (var part in headMeshesController.RenderMesh.Parts)
                 meshInfos.Add(new MeshInfo(part));
 
-            //var allName = Path.GetFileNameWithoutExtension(fiName) + "_all.obj";
-            //var allPath = Path.Combine(ProgramCore.Project.ProjectPath, allName);
-
             ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
                 ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
                 headMeshesController.RenderMesh.RealScale);
 
             var importer = new AssimpImporter();
             importer.ConvertFromFileToFile(fiName, stlName, "stl");
-            //importer.ConvertFromFileToFile(fiName, stlName, "stlb");
-
-            //AssimpContext importer = new AssimpContext();
-            //Scene model = importer.ImportFile(fileName, PostProcessPreset.TargetRealTimeMaximumQuality);
         }
 
+        /// <summary> Формат dae. (collada) </summary>
         public void ExportCollada()
         {
-            var temp = COLLADA.Load("C:\\elance\\github\\DressShopPro\\Source\\Debug\\Models\\Model\\man.dae");
-
             var fiName = string.Empty;
-            var diName = string.Empty;
+            var daeName = string.Empty;
+            string newDirectory = string.Empty;
+            using (var ofd = new FolderDialogEx())
+            {
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
 
-            pickingController.SelectedMeshes.Clear();            
+                newDirectory = Path.Combine(ofd.SelectedFolder[0], "SmoothedModelTextures");
+                FolderEx.CreateDirectory(newDirectory);
 
-            var collada = new COLLADA();
-            ColladaExporter.Initialize(collada);
+                daeName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".dae");
+                fiName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".obj");
+            }
 
+            var meshInfos = new List<MeshInfo>();
+            foreach (var part in headMeshesController.RenderMesh.Parts)
+                meshInfos.Add(new MeshInfo(part));
 
-            collada.Save("C:\\1.dae");
+            ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
+                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
+                headMeshesController.RenderMesh.RealScale);
+
+            var importer = new AssimpImporter();
+            importer.ConvertFromFileToFile(fiName, daeName, "COLLADA");
+
+            if (ProgramCore.Project.FrontImage != null)
+                ProgramCore.Project.FrontImage.Save(Path.Combine(newDirectory, "tempHaarImage.jpg"));
+            if (ProgramCore.Project.ProfileImage != null)
+                ProgramCore.Project.ProfileImage.Save(Path.Combine(newDirectory, "ProfileImage.jpg"));
+
+            using (var zip = new ZipFile())
+            {
+                zip.AddFiles(Directory.GetFiles(newDirectory));
+                foreach (var dir in Directory.GetDirectories(newDirectory))
+                    zip.AddDirectory(dir);
+
+                zip.Save(newDirectory);
+            }
         }
 
         /// <summary> Экспорт для 3Д печати </summary>
@@ -3662,7 +3685,7 @@ namespace RH.HeadShop.Render
                 var bitmap = RenderToTexture(smoothTex.Key, smoothTex.Value);
 
                 var brush = brushTextures.Select(b => b.Value).FirstOrDefault(b => b.LinkedTextureName.Equals(newImagePath));
-                if(brush != null)
+                if (brush != null)
                 {
                     using (Graphics grfx = Graphics.FromImage(bitmap))
                     {

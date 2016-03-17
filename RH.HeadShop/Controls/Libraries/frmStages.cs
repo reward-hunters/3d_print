@@ -334,7 +334,7 @@ namespace RH.HeadShop.Controls.Libraries
         }
         private void btnColor3DPrint_Click(object sender, EventArgs e)
         {
-            ProgramCore.MainForm.ctrlRenderControl.Export3DPrint();
+            ProgramCore.MainForm.ctrlRenderControl.ExportCollada();
         }
 
         #endregion
