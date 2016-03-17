@@ -6,9 +6,14 @@ namespace RH.HeadShop.Render.Helpers
 {
     public class ColladaExporter
     {
-        public static void AddMaterial(String textureFileName)
+        public static void AddMaterial(COLLADA collada, String textureFileName)
         {
+            
+        }
 
+        public static void AddGeometry()
+        {
+            
         }
 
         public static void Initialize(COLLADA collada)
@@ -41,6 +46,35 @@ namespace RH.HeadShop.Render.Helpers
             };
 
             collada.version = VersionType.Item141;
+
+            collada.Items = new object[5];
+            collada.Items[0] = new library_images();
+            collada.Items[1] = new library_materials();
+            collada.Items[2] = new library_effects();
+            collada.Items[3] = new library_geometries();
+            collada.Items[4] = new library_visual_scenes
+            {
+                visual_scene = new []
+                {
+                    new visual_scene
+                    {
+                        id = "DefaultScene",
+                        node = new []
+                        {
+                            new node
+                            {
+                                id = "RootNode",
+                                name = "RootNode",
+                                //node1 = new []
+                                //{
+                                //    //node
+
+                                //}
+                            }
+                        }
+                    }
+                }
+            };
         }
     }
 }
