@@ -3453,8 +3453,8 @@ namespace RH.HeadShop.Render
                 meshInfos.Add(new MeshInfo(part));
 
             ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
-            ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
-            headMeshesController.RenderMesh.RealScale);
+                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
+                headMeshesController.RenderMesh.RealScale);
 
             var importer = new AssimpImporter();
             importer.ConvertFromFileToFile(fiName, daeName, "collada");
@@ -3471,12 +3471,14 @@ namespace RH.HeadShop.Render
 
             using (var zip = new ZipFile())
             {
-                zip.AddFiles(Directory.GetFiles(newDirectory));
+                zip.AddFiles(Directory.GetFiles(newDirectory), false, "");
                 foreach (var dir in Directory.GetDirectories(newDirectory))
                     zip.AddDirectory(dir);
 
                 zip.Save(Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".zip"));
             }
+           
+            MessageBox.Show("Color 3D export finished!", "Done");
         }
 
         /// <summary> Экспорт для 3Д печати </summary>
