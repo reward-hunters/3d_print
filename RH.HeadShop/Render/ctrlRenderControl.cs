@@ -3453,8 +3453,8 @@ namespace RH.HeadShop.Render
                 meshInfos.Add(new MeshInfo(part));
 
             ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
-                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
-                headMeshesController.RenderMesh.RealScale);
+            ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
+            headMeshesController.RenderMesh.RealScale);
 
             var importer = new AssimpImporter();
             importer.ConvertFromFileToFile(fiName, daeName, "collada");
