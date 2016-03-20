@@ -3470,10 +3470,18 @@ namespace RH.HeadShop.Render
                 File.Delete(mtlName);
 
             using (var zip = new ZipFile())
-            {
+            {                
                 zip.AddFiles(Directory.GetFiles(newDirectory), false, "");
+
                 foreach (var dir in Directory.GetDirectories(newDirectory))
-                    zip.AddDirectory(dir);
+                {
+                    var files = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories);
+                    foreach(var file in files)
+                    {
+                        if (!zip.ContainsEntry((new FileInfo(file)).Name))
+                            zip.AddFile(file, "");
+                    }
+                }
 
                 zip.Save(Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".zip"));
             }
