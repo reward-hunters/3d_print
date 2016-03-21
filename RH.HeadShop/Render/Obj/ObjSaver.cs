@@ -13,21 +13,21 @@ namespace RH.HeadShop.Render.Obj
 {
     public static class ObjSaver
     {
-        public static void SaveObjFile(string filePath, RenderMesh mesh, MeshType type)
+        public static void SaveObjFile(string filePath, RenderMesh mesh, MeshType type, bool isColladaExport = false)
         {
-            SaveObjFile(filePath, mesh, type, null);
+            SaveObjFile(filePath, mesh, type, null, isColladaExport);
         }
 
-        public static void SaveObjFile(string filePath, RenderMesh mesh, MeshType type, ObjExport objExport)
+        public static void SaveObjFile(string filePath, RenderMesh mesh, MeshType type, ObjExport objExport, bool isColladaExport = false)
         {
             var meshInfos = new List<MeshInfo>();
 
             foreach (var part in mesh.Parts)
                 meshInfos.Add(new MeshInfo(part, mesh.MorphScale));
-            SaveObjFile(filePath, meshInfos, type, objExport);
+            SaveObjFile(filePath, meshInfos, type, objExport, isColladaExport);
         }
 
-        public static void SaveObjFile(string filePath, DynamicRenderMeshes meshes, MeshType type,float scale)
+        public static void SaveObjFile(string filePath, DynamicRenderMeshes meshes, MeshType type, float scale, bool isColladaExport = false)
         {
             var meshInfos = new List<MeshInfo>();
 
@@ -36,14 +36,14 @@ namespace RH.HeadShop.Render.Obj
                 var meshInfo = mesh.GetMeshInfo(scale);
                 meshInfos.Add(meshInfo);
             }
-            SaveObjFile(filePath, meshInfos, type);
+            SaveObjFile(filePath, meshInfos, type, isColladaExport);
         }
 
-        public static void SaveObjFile(string filePath, List<MeshInfo> meshInfos, MeshType type, ObjExport objExport)
+        public static void SaveObjFile(string filePath, List<MeshInfo> meshInfos, MeshType type, ObjExport objExport, bool isColladaExport)
         {
             if (objExport == null)
             {
-                SaveObjFile(filePath, meshInfos, type);
+                SaveObjFile(filePath, meshInfos, type, isColladaExport);
                 return;
             }
             var fi = new FileInfo(filePath);
@@ -191,7 +191,7 @@ namespace RH.HeadShop.Render.Obj
             }
             // SaveMaterial(mtlPath, materials, fi);
         }
-        public static void SaveObjFile(string filePath, List<MeshInfo> meshInfos, MeshType type)
+        public static void SaveObjFile(string filePath, List<MeshInfo> meshInfos, MeshType type, bool isColladaExport)
         {
             if (meshInfos.Count == 0)
                 return;
@@ -278,10 +278,17 @@ namespace RH.HeadShop.Render.Obj
                     #endregion
                 }
             }
-            SaveMaterial(mtlPath, materials, fi);
+            SaveMaterial(mtlPath, materials, fi, isColladaExport);
         }
 
-        public static void ExportMergedModel(string filePath, DynamicRenderMeshes HairMeshes, DynamicRenderMeshes AccesoryMeshes, List<MeshInfo> faceParts, float morphScale)
+        /// <summary>  </summary>
+        /// <param name="filePath"></param>
+        /// <param name="HairMeshes"></param>
+        /// <param name="AccesoryMeshes"></param>
+        /// <param name="faceParts"></param>
+        /// <param name="morphScale"></param>
+        /// <param name="isColladaExport"> Если коллада - то текстуры должны лежать в той же папке. Заказ старикана</param>
+        public static void ExportMergedModel(string filePath, DynamicRenderMeshes HairMeshes, DynamicRenderMeshes AccesoryMeshes, List<MeshInfo> faceParts, float morphScale, bool isColladaExport = false)
         {
             //if (meshInfos.Count == 0)
             //    return;
@@ -302,32 +309,36 @@ namespace RH.HeadShop.Render.Obj
                 //if (type == MeshType.Accessory)
                 //    sw.WriteLine("#Accessories");
                 //else
-                    sw.WriteLine("#HeadShop Model");
+                sw.WriteLine("#HeadShop Model");
                 sw.WriteLine("#" + DateTime.Now.ToShortDateString());
 
                 sw.WriteLine("mtllib " + fiMtl.Name);
                 sw.WriteLine();
 
-                
+
                 var meshInfos = new List<MeshInfo>();
-                foreach (var mesh in HairMeshes) {
+                foreach (var mesh in HairMeshes)
+                {
                     var meshInfo = mesh.GetMeshInfo(morphScale);
                     meshInfos.Add(meshInfo);
                 }
-                foreach (var mesh in AccesoryMeshes) {
+                foreach (var mesh in AccesoryMeshes)
+                {
                     var meshInfo = mesh.GetMeshInfo(morphScale);
                     meshInfos.Add(meshInfo);
                 }
 
-                if (meshInfos.Count > 0) {
-                    var scale = Controllers.PickingController.GetHairScale(ProgramCore.Project.ManType); 
+                if (meshInfos.Count > 0)
+                {
+                    var scale = Controllers.PickingController.GetHairScale(ProgramCore.Project.ManType);
                     var transformMatrix = Matrix4.CreateScale(scale);
 
                     SaveVerticles(meshInfos, sw, transformMatrix);       //write only additional meshes first, with translated positions
                     SaveTextureCoords(meshInfos, sw);
                     SaveNormals(meshInfos, sw, transformMatrix);
                 }
-                if (faceParts.Count > 0) {
+                if (faceParts.Count > 0)
+                {
                     var transformMatrix = Matrix4.CreateScale(morphScale);
                     SaveVerticles(faceParts, sw, transformMatrix);
                     SaveTextureCoords(faceParts, sw);
@@ -391,10 +402,15 @@ namespace RH.HeadShop.Render.Obj
                     #endregion
                 }
             }
-            SaveMaterial(mtlPath, materials, fi);
+            SaveMaterial(mtlPath, materials, fi, isColladaExport);
         }
-        
-        private static void SaveMaterial(string mtlPath, Dictionary<string, ObjMaterial> materials, FileInfo fi)
+
+        /// <summary>  </summary>
+        /// <param name="mtlPath"></param>
+        /// <param name="materials"></param>
+        /// <param name="fi"></param>
+        /// <param name="isColladaExport"> Если коллада - то текстуры должны лежать в той же папке. Заказ старикана</param>
+        private static void SaveMaterial(string mtlPath, Dictionary<string, ObjMaterial> materials, FileInfo fi, bool isColladaExport)
         {
             using (var sw = new StreamWriter(mtlPath, false, Encoding.Default))
             {
@@ -418,25 +434,26 @@ namespace RH.HeadShop.Render.Obj
                     if (material.Value.SpecularColor != Vector3.Zero)
                         res1 += "Ks " + material.Value.SpecularColor.X.ToString(ProgramCore.Nfi) + " " + material.Value.SpecularColor.Y.ToString(ProgramCore.Nfi) + " " + material.Value.SpecularColor.Z.ToString(ProgramCore.Nfi) + "\n";
 
-                    SetTextureMap(material.Value.AmbientTextureMap, "map_Ka", fi, ref res1);
-                    SetTextureMap(material.Value.DiffuseTextureMap, "map_Kd", fi, ref res1);
-                    SetTextureMap(material.Value.SpecularTextureMap, "map_Ks", fi, ref res1);
-                    SetTextureMap(material.Value.SpecularHighlightTextureMap, "map_Ns", fi, ref res1);
-                    SetTextureMap(material.Value.TransparentTextureMap, "map_d", fi, ref res1);
-                    SetTextureMap(material.Value.BumpMap, "map_Bump", fi, ref res1);
-                    SetTextureMap(material.Value.DisplacementMap, "disp", fi, ref res1);
-                    SetTextureMap(material.Value.StencilDecalMap, "decal", fi, ref res1);
+                    SetTextureMap(material.Value.AmbientTextureMap, "map_Ka", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.DiffuseTextureMap, "map_Kd", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.SpecularTextureMap, "map_Ks", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.SpecularHighlightTextureMap, "map_Ns", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.TransparentTextureMap, "map_d", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.BumpMap, "map_Bump", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.DisplacementMap, "disp", fi, ref res1, isColladaExport);
+                    SetTextureMap(material.Value.StencilDecalMap, "decal", fi, ref res1, isColladaExport);
                 }
                 sw.Write(res1);
             }
         }
 
-        private static void SetTextureMap(string mapPath, string mapTitle, FileInfo fi, ref string res)
+        private static void SetTextureMap(string mapPath, string mapTitle, FileInfo fi, ref string res, bool isCollada)
         {
             if (!string.IsNullOrEmpty(mapPath))
             {
                 var textureName = Path.GetFileName(mapPath);
-                var newTexturePath = Path.Combine(fi.DirectoryName, "Textures");
+
+                var newTexturePath = isCollada ? fi.DirectoryName : Path.Combine(fi.DirectoryName, "Textures");
                 var newTextureFullPath = Path.Combine(newTexturePath, textureName);
 
                 if (!File.Exists(newTextureFullPath))
