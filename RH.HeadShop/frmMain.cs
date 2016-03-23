@@ -1130,6 +1130,41 @@ namespace RH.HeadShop
 
         #region Project
 
+        private static void DirectoryCopy(string sourceDirName, string destDirName)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                string temppath = Path.Combine(destDirName, subdir.Name);
+                DirectoryCopy(subdir.FullName, temppath);
+            }
+        }
+
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var frm = new frmNewProject1(false);
@@ -1175,33 +1210,20 @@ namespace RH.HeadShop
 
                             var fullPath = sfd.FileName;
                             var projectName = Path.GetFileNameWithoutExtension(fullPath);
-                            var projectPath = Path.GetDirectoryName(fullPath);
+                            var projectPath = Path.Combine(Path.GetDirectoryName(fullPath), projectName);
 
-                            var parts = new List<Tuple<string, bool, MeshType, List<Guid>>>(); // save to part's library
-                            foreach (var part in ProgramCore.MainForm.ctrlRenderControl.PartsLibraryMeshes)
-                                parts.Add(new Tuple<string, bool, MeshType, List<Guid>>(part.Key, part.Value[0].IsVisible, part.Value[0].meshType, new List<Guid>(part.Value.Select(x => x.Id))));
+                            var newDirectoryPath = Path.Combine(projectPath, "Model");
+                            var directoryPath = Path.Combine(ProgramCore.Project.ProjectPath, "Model");
 
-                            ctrlRenderControl.pickingController.SelectedMeshes.Clear();
-                            var img = Path.Combine(ProgramCore.Project.ProjectPath, ProgramCore.Project.FrontImagePath);
+                            DirectoryCopy(directoryPath, newDirectoryPath);
 
-                            ProgramCore.Project = new Project(projectName, projectPath, img, ProgramCore.Project.ManType, ProgramCore.Project.HeadModelPath, true);
+                            var frontImage = ProgramCore.Project.FrontImagePath;
+                            var newFrontImage = Path.Combine(projectPath, Path.GetFileName(frontImage));
+                            File.Copy(Path.Combine(ProgramCore.Project.ProjectPath, frontImage), newFrontImage);
 
-                            foreach (var part in parts)                     // restore part's library in new project
-                            {
-                                ProgramCore.MainForm.ctrlRenderControl.PartsLibraryMeshes.Add(part.Item1, new DynamicRenderMeshes());
-
-                                foreach (var meshId in part.Item4)
-                                {
-                                    var mesh = part.Item3 == MeshType.Accessory ?
-                                                                             ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes[meshId] :
-                                                                             ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes[meshId];
-                                    if (mesh == null)
-                                        continue;
-                                    mesh.IsVisible = part.Item2;
-                                    ProgramCore.MainForm.ctrlRenderControl.PartsLibraryMeshes[part.Item1].Add(mesh);
-                                }
-                            }
-
+                            ProgramCore.Project.ProjectName = projectName;
+                            ProgramCore.Project.ProjectPath = projectPath;
+                            ProgramCore.Project.HeadModelPath = Path.Combine(projectPath, "Model", Path.GetFileName(ProgramCore.Project.HeadModelPath));
                             ProgramCore.Project.ToStream();
                             MessageBox.Show("Project successfully saved!", "Done", MessageBoxButtons.OK);
 
@@ -1553,11 +1575,6 @@ namespace RH.HeadShop
             ctrlRenderControl.SaveHeadToFile();
         }
 
-        private void deleteToolStripMenuItem6_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void undoToolStripMenuItem5_Click(object sender, EventArgs e)
         {
             ctrlRenderControl.historyController.Undo();
@@ -1566,11 +1583,6 @@ namespace RH.HeadShop
         private void saveToolStripMenuItem5_Click(object sender, EventArgs e)
         {
             ctrlRenderControl.SaveHeadToFile();
-        }
-
-        private void deleteToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void linesToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1586,11 +1598,6 @@ namespace RH.HeadShop
         private void saveToolStripMenuItem6_Click(object sender, EventArgs e)
         {
             ctrlRenderControl.SaveHeadToFile();
-        }
-
-        private void deleteToolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void autodotsToolStripMenuItem_Click(object sender, EventArgs e)

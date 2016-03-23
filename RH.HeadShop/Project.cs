@@ -187,59 +187,68 @@ namespace RH.HeadShop
 
             if (needCopy)
             {
-                var di = new DirectoryInfo(projectPath);
-                if (!di.Exists)
-                    di.Create();
-
-                if (!string.IsNullOrEmpty(templateImageName))
+                try
                 {
-                    var fi = new FileInfo(templateImageName);
-                    if (fi.Exists)
+                    var di = new DirectoryInfo(projectPath);
+                    if (!di.Exists)
+                        di.Create();
+
+                    if (!string.IsNullOrEmpty(templateImageName))
                     {
-                        var newImagePath = Path.Combine(projectPath, fi.Name);
-                        File.Copy(templateImageName, newImagePath, true);
-                        FrontImagePath = fi.Name;
-                    }
-                }
-
-                #region Копируем модель
-
-                var directoryPath = Path.Combine(ProjectPath, "Model");
-                FolderEx.CreateDirectory(directoryPath);
-                var oldFileName = Path.GetFileNameWithoutExtension(headModelPath);
-                var newFileName = oldFileName;
-                var filePath = Path.Combine(directoryPath, newFileName + ".obj");
-
-                File.Copy(headModelPath, filePath, true);           // сама модель
-                HeadModelPath = filePath;
-
-                #region Обрабатываем mtl файл и папку с текстурами
-
-                var mtl = oldFileName + ".mtl";
-                using (var ms = new StreamReader(headModelPath))
-                {
-                    for (var i = 0; i < 10; i++)
-                    {
-                        if (ms.EndOfStream)
-                            break;
-                        var line = ms.ReadLine();
-                        if (line.ToLower().Contains("mtllib"))          // ищем ссылку в obj файле на mtl файл (у них могут быть разные названия, но всегда в одной папке
+                        var fi = new FileInfo(templateImageName);
+                        if (fi.Exists)
                         {
-                            var lines = line.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                            if (lines.Length > 1)
-                            {
-                                mtl = lines[1];
+                            var newImagePath = Path.Combine(projectPath, fi.Name);
+                            File.Copy(templateImageName, newImagePath, true);
+                            FrontImagePath = fi.Name;
+                        }
+                    }
+
+                    #region Копируем модель
+
+                    var directoryPath = Path.Combine(ProjectPath, "Model");
+                    FolderEx.CreateDirectory(directoryPath);
+                    var oldFileName = Path.GetFileNameWithoutExtension(headModelPath);
+                    var newFileName = oldFileName;
+                    var filePath = Path.Combine(directoryPath, newFileName + ".obj");
+
+                    File.Copy(headModelPath, filePath, true); // сама модель
+                    HeadModelPath = filePath;
+
+                    #region Обрабатываем mtl файл и папку с текстурами
+
+                    var mtl = oldFileName + ".mtl";
+                    using (var ms = new StreamReader(headModelPath))
+                    {
+                        for (var i = 0; i < 10; i++)
+                        {
+                            if (ms.EndOfStream)
                                 break;
+                            var line = ms.ReadLine();
+                            if (line.ToLower().Contains("mtllib"))
+                                // ищем ссылку в obj файле на mtl файл (у них могут быть разные названия, но всегда в одной папке
+                            {
+                                var lines = line.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+                                if (lines.Length > 1)
+                                {
+                                    mtl = lines[1];
+                                    break;
+                                }
                             }
                         }
                     }
+
+                    ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(headModelPath), "", directoryPath);
+
+                    #endregion
+
+                    #endregion
                 }
-
-                ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(headModelPath), "", directoryPath);
-
-                #endregion
-
-                #endregion
+                catch
+                {
+                    FrontImagePath = templateImageName;
+                    HeadModelPath = headModelPath;
+                }
             }
             else
             {
