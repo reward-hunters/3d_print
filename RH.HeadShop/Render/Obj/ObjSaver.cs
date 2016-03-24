@@ -356,7 +356,7 @@ namespace RH.HeadShop.Render.Obj
                         continue;
 
                     var groupTitle = string.Empty;
-                    if (string.IsNullOrEmpty(meshInfo.Title))
+                    if (string.IsNullOrEmpty(meshInfo.Title) || materials.ContainsKey(meshInfo.Title))
                     {
                         groupTitle = "Element_" + groupIndex;
 
