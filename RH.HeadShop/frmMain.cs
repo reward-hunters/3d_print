@@ -91,6 +91,8 @@ namespace RH.HeadShop
 
         public List<string> PluginUvGroups = new List<string>();
 
+        private string openProjectPath;
+
         #endregion
 
         public frmMain(string fn)
@@ -127,9 +129,8 @@ namespace RH.HeadShop
                         }
                     }
                 }
-                else
-                    if ((fn.Contains(".hds") || fn.Contains(".hrs")) && File.Exists(fn)) // open associated files
-                    OpenProject(fn);
+                else if ((fn.Contains(".hds") || fn.Contains(".hrs")) && File.Exists(fn)) // open associated files
+                    openProjectPath = fn;
             }
         }
         private void exitBtn_Click(object sender, EventArgs e)
@@ -146,19 +147,24 @@ namespace RH.HeadShop
 
             ctrlRenderControl.Initialize();
 
-            var newProjectDlg = new frmNewProject1(true);
-            newProjectDlg.ShowDialog(this);
-
-            if (newProjectDlg.dialogResult != DialogResult.OK)
-            {
-                Application.Exit();
-                return;
-            }
-
-            if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
-                OpenProject(newProjectDlg.LoadingProject);
+            if (!string.IsNullOrEmpty(openProjectPath))
+                OpenProject(openProjectPath);
             else
-                CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName, newProjectDlg.TemplateImage, true);
+            {
+                var newProjectDlg = new frmNewProject1(true);
+                newProjectDlg.ShowDialog(this);
+
+                if (newProjectDlg.dialogResult != DialogResult.OK)
+                {
+                    Application.Exit();
+                    return;
+                }
+
+                if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
+                    OpenProject(newProjectDlg.LoadingProject);
+                else
+                    CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName, newProjectDlg.TemplateImage, true);
+            }
 
             if (ProgramCore.PluginMode)     // хотелка, что бы прога всегда была выше Daz'a
                 TopMost = true;
@@ -250,10 +256,51 @@ namespace RH.HeadShop
             panelFeatures.OnSave += OnSaveHead_Click;
             panelFeatures.OnUndo += OnUndo_Click;
 
-            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
-                panelMenuFront_Click(null, EventArgs.Empty); // set opened by default
+            if (activePanel != -1)      // это загружено из проекта. открываем ту вкладку, на которой закрыли
+            {
+                switch (activePanel)
+                {
+                    case 0:
+                        panelMenuCut_Click(null, EventArgs.Empty);
+                        break;
+                    case 1:
+                        panelMenuShape_Click(null, EventArgs.Empty);
+                        break;
+                    case 2:
+                        panelMenuAccessories_Click(null, EventArgs.Empty);
+                        break;
+                    case 3:
+                        panelMenuMaterials_Click(null, EventArgs.Empty);
+                        break;
+                    case 4:
+                        panelMenuStage_Click(null, EventArgs.Empty);
+
+                        if (ProgramCore.Project.projectCamera != null) // сохраненная позиция камеры.
+                        {
+                            ProgramCore.MainForm.ctrlRenderControl.camera._dy = ProgramCore.Project.projectCamera._dy;
+                            ProgramCore.MainForm.ctrlRenderControl.camera.beta = ProgramCore.Project.projectCamera.beta;
+                            ProgramCore.MainForm.ctrlRenderControl.camera.Scale = ProgramCore.Project.projectCamera.Scale;
+                            ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
+                        }
+                        break;
+                    case 5:
+                        panelMenuStyle_Click(null, EventArgs.Empty);
+                        break;
+                    case 6:
+                        panelMenuFront_Click(null, EventArgs.Empty);
+                        break;
+                    case 7:
+                        panelMenuFeatures_Click(null, EventArgs.Empty);
+                        break;
+                }
+            }
             else
-                panelMenuCut_Click(null, EventArgs.Empty);      // иначе это наш проект волосач и по дефолту мы работаем с волосами, а не с формой лица.
+            {
+                if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
+                    panelMenuFront_Click(null, EventArgs.Empty); // set opened by default
+                else
+                    panelMenuCut_Click(null, EventArgs.Empty);  // иначе это наш проект волосач и по дефолту мы работаем с волосами, а не с формой лица.
+            }
 
             InitRecentItems();
 
@@ -499,6 +546,7 @@ namespace RH.HeadShop
             ctrlRenderControl.DeleteSelectedHair();
         }
 
+        public int activePanel = -1;
         public void panelMenuCut_Click(object sender, EventArgs e)
         {
             if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomControlPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomProfilePoints)
@@ -506,6 +554,7 @@ namespace RH.HeadShop
 
             if (panelMenuCut.Tag.ToString() == "2")
             {
+                activePanel = 0;
                 panelMenuCut.Tag = "1";
                 panelMenuCut.Image = Properties.Resources.btnMenuCutPressed;
                 panelMenuControl.Controls.Clear();
@@ -543,6 +592,7 @@ namespace RH.HeadShop
 
             if (panelMenuShape.Tag.ToString() == "2")
             {
+                activePanel = 1;
                 panelMenuShape.Tag = "1";
                 panelMenuShape.Image = Properties.Resources.btnMenuShapePressed;
                 panelMenuControl.Controls.Clear();
@@ -580,6 +630,7 @@ namespace RH.HeadShop
 
             if (panelMenuAccessories.Tag.ToString() == "2")
             {
+                activePanel = 2;
                 panelMenuAccessories.Tag = "1";
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesPressed;
                 panelMenuControl.Controls.Clear();
@@ -616,6 +667,7 @@ namespace RH.HeadShop
 
             if (panelMenuMaterials.Tag.ToString() == "2")
             {
+                activePanel = 3;
                 panelMenuMaterials.Tag = "1";
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorPressed;
                 panelMenuControl.Controls.Clear();
@@ -652,6 +704,7 @@ namespace RH.HeadShop
 
             if (panelMenuStage.Tag.ToString() == "2")
             {
+                activePanel = 4;
                 panelMenuStage.Tag = "1";
                 panelMenuStage.Image = Properties.Resources.btnMenuStagePressed;
                 panelMenuControl.Controls.Clear();
@@ -677,6 +730,14 @@ namespace RH.HeadShop
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage, false);       // возвращаем как было, после изменения профиля лица
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
 
+                if (ProgramCore.Project.projectCamera != null) // сохраненная позиция камеры.
+                {
+                    ProgramCore.MainForm.ctrlRenderControl.camera._dy = ProgramCore.Project.projectCamera._dy;
+                    ProgramCore.MainForm.ctrlRenderControl.camera.beta = ProgramCore.Project.projectCamera.beta;
+                    ProgramCore.MainForm.ctrlRenderControl.camera.Scale = ProgramCore.Project.projectCamera.Scale;
+                    ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
+                }
+
                 if (UserConfig.ByName("Options")["Tutorials", "Stage", "1"] == "1")
                     frmTutStage.ShowDialog(this);
             }
@@ -697,6 +758,7 @@ namespace RH.HeadShop
                     ctrlRenderControl.OrtoTop();
                 }
 
+                activePanel = 5;
                 panelMenuStyle.Tag = "1";
                 panelMenuStyle.Image = Properties.Resources.btnMenuStylePressed;
                 panelMenuControl.Controls.Clear();
@@ -738,6 +800,7 @@ namespace RH.HeadShop
 
             if (panelMenuFront.Tag.ToString() == "2")
             {
+                activePanel = 6;
                 panelMenuFront.Tag = "1";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontPressed;
                 panelMenuControl.Controls.Clear();
@@ -771,8 +834,7 @@ namespace RH.HeadShop
                     frmTutAutodots.ShowDialog(this);
             }
         }
-
-        private void panelMenuFeatures_Click(object sender, EventArgs e)
+        public void panelMenuFeatures_Click(object sender, EventArgs e)
         {
             if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomControlPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomPoints || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.SetCustomProfilePoints)
                 return;
@@ -785,6 +847,7 @@ namespace RH.HeadShop
 
             if (panelMenuFeatures.Tag.ToString() == "2")
             {
+                activePanel = 7;
                 panelFeatures.SetAge(ProgramCore.Project.AgeCoefficient);
                 panelFeatures.Setfat(ProgramCore.Project.FatCoefficient);
 

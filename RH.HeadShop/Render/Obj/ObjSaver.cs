@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -459,7 +461,24 @@ namespace RH.HeadShop.Render.Obj
                 if (!File.Exists(newTextureFullPath))
                 {
                     FolderEx.CreateDirectory(new DirectoryInfo(newTexturePath));
-                    File.Copy(mapPath, newTextureFullPath, false);
+                    if (isCollada)
+                    {
+                        var textureId = ProgramCore.MainForm.ctrlRenderControl.GetTexture(mapPath);
+                        if (ProgramCore.MainForm.ctrlRenderControl.brushTextures.ContainsKey(textureId))
+                        {
+                            var brushTexture = ProgramCore.MainForm.ctrlRenderControl.brushTextures[textureId];
+                            using (var bitmap = new Bitmap(mapPath))
+                            {
+                                using (Graphics grfx = Graphics.FromImage(bitmap))
+                                    grfx.DrawImage(brushTexture.TextureData, 0, 0);
+                                bitmap.Save(newTextureFullPath, ImageFormat.Jpeg);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        File.Copy(mapPath, newTextureFullPath, false);
+                    }
                 }
 
                 res += mapTitle + " /Textures/" + textureName + "\n";

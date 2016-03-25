@@ -1383,6 +1383,26 @@ namespace RH.HeadShop.Render
                 case MouseButtons.Left:
                     leftMousePressed = false;
 
+                    switch (ScaleMode)
+                    {
+                        case ScaleMode.Move:
+                        case ScaleMode.Rotate:
+                        case ScaleMode.Zoom:
+                            if (ProgramCore.MainForm.activePanel == 4)
+                            {
+                                if (ProgramCore.Project.projectCamera == null)
+                                    // сохраненняем позицию камеры для окна Stage
+                                    ProgramCore.Project.projectCamera = new Camera();
+
+                                ProgramCore.MainForm.ctrlRenderControl.camera._dy = ProgramCore.Project.projectCamera._dy;
+                                ProgramCore.MainForm.ctrlRenderControl.camera.beta = ProgramCore.Project.projectCamera.beta;
+                                ProgramCore.MainForm.ctrlRenderControl.camera.Scale = ProgramCore.Project.projectCamera.Scale;
+                                ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
+                            }
+                            break;
+                    }
+
+
                     switch (Mode)
                     {
                         case Mode.AccessoryRotateSetCircle:
@@ -2675,10 +2695,20 @@ namespace RH.HeadShop.Render
             GL.DepthMask(true);
         }
 
-        public int BackgroundTexture = 0;
+        private int backgroundTexture;
+        private string bTexture;
+        public string BackgroundTexture
+        {
+            get { return bTexture; }
+            set
+            {
+                bTexture = value;
+                backgroundTexture = ProgramCore.MainForm.ctrlRenderControl.GetTexture(bTexture);
+            }
+        }
         private void DrawBackground()
         {
-            if (BackgroundTexture != 0)
+            if (backgroundTexture != 0)
             {
                 GL.MatrixMode(MatrixMode.Projection);
                 GL.PushMatrix();
@@ -2688,7 +2718,7 @@ namespace RH.HeadShop.Render
 
                 GL.Enable(EnableCap.Texture2D);
                 GL.DepthMask(false);
-                GL.BindTexture(TextureTarget.Texture2D, BackgroundTexture);
+                GL.BindTexture(TextureTarget.Texture2D, backgroundTexture);
                 GL.Color4(1.0f, 1.0f, 1.0f, 1.0f);
                 GL.Begin(PrimitiveType.Quads);
 
@@ -2711,7 +2741,8 @@ namespace RH.HeadShop.Render
         }
         public void SetDefaultBackground()
         {
-            BackgroundTexture = 0;
+            backgroundTexture = 0;
+            BackgroundTexture = string.Empty;
         }
 
         #endregion
@@ -2813,7 +2844,7 @@ namespace RH.HeadShop.Render
             public String LinkedTextureName = String.Empty;
         }
 
-        private Dictionary<int, BrushTextureInfo> brushTextures = new Dictionary<int, BrushTextureInfo>();
+        public Dictionary<int, BrushTextureInfo> brushTextures = new Dictionary<int, BrushTextureInfo>();
         private DateTime lastPaintTime;
         public void RenderBrush()
         {
@@ -3470,13 +3501,13 @@ namespace RH.HeadShop.Render
                 File.Delete(mtlName);
 
             using (var zip = new ZipFile())
-            {                
+            {
                 zip.AddFiles(Directory.GetFiles(newDirectory), false, "");
 
                 foreach (var dir in Directory.GetDirectories(newDirectory))
                 {
                     var files = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories);
-                    foreach(var file in files)
+                    foreach (var file in files)
                     {
                         if (!zip.ContainsEntry((new FileInfo(file)).Name))
                             zip.AddFile(file, "");
@@ -3485,7 +3516,7 @@ namespace RH.HeadShop.Render
 
                 zip.Save(Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".zip"));
             }
-           
+
             MessageBox.Show("Color 3D export finished!", "Done");
         }
 

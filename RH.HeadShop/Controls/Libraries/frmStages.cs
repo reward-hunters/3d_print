@@ -103,8 +103,7 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void SetTexture(string filePath)
         {
-            var textureId = ProgramCore.MainForm.ctrlRenderControl.GetTexture(filePath);
-            ProgramCore.MainForm.ctrlRenderControl.BackgroundTexture = textureId;
+            ProgramCore.MainForm.ctrlRenderControl.BackgroundTexture = filePath;
         }
         private void SetPose(ImageListViewItem sel)
         {

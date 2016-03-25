@@ -7,6 +7,7 @@ using OpenTK;
 using RH.HeadEditor.Data;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
+using RH.HeadShop.Render;
 using RH.HeadShop.Render.Controllers;
 using RH.HeadShop.Render.Meshes;
 using RH.HeadShop.Render.Obj;
@@ -226,9 +227,9 @@ namespace RH.HeadShop
                                 break;
                             var line = ms.ReadLine();
                             if (line.ToLower().Contains("mtllib"))
-                                // ищем ссылку в obj файле на mtl файл (у них могут быть разные названия, но всегда в одной папке
+                            // ищем ссылку в obj файле на mtl файл (у них могут быть разные названия, но всегда в одной папке
                             {
-                                var lines = line.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+                                var lines = line.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                                 if (lines.Length > 1)
                                 {
                                     mtl = lines[1];
@@ -424,6 +425,18 @@ namespace RH.HeadShop
                     bw.Write(ProfileEyeLocation.Y);
                     bw.Write(ProfileMouthLocation.X);
                     bw.Write(ProfileMouthLocation.Y);
+
+                    if (!string.IsNullOrEmpty(ProgramCore.MainForm.ctrlRenderControl.BackgroundTexture))
+                    {
+                        bw.Write(true);
+                        bw.Write(ProgramCore.MainForm.ctrlRenderControl.BackgroundTexture);
+                    }
+                    else bw.Write(false);
+                    bw.Write(ProgramCore.MainForm.activePanel);
+
+                    bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera.Scale);
+                    bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera.beta);
+                    bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera._dy);
                 }
             }
             catch (Exception e)
@@ -431,6 +444,8 @@ namespace RH.HeadShop
                 ProgramCore.EchoToLog(e, true);
             }
         }
+
+        public Camera projectCamera;
         /// <summary> Load project from path </summary>
         public static Project FromStream(string path)
         {
@@ -564,6 +579,23 @@ namespace RH.HeadShop
                         using (var bmp = new Bitmap(fs))
                             result.ProfileImage = (Bitmap)bmp.Clone();
                     }
+                }
+
+                try
+                {
+                    var hasStage = br.ReadBoolean();
+                    if (hasStage)
+                        ProgramCore.MainForm.ctrlRenderControl.BackgroundTexture = br.ReadString();
+
+                    ProgramCore.MainForm.activePanel = br.ReadInt32();
+
+                    result.projectCamera = new Camera();
+                    result.projectCamera.Scale = br.ReadSingle();
+                    result.projectCamera.beta = br.ReadDouble();
+                    result.projectCamera._dy = br.ReadSingle();
+                }
+                catch
+                {
                 }
             }
 
