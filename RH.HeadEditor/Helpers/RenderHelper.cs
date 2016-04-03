@@ -87,6 +87,7 @@ namespace RH.HeadEditor.Helpers
         public List<uint> Indices = null;
         public List<int> Nearests = new List<int>();
         public bool? IsFixed = null;
+        public bool? IsFixedLocal = null;
         public TrinagleInfo TextureTrinagleInfo = new TrinagleInfo();
         public TrinagleInfo ShapeTrinagleInfo = new TrinagleInfo();
         public TrinagleInfo ProfileShapeTrinagleInfo = new TrinagleInfo();
@@ -108,6 +109,7 @@ namespace RH.HeadEditor.Helpers
             foreach (var near in Nearests)
                 bw.Write(near);
             bw.Write(IsFixed.HasValue && IsFixed.Value);
+            bw.Write(IsFixedLocal.HasValue && IsFixedLocal.Value);
 
             TextureTrinagleInfo.ToStream(bw);
             ShapeTrinagleInfo.ToStream(bw);
@@ -133,6 +135,7 @@ namespace RH.HeadEditor.Helpers
             for (var i = 0; i < cnt; i++)
                 result.Nearests.Add(br.ReadInt32());
             result.IsFixed = br.ReadBoolean();
+            result.IsFixedLocal = br.ReadBoolean();
 
             result.TextureTrinagleInfo = TrinagleInfo.FromStream(br);
             result.ShapeTrinagleInfo = TrinagleInfo.FromStream(br);
@@ -494,6 +497,80 @@ namespace RH.HeadEditor.Helpers
             CountIndices = Indices.Count;
             baseIndices.Clear();
             UpdateBuffers();
+        }
+
+        public void FindFixedPoints()
+        {
+            var verticesDictionary = new Dictionary<Vector3, int>(new VectorEqualityComparer());
+            var points = new List<List<Point3d>>();
+            var edgesDictionary = new Dictionary<Line, int>(new VectorEqualityComparer());
+            var triangle = new int[3];
+
+            var isEyelash = Name.ToLower().Contains("eyelash");
+            for (var i = 0; i < Indices.Count; i += 3)
+            {
+                for (var j = 0; j < 3; ++j)
+                {
+                    var point = Points[Vertices[(int)Indices[i + j]].PointIndex];
+                    if (isEyelash)
+                        point.IsFixedLocal = false;
+                    int index;
+                    if (!verticesDictionary.TryGetValue(point.Position, out index))
+                    {
+                        index = points.Count;
+                        points.Add(new List<Point3d>());
+                        verticesDictionary.Add(point.Position, index);
+                    }
+                    points[index].Add(point);
+                    triangle[j] = index;
+                }
+                for (int j = 0, l = 2; j < 3; l = j, ++j)
+                {
+                    var edge = new Line(triangle[j], triangle[l]);
+                    if (!edgesDictionary.ContainsKey(edge))
+                        edgesDictionary.Add(edge, 1);
+                    else
+                        edgesDictionary[edge]++;
+                }
+            }
+
+            foreach (var edge in edgesDictionary.Where(e => e.Value == 1))
+            {
+                foreach (var point in points[edge.Key.A])
+                    if (!point.IsFixedLocal.HasValue)
+                        point.IsFixedLocal = true;
+                foreach (var point in points[edge.Key.B])
+                    if (!point.IsFixedLocal.HasValue)
+                        point.IsFixedLocal = true;
+            }
+        }
+
+        public void Smooth()
+        {
+            if (!IsShaped)
+                return;
+            
+            var vertices = Vertices.Select(v => v.Position).ToArray();
+            for (int i = 0; i < 3; ++i)
+            {
+                vertices = SmoothFilter.laplacianFilter(vertices, Indices.Select(index => (int)index).ToArray());
+            }
+
+            foreach (var p in Points)
+            {
+                if (p.IsFixedLocal != true)
+                {
+                    foreach (var i in p.Indices)
+                    {
+                        p.Position = vertices[i];
+                        var v = Vertices[i];
+                        v.Position = p.Position;
+                        Vertices[i] = v;
+                    }
+                }
+            }
+           
+            UpdateNormals();
         }
 
         public void Mirror(bool leftToRight, float axis)

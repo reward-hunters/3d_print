@@ -224,6 +224,7 @@ namespace RH.HeadEditor.Data
             var triangle = new int[3];
             foreach (var part in Parts)
             {
+                part.FindFixedPoints();
                 var isEyelash = part.Name.ToLower().Contains("eyelash");
                 for (var i = 0; i < part.Indices.Count; i += 3)
                 {

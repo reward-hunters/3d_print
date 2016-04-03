@@ -369,7 +369,6 @@ namespace RH.HeadShop.Render
                     case 3:
                         sprite.TexCoordLeftBottom = new Vector2(1.0f, 0.5f);
                         sprite.TexCoordRightTop = new Vector2(0.5f, 0f);
-
                         break;
                 }
 
@@ -1779,7 +1778,7 @@ namespace RH.HeadShop.Render
                 }
                 DisableTransparent();
             }
-            //DrawProfileControlTmpPoints();
+//            DrawProfileControlTmpPoints();
             if (ProgramCore.Debug)
             {
                 if (showTriangles)

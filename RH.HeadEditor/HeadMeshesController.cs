@@ -85,6 +85,12 @@ namespace RH.HeadEditor
             return center;
         }
 
+        public void Smooth()
+        {
+            foreach (var p in RenderMesh.Parts)
+                p.Smooth();
+        }
+
         public bool CreateMeshPart(MeshPartInfo info)
         {
             var part = new RenderMeshPart();

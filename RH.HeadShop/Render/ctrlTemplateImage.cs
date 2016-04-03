@@ -676,6 +676,7 @@ namespace RH.HeadShop.Render
 
                                     ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileTop, pointsTop, Vector2.Zero);
                                     ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileBottom, pointsBottom, Vector2.Zero);
+                                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Smooth();
                                 }
 
                                 ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Clear();
