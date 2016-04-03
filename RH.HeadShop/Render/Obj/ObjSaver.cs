@@ -474,6 +474,8 @@ namespace RH.HeadShop.Render.Obj
                                 bitmap.Save(newTextureFullPath, ImageFormat.Jpeg);
                             }
                         }
+                        else
+                            File.Copy(mapPath, newTextureFullPath, false);
                     }
                     else
                     {
@@ -523,9 +525,24 @@ namespace RH.HeadShop.Render.Obj
             {
                 foreach (var vn in meshInfo.Normals)
                 {
+                    var newVn = vn;
+                    if (double.IsNaN(newVn.X))
+                        newVn.X = 0;
+                    if (double.IsNaN(newVn.Y))
+                        newVn.Y = 0;
+                    if (double.IsNaN(newVn.Z))
+                        newVn.Z = 1;
+
                     if (transformMatrix != Matrix4.Zero)
                     {
-                        var newVn = Vector3.Transform(vn, transformMatrix);
+                        newVn = Vector3.Transform(vn, transformMatrix);
+                        if (double.IsNaN(newVn.X))
+                            newVn.X = 0;
+                        if (double.IsNaN(newVn.Y))
+                            newVn.Y = 0;
+                        if (double.IsNaN(newVn.Z))
+                            newVn.Z = 1;
+
                         var resStr = "vn " + newVn.X.ToString(ProgramCore.Nfi) + " " + newVn.Y.ToString(ProgramCore.Nfi) + " " + newVn.Z.ToString(ProgramCore.Nfi);
                         sw.WriteLine(resStr);
                     }

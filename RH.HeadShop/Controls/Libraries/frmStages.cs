@@ -21,6 +21,9 @@ namespace RH.HeadShop.Controls.Libraries
             InitializeComponent();
             InitializeListView();
 
+            if (!float.IsNaN(ProgramCore.Project.MorphingScale))
+                trackBarPose.Value = (int)(ProgramCore.Project.MorphingScale * 100);
+
             Sizeble = false;
         }
 
@@ -127,6 +130,7 @@ namespace RH.HeadShop.Controls.Libraries
             //    return;
             var delta = trackBarPose.Value / 100f;
 
+            ProgramCore.Project.MorphingScale = delta;      // для сохранения в проект
             //foreach (var m in ProgramCore.MainForm.ctrlRenderControl.PoseMorphing)
             //    m.Value.Delta = delta;
 

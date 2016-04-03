@@ -62,6 +62,8 @@ namespace RH.HeadShop
         public float AgeCoefficient = 0;            // коэффициенты features для сохранения возраста и толщины.
         public float FatCoefficient = 0;
 
+        public float MorphingScale = float.NaN;
+
         public Vector2 ProfileEyeLocation = Vector2.Zero;
         public Vector2 ProfileMouthLocation = Vector2.Zero;
 
@@ -437,6 +439,8 @@ namespace RH.HeadShop
                     bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera.Scale);
                     bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera.beta);
                     bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera._dy);
+
+                    bw.Write(MorphingScale);
                 }
             }
             catch (Exception e)
@@ -593,6 +597,14 @@ namespace RH.HeadShop
                     result.projectCamera.Scale = br.ReadSingle();
                     result.projectCamera.beta = br.ReadDouble();
                     result.projectCamera._dy = br.ReadSingle();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    result.MorphingScale = br.ReadSingle();
                 }
                 catch
                 {

@@ -3479,6 +3479,8 @@ namespace RH.HeadShop.Render
                 fiName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".obj");
             }
 
+            Process.Start("http://www.shapeways.com/");
+
             var meshInfos = new List<MeshInfo>();
             foreach (var part in headMeshesController.RenderMesh.Parts)
                 meshInfos.Add(new MeshInfo(part));

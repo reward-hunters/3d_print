@@ -1402,6 +1402,9 @@ namespace RH.HeadShop
                 ProgramCore.MainForm.ctrlRenderControl.DoMorth();
             }
 
+            if (!float.IsNaN(ProgramCore.Project.MorphingScale))
+                ctrlRenderControl.DoMorth(ProgramCore.Project.MorphingScale);
+
             MessageBox.Show("Project successfully loaded!", "Done");
             mruManager.Add(fileName);
         }
