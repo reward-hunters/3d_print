@@ -30,11 +30,11 @@ namespace RH.HeadShop.Controls.Progress
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusLabel =new Label();
-            this.progressBar = new ProgressBar();
-            this.substatusLabel = new Label();
-            this.subprogressBar = new ProgressBar();
-            this.remainedTimeLabel = new Label();
+            this.statusLabel = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.substatusLabel = new System.Windows.Forms.Label();
+            this.subprogressBar = new System.Windows.Forms.ProgressBar();
+            this.remainedTimeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // statusLabel
@@ -53,6 +53,7 @@ namespace RH.HeadShop.Controls.Progress
             this.progressBar.Location = new System.Drawing.Point(14, 31);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(471, 18);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 1;
             // 
             // substatusLabel

@@ -92,6 +92,8 @@ namespace RH.HeadEditor.Helpers
         public TrinagleInfo ShapeTrinagleInfo = new TrinagleInfo();
         public TrinagleInfo ProfileShapeTrinagleInfo = new TrinagleInfo();
 
+        public bool isFixedLocalBroken = false;
+
         public void ToStream(BinaryWriter bw)
         {
             bw.Write(Weights.Count);
@@ -109,13 +111,15 @@ namespace RH.HeadEditor.Helpers
             foreach (var near in Nearests)
                 bw.Write(near);
             bw.Write(IsFixed.HasValue && IsFixed.Value);
+
+            bw.Write(1341);         // для открытия старых проектов
             bw.Write(IsFixedLocal.HasValue && IsFixedLocal.Value);
 
             TextureTrinagleInfo.ToStream(bw);
             ShapeTrinagleInfo.ToStream(bw);
             ProfileShapeTrinagleInfo.ToStream(bw);
         }
-        public static Point3d FromStream(BinaryReader br)
+        public static Point3d FromStream(BinaryReader br, ref bool oldVersion)
         {
             var result = new Point3d();
 
@@ -135,7 +139,26 @@ namespace RH.HeadEditor.Helpers
             for (var i = 0; i < cnt; i++)
                 result.Nearests.Add(br.ReadInt32());
             result.IsFixed = br.ReadBoolean();
-            result.IsFixedLocal = br.ReadBoolean();
+
+            if (!oldVersion)
+            {
+                var pos = br.BaseStream.Position;
+                try
+                {
+                    var version = br.ReadInt32();
+                    if (version != 1341)
+                        throw new Exception();
+                    result.IsFixedLocal = br.ReadBoolean();
+
+                }
+                catch
+                {
+                    result.isFixedLocalBroken = true;
+                    br.BaseStream.Seek(pos, SeekOrigin.Begin);
+                    oldVersion = true;
+                }
+            }
+            else result.isFixedLocalBroken = true;
 
             result.TextureTrinagleInfo = TrinagleInfo.FromStream(br);
             result.ShapeTrinagleInfo = TrinagleInfo.FromStream(br);
@@ -549,7 +572,7 @@ namespace RH.HeadEditor.Helpers
         {
             if (!IsShaped)
                 return;
-            
+
             var vertices = Vertices.Select(v => v.Position).ToArray();
             for (int i = 0; i < 3; ++i)
             {
@@ -569,8 +592,7 @@ namespace RH.HeadEditor.Helpers
                     }
                 }
             }
-           
-            UpdateNormals();
+
         }
 
         public void Mirror(bool leftToRight, float axis)
@@ -787,7 +809,7 @@ namespace RH.HeadEditor.Helpers
                 Type = HeadMeshType.Face;
             else
                 if (Name.Contains("Lip"))
-                    Type = HeadMeshType.Lip;
+                Type = HeadMeshType.Lip;
 
             Indices.Clear();
             var positions = new List<Vector3>();
@@ -902,7 +924,7 @@ namespace RH.HeadEditor.Helpers
                 point.ToStream(bw);
 
             bw.Write(DefaultTextureName ?? string.Empty);
-            bw.Write(TextureName?? string.Empty);              // если isBase - нужно будет фотку текстуры подсунуть
+            bw.Write(TextureName ?? string.Empty);              // если isBase - нужно будет фотку текстуры подсунуть
             bw.Write(TransparentTextureName ?? string.Empty);
 
             Color.ToStream(bw);
@@ -929,8 +951,9 @@ namespace RH.HeadEditor.Helpers
             }
 
             cnt = br.ReadInt32();
+            bool oldVersion = false;
             for (var i = 0; i < cnt; i++)
-                result.Points.Add(Point3d.FromStream(br));
+                result.Points.Add(Point3d.FromStream(br, ref oldVersion));
 
             result.DefaultTextureName = br.ReadString();
             result.TextureName = br.ReadString();
@@ -941,8 +964,8 @@ namespace RH.HeadEditor.Helpers
             result.IsBaseTexture = br.ReadBoolean();
 
             result.Destroy();
-            GL.GenBuffers(1, out  result.VertexBuffer);
-            GL.GenBuffers(1, out  result.IndexBuffer);
+            GL.GenBuffers(1, out result.VertexBuffer);
+            GL.GenBuffers(1, out result.IndexBuffer);
 
             //temp
             result.TempIndices = new List<uint>();
@@ -959,6 +982,9 @@ namespace RH.HeadEditor.Helpers
                 result.TempVertices[i].Color = v.Color;
             }
             //temp
+
+            if (result.Points.FirstOrDefault(x => x.isFixedLocalBroken) != null)
+                result.FindFixedPoints();
 
             return result;
         }
@@ -1055,7 +1081,7 @@ namespace RH.HeadEditor.Helpers
 
         private void TempUpdateIndexBuffer()
         {
-            UpdateIndexBuffer(TempIndices);            
+            UpdateIndexBuffer(TempIndices);
         }
 
         #endregion

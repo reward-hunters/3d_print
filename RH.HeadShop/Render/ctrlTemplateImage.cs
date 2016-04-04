@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using OpenTK;
 using RH.HeadEditor.Helpers;
@@ -645,7 +646,7 @@ namespace RH.HeadShop.Render
                                     List<Vector2> pointsBottom = null;
                                     var lipsY = ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetLipsTopY();
                                     var prevPoint = Vector2.Zero;
-                                    for(int i = 0; i< userPoints.Count; ++i)
+                                    for (int i = 0; i < userPoints.Count; ++i)
                                     {
                                         var p = userPoints[i];
                                         var x = p.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX;
@@ -655,7 +656,7 @@ namespace RH.HeadShop.Render
 
                                         if (point.Y < lipsY && i > 0)
                                         {
-                                            if(pointsBottom == null)
+                                            if (pointsBottom == null)
                                             {
                                                 var tempPoint = point - prevPoint;
                                                 var d = (point.Y - prevPoint.Y) / (prevPoint.Y - lipsY);
@@ -674,10 +675,22 @@ namespace RH.HeadShop.Render
                                     }
 
 
-                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileTop, pointsTop, Vector2.Zero);
-                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileBottom, pointsBottom, Vector2.Zero);
-                                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Smooth();
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform( MeshPartType.ProfileTop, pointsTop, Vector2.Zero);
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform( MeshPartType.ProfileBottom, pointsBottom, Vector2.Zero);
+
+                                    var th = new Thread(() =>
+                                    {
+                                        Thread.CurrentThread.IsBackground = true;
+                                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Smooth();
+                                    });
+
+                                    th.Start();
+                                    while (th.IsAlive)
+                                        ProgramCore.Progress("Please wait");
                                 }
+
+                                foreach (var p in ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Parts)
+                                    p.UpdateNormals();
 
                                 ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Clear();
                                 //ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.ProfileTop ? MeshPartType.ProfileBottom : MeshPartType.ProfileTop;
@@ -736,7 +749,7 @@ namespace RH.HeadShop.Render
             e.Graphics.DrawImage(DrawingImage, ImageTemplateOffsetX, ImageTemplateOffsetY, ImageTemplateWidth, ImageTemplateHeight);
 
             if (ProgramCore.Debug && ProgramCore.MainForm.HeadFront)
-                e.Graphics.DrawRectangle(DrawingTools.GreenPen, EyesMouthRectTransformed.X, EyesMouthRectTransformed.Y, EyesMouthRectTransformed.Width, EyesMouthRectTransformed.Height);            
+                e.Graphics.DrawRectangle(DrawingTools.GreenPen, EyesMouthRectTransformed.X, EyesMouthRectTransformed.Y, EyesMouthRectTransformed.Width, EyesMouthRectTransformed.Height);
 
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
@@ -794,7 +807,7 @@ namespace RH.HeadShop.Render
 
                         #region Верхняя и нижняя точки
                         var points = new[] { ProfileScreenTopLocation, ProfileScreenEyeLocation, ProfileScreenMouthLocation, ProfileScreenBottomLocation };
-                        for (var i = 0; i < points.Length; i+= 3)
+                        for (var i = 0; i < points.Length; i += 3)
                         {
                             var point = points[i];
 

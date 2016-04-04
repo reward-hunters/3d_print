@@ -88,7 +88,7 @@ namespace RH.HeadEditor
         public void Smooth()
         {
             foreach (var p in RenderMesh.Parts)
-                p.Smooth();
+            p.Smooth();
         }
 
         public bool CreateMeshPart(MeshPartInfo info)
