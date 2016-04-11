@@ -1778,7 +1778,7 @@ namespace RH.HeadShop.Render
                 }
                 DisableTransparent();
             }
-//            DrawProfileControlTmpPoints();
+            //            DrawProfileControlTmpPoints();
             if (ProgramCore.Debug)
             {
                 if (showTriangles)
@@ -3448,6 +3448,13 @@ namespace RH.HeadShop.Render
                 fiName = Path.Combine(ofd.SelectedFolder[0], ProgramCore.Project.ProjectName + ".obj");
             }
 
+
+            if (ProgramCore.Project != null)
+            {
+                pickingController.SelectedMeshes.Clear();
+                ProgramCore.Project.ToStream();
+            }
+
             var meshInfos = new List<MeshInfo>();
             foreach (var part in headMeshesController.RenderMesh.Parts)
                 meshInfos.Add(new MeshInfo(part));
@@ -3478,6 +3485,11 @@ namespace RH.HeadShop.Render
                 fiName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".obj");
             }
 
+            if (ProgramCore.Project != null)
+            {
+                pickingController.SelectedMeshes.Clear();
+                ProgramCore.Project.ToStream();
+            }
             Process.Start("http://www.shapeways.com/");
 
             var meshInfos = new List<MeshInfo>();
