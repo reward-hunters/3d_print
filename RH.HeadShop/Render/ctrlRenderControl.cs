@@ -1393,9 +1393,11 @@ namespace RH.HeadShop.Render
                                     // сохраненняем позицию камеры для окна Stage
                                     ProgramCore.Project.projectCamera = new Camera();
 
-                                ProgramCore.MainForm.ctrlRenderControl.camera._dy = ProgramCore.Project.projectCamera._dy;
-                                ProgramCore.MainForm.ctrlRenderControl.camera.beta = ProgramCore.Project.projectCamera.beta;
-                                ProgramCore.MainForm.ctrlRenderControl.camera.Scale = ProgramCore.Project.projectCamera.Scale;
+
+
+                                ProgramCore.Project.projectCamera._dy= ProgramCore.MainForm.ctrlRenderControl.camera._dy;
+                                ProgramCore.Project.projectCamera.beta= ProgramCore.MainForm.ctrlRenderControl.camera.beta;
+                                ProgramCore.Project.projectCamera.Scale=ProgramCore.MainForm.ctrlRenderControl.camera.Scale;
                                 ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
                             }
                             break;

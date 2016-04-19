@@ -110,6 +110,7 @@ namespace RH.HeadShop
 
             KeyPreview = true;
             ProgramCore.ProgressProc += ProgressProc;
+
             if (!UserConfig.ByName("Tutorials").HasAny())
                 InitializeTutorialLinks();
 

@@ -150,8 +150,6 @@ namespace RH.HeadShop
             this.profileHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
             this.styleHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shapeHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accessoriesHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stageHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1193,8 +1191,6 @@ namespace RH.HeadShop
             this.profileHelpToolStripMenuItem,
             this.toolStripMenuItem10,
             this.styleHelpToolStripMenuItem,
-            this.cutHelpToolStripMenuItem,
-            this.shapeHelpToolStripMenuItem,
             this.accessoriesHelpToolStripMenuItem,
             this.materialHelpToolStripMenuItem,
             this.stageHelpToolStripMenuItem,
@@ -1266,20 +1262,6 @@ namespace RH.HeadShop
             this.styleHelpToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.styleHelpToolStripMenuItem.Text = "Style Help";
             this.styleHelpToolStripMenuItem.Click += new System.EventHandler(this.styleHelpToolStripMenuItem_Click);
-            // 
-            // cutHelpToolStripMenuItem
-            // 
-            this.cutHelpToolStripMenuItem.Name = "cutHelpToolStripMenuItem";
-            this.cutHelpToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.cutHelpToolStripMenuItem.Text = "Cut Help";
-            this.cutHelpToolStripMenuItem.Click += new System.EventHandler(this.cutHelpToolStripMenuItem_Click);
-            // 
-            // shapeHelpToolStripMenuItem
-            // 
-            this.shapeHelpToolStripMenuItem.Name = "shapeHelpToolStripMenuItem";
-            this.shapeHelpToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.shapeHelpToolStripMenuItem.Text = "Shape Help";
-            this.shapeHelpToolStripMenuItem.Click += new System.EventHandler(this.shapeHelpToolStripMenuItem_Click);
             // 
             // accessoriesHelpToolStripMenuItem
             // 
@@ -1468,8 +1450,6 @@ namespace RH.HeadShop
         private System.Windows.Forms.ToolStripMenuItem videoTutorialPart2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem startHelpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cutHelpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shapeHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accessoriesHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stageHelpToolStripMenuItem;

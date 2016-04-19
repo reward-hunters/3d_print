@@ -168,11 +168,7 @@ namespace RH.HeadShop.Render
 
         public void AfterLoadVoid()
         {
-            var orhto = Matrix4.CreateOrthographic(WindowWidth * Scale, WindowHeight * Scale, 0.0f, 10000.0f);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref orhto);
-            GL.MatrixMode(MatrixMode.Modelview);
-            ProjectMatrix = orhto;
+            PutCamera();
         }
 
         public Vector3 GetWorldPoint(int screenX, int screenY, int screenWidth, int screenHeight, float depth)
