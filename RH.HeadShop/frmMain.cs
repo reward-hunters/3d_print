@@ -93,6 +93,13 @@ namespace RH.HeadShop
 
         private string openProjectPath;
 
+        public enum ProgramMode     // какую программу билдим. head3d? или headshop? пока разница только в заставке
+        {
+            Head3D,
+            HeadShop
+        }
+        public ProgramMode CurrentProgram = ProgramMode.HeadShop;
+
         #endregion
 
         public frmMain(string fn)
@@ -164,7 +171,7 @@ namespace RH.HeadShop
                 if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
                     OpenProject(newProjectDlg.LoadingProject);
                 else
-                    CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName, newProjectDlg.TemplateImage, true);
+                    CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName, newProjectDlg.TemplateImage, true, newProjectDlg.SelectedSize);
             }
 
             if (ProgramCore.PluginMode)     // хотелка, что бы прога всегда была выше Daz'a
@@ -1237,7 +1244,7 @@ namespace RH.HeadShop
             if (frm.dialogResult != DialogResult.OK)
                 return;
 
-            CreateNewProject(frm.ProjectFolder, frm.ProjectName, frm.TemplateImage, false);
+            CreateNewProject(frm.ProjectFolder, frm.ProjectName, frm.TemplateImage, false, frm.SelectedSize);
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1410,7 +1417,7 @@ namespace RH.HeadShop
             mruManager.Add(fileName);
         }
 
-        private void CreateNewProject(string projectFolder, string projectName, string templateImage, bool needClose)
+        private void CreateNewProject(string projectFolder, string projectName, string templateImage, bool needClose, int selectedSize)
         {
             var projectPath = Path.Combine(projectFolder, string.Format("{0}.hds", projectName));
 
@@ -1420,9 +1427,9 @@ namespace RH.HeadShop
             {
                 var img = (Bitmap)Bitmap.FromStream(ms);
                 var max = Math.Max(img.Width, img.Height);
-                if (max > 1024)
+                if (max > selectedSize)
                 {
-                    var k = 1024.0f / max;
+                    var k = selectedSize / max;
                     var newImg = ImageEx.ResizeImage(img, new Size((int)(img.Width * k), (int)(img.Height * k)));
 
                     templateImage = UserConfig.AppDataDir;

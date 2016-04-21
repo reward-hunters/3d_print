@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using OpenTK.Graphics.OpenGL;
 using RH.HeadShop.IO;
 
 namespace RH.HeadShop.Controls
@@ -51,11 +52,20 @@ namespace RH.HeadShop.Controls
         public DialogResult dialogResult = DialogResult.Cancel;
         private readonly bool atStartup;
 
+        private readonly int videoCardSize;
+
+        public int SelectedSize
+        {
+            get { return rb512.Checked ? 512 : (rb1024.Checked ? 1024 : 2048); }
+        }
+
         #endregion
 
         public frmNewProject1(bool atStartup)
         {
             InitializeComponent();
+
+            GL.GetInteger(GetPName.MaxTextureSize, out videoCardSize);
 
             this.atStartup = atStartup;
             groupLoadProject.Enabled = atStartup && !ProgramCore.PluginMode;
@@ -153,6 +163,9 @@ namespace RH.HeadShop.Controls
         {
             groupLoadProject.Enabled = !rbNew.Checked;
             groupBox1.Enabled = rbNew.Checked;
+            rb512.Enabled = rbNew.Checked && videoCardSize >= 512;
+            rb1024.Enabled = rbNew.Checked && videoCardSize >= 1024;
+            rb2048.Enabled = rbNew.Checked && videoCardSize >= 2048;
         }
     }
 }

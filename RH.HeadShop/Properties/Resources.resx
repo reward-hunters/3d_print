@@ -211,9 +211,6 @@
   <data name="btnMenuCutPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuCutPressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Logo_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo_2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="bgWizard2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bgWizard2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -312,9 +309,6 @@
   </data>
   <data name="btnMenuProfilePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnMenuProfilePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Logo_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="handBrush1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\handBrush1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -448,7 +442,10 @@
   <data name="brush300" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brush300.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Logo_Head3D" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo_new.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_HeadShop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_HeadShop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

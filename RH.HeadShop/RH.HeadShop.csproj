@@ -629,6 +629,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\logo_HeadShop.png" />
     <None Include="Resources\Logo_new.jpg" />
     <None Include="Resources\brush300.png" />
     <None Include="Resources\brush200.png" />

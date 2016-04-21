@@ -833,9 +833,9 @@ namespace RH.HeadShop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Logo {
+        internal static System.Drawing.Bitmap Logo_Head3D {
             get {
-                object obj = ResourceManager.GetObject("Logo", resourceCulture);
+                object obj = ResourceManager.GetObject("Logo_Head3D", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -843,19 +843,9 @@ namespace RH.HeadShop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Logo_1 {
+        internal static System.Drawing.Bitmap logo_HeadShop {
             get {
-                object obj = ResourceManager.GetObject("Logo_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Logo_2 {
-            get {
-                object obj = ResourceManager.GetObject("Logo_2", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_HeadShop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

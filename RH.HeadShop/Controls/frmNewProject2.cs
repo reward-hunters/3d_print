@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render.Helpers;
@@ -84,7 +85,7 @@ namespace RH.HeadShop.Controls
             var center = (fcr.FaceRectRelative.Height + fcr.FaceRectRelative.Y) / 2f * 1.4f;
             nextHeadRect.Y = center - (nextHeadRect.Height / 2f);
             nextHeadRect.Height *= 0.92f; //рисовать на месте нижней челюсти
-            
+
             textName.Text = projectPath;
             if (!string.IsNullOrEmpty(templateImagePath))
             {
@@ -100,7 +101,7 @@ namespace RH.HeadShop.Controls
                 var dazPath = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\", "fs3d.obj");
                 if (File.Exists(dazPath))
                 {
-                 //   rbImportObj.Checked = true;
+                    //   rbImportObj.Checked = true;
                     CustomModelPath = dazPath;
                 }
                 else
@@ -193,7 +194,7 @@ namespace RH.HeadShop.Controls
                     currentSelection = Selection.Mouth;
                     tempSelectedPoint = fcr.MouthCenter;
                 }
-                else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right  && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
+                else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
                 {
                     currentSelection = Selection.TopEdge;
                     startEdgeRect = TopEdgeTransformed;
@@ -277,7 +278,7 @@ namespace RH.HeadShop.Controls
                 btnChild.Tag = btnFemale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
-             //   rbImportObj.Checked = false;
+                //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
             }
         }
@@ -291,7 +292,7 @@ namespace RH.HeadShop.Controls
                 btnChild.Tag = btnMale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnMale.Image = Properties.Resources.btnMaleGray;
-             //   rbImportObj.Checked = false;
+                //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
             }
         }
@@ -305,36 +306,36 @@ namespace RH.HeadShop.Controls
                 btnMale.Tag = btnFemale.Tag = "2";
                 btnMale.Image = Properties.Resources.btnMaleGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
-             //   rbImportObj.Checked = false;
+                //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
             }
         }
-    /*    private void rbImportObj_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbImportObj.Checked)
+        /*    private void rbImportObj_CheckedChanged(object sender, EventArgs e)
             {
-                btnFemale.Tag = btnChild.Tag = btnMale.Tag = "2";
-                btnChild.Image = Properties.Resources.btnChildGray;
-                btnMale.Image = Properties.Resources.btnMaleGray;
-                btnFemale.Image = Properties.Resources.btnFemaleGray;
-
-                if (!ProgramCore.PluginMode)
+                if (rbImportObj.Checked)
                 {
-                    using (var ofd = new OpenFileDialogEx("Select obj file", "OBJ Files|*.obj"))
-                    {
-                        ofd.Multiselect = false;
-                        if (ofd.ShowDialog() != DialogResult.OK)
-                        {
-                            btnNext.Enabled = false;
-                            return;
-                        }
+                    btnFemale.Tag = btnChild.Tag = btnMale.Tag = "2";
+                    btnChild.Image = Properties.Resources.btnChildGray;
+                    btnMale.Image = Properties.Resources.btnMaleGray;
+                    btnFemale.Image = Properties.Resources.btnFemaleGray;
 
-                        btnNext.Enabled = true;
-                        CustomModelPath = ofd.FileName;
+                    if (!ProgramCore.PluginMode)
+                    {
+                        using (var ofd = new OpenFileDialogEx("Select obj file", "OBJ Files|*.obj"))
+                        {
+                            ofd.Multiselect = false;
+                            if (ofd.ShowDialog() != DialogResult.OK)
+                            {
+                                btnNext.Enabled = false;
+                                return;
+                            }
+
+                            btnNext.Enabled = true;
+                            CustomModelPath = ofd.FileName;
+                        }
                     }
                 }
-            }
-        }*/
+            }*/
 
         private void btnQuestion_MouseDown(object sender, MouseEventArgs e)
         {
