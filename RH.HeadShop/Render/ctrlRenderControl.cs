@@ -3480,6 +3480,12 @@ namespace RH.HeadShop.Render
                 if (ofd.ShowDialog() != DialogResult.OK)
                     return;
 
+                if (ofd.SelectedFolder[0] == ProgramCore.Project.ProjectPath)
+                {
+                    MessageBox.Show("Can't export file to project directory.", "Warning");
+                    return;
+                }
+
                 newDirectory = Path.Combine(ofd.SelectedFolder[0], "SmoothedModelTextures");
                 FolderEx.CreateDirectory(newDirectory);
 

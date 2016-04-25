@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using RH.HeadShop.Controls;
 using RH.HeadShop.Controls.Libraries;
@@ -98,7 +99,7 @@ namespace RH.HeadShop
             Head3D,
             HeadShop
         }
-        public ProgramMode CurrentProgram = ProgramMode.HeadShop;
+        public ProgramMode CurrentProgram = ProgramMode.Head3D;
 
         #endregion
 
@@ -118,6 +119,17 @@ namespace RH.HeadShop
             KeyPreview = true;
             ProgramCore.ProgressProc += ProgressProc;
 
+            if (CurrentProgram == ProgramMode.Head3D)
+            {
+                Text = "PrintAhead";
+                aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
+            }
+            else
+            {
+                Text = "HeadShop 10";
+                aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10";
+            }
+            
             if (!UserConfig.ByName("Tutorials").HasAny())
                 InitializeTutorialLinks();
 
