@@ -94,12 +94,13 @@ namespace RH.HeadShop
 
         private string openProjectPath;
 
-        public enum ProgramMode     // какую программу билдим. head3d? или headshop? пока разница только в заставке
+        public enum ProgramMode     // какую программу билдим. head3d (= printahead)? или headshop? пока разница только в заставке
         {
-            Head3D,
+            PrintAhead,
             HeadShop
         }
-        public ProgramMode CurrentProgram = ProgramMode.Head3D;
+
+        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
 
         #endregion
 
@@ -119,7 +120,7 @@ namespace RH.HeadShop
             KeyPreview = true;
             ProgramCore.ProgressProc += ProgressProc;
 
-            if (CurrentProgram == ProgramMode.Head3D)
+            if (CurrentProgram == ProgramMode.PrintAhead)
             {
                 Text = "PrintAhead";
                 aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
@@ -1438,7 +1439,7 @@ namespace RH.HeadShop
             using (var ms = new MemoryStream(File.ReadAllBytes(templateImage))) // Don't use using!!
             {
                 var img = (Bitmap)Bitmap.FromStream(ms);
-                var max = Math.Max(img.Width, img.Height);
+                var max = (float)Math.Max(img.Width, img.Height);
                 if (max > selectedSize)
                 {
                     var k = selectedSize / max;

@@ -3498,6 +3498,8 @@ namespace RH.HeadShop.Render
                 pickingController.SelectedMeshes.Clear();
                 ProgramCore.Project.ToStream();
             }
+            ProgramCore.MainForm.ctrlRenderControl.DoMorth(ProgramCore.Project.MorphingScale);      // чтобы не потерять Smoothing
+
             Process.Start("http://www.shapeways.com/");
 
             var meshInfos = new List<MeshInfo>();

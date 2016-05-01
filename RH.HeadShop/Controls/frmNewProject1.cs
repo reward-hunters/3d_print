@@ -65,8 +65,6 @@ namespace RH.HeadShop.Controls
         {
             InitializeComponent();
 
-            GL.GetInteger(GetPName.MaxTextureSize, out videoCardSize);
-
             this.atStartup = atStartup;
             groupLoadProject.Enabled = atStartup && !ProgramCore.PluginMode;
             rbSaved.Enabled = atStartup && !ProgramCore.PluginMode;
@@ -74,6 +72,15 @@ namespace RH.HeadShop.Controls
             rbNew.Enabled = atStartup;
 
             ShowInTaskbar = atStartup;
+
+            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShop)
+            {
+                GL.GetInteger(GetPName.MaxTextureSize, out videoCardSize);
+                rb512.Visible = rb1024.Visible = rb2048.Visible = true;
+            }
+            else
+                rb512.Visible = rb1024.Visible = rb2048.Visible = false;
+
         }
 
         #region Form's event
@@ -163,9 +170,13 @@ namespace RH.HeadShop.Controls
         {
             groupLoadProject.Enabled = !rbNew.Checked;
             groupBox1.Enabled = rbNew.Checked;
-            rb512.Enabled = rbNew.Checked && videoCardSize >= 512;
-            rb1024.Enabled = rbNew.Checked && videoCardSize >= 1024;
-            rb2048.Enabled = rbNew.Checked && videoCardSize >= 2048;
+
+            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShop)
+            {
+                rb512.Enabled = rbNew.Checked && videoCardSize >= 512;
+                rb1024.Enabled = rbNew.Checked && videoCardSize >= 1024;
+                rb2048.Enabled = rbNew.Checked && videoCardSize >= 2048;
+            }
         }
     }
 }

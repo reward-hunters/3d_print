@@ -51,6 +51,7 @@ namespace RH.HeadShop.Controls
         {
             InitializeComponent();
             RenderTimer.Start();
+            
         }
 
         #region Form's event

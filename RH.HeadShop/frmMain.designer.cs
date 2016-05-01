@@ -1319,7 +1319,7 @@ namespace RH.HeadShop
             // 
             this.aboutHeadShopProToolStripMenuItem.Name = "aboutHeadShopProToolStripMenuItem";
             this.aboutHeadShopProToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.aboutHeadShopProToolStripMenuItem.Text = "About Head3D";
+            this.aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
             this.aboutHeadShopProToolStripMenuItem.Click += new System.EventHandler(this.aboutHeadShopProToolStripMenuItem_Click);
             // 
             // frmMain
@@ -1336,7 +1336,7 @@ namespace RH.HeadShop
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Head3D";
+            this.Text = "PrintAhead";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);

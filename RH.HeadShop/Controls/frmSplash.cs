@@ -15,7 +15,7 @@ namespace RH.HeadShop.Controls
         }
         protected override void OnLoad(EventArgs e)
         {
-            var image = ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.Head3D ?  Properties.Resources.Logo_PrintAhead : Properties.Resources.logo_HeadShop;
+            var image = ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.PrintAhead ?  Properties.Resources.Logo_PrintAhead : Properties.Resources.logo_HeadShop;
             image = new Bitmap(image, new Size(image.Width,  image.Height ));
          //   Left = 353;
         //    Top = 422;
