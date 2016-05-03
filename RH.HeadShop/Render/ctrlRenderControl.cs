@@ -3498,7 +3498,8 @@ namespace RH.HeadShop.Render
                 pickingController.SelectedMeshes.Clear();
                 ProgramCore.Project.ToStream();
             }
-            ProgramCore.MainForm.ctrlRenderControl.DoMorth(ProgramCore.Project.MorphingScale);      // чтобы не потерять Smoothing
+            var morphK = float.IsNaN(ProgramCore.Project.MorphingScale) ? 0.9f : ProgramCore.Project.MorphingScale;
+            ProgramCore.MainForm.ctrlRenderControl.DoMorth(morphK);      // чтобы не потерять Smoothing
 
             Process.Start("http://www.shapeways.com/");
 
