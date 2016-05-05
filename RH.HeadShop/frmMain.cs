@@ -100,7 +100,7 @@ namespace RH.HeadShop
             HeadShop
         }
 
-        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
+        public ProgramMode CurrentProgram = ProgramMode.HeadShop;
 
         #endregion
 
@@ -130,7 +130,7 @@ namespace RH.HeadShop
                 Text = "HeadShop 10";
                 aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10";
             }
-            
+
             if (!UserConfig.ByName("Tutorials").HasAny())
                 InitializeTutorialLinks();
 
@@ -426,6 +426,9 @@ namespace RH.HeadShop
             UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
             UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
             UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+
+            UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/gWOkSUDbv0I";
+            UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/8cejdijABQY";
         }
 
         #region Information
@@ -1521,7 +1524,8 @@ namespace RH.HeadShop
 
         public void ShowVideo()
         {
-            Process.Start("https://www.youtube.com/watch?v=rkELnRgRHP4");
+            var quickStartLink = UserConfig.ByName("Tutorials")["Links", "QuickStart", "https://youtu.be/8cejdijABQY"];
+            Process.Start(quickStartLink);
         }
         private void videoTutorialPart1CutAndShapeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1529,7 +1533,8 @@ namespace RH.HeadShop
         }
         private void videoTutorialPart2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.youtube.com/watch?v=AjG09RGgHvw&feature=youtu.be");
+            var advancedLink = UserConfig.ByName("Tutorials")["Links", "AdvancedManual", "https://youtu.be/gWOkSUDbv0I"];
+            Process.Start(advancedLink);
         }
 
         private void startHelpToolStripMenuItem_Click(object sender, EventArgs e)

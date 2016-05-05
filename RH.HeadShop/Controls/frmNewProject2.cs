@@ -75,6 +75,8 @@ namespace RH.HeadShop.Controls
             InitializeComponent();
             this.fcr = fcr;
 
+            rbImportObj.Visible = label1.Visible = ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShop;
+
             edgePen = (Pen)DrawingTools.GreenPen.Clone();
             //edgePen.Width = 2;
             arrowPen = (Pen)DrawingTools.GreenPen.Clone();
@@ -274,12 +276,14 @@ namespace RH.HeadShop.Controls
             {
                 btnMale.Tag = "1";
                 btnMale.Image = Properties.Resources.btnMaleNormal;
+                rbImportObj.Checked = false;
 
                 btnChild.Tag = btnFemale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
                 //   rbImportObj.Checked = false;
                 btnNext.Enabled = true;
+
             }
         }
         private void btnFemale_Click(object sender, EventArgs e)
@@ -288,6 +292,7 @@ namespace RH.HeadShop.Controls
             {
                 btnFemale.Tag = "1";
                 btnFemale.Image = Properties.Resources.btnFemaleNormal;
+                rbImportObj.Checked = false;
 
                 btnChild.Tag = btnMale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
@@ -302,6 +307,7 @@ namespace RH.HeadShop.Controls
             {
                 btnChild.Tag = "1";
                 btnChild.Image = Properties.Resources.btnChildNormal;
+                rbImportObj.Checked = false;
 
                 btnMale.Tag = btnFemale.Tag = "2";
                 btnMale.Image = Properties.Resources.btnMaleGray;
@@ -310,32 +316,32 @@ namespace RH.HeadShop.Controls
                 btnNext.Enabled = true;
             }
         }
-        /*    private void rbImportObj_CheckedChanged(object sender, EventArgs e)
+        private void rbImportObj_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbImportObj.Checked)
             {
-                if (rbImportObj.Checked)
+                btnFemale.Tag = btnChild.Tag = btnMale.Tag = "2";
+                btnChild.Image = Properties.Resources.btnChildGray;
+                btnMale.Image = Properties.Resources.btnMaleGray;
+                btnFemale.Image = Properties.Resources.btnFemaleGray;
+
+                if (!ProgramCore.PluginMode)
                 {
-                    btnFemale.Tag = btnChild.Tag = btnMale.Tag = "2";
-                    btnChild.Image = Properties.Resources.btnChildGray;
-                    btnMale.Image = Properties.Resources.btnMaleGray;
-                    btnFemale.Image = Properties.Resources.btnFemaleGray;
-
-                    if (!ProgramCore.PluginMode)
+                    using (var ofd = new OpenFileDialogEx("Select obj file", "OBJ Files|*.obj"))
                     {
-                        using (var ofd = new OpenFileDialogEx("Select obj file", "OBJ Files|*.obj"))
+                        ofd.Multiselect = false;
+                        if (ofd.ShowDialog() != DialogResult.OK)
                         {
-                            ofd.Multiselect = false;
-                            if (ofd.ShowDialog() != DialogResult.OK)
-                            {
-                                btnNext.Enabled = false;
-                                return;
-                            }
-
-                            btnNext.Enabled = true;
-                            CustomModelPath = ofd.FileName;
+                            btnNext.Enabled = false;
+                            return;
                         }
+
+                        btnNext.Enabled = true;
+                        CustomModelPath = ofd.FileName;
                     }
                 }
-            }*/
+            }
+        }
 
         private void btnQuestion_MouseDown(object sender, MouseEventArgs e)
         {
