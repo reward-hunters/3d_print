@@ -1395,9 +1395,9 @@ namespace RH.HeadShop.Render
 
 
 
-                                ProgramCore.Project.projectCamera._dy= ProgramCore.MainForm.ctrlRenderControl.camera._dy;
-                                ProgramCore.Project.projectCamera.beta= ProgramCore.MainForm.ctrlRenderControl.camera.beta;
-                                ProgramCore.Project.projectCamera.Scale=ProgramCore.MainForm.ctrlRenderControl.camera.Scale;
+                                ProgramCore.Project.projectCamera._dy = ProgramCore.MainForm.ctrlRenderControl.camera._dy;
+                                ProgramCore.Project.projectCamera.beta = ProgramCore.MainForm.ctrlRenderControl.camera.beta;
+                                ProgramCore.Project.projectCamera.Scale = ProgramCore.MainForm.ctrlRenderControl.camera.Scale;
                                 ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
                             }
                             break;
@@ -3550,8 +3550,12 @@ namespace RH.HeadShop.Render
         {
             var fiName = string.Empty;
             var diName = string.Empty;
+            var tempScale = 5f;
             if (ProgramCore.PluginMode)
             {
+                tempScale = ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale;
+                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = 1;          // чтобы скейл в проге не влиял на экспорт.
+
                 var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
                 diName = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\");
@@ -3630,6 +3634,9 @@ namespace RH.HeadShop.Render
                     file.LastWriteTime = now;
                 }
 
+
+                if (ProgramCore.PluginMode)
+                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = tempScale;
 
                 #region костыль
 
