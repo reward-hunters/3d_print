@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Threading.Tasks;
+using RH.HeadShop.IO;
 using RH.HeadShop.Render.Controllers;
 using RH.HeadShop.Render.Helpers;
 using RH.HeadShop.Render.Obj;
@@ -195,6 +196,8 @@ namespace RH.HeadShop.Render.Meshes
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBuffer);
             GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(indices.Count * sizeof(uint)), indices.ToArray(), BufferUsageHint.DynamicDraw);
+
+            ProgramCore.EchoToLog(String.Format("IndexBuffer Size: {0}", indices.Count), EchoMessageType.Information);
 
             var error = GL.GetError();
             if (error != ErrorCode.NoError)

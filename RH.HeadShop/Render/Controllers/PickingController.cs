@@ -457,6 +457,12 @@ namespace RH.HeadShop.Render.Controllers
                         vertexPositions[i * 3 + 1] = vertexPositions[i * 3 + 1] - 0.0060975609f;
                 }
 
+                ProgramCore.EchoToLog(String.Format("RenderMesh: {0}", modelGroup.Value.Name), EchoMessageType.Information);
+                ProgramCore.EchoToLog(
+                    String.Format("renderMesh.Create: {0}, {1}, {2}, {3}, {4}", vertexPositions.Count,
+                        vertexTextureCoordinates.Count, vertexBoneIndices.Count, vertexBoneWeights.Count, indeces.Count),
+                    EchoMessageType.Information);
+
                 if (renderMesh.Create(vertexPositions, vertexTextureCoordinates, vertexBoneIndices, vertexBoneWeights, indeces, string.Empty, string.Empty))
                 {
                     if (objModelNull != null)
