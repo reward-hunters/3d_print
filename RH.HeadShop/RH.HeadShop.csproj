@@ -455,6 +455,9 @@
     <EmbeddedResource Include="Controls\Panels\PanelHead.resx">
       <DependentUpon>PanelHead.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Panels\panelLibrary.resx">
+      <DependentUpon>PanelLibrary.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Panels\PanelShape.resx">
       <DependentUpon>PanelShape.cs</DependentUpon>
     </EmbeddedResource>
@@ -629,6 +632,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\grabbing.cur" />
+    <None Include="Resources\grab.cur" />
+    <None Include="Resources\grabbing.ico" />
+    <None Include="Resources\grab.ico" />
     <None Include="Resources\Logo_PrintAhead.jpg" />
     <None Include="Resources\logo_HeadShop.png" />
     <None Include="Resources\Logo_new.jpg" />

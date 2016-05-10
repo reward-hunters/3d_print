@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSavePositionAndSize = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAddNewMaterial = new System.Windows.Forms.Button();
             this.teAngle = new System.Windows.Forms.TextBox();
@@ -40,47 +39,41 @@
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.imageListView = new RH.ImageListView.ImageListViewEx();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnClearProperties = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.btnClearProperties);
-            this.panel1.Controls.Add(this.btnSavePositionAndSize);
-            this.panel1.Controls.Add(this.btnDelete);
-            this.panel1.Controls.Add(this.btnAddNewMaterial);
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.teAngle);
             this.panel1.Controls.Add(this.ctrlAngle);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.trackBarSize);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(277, 0);
+            this.panel1.Location = new System.Drawing.Point(290, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(93, 404);
+            this.panel1.Size = new System.Drawing.Size(150, 362);
             this.panel1.TabIndex = 1;
-            // 
-            // btnSavePositionAndSize
-            // 
-            this.btnSavePositionAndSize.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSavePositionAndSize.Location = new System.Drawing.Point(1, 327);
-            this.btnSavePositionAndSize.Name = "btnSavePositionAndSize";
-            this.btnSavePositionAndSize.Size = new System.Drawing.Size(59, 29);
-            this.btnSavePositionAndSize.TabIndex = 10;
-            this.btnSavePositionAndSize.Text = "Save";
-            this.btnSavePositionAndSize.UseVisualStyleBackColor = true;
-            this.btnSavePositionAndSize.Click += new System.EventHandler(this.btnSavePositionAndSize_Click);
             // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDelete.Location = new System.Drawing.Point(1, 362);
+            this.btnDelete.Location = new System.Drawing.Point(71, 21);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(87, 29);
+            this.btnDelete.Size = new System.Drawing.Size(56, 27);
             this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -89,20 +82,20 @@
             // btnAddNewMaterial
             // 
             this.btnAddNewMaterial.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnAddNewMaterial.Location = new System.Drawing.Point(1, 294);
+            this.btnAddNewMaterial.Location = new System.Drawing.Point(7, 21);
             this.btnAddNewMaterial.Name = "btnAddNewMaterial";
-            this.btnAddNewMaterial.Size = new System.Drawing.Size(87, 29);
+            this.btnAddNewMaterial.Size = new System.Drawing.Size(58, 27);
             this.btnAddNewMaterial.TabIndex = 8;
-            this.btnAddNewMaterial.Text = "Add new";
+            this.btnAddNewMaterial.Text = "Add";
             this.btnAddNewMaterial.UseVisualStyleBackColor = true;
             this.btnAddNewMaterial.Click += new System.EventHandler(this.btnAddNewMaterial_Click);
             // 
             // teAngle
             // 
             this.teAngle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.teAngle.Location = new System.Drawing.Point(6, 264);
+            this.teAngle.Location = new System.Drawing.Point(86, 94);
             this.teAngle.Name = "teAngle";
-            this.teAngle.Size = new System.Drawing.Size(58, 24);
+            this.teAngle.Size = new System.Drawing.Size(51, 24);
             this.teAngle.TabIndex = 7;
             this.teAngle.Text = "0";
             this.teAngle.TextChanged += new System.EventHandler(this.teAngle_TextChanged);
@@ -111,7 +104,7 @@
             // ctrlAngle
             // 
             this.ctrlAngle.Angle = 0;
-            this.ctrlAngle.Location = new System.Drawing.Point(13, 211);
+            this.ctrlAngle.Location = new System.Drawing.Point(86, 41);
             this.ctrlAngle.Name = "ctrlAngle";
             this.ctrlAngle.Size = new System.Drawing.Size(47, 47);
             this.ctrlAngle.TabIndex = 3;
@@ -122,7 +115,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(15, 181);
+            this.label2.Location = new System.Drawing.Point(88, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 18);
             this.label2.TabIndex = 2;
@@ -163,29 +156,86 @@
             this.imageListView.Name = "imageListView";
             this.imageListView.PersistentCacheFile = "";
             this.imageListView.PersistentCacheSize = ((long)(100));
-            this.imageListView.Size = new System.Drawing.Size(277, 404);
+            this.imageListView.Size = new System.Drawing.Size(290, 362);
             this.imageListView.TabIndex = 3;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // btnClearProperties
+            // groupBox2
             // 
-            this.btnClearProperties.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnClearProperties.Location = new System.Drawing.Point(63, 327);
-            this.btnClearProperties.Name = "btnClearProperties";
-            this.btnClearProperties.Size = new System.Drawing.Size(25, 29);
-            this.btnClearProperties.TabIndex = 11;
-            this.btnClearProperties.Text = "X";
-            this.btnClearProperties.UseVisualStyleBackColor = true;
-            this.btnClearProperties.Click += new System.EventHandler(this.btnClearProperties_Click);
+            this.groupBox2.Controls.Add(this.btnDelete);
+            this.groupBox2.Controls.Add(this.btnAddNewMaterial);
+            this.groupBox2.Location = new System.Drawing.Point(5, 198);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(133, 54);
+            this.groupBox2.TabIndex = 16;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Accesssories";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnImport);
+            this.groupBox1.Controls.Add(this.btnExport);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Location = new System.Drawing.Point(5, 258);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(133, 89);
+            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Settings";
+            // 
+            // btnImport
+            // 
+            this.btnImport.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnImport.Location = new System.Drawing.Point(71, 54);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(59, 29);
+            this.btnImport.TabIndex = 15;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnExport.Location = new System.Drawing.Point(6, 54);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(59, 29);
+            this.btnExport.TabIndex = 14;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(6, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(59, 29);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnSavePositionAndSize_Click);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(71, 19);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(59, 29);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Clear";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btnClearProperties_Click);
             // 
             // frmAccessories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 404);
+            this.ClientSize = new System.Drawing.Size(440, 362);
             this.Controls.Add(this.imageListView);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -203,6 +253,8 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -219,7 +271,11 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnAddNewMaterial;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnSavePositionAndSize;
-        private System.Windows.Forms.Button btnClearProperties;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

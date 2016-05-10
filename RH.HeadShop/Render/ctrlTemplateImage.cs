@@ -109,6 +109,9 @@ namespace RH.HeadShop.Render
 
         public Image DrawingImage; //!!!
 
+        private const float PointRectSize = 9;
+        private const float HalfPointRectSize = 4.5f;
+
         #endregion
 
         public ctrlTemplateImage()
@@ -312,18 +315,17 @@ namespace RH.HeadShop.Render
 
         private void DrawAutodotsGroupPoints(Graphics g)
         {
-            var pointRect = new RectangleF(MouthTransformed.X - 2.5f, MouthTransformed.Y - 2.5f, 5f, 5f);
+            var pointRect = new RectangleF(MouthTransformed.X - HalfPointRectSize, MouthTransformed.Y - HalfPointRectSize, PointRectSize, PointRectSize);
             g.FillRectangle(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.Lip ? DrawingTools.YellowSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
-            pointRect = new RectangleF(NoseTransformed.X - 2.5f, NoseTransformed.Y - 2.5f, 5f, 5f);
+            pointRect = new RectangleF(NoseTransformed.X - HalfPointRectSize, NoseTransformed.Y - HalfPointRectSize, PointRectSize, PointRectSize);
             g.FillRectangle(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.Nose ? DrawingTools.YellowSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
 
-            pointRect = new RectangleF(LeftEyeTransformed.X - 2.5f, LeftEyeTransformed.Y - 2.5f, 5f, 5f);
+            pointRect = new RectangleF(LeftEyeTransformed.X - HalfPointRectSize, LeftEyeTransformed.Y - HalfPointRectSize, PointRectSize, PointRectSize);
             g.FillRectangle(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.LEye ? DrawingTools.YellowSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
-            pointRect = new RectangleF(RightEyeTransformed.X - 2.5f, RightEyeTransformed.Y - 2.5f, 5f, 5f);
+            pointRect = new RectangleF(RightEyeTransformed.X - HalfPointRectSize, RightEyeTransformed.Y - HalfPointRectSize, PointRectSize, PointRectSize);
             g.FillRectangle(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.REye ? DrawingTools.YellowSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
 
-
-            pointRect = new RectangleF(CentralFacePoint.X - 2.5f, CentralFacePoint.Y - 2.5f, 5f, 5f);
+            pointRect = new RectangleF(CentralFacePoint.X - HalfPointRectSize, CentralFacePoint.Y - HalfPointRectSize, PointRectSize, PointRectSize);
             g.FillRectangle(ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.Head ? DrawingTools.YellowSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
         }
         public void DrawLassoOnPictureBox(Graphics g, bool autodots)
@@ -675,8 +677,8 @@ namespace RH.HeadShop.Render
                                     }
 
 
-                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform( MeshPartType.ProfileTop, pointsTop, Vector2.Zero);
-                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform( MeshPartType.ProfileBottom, pointsBottom, Vector2.Zero);
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileTop, pointsTop, Vector2.Zero);
+                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(MeshPartType.ProfileBottom, pointsBottom, Vector2.Zero);
 
                                     var th = new Thread(() =>
                                     {
@@ -761,16 +763,16 @@ namespace RH.HeadShop.Render
                     {
                         e.Graphics.DrawRectangle(DrawingTools.RedPen, FaceRectTransformed);
 
-                        var pointRect = new RectangleF(FaceRectTransformed.X - 5f, FaceRectTransformed.Y - 5f, 10f, 10f);
+                        var pointRect = new RectangleF(FaceRectTransformed.X - HalfPointRectSize, FaceRectTransformed.Y - HalfPointRectSize, PointRectSize, PointRectSize);
                         e.Graphics.FillRectangle(DrawingTools.BlueSolidBrush, pointRect);
 
-                        pointRect = new RectangleF(FaceRectTransformed.X + FaceRectTransformed.Width - 5f, FaceRectTransformed.Y - 5f, 10f, 10f);
+                        pointRect = new RectangleF(FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize, FaceRectTransformed.Y - HalfPointRectSize, PointRectSize, PointRectSize);
                         e.Graphics.FillRectangle(DrawingTools.BlueSolidBrush, pointRect);
 
-                        pointRect = new RectangleF(FaceRectTransformed.X + FaceRectTransformed.Width - 5f, FaceRectTransformed.Y + FaceRectTransformed.Height - 5f, 10f, 10f);
+                        pointRect = new RectangleF(FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize, FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize, PointRectSize, PointRectSize);
                         e.Graphics.FillRectangle(DrawingTools.BlueSolidBrush, pointRect);
 
-                        pointRect = new RectangleF(FaceRectTransformed.X - 5f, FaceRectTransformed.Y + FaceRectTransformed.Height - 5f, 10f, 10f);
+                        pointRect = new RectangleF(FaceRectTransformed.X - HalfPointRectSize, FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize, PointRectSize, PointRectSize);
                         e.Graphics.FillRectangle(DrawingTools.BlueSolidBrush, pointRect);
 
                         if (ProgramCore.Project.TextureFlip != FlipType.None)
@@ -811,7 +813,7 @@ namespace RH.HeadShop.Render
                         {
                             var point = points[i];
 
-                            var pointRect = new RectangleF(point.X - 5f, point.Y - 5f, 5f, 5f);
+                            var pointRect = new RectangleF(point.X - HalfPointRectSize, point.Y - HalfPointRectSize, PointRectSize, PointRectSize);
                             e.Graphics.FillRectangle(profileControlPoints[i].Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
                         }
 
@@ -833,7 +835,7 @@ namespace RH.HeadShop.Render
 
                                     var pointK = new Vector2(point.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX,
                                                              point.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY);
-                                    var pointRect = new RectangleF(pointK.X - 5f, pointK.Y - 5f, 10f, 10f);
+                                    var pointRect = new RectangleF(pointK.X - HalfPointRectSize, pointK.Y - HalfPointRectSize, PointRectSize, PointRectSize);
                                     e.Graphics.FillRectangle(point.Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
                                 }
                             }
@@ -850,7 +852,7 @@ namespace RH.HeadShop.Render
 
                                 var pointK = new Vector2(point.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX,
                                                          point.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY);
-                                var pointRect = new RectangleF(pointK.X - 5f, pointK.Y - 5f, 10f, 10f);
+                                var pointRect = new RectangleF(pointK.X - HalfPointRectSize, pointK.Y - HalfPointRectSize, PointRectSize, PointRectSize);
                                 e.Graphics.FillRectangle(point.Selected ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, pointRect);
                             }
 
@@ -972,16 +974,16 @@ namespace RH.HeadShop.Render
                                     #region Rectangle transforM ?
 
                                     moveRectIndex = -1;
-                                    if (e.X >= FaceRectTransformed.X - 5 && e.X <= FaceRectTransformed.X + 5 && e.Y >= FaceRectTransformed.Y - 5 && e.Y <= FaceRectTransformed.Y + 5)
+                                    if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
                                         moveRectIndex = 1;
-                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - 5 && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + 5
-                                             && e.Y >= FaceRectTransformed.Y - 5 && e.Y <= FaceRectTransformed.Y + 5)
+                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
+                                             && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
                                         moveRectIndex = 2;
-                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - 5 && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + 5
-                                             && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - 5 && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + 5)
+                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
+                                             && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
                                         moveRectIndex = 3;
-                                    else if (e.X >= FaceRectTransformed.X - 5 && e.X <= FaceRectTransformed.X + 5 && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - 5
-                                             && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + 5)
+                                    else if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize
+                                             && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
                                         moveRectIndex = 4;
 
                                     #endregion
@@ -1077,16 +1079,16 @@ namespace RH.HeadShop.Render
                                     #region Rectangle transforM ?
 
                                     moveRectIndex = -1;
-                                    if (e.X >= FaceRectTransformed.X - 5 && e.X <= FaceRectTransformed.X + 5 && e.Y >= FaceRectTransformed.Y - 5 && e.Y <= FaceRectTransformed.Y + 5)
+                                    if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
                                         moveRectIndex = 1;
-                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - 5 && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + 5
-                                             && e.Y >= FaceRectTransformed.Y - 5 && e.Y <= FaceRectTransformed.Y + 5)
+                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
+                                             && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
                                         moveRectIndex = 2;
-                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - 5 && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + 5
-                                             && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - 5 && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + 5)
+                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
+                                             && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
                                         moveRectIndex = 3;
-                                    else if (e.X >= FaceRectTransformed.X - 5 && e.X <= FaceRectTransformed.X + 5 && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - 5
-                                             && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + 5)
+                                    else if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize
+                                             && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
                                         moveRectIndex = 4;
 
                                     #endregion
@@ -1159,6 +1161,7 @@ namespace RH.HeadShop.Render
                 }
             }
         }
+
         public void pictureTemplate_MouseMove(object sender, MouseEventArgs e)
         {
             if (startMousePoint == Vector2.Zero)
@@ -1248,16 +1251,23 @@ namespace RH.HeadShop.Render
                                 if (ProgramCore.Project.ShapeFlip != FlipType.None)
                                     return;
 
-                                if (firstMove && ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.SelectedPoints.Count > 0)
+                                if (firstMove &&
+                                    ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.SelectedPoints.Count >
+                                    0)
                                 {
-                                    var history = new HistoryHeadAutoDots(ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots);
+                                    var history =
+                                        new HistoryHeadAutoDots(
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots);
                                     ProgramCore.MainForm.ctrlRenderControl.historyController.Add(history);
                                 }
 
                                 if (startMove)
                                 {
+                                    if (firstMove)
+                                        Cursor = ProgramCore.MainForm.GrabbingCursor;
+
                                     delta2 = newPoint - headLastPointRelative;
-                                    if (moveRectIndex != -1)          //таскаем прямоугольничек
+                                    if (moveRectIndex != -1) //таскаем прямоугольничек
                                     {
                                         var deltaX = (int)(e.X - headLastPoint.X);
                                         var deltaY = (int)(e.Y - headLastPoint.Y);
@@ -1296,7 +1306,10 @@ namespace RH.HeadShop.Render
                                         var newHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
                                         var kx = newWidth / tempMoveRectWidth;
                                         var ky = newHeight / tempMoveRectHeight;
-                                        foreach (var point in ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.SelectedPoints)
+                                        foreach (
+                                            var point in
+                                                ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots
+                                                    .SelectedPoints)
                                         {
                                             var p = point.ValueMirrored - tempMoveRectCenter;
                                             p.X *= kx;
@@ -1308,9 +1321,11 @@ namespace RH.HeadShop.Render
                                         tempMoveRectHeight = newHeight;
                                         UpdateUserCenterPositions(false, true);
                                     }
-                                    else            // таскаем точки
+                                    else // таскаем точки
                                     {
-                                        var selectedPoints = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.SelectedPoints;
+                                        var selectedPoints =
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots
+                                                .SelectedPoints;
                                         for (var i = 0; i < selectedPoints.Count; i++)
                                         {
                                             var headPoint = selectedPoints[i];
@@ -1329,19 +1344,29 @@ namespace RH.HeadShop.Render
 
                                 if (LineSelectionMode)
                                 {
-                                    if (firstMove && ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints.Count > 0)
+                                    if (firstMove &&
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints.Count > 0)
                                     {
                                         var isProfile = ProgramCore.MainForm.HeadProfile;
-                                        var teInfo = isProfile ? ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.ShapeProfileInfo : ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.ShapeInfo;
-                                        var historyElem = new HistoryHeadShapeLines(null, ProgramCore.MainForm.ctrlRenderControl.headController.Lines, teInfo, isProfile);
-                                        historyElem.Group = ProgramCore.MainForm.ctrlRenderControl.historyController.currentGroup;
+                                        var teInfo = isProfile
+                                            ? ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper
+                                                .ShapeProfileInfo
+                                            : ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.ShapeInfo;
+                                        var historyElem = new HistoryHeadShapeLines(null,
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.Lines, teInfo,
+                                            isProfile);
+                                        historyElem.Group =
+                                            ProgramCore.MainForm.ctrlRenderControl.historyController.currentGroup;
                                         ProgramCore.MainForm.ctrlRenderControl.historyController.Add(historyElem);
                                     }
 
                                     delta2 = newPoint - headLastPointRelative;
-                                    for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints.Count; i++)
+                                    for (var i = 0;
+                                        i < ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints.Count;
+                                        i++)
                                     {
-                                        var headPoint = ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints[i];
+                                        var headPoint =
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints[i];
                                         headPoint.ValueMirrored = headTempPoints[i].ValueMirrored + delta2;
                                         headPoint.UpdateWorldPoint();
                                     }
@@ -1353,15 +1378,23 @@ namespace RH.HeadShop.Render
 
                                 if (startMove)
                                 {
-                                    if (firstMove && ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints.Count > 0)
+                                    if (firstMove)
+                                        Cursor = ProgramCore.MainForm.GrabbingCursor;
+
+                                    if (firstMove &&
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints
+                                            .Count > 0)
                                     {
                                         Dictionary<Guid, MeshUndoInfo> undoInfo;
-                                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.GetUndoInfo(out undoInfo);
-                                        ProgramCore.MainForm.ctrlRenderControl.historyController.Add(new HistoryHeadShapeDots(undoInfo, ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots));
+                                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.GetUndoInfo(
+                                            out undoInfo);
+                                        ProgramCore.MainForm.ctrlRenderControl.historyController.Add(
+                                            new HistoryHeadShapeDots(undoInfo,
+                                                ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots));
                                     }
 
                                     delta2 = newPoint - headLastPointRelative;
-                                    if (moveRectIndex != -1)          //таскаем прямоугольничек
+                                    if (moveRectIndex != -1) //таскаем прямоугольничек
                                     {
                                         var deltaX = (int)(e.X - headLastPoint.X);
                                         var deltaY = (int)(e.Y - headLastPoint.Y);
@@ -1400,7 +1433,10 @@ namespace RH.HeadShop.Render
                                         var newHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
                                         var kx = newWidth / tempMoveRectWidth;
                                         var ky = newHeight / tempMoveRectHeight;
-                                        foreach (var point in ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints)
+                                        foreach (
+                                            var point in
+                                                ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots
+                                                    .SelectedPoints)
                                         {
                                             var p = point.ValueMirrored - tempMoveRectCenter;
                                             p.X *= kx;
@@ -1413,9 +1449,11 @@ namespace RH.HeadShop.Render
                                         tempMoveRectHeight = newHeight;
                                         UpdateUserCenterPositions(false, true);
                                     }
-                                    else            // таскаем точки
+                                    else // таскаем точки
                                     {
-                                        var selectedPoints = ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints;
+                                        var selectedPoints =
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots
+                                                .SelectedPoints;
                                         for (var i = 0; i < selectedPoints.Count; i++)
                                         {
                                             var headPoint = selectedPoints[i];
@@ -1425,6 +1463,7 @@ namespace RH.HeadShop.Render
                                         UpdateUserCenterPositions(true, true);
                                     }
                                 }
+                                else Cursor = ProgramCore.MainForm.GrabCursor;
                                 break;
                             case Mode.None:
                                 {
@@ -1455,7 +1494,72 @@ namespace RH.HeadShop.Render
                 }
 
             }
+            else
+            {
+                switch (ProgramCore.MainForm.ctrlRenderControl.ScaleMode)
+                {
+                    case ScaleMode.None:
+                        {
+                            switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                            {
+                                case Mode.HeadAutodotsFirstTime:
+                                case Mode.HeadAutodots:
+                                    if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                        return;
+
+                                    if ((e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize)       // рот
+                                   || (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize)  // левый глаз
+                                   || (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize)  // правый глаз
+                                    || (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
+                                    || (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
+                                    || ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAutodotsPointSelection(e.X, e.Y, false))
+                                        Cursor = ProgramCore.MainForm.GrabCursor;
+                                    else
+                                        Cursor = Cursors.Arrow;
+                                    break;
+                                case Mode.HeadShapedots:
+                                    if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                        return;
+                                    if ((e.X >= MouthTransformed.X - HalfPointRectSize &&
+                                         e.X <= MouthTransformed.X + HalfPointRectSize &&
+                                         e.Y >= MouthTransformed.Y - HalfPointRectSize &&
+                                         e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
+                                        ||
+                                        (e.X >= LeftEyeTransformed.X - HalfPointRectSize &&
+                                         e.X <= LeftEyeTransformed.X + HalfPointRectSize &&
+                                         e.Y >= LeftEyeTransformed.Y - HalfPointRectSize &&
+                                         e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
+                                        ||
+                                        (e.X >= RightEyeTransformed.X - HalfPointRectSize &&
+                                         e.X <= RightEyeTransformed.X + HalfPointRectSize &&
+                                         e.Y >= RightEyeTransformed.Y - HalfPointRectSize &&
+                                         e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
+                                        ||
+                                        (e.X >= NoseTransformed.X - HalfPointRectSize &&
+                                         e.X <= NoseTransformed.X + HalfPointRectSize &&
+                                         e.Y >= NoseTransformed.Y - HalfPointRectSize &&
+                                         e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
+                                        ||
+                                        (e.X >= CentralFacePoint.X - HalfPointRectSize &&
+                                         e.X <= CentralFacePoint.X + HalfPointRectSize &&
+                                         e.Y >= CentralFacePoint.Y - HalfPointRectSize &&
+                                         e.Y <= CentralFacePoint.Y + HalfPointRectSize)
+                                        // прямоугольник и выделение всех точек
+                                        ||
+                                        ProgramCore.MainForm.ctrlRenderControl.headController
+                                            .UpdateShapedotsPointSelection(e.X, e.Y, false))
+                                        Cursor = ProgramCore.MainForm.GrabCursor;
+                                    else
+                                        Cursor = Cursors.Arrow;
+                                    break;
+                            }
+                            break;
+
+                        }
+                }
+            }
         }
+
         public void pictureTemplate_MouseUp(object sender, MouseEventArgs e)
         {
             startMousePoint = Vector2.Zero;
@@ -1484,15 +1588,15 @@ namespace RH.HeadShop.Render
                                         if (!shiftKeyPressed)
                                             ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();
 
-                                        if (e.X >= MouthTransformed.X - 2.5 && e.X <= MouthTransformed.X + 2.5 && e.Y >= MouthTransformed.Y - 2.5 && e.Y <= MouthTransformed.Y + 2.5)       // рот
+                                        if (e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize)       // рот
                                             ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutdotsMouth();
-                                        else if (e.X >= LeftEyeTransformed.X - 2.5 && e.X <= LeftEyeTransformed.X + 2.5 && e.Y >= LeftEyeTransformed.Y - 2.5 && e.Y <= LeftEyeTransformed.Y + 2.5)  // левый глаз
+                                        else if (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize)  // левый глаз
                                             ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsLeftEye();
-                                        else if (e.X >= RightEyeTransformed.X - 2.5 && e.X <= RightEyeTransformed.X + 2.5 && e.Y >= RightEyeTransformed.Y - 2.5 && e.Y <= RightEyeTransformed.Y + 2.5)  // правый глаз
+                                        else if (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize)  // правый глаз
                                             ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsRightEye();
-                                        else if (e.X >= NoseTransformed.X - 2.5 && e.X <= NoseTransformed.X + 2.5 && e.Y >= NoseTransformed.Y - 2.5 && e.Y <= NoseTransformed.Y + 2.5) // нос
+                                        else if (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
                                             ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsNose();
-                                        else if (e.X >= CentralFacePoint.X - 2.5 && e.X <= CentralFacePoint.X + 2.5 && e.Y >= CentralFacePoint.Y - 2.5 && e.Y <= CentralFacePoint.Y + 2.5) // прямоугольник и выделение всех точек
+                                        else if (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
                                         {
                                             if (RectTransformMode)
                                             {
@@ -1508,7 +1612,7 @@ namespace RH.HeadShop.Render
                                             }
                                         }
                                         else
-                                            ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAutodotsPointSelection(e.X, e.Y);
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAutodotsPointSelection(e.X, e.Y, true);
                                     }
                                     else
                                     {
@@ -1789,15 +1893,15 @@ namespace RH.HeadShop.Render
                                     if (!shiftKeyPressed)
                                         ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
 
-                                    if (e.X >= MouthTransformed.X - 2.5 && e.X <= MouthTransformed.X + 2.5 && e.Y >= MouthTransformed.Y - 2.5 && e.Y <= MouthTransformed.Y + 2.5) // рот
+                                    if (e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
                                         ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsMouth();
-                                    else if (e.X >= LeftEyeTransformed.X - 2.5 && e.X <= LeftEyeTransformed.X + 2.5 && e.Y >= LeftEyeTransformed.Y - 2.5 && e.Y <= LeftEyeTransformed.Y + 2.5) // левый глаз
+                                    else if (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
                                         ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsLeftEye();
-                                    else if (e.X >= RightEyeTransformed.X - 2.5 && e.X <= RightEyeTransformed.X + 2.5 && e.Y >= RightEyeTransformed.Y - 2.5 && e.Y <= RightEyeTransformed.Y + 2.5) // правый глаз
+                                    else if (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
                                         ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsRightEye();
-                                    else if (e.X >= NoseTransformed.X - 2.5 && e.X <= NoseTransformed.X + 2.5 && e.Y >= NoseTransformed.Y - 2.5 && e.Y <= NoseTransformed.Y + 2.5) // нос
+                                    else if (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
                                         ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsNose();
-                                    else if (e.X >= CentralFacePoint.X - 2.5 && e.X <= CentralFacePoint.X + 2.5 && e.Y >= CentralFacePoint.Y - 2.5 && e.Y <= CentralFacePoint.Y + 2.5) // прямоугольник и выделение всех точек
+                                    else if (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
                                     {
                                         if (RectTransformMode)
                                         {
@@ -1813,7 +1917,7 @@ namespace RH.HeadShop.Render
                                         }
                                     }
                                     else
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.UpdateShapedotsPointSelection(e.X, e.Y);
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.UpdateShapedotsPointSelection(e.X, e.Y, true);
                                 }
                                 else
                                 {
@@ -1913,6 +2017,7 @@ namespace RH.HeadShop.Render
             dblClick = false;
             headLastPointRelative = Vector2.Zero;
             headTempPoints.Clear();
+            Cursor = Cursors.Arrow;
         }
 
         private void btnCopyProfileImg_MouseDown(object sender, MouseEventArgs e)

@@ -181,8 +181,6 @@ namespace RH.HeadShop.Controls.Libraries
             InitializeListView();
         }
 
-        #endregion
-
         private void trackBarSize_Scroll(object sender, EventArgs e)
         {
             var k = (trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum);
@@ -201,7 +199,6 @@ namespace RH.HeadShop.Controls.Libraries
 
             UserConfig.ByName("Parts").Remove(mesh.Path);
         }
-
         private void btnSavePositionAndSize_Click(object sender, EventArgs e)
         {
             if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
@@ -214,6 +211,63 @@ namespace RH.HeadShop.Controls.Libraries
             UserConfig.ByName("Parts")[mesh.Path, "Size"] = ((trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum)).ToString();
             UserConfig.ByName("Parts")[mesh.Path, "Position"] = mesh.Position.X + "/" + mesh.Position.Y + "/" + mesh.Position.Z;
         }
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
+                return;
+
+            var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Style");
+            using (var sfd = new SaveFileDialogEx("Export styles settings", "Text file(*.txt)|*.txt"))
+            {
+                if (sfd.ShowDialog() != DialogResult.OK)
+                    return;
+                using (var writer = new StreamWriter(sfd.FileName, false, Encoding.Default))
+                {
+                    foreach (var hairMesh in ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes)
+                    {
+                        if (string.IsNullOrEmpty(hairMesh.Path))
+                            continue;
+                        var dir = Path.GetDirectoryName(hairMesh.Path);
+                        if (dir != directoryPath)
+                            continue;
+
+                        writer.WriteLine(hairMesh.Path);
+                        writer.WriteLine(((trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum)).ToString());
+                        writer.WriteLine(hairMesh.Position.X + "/" + hairMesh.Position.Y + "/" + hairMesh.Position.Z);
+                    }
+                }
+            }
+
+            MessageBox.Show("Styles settings exported!", "Done");
+        }
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            using (var ofd = new OpenFileDialogEx("Import styles settings", "Text file(*.txt)|*.txt"))
+            {
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                using (var reader = new StreamReader(ofd.FileName, Encoding.Default))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var path = reader.ReadLine();
+                        var size = reader.ReadLine();
+                        var position = reader.ReadLine();
+
+                        if (string.IsNullOrEmpty(path) || string.IsNullOrEmpty(size) || string.IsNullOrEmpty(position))
+                            continue;
+
+                        UserConfig.ByName("Parts")[path, "Size"] = size;
+                        UserConfig.ByName("Parts")[path, "Position"] = position;
+                    }
+                }
+            }
+            MessageBox.Show("Styles settings imported!", "Done");
+        }
+
+        #endregion
+
     }
 }
 

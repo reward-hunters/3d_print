@@ -3278,14 +3278,14 @@ namespace RH.HeadShop.Render
                 SaveHead(sfd.FileName);
             }
         }
-        private void SaveHead(string path)
+        private void SaveHead(string path, bool saveBrushesToTexture = false)
         {
             try
             {
                 if (ProgramCore.Project.AutodotsUsed)
                     SaveBlendingTextures();
 
-                ObjSaver.SaveObjFile(path, headMeshesController.RenderMesh, MeshType.Hair, pickingController.ObjExport);
+                ObjSaver.SaveObjFile(path, headMeshesController.RenderMesh, MeshType.Hair, pickingController.ObjExport, saveBrushesToTexture);
 
                 #region Сохраняем отраженную текстуру
 
@@ -3509,7 +3509,7 @@ namespace RH.HeadShop.Render
 
             ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
                 ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
-                headMeshesController.RenderMesh.RealScale, true);
+                headMeshesController.RenderMesh.RealScale, true, true);
 
             var importer = new AssimpImporter();
             importer.ConvertFromFileToFile(fiName, daeName, "collada");
@@ -3576,17 +3576,17 @@ namespace RH.HeadShop.Render
 
             var haPath = Path.GetFileNameWithoutExtension(fiName) + "hair.obj";
             var hairPath = Path.Combine(ProgramCore.Project.ProjectPath, haPath);
-            ObjSaver.SaveObjFile(hairPath, pickingController.HairMeshes, MeshType.Hair, headMeshesController.RenderMesh.RealScale);
+            ObjSaver.SaveObjFile(hairPath, pickingController.HairMeshes, MeshType.Hair, headMeshesController.RenderMesh.RealScale, true);
 
             if (ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes.Count > 0)            // save accessories to separate file
             {
                 var acName = Path.GetFileNameWithoutExtension(fiName) + "_accessory.obj";
 
                 var accessoryPath = Path.Combine(ProgramCore.Project.ProjectPath, acName);
-                ObjSaver.SaveObjFile(accessoryPath, pickingController.AccesoryMeshes, MeshType.Accessory, headMeshesController.RenderMesh.RealScale);
+                ObjSaver.SaveObjFile(accessoryPath, pickingController.AccesoryMeshes, MeshType.Accessory, headMeshesController.RenderMesh.RealScale, true);
             }
 
-            SaveHead(fiName);
+            SaveHead(fiName, true);
 
             if (ProgramCore.PluginMode)
             {
@@ -3675,7 +3675,7 @@ namespace RH.HeadShop.Render
                 #endregion
             }
 
-            MessageBox.Show("HeadShop project successfully exported!", "Done", MessageBoxButtons.OK);
+            MessageBox.Show(ProgramCore.MainForm.ProgramCaption + " project successfully exported!", "Done", MessageBoxButtons.OK);
             if (ProgramCore.PluginMode)
                 Environment.Exit(0);
         }

@@ -100,7 +100,17 @@ namespace RH.HeadShop
             HeadShop
         }
 
+        public string ProgramCaption
+        {
+            get { return CurrentProgram == ProgramMode.HeadShop ? "HeadShop 10" : "PrintAhead"; }
+        }
+
+
         public ProgramMode CurrentProgram = ProgramMode.HeadShop;
+
+
+        public readonly Cursor GrabCursor;
+        public readonly Cursor GrabbingCursor;
 
         #endregion
 
@@ -116,6 +126,11 @@ namespace RH.HeadShop
             SetStyle(ControlStyles.Opaque, false);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
+
+            using (var memoryStream = new MemoryStream(Properties.Resources.grab))
+                GrabCursor = new Cursor(memoryStream);
+            using (var memoryStream = new MemoryStream(Properties.Resources.grabbing))
+                GrabbingCursor = new Cursor(memoryStream);
 
             KeyPreview = true;
             ProgramCore.ProgressProc += ProgressProc;
@@ -773,14 +788,17 @@ namespace RH.HeadShop
 
             if (panelMenuStyle.Tag.ToString() == "2")
             {
-                if (sender != null && (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count > 0 || ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes.Count > 0))         // mean that it's user action
-                {
-                    if (MessageBox.Show("This action will remove all changes. Are you sure?", "Attention", MessageBoxButtons.OKCancel) != DialogResult.OK)
-                        return;
+                // 3.	There’s no reason why when revisiting “Hair Tab” it should remove all previous hair and accessory items. 
+                /*  if (sender != null && (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count > 0 || ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes.Count > 0))         // mean that it's user action
+                  {
+                      if (MessageBox.Show("This action will remove all changes. Are you sure?", "Attention", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                          return;
 
-                    ctrlRenderControl.CleanProjectMeshes();                     // clear all changes and reset position.
-                    ctrlRenderControl.OrtoTop();
-                }
+                      ctrlRenderControl.CleanProjectMeshes();                     // clear all changes and reset position.
+                  }*/
+
+
+                ctrlRenderControl.OrtoTop();
 
                 activePanel = 5;
                 panelMenuStyle.Tag = "1";
@@ -1437,27 +1455,6 @@ namespace RH.HeadShop
         {
             var projectPath = Path.Combine(projectFolder, string.Format("{0}.hds", projectName));
 
-            #region Корректируем размер фотки
-
-            using (var ms = new MemoryStream(File.ReadAllBytes(templateImage))) // Don't use using!!
-            {
-                var img = (Bitmap)Bitmap.FromStream(ms);
-                var max = (float)Math.Max(img.Width, img.Height);
-                if (max > selectedSize)
-                {
-                    var k = selectedSize / max;
-                    var newImg = ImageEx.ResizeImage(img, new Size((int)(img.Width * k), (int)(img.Height * k)));
-
-                    templateImage = UserConfig.AppDataDir;
-                    FolderEx.CreateDirectory(templateImage);
-                    templateImage = Path.Combine(templateImage, "tempProjectImage.jpg");
-
-                    newImg.Save(templateImage, ImageFormat.Jpeg);
-                }
-            }
-
-            #endregion
-
             var faceRecognition = new FaceRecognition();
             faceRecognition.Recognize(ref templateImage, true);     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
 
@@ -1470,6 +1467,27 @@ namespace RH.HeadShop
                     Application.Exit();
                 return;
             }
+
+            #region Корректируем размер фотки
+
+            using (var ms = new MemoryStream(File.ReadAllBytes(templateImage))) // Don't use using!!
+            {
+                var img = (Bitmap)Bitmap.FromStream(ms);
+                var max = (float)Math.Max(img.Width, img.Height);
+                if (max != selectedSize)
+                {
+                    var k = selectedSize / max;
+                    var newImg = ImageEx.ResizeImage(img, new Size((int)Math.Round(img.Width * k), (int)Math.Round((img.Height * k))));
+
+                    templateImage = UserConfig.AppDataDir;
+                    FolderEx.CreateDirectory(templateImage);
+                    templateImage = Path.Combine(templateImage, "tempProjectImage.jpg");
+
+                    newImg.Save(templateImage, ImageFormat.Jpeg);
+                }
+            }
+
+            #endregion
 
             ProgramCore.Project = new Project(projectName, projectFolder, templateImage, frm1.ManType, frm1.CustomModelPath, true);
             ProgramCore.Project.FaceRectRelative = faceRecognition.FaceRectRelative;

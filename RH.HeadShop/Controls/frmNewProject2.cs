@@ -68,6 +68,11 @@ namespace RH.HeadShop.Controls
 
         private readonly FaceRecognition fcr;
 
+        private const int CircleRadius = 30;
+        private const int HalfCircleRadius = 15;
+        private const int CircleSmallRadius = 8;
+        private const int HalfCircleSmallRadius = 4;
+
         #endregion
 
         public frmNewProject2(string projectPath, string templateImagePath, FaceRecognition fcr)
@@ -138,17 +143,16 @@ namespace RH.HeadShop.Controls
         }
 
         private void pictureTemplate_Paint(object sender, PaintEventArgs e)
-
         {
-            e.Graphics.FillEllipse(DrawingTools.GreenBrushTransparent80, LeftEyeTransformed.X - 10, LeftEyeTransformed.Y - 10, 20, 20);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftEyeTransformed.X - 2, LeftEyeTransformed.Y - 2, 4, 4);
+            e.Graphics.FillEllipse(DrawingTools.GreenBrushTransparent80, LeftEyeTransformed.X - HalfCircleRadius, LeftEyeTransformed.Y - HalfCircleRadius, CircleRadius, CircleRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftEyeTransformed.X - HalfCircleSmallRadius, LeftEyeTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
 
-            e.Graphics.FillEllipse(DrawingTools.GreenBrushTransparent80, RightEyeTransformed.X - 10, RightEyeTransformed.Y - 10, 20, 20);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightEyeTransformed.X - 2, RightEyeTransformed.Y - 2, 4, 4);
+            e.Graphics.FillEllipse(DrawingTools.GreenBrushTransparent80, RightEyeTransformed.X - HalfCircleRadius, RightEyeTransformed.Y - HalfCircleRadius, CircleRadius, CircleRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightEyeTransformed.X - HalfCircleSmallRadius, RightEyeTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
 
 
-            e.Graphics.FillEllipse(DrawingTools.GreenBrushTransparent80, MouthTransformed.X - 10, MouthTransformed.Y - 10, 20, 20);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, MouthTransformed.X - 2, MouthTransformed.Y - 2, 4, 4);
+            e.Graphics.FillEllipse(DrawingTools.GreenBrushTransparent80, MouthTransformed.X - HalfCircleRadius, MouthTransformed.Y - HalfCircleRadius, CircleRadius, CircleRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, MouthTransformed.X - HalfCircleSmallRadius, MouthTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
 
             e.Graphics.DrawArc(edgePen, TopEdgeTransformed, 220, 100);
             e.Graphics.DrawLine(arrowPen, centerX(TopEdgeTransformed), TopEdgeTransformed.Top, centerX(TopEdgeTransformed), TopEdgeTransformed.Top + 20);
@@ -181,20 +185,23 @@ namespace RH.HeadShop.Controls
                 headHandPoint.X = (ImageTemplateOffsetX + e.X) / (ImageTemplateWidth * 1f);
                 headHandPoint.Y = (ImageTemplateOffsetY + e.Y) / (ImageTemplateHeight * 1f);
 
-                if (e.X >= LeftEyeTransformed.X - 10 && e.X <= LeftEyeTransformed.X + 10 && e.Y >= LeftEyeTransformed.Y - 10 && e.Y <= LeftEyeTransformed.Y + 10)
+                if (e.X >= LeftEyeTransformed.X - HalfCircleRadius && e.X <= LeftEyeTransformed.X + HalfCircleRadius && e.Y >= LeftEyeTransformed.Y - HalfCircleRadius && e.Y <= LeftEyeTransformed.Y + HalfCircleRadius)
                 {
                     currentSelection = Selection.LeftEye;
                     tempSelectedPoint = fcr.LeftEyeCenter;
+                    Cursor = ProgramCore.MainForm.GrabbingCursor;
                 }
-                else if (e.X >= RightEyeTransformed.X - 10 && e.X <= RightEyeTransformed.X + 10 && e.Y >= RightEyeTransformed.Y - 10 && e.Y <= RightEyeTransformed.Y + 10)
+                else if (e.X >= RightEyeTransformed.X - HalfCircleRadius && e.X <= RightEyeTransformed.X + HalfCircleRadius && e.Y >= RightEyeTransformed.Y - HalfCircleRadius && e.Y <= RightEyeTransformed.Y + HalfCircleRadius)
                 {
                     currentSelection = Selection.RightEye;
                     tempSelectedPoint = fcr.RightEyeCenter;
+                    Cursor = ProgramCore.MainForm.GrabbingCursor;
                 }
-                else if (e.X >= MouthTransformed.X - 10 && e.X <= MouthTransformed.X + 10 && e.Y >= MouthTransformed.Y - 10 && e.Y <= MouthTransformed.Y + 10)
+                else if (e.X >= MouthTransformed.X - HalfCircleRadius && e.X <= MouthTransformed.X + HalfCircleRadius && e.Y >= MouthTransformed.Y - HalfCircleRadius && e.Y <= MouthTransformed.Y + HalfCircleRadius)
                 {
                     currentSelection = Selection.Mouth;
                     tempSelectedPoint = fcr.MouthCenter;
+                    Cursor = ProgramCore.MainForm.GrabbingCursor;
                 }
                 else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
                 {
@@ -203,6 +210,7 @@ namespace RH.HeadShop.Controls
                     startMousePoint = new Point(e.X, e.Y);
                     tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
                     tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
+                    Cursor = ProgramCore.MainForm.GrabbingCursor;
                 }
                 else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right && e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
                 {
@@ -211,6 +219,7 @@ namespace RH.HeadShop.Controls
                     startMousePoint = new Point(e.X, e.Y);
                     tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
                     tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
+                    Cursor = ProgramCore.MainForm.GrabbingCursor;
                 }
             }
         }
@@ -223,13 +232,14 @@ namespace RH.HeadShop.Controls
             {
                 Vector2 newPoint;
                 Vector2 delta2;
-                newPoint.X = (ImageTemplateOffsetX + e.X) / (ImageTemplateWidth * 1f);
-                newPoint.Y = (ImageTemplateOffsetY + e.Y) / (ImageTemplateHeight * 1f);
+                newPoint.X = (ImageTemplateOffsetX + e.X)/(ImageTemplateWidth*1f);
+                newPoint.Y = (ImageTemplateOffsetY + e.Y)/(ImageTemplateHeight*1f);
 
                 delta2 = newPoint - headHandPoint;
                 switch (currentSelection)
                 {
                     case Selection.LeftEye:
+
                         fcr.LeftEyeCenter = tempSelectedPoint + delta2;
                         RecalcRealTemplateImagePosition();
                         break;
@@ -254,6 +264,22 @@ namespace RH.HeadShop.Controls
                         break;
                 }
             }
+            else
+            {
+                if (e.X >= LeftEyeTransformed.X - HalfCircleRadius && e.X <= LeftEyeTransformed.X + HalfCircleRadius && e.Y >= LeftEyeTransformed.Y - HalfCircleRadius && e.Y <= LeftEyeTransformed.Y + HalfCircleRadius)
+                    Cursor = ProgramCore.MainForm.GrabCursor;
+                else if (e.X >= RightEyeTransformed.X - HalfCircleRadius && e.X <= RightEyeTransformed.X + HalfCircleRadius && e.Y >= RightEyeTransformed.Y - HalfCircleRadius && e.Y <= RightEyeTransformed.Y + HalfCircleRadius)
+                    Cursor = ProgramCore.MainForm.GrabCursor;
+                else if (e.X >= MouthTransformed.X - HalfCircleRadius && e.X <= MouthTransformed.X + HalfCircleRadius && e.Y >= MouthTransformed.Y - HalfCircleRadius && e.Y <= MouthTransformed.Y + HalfCircleRadius)
+                    Cursor = ProgramCore.MainForm.GrabCursor;
+                else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
+                    Cursor = ProgramCore.MainForm.GrabCursor;
+                else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right && e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
+                    Cursor = ProgramCore.MainForm.GrabCursor;
+                else
+                    Cursor = Cursors.Arrow;
+            }
+
 
         }
         private void pictureTemplate_MouseUp(object sender, MouseEventArgs e)
@@ -268,6 +294,7 @@ namespace RH.HeadShop.Controls
             headHandPoint = Vector2.Zero;
             tempSelectedPoint = Vector2.Zero;
             tempSelectedPoint2 = Vector2.Zero;
+            Cursor = Cursors.Arrow;
         }
 
         private void btnMale_Click(object sender, EventArgs e)

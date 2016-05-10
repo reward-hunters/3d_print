@@ -62,6 +62,8 @@ namespace RH.HeadShop.Render.Controllers
         public HeadPoints<MirroredHeadPoint> AutoDots = new HeadPoints<MirroredHeadPoint>();
         public HeadPoints<MirroredHeadPoint> ShapeDots = new HeadPoints<MirroredHeadPoint>();
 
+        private const float PointRectSize = 9;
+        private const float HalfPointRectSize = 4.5f;
 
         #endregion
 
@@ -385,9 +387,9 @@ namespace RH.HeadShop.Render.Controllers
                 foreach (var point in line)
                 {
                     var v = point.ValueMirrored;
-                    var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - 2.5f,
-                        (v.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - 2.5f,
-                        5f, 5f);
+                    var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - HalfPointRectSize,
+                        (v.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - HalfPointRectSize,
+                        PointRectSize, PointRectSize);
                     g.FillRectangle(point.Selected ? DrawingTools.RedSolidBrush : DrawingTools.GreenSolidBrush, pointRect);
                 }
             }
@@ -400,9 +402,9 @@ namespace RH.HeadShop.Render.Controllers
                     continue;
 
                 var v = point.ValueMirrored;
-                var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - 2.5f,
-                    (v.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - 2.5f,
-                    5f, 5f);
+                var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - HalfPointRectSize,
+                    (v.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - HalfPointRectSize,
+                    PointRectSize, PointRectSize);
                 g.FillRectangle(point.Selected ? DrawingTools.RedSolidBrush : DrawingTools.GreenSolidBrush, pointRect);
             }
         }
@@ -414,9 +416,9 @@ namespace RH.HeadShop.Render.Controllers
                     continue;
 
                 var v = point.ValueMirrored;
-                var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - 2.5f,
-                    (v.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - 2.5f,
-                    5f, 5f);
+                var pointRect = new RectangleF((v.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) - HalfPointRectSize,
+                    (v.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - HalfPointRectSize,
+                    PointRectSize, PointRectSize);
                 g.FillRectangle(point.Selected ? DrawingTools.RedSolidBrush : DrawingTools.GreenSolidBrush, pointRect);
             }
         }
@@ -980,7 +982,7 @@ namespace RH.HeadShop.Render.Controllers
 
             return result;
         }
-        public void UpdateAutodotsPointSelection(float x, float y)
+        public bool UpdateAutodotsPointSelection(float x, float y, bool needUpdate)
         {
             foreach (var elem in AutoDots)
             {
@@ -989,21 +991,25 @@ namespace RH.HeadShop.Render.Controllers
 
                 Vector2 absolutePoint;
 
-                absolutePoint.X = (elem.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) + 2.5f;
-                absolutePoint.Y = (elem.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) + 2.5f;
+                absolutePoint.X = (elem.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) + HalfPointRectSize;
+                absolutePoint.Y = (elem.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) + HalfPointRectSize;
 
-                if (absolutePoint.X >= x - 5 && absolutePoint.X <= x + 5 && absolutePoint.Y >= y - 5 && absolutePoint.Y <= y + 5)
+                if (absolutePoint.X >= x - PointRectSize && absolutePoint.X <= x + PointRectSize && absolutePoint.Y >= y - PointRectSize && absolutePoint.Y <= y + PointRectSize)
                 {
-                    elem.Selected = !elem.Selected;
-                    foreach (var linkedPointIndex in elem.LinkedPoints)
+                    if (needUpdate)
                     {
-                        var linkedPoint = AutoDots[linkedPointIndex];
-                        linkedPoint.Selected = !linkedPoint.Selected;
+                        elem.Selected = !elem.Selected;
+                        foreach (var linkedPointIndex in elem.LinkedPoints)
+                        {
+                            var linkedPoint = AutoDots[linkedPointIndex];
+                            linkedPoint.Selected = !linkedPoint.Selected;
+                        }
                     }
 
-                    return;
+                    return true;
                 }
             }
+            return false;
         }
 
         /// <summary> Процедура автоточек </summary>
@@ -1111,7 +1117,7 @@ namespace RH.HeadShop.Render.Controllers
 
             return result;
         }
-        public void UpdateShapedotsPointSelection(float x, float y)
+        public bool UpdateShapedotsPointSelection(float x, float y, bool needUpdate)
         {
             foreach (var elem in ShapeDots)
             {
@@ -1120,21 +1126,25 @@ namespace RH.HeadShop.Render.Controllers
 
                 Vector2 absolutePoint;
 
-                absolutePoint.X = (elem.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) + 2.5f;
-                absolutePoint.Y = (elem.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) + 2.5f;
+                absolutePoint.X = (elem.ValueMirrored.X * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateWidth + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetX) + HalfPointRectSize;
+                absolutePoint.Y = (elem.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) + HalfPointRectSize;
 
-                if (absolutePoint.X >= x - 5 && absolutePoint.X <= x + 5 && absolutePoint.Y >= y - 5 && absolutePoint.Y <= y + 5)
+                if (absolutePoint.X >= x - PointRectSize && absolutePoint.X <= x + PointRectSize && absolutePoint.Y >= y - PointRectSize && absolutePoint.Y <= y + PointRectSize)
                 {
-                    elem.Selected = !elem.Selected;
-                    foreach (var linkedPointIndex in elem.LinkedPoints)
+                    if (needUpdate)
                     {
-                        var linkedPoint = ShapeDots[linkedPointIndex];
-                        linkedPoint.Selected = !linkedPoint.Selected;
+                        elem.Selected = !elem.Selected;
+                        foreach (var linkedPointIndex in elem.LinkedPoints)
+                        {
+                            var linkedPoint = ShapeDots[linkedPointIndex];
+                            linkedPoint.Selected = !linkedPoint.Selected;
+                        }
                     }
 
-                    return;
+                    return true;
                 }
             }
+            return false;
         }
 
         #endregion

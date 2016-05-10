@@ -90,8 +90,8 @@ namespace RH.HeadShop.Render.Helpers
             else
                 nPercent = nPercentW;
 
-            var destWidth = (int)(sourceWidth * nPercent);
-            var destHeight = (int)(sourceHeight * nPercent);
+            var destWidth = (int)Math.Round(sourceWidth * nPercent);
+            var destHeight = (int)Math.Round(sourceHeight * nPercent);
 
             var b = new Bitmap(destWidth, destHeight);
             var g = Graphics.FromImage(b);

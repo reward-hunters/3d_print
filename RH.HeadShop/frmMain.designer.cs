@@ -93,23 +93,6 @@ namespace RH.HeadShop
             this.saveToolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mirrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.polyLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.arcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shapeTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stretchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pleatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mirrorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.accessoryTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accessoryLibraryToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -194,6 +177,7 @@ namespace RH.HeadShop
             // 
             // ctrlRenderControl
             // 
+            //this.ctrlRenderControl.BackgroundTexture = null;
             this.ctrlRenderControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctrlRenderControl.InStageMode = false;
             this.ctrlRenderControl.IsFullPointsInfo = true;
@@ -481,8 +465,6 @@ namespace RH.HeadShop
             this.profileTabToolStripMenuItem,
             this.featuresTabToolStripMenuItem,
             this.styleTabToolStripMenuItem,
-            this.cuToolStripMenuItem,
-            this.shapeTabToolStripMenuItem,
             this.accessoryTabToolStripMenuItem,
             this.materialtabToolStripMenuItem,
             this.stageLibraryToolStripMenuItem1,
@@ -742,14 +724,14 @@ namespace RH.HeadShop
             // saveToolStripMenuItem8
             // 
             this.saveToolStripMenuItem8.Name = "saveToolStripMenuItem8";
-            this.saveToolStripMenuItem8.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem8.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem8.Text = "Save";
             this.saveToolStripMenuItem8.Click += new System.EventHandler(this.saveToolStripMenuItem8_Click);
             // 
             // undoToolStripMenuItem5
             // 
             this.undoToolStripMenuItem5.Name = "undoToolStripMenuItem5";
-            this.undoToolStripMenuItem5.Size = new System.Drawing.Size(103, 22);
+            this.undoToolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
             this.undoToolStripMenuItem5.Text = "Undo";
             this.undoToolStripMenuItem5.Click += new System.EventHandler(this.undoToolStripMenuItem5_Click);
             // 
@@ -767,177 +749,30 @@ namespace RH.HeadShop
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // saveToolStripMenuItem7
             // 
             this.saveToolStripMenuItem7.Name = "saveToolStripMenuItem7";
-            this.saveToolStripMenuItem7.Size = new System.Drawing.Size(107, 22);
+            this.saveToolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem7.Text = "Save";
             this.saveToolStripMenuItem7.Click += new System.EventHandler(this.saveToolStripMenuItem7_Click);
             // 
             // deleteToolStripMenuItem5
             // 
             this.deleteToolStripMenuItem5.Name = "deleteToolStripMenuItem5";
-            this.deleteToolStripMenuItem5.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem5.Text = "Delete";
             this.deleteToolStripMenuItem5.Click += new System.EventHandler(this.deleteToolStripMenuItem5_Click);
             // 
             // exportToolStripMenuItem3
             // 
             this.exportToolStripMenuItem3.Name = "exportToolStripMenuItem3";
-            this.exportToolStripMenuItem3.Size = new System.Drawing.Size(107, 22);
+            this.exportToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem3.Text = "Export";
             this.exportToolStripMenuItem3.Click += new System.EventHandler(this.exportToolStripMenuItem3_Click);
-            // 
-            // cuToolStripMenuItem
-            // 
-            this.cuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cutToolStripMenuItem,
-            this.mirrorToolStripMenuItem,
-            this.duplicateToolStripMenuItem,
-            this.saveToolStripMenuItem1,
-            this.deleteToolStripMenuItem,
-            this.undoToolStripMenuItem1,
-            this.lineToolStripMenuItem,
-            this.polyLineToolStripMenuItem,
-            this.arcToolStripMenuItem});
-            this.cuToolStripMenuItem.Name = "cuToolStripMenuItem";
-            this.cuToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.cuToolStripMenuItem.Text = "Cut_Tab";
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.cutToolStripMenuItem.Text = "Cut";
-            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
-            // 
-            // mirrorToolStripMenuItem
-            // 
-            this.mirrorToolStripMenuItem.Name = "mirrorToolStripMenuItem";
-            this.mirrorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.mirrorToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.mirrorToolStripMenuItem.Text = "Mirror";
-            this.mirrorToolStripMenuItem.Click += new System.EventHandler(this.mirrorToolStripMenuItem_Click);
-            // 
-            // duplicateToolStripMenuItem
-            // 
-            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.duplicateToolStripMenuItem.Text = "Duplicate";
-            // 
-            // saveToolStripMenuItem1
-            // 
-            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.saveToolStripMenuItem1.Text = "Save";
-            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.OnSavePart_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.hairLibraryOnDelete_Click);
-            // 
-            // undoToolStripMenuItem1
-            // 
-            this.undoToolStripMenuItem1.Name = "undoToolStripMenuItem1";
-            this.undoToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.undoToolStripMenuItem1.Text = "Undo";
-            this.undoToolStripMenuItem1.Click += new System.EventHandler(this.OnUndo_Click);
-            // 
-            // lineToolStripMenuItem
-            // 
-            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
-            this.lineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.lineToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.lineToolStripMenuItem.Text = "Line";
-            this.lineToolStripMenuItem.Click += new System.EventHandler(this.lineToolStripMenuItem_Click);
-            // 
-            // polyLineToolStripMenuItem
-            // 
-            this.polyLineToolStripMenuItem.Name = "polyLineToolStripMenuItem";
-            this.polyLineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.polyLineToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.polyLineToolStripMenuItem.Text = "PolyLine";
-            this.polyLineToolStripMenuItem.Click += new System.EventHandler(this.polyLineToolStripMenuItem_Click);
-            // 
-            // arcToolStripMenuItem
-            // 
-            this.arcToolStripMenuItem.Name = "arcToolStripMenuItem";
-            this.arcToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.arcToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.arcToolStripMenuItem.Text = "Arc";
-            this.arcToolStripMenuItem.Click += new System.EventHandler(this.arcToolStripMenuItem_Click);
-            // 
-            // shapeTabToolStripMenuItem
-            // 
-            this.shapeTabToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.shapeToolStripMenuItem,
-            this.stretchToolStripMenuItem,
-            this.pleatToolStripMenuItem,
-            this.mirrorToolStripMenuItem1,
-            this.saveToolStripMenuItem2,
-            this.undoToolStripMenuItem2});
-            this.shapeTabToolStripMenuItem.Name = "shapeTabToolStripMenuItem";
-            this.shapeTabToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.shapeTabToolStripMenuItem.Text = "Shape_Tab";
-            // 
-            // shapeToolStripMenuItem
-            // 
-            this.shapeToolStripMenuItem.Name = "shapeToolStripMenuItem";
-            this.shapeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.shapeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.shapeToolStripMenuItem.Text = "Shape";
-            this.shapeToolStripMenuItem.Click += new System.EventHandler(this.shapeToolStripMenuItem_Click);
-            // 
-            // stretchToolStripMenuItem
-            // 
-            this.stretchToolStripMenuItem.Name = "stretchToolStripMenuItem";
-            this.stretchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.stretchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.stretchToolStripMenuItem.Text = "Stretch";
-            this.stretchToolStripMenuItem.Click += new System.EventHandler(this.stretchToolStripMenuItem_Click);
-            // 
-            // pleatToolStripMenuItem
-            // 
-            this.pleatToolStripMenuItem.Name = "pleatToolStripMenuItem";
-            this.pleatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pleatToolStripMenuItem.Text = "Pleat";
-            this.pleatToolStripMenuItem.Click += new System.EventHandler(this.pleatToolStripMenuItem_Click);
-            // 
-            // mirrorToolStripMenuItem1
-            // 
-            this.mirrorToolStripMenuItem1.Name = "mirrorToolStripMenuItem1";
-            this.mirrorToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.mirrorToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.mirrorToolStripMenuItem1.Text = "Mirror";
-            this.mirrorToolStripMenuItem1.Click += new System.EventHandler(this.mirrorToolStripMenuItem1_Click);
-            // 
-            // saveToolStripMenuItem2
-            // 
-            this.saveToolStripMenuItem2.Name = "saveToolStripMenuItem2";
-            this.saveToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem2.Text = "Save";
-            this.saveToolStripMenuItem2.Click += new System.EventHandler(this.OnSavePart_Click);
-            // 
-            // undoToolStripMenuItem2
-            // 
-            this.undoToolStripMenuItem2.Name = "undoToolStripMenuItem2";
-            this.undoToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem2.Text = "Undo";
-            this.undoToolStripMenuItem2.Click += new System.EventHandler(this.OnUndo_Click);
             // 
             // accessoryTabToolStripMenuItem
             // 
@@ -1383,22 +1218,6 @@ namespace RH.HeadShop
         private System.Windows.Forms.ToolStripMenuItem accessoryLibraryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialLibraryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stageLibraryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mirrorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem lineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem polyLineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem arcToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shapeTabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shapeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stretchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mirrorToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem accessoryTabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accessoryLibraryToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem3;
@@ -1489,7 +1308,6 @@ namespace RH.HeadShop
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem pleatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem styleTabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem7;

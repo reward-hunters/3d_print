@@ -159,7 +159,7 @@ namespace RH.HeadShop.Helpers
 
                 //Set the region of interest on the faces
                 gray.ROI = faceRectangle;
-                var eyesDetected = gray.DetectHaarCascade(eye, 1.1, 10, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(20, 20));
+                var eyesDetected = gray.DetectHaarCascade(eye, 1.1, 10, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(30, 30));
                 gray.ROI = Rectangle.Empty;
 
                 if (eyesDetected.Length > 0 && eyesDetected[0].Length > 0)
