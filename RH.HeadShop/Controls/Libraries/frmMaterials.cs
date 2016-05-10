@@ -126,7 +126,7 @@ namespace RH.HeadShop.Controls.Libraries
             imageListView.SuspendLayout();
             try
             {
-                var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Materials");
+                var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Materials");
                 var di = new DirectoryInfo(directoryPath);
                 if (!di.Exists)
                     return;
@@ -280,7 +280,7 @@ namespace RH.HeadShop.Controls.Libraries
                 if (ofd.ShowDialog() != DialogResult.OK)
                     return;
 
-                var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Materials");
+                var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Materials");
                 var oldFileName = Path.GetFileNameWithoutExtension(ofd.FileName);
                 var newFileName = oldFileName;
                 var filePath = Path.Combine(directoryPath, newFileName + ".jpg");

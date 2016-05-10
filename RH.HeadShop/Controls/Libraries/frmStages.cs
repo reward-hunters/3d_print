@@ -44,8 +44,8 @@ namespace RH.HeadShop.Controls.Libraries
             imageListBackgrounds.SuspendLayout();
             try
             {
-                var path = Path.Combine(Application.StartupPath, "Stages", "Backgrounds");
-                var di = new DirectoryInfo(path);
+                var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Stages", "Backgrounds");
+                var di = new DirectoryInfo(directoryPath);
                 if (!di.Exists)
                     return;
 
@@ -75,8 +75,8 @@ namespace RH.HeadShop.Controls.Libraries
             try
             {
                 var exts = new List<string> { ".jpg", ".png" };
-                var path = Path.Combine(Application.StartupPath, "Stages", "Poses", ProgramCore.Project.ManType.GetCaption());
-                var di = new DirectoryInfo(path);
+                var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Stages", "Poses", ProgramCore.Project.ManType.GetCaption());
+                var di = new DirectoryInfo(directoryPath);
                 if (di.Exists)
                 {
                     foreach (var p in GetFilesByExtensions(di, exts))
@@ -249,10 +249,10 @@ namespace RH.HeadShop.Controls.Libraries
             switch (filterIndex)
             {
                 case 1:
-                    directoryPath = Path.Combine(Application.StartupPath, "Stages", "Backgrounds");
+                    directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Stages", "Backgrounds");
                     break;
                 case 2:
-                    directoryPath = Path.Combine(Application.StartupPath, "Stages", "Poses", ProgramCore.Project.ManType.GetCaption());
+                    directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Stages", "Poses", ProgramCore.Project.ManType.GetCaption());
                     break;
             }
 

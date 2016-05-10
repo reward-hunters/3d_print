@@ -56,7 +56,7 @@ namespace RH.HeadShop.Controls.Libraries
             imageListView.SuspendLayout();
             try
             {
-                var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Style");
+                var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Style");
                 var di = new DirectoryInfo(directoryPath);
                 if (!di.Exists)
                     return;
@@ -107,7 +107,7 @@ namespace RH.HeadShop.Controls.Libraries
                 sampleImagePath = ofd.FileName;
             }
 
-            var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Style");
+            var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Style");
             var oldFileName = Path.GetFileNameWithoutExtension(hairPath);
             var newFileName = oldFileName;
             var filePath = Path.Combine(directoryPath, newFileName + ".obj");
@@ -216,7 +216,7 @@ namespace RH.HeadShop.Controls.Libraries
             if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
                 return;
 
-            var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Style");
+            var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Style");
             using (var sfd = new SaveFileDialogEx("Export styles settings", "Text file(*.txt)|*.txt"))
             {
                 if (sfd.ShowDialog() != DialogResult.OK)

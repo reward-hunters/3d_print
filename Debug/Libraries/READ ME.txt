@@ -1,0 +1,6 @@
+Put this folder to this path:
+
+C:\Users\Public\Documents\Abalone\
+
+So, full path should be:
+C:\Users\Public\Documents\Abalone\Libraries

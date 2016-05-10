@@ -72,7 +72,8 @@ namespace RH.HeadShop.Controls.Libraries
             imageListView.SuspendLayout();
             try
             {
-                var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Accessory");
+
+                var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Accessory");
                 var di = new DirectoryInfo(directoryPath);
                 if (!di.Exists)
                     return;
@@ -194,8 +195,7 @@ namespace RH.HeadShop.Controls.Libraries
                     return;
                 sampleImagePath = ofd.FileName;
             }
-
-            var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Accessory");
+            var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Accessory");
             var oldFileName = Path.GetFileNameWithoutExtension(accessoryPath);
             var newFileName = oldFileName;
             var filePath = Path.Combine(directoryPath, newFileName + ".obj");
@@ -289,7 +289,7 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            var directoryPath = Path.Combine(Application.StartupPath, "Libraries", "Accessory");
+            var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Accessory");
             using (var sfd = new SaveFileDialogEx("Export accessories settings", "Text file(*.txt)|*.txt"))
             {
                 if (sfd.ShowDialog() != DialogResult.OK)
