@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -289,28 +290,29 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Accessory");
+            if (!UserConfig.ByName("Parts").HasAny())
+                return;
+
             using (var sfd = new SaveFileDialogEx("Export accessories settings", "Text file(*.txt)|*.txt"))
             {
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;
                 using (var writer = new StreamWriter(sfd.FileName, false, Encoding.Default))
                 {
-                    foreach (var hairMesh in ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes)
+                    var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Accessory");
+                    var data = UserConfig.ByName("Parts").data;
+                    var result = data.Select(x => x.s1).Distinct();
+                    foreach (var d in result)
                     {
-                        if (string.IsNullOrEmpty(hairMesh.Path))
-                            return;
-                        var dir = Path.GetDirectoryName(hairMesh.Path);
+                        var dir = Path.GetDirectoryName(d);
                         if (dir != directoryPath)
                             continue;
-
-                        writer.WriteLine(hairMesh.Path);
-                        writer.WriteLine(((trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum)).ToString());
-                        writer.WriteLine(hairMesh.Position.X + "/" + hairMesh.Position.Y + "/" + hairMesh.Position.Z);
+                        writer.WriteLine(d);
+                        writer.WriteLine(UserConfig.ByName("Parts")[d, "Size"]);
+                        writer.WriteLine(UserConfig.ByName("Parts")[d, "Position"]);
                     }
                 }
             }
-
             MessageBox.Show("Accessories settings exported!", "Done");
         }
 

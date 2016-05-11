@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows.Forms;
 using RH.HeadShop.Helpers;
@@ -213,33 +214,32 @@ namespace RH.HeadShop.Controls.Libraries
         }
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes.Count == 0)
+            if (!UserConfig.ByName("Parts").HasAny())
                 return;
 
-            var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Style");
             using (var sfd = new SaveFileDialogEx("Export styles settings", "Text file(*.txt)|*.txt"))
             {
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;
                 using (var writer = new StreamWriter(sfd.FileName, false, Encoding.Default))
                 {
-                    foreach (var hairMesh in ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes)
+                    var directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone", "Libraries", "Style");
+                    var data = UserConfig.ByName("Parts").data;
+                    var result = data.Select(x => x.s1).Distinct();
+                    foreach (var d in result)
                     {
-                        if (string.IsNullOrEmpty(hairMesh.Path))
-                            continue;
-                        var dir = Path.GetDirectoryName(hairMesh.Path);
+                        var dir = Path.GetDirectoryName(d);
                         if (dir != directoryPath)
                             continue;
-
-                        writer.WriteLine(hairMesh.Path);
-                        writer.WriteLine(((trackBarSize.Value - trackBarSize.Minimum) * 1f / (trackBarSize.Maximum - trackBarSize.Minimum)).ToString());
-                        writer.WriteLine(hairMesh.Position.X + "/" + hairMesh.Position.Y + "/" + hairMesh.Position.Z);
+                        writer.WriteLine(d);
+                        writer.WriteLine(UserConfig.ByName("Parts")[d, "Size"]);
+                        writer.WriteLine(UserConfig.ByName("Parts")[d, "Position"]);
                     }
                 }
             }
-
             MessageBox.Show("Styles settings exported!", "Done");
         }
+
         private void btnImport_Click(object sender, EventArgs e)
         {
             using (var ofd = new OpenFileDialogEx("Import styles settings", "Text file(*.txt)|*.txt"))

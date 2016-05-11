@@ -12,7 +12,7 @@ namespace RH.HeadShop.IO
     public class CfgFile : IDisposable
     {
         /// <summary> Struct for storage cfg line. Section - Key- Value </summary>
-        private struct String3 : IComparable
+        public struct String3 : IComparable
         {
             public String3(string s1, string s2, string s3)
             {
@@ -34,7 +34,7 @@ namespace RH.HeadShop.IO
         }
 
         /// <summary> CFG file data </summary>
-        private readonly List<String3> data = new List<String3>();
+        public readonly List<String3> data = new List<String3>();
 
         /// <summary> Current cfg file path </summary>
         public readonly string FileName = "";
