@@ -333,11 +333,15 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void btn3DPrint_Click(object sender, EventArgs e)
         {
+            TopMost = true;
             ProgramCore.MainForm.ctrlRenderControl.Export3DPrint();
+            TopMost = false;
         }
         private void btnColor3DPrint_Click(object sender, EventArgs e)
         {
+            TopMost = true;
             ProgramCore.MainForm.ctrlRenderControl.ExportCollada();
+            TopMost = false;
         }
 
         #endregion

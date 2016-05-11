@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Forms;
 using RH.HeadShop.Helpers;
 
@@ -59,7 +60,7 @@ namespace RH.HeadShop.IO
         public DialogResult ShowDialog()
         {
             bool flag;
-
+            
             if (Environment.OSVersion.Version.Major >= 6)            // if current OS is windows and version Vista or higher - then use extended dialogs
             {
                 var r = new Reflector("System.Windows.Forms");
@@ -72,6 +73,7 @@ namespace RH.HeadShop.IO
                 var options = (uint)r.CallAs(typeof(FileDialog), ofd, "GetOptions");
                 options |= (uint)r.GetEnum("FileDialogNative.FOS", "FOS_PICKFOLDERS");
                 r.CallAs(typeIFileDialog, dialog, "SetOptions", options);
+
 
                 var pfde = r.New("FileDialog.VistaDialogEvents", ofd);
                 var parameters = new[] { pfde, num };
