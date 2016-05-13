@@ -212,7 +212,7 @@ namespace RH.HeadShop.Controls.Libraries
 
             var mtl = oldFileName + ".mtl";
             var newMtlName = newFileName + ".mtl";
-            ObjLoader.CopyMtl(mtl, newMtlName, Path.GetDirectoryName(accessoryPath), "", directoryPath);
+            ObjLoader.CopyMtl(mtl, newMtlName, Path.GetDirectoryName(accessoryPath), "", directoryPath, ProgramCore.Project.TextureSize);
 
             if (mtl != newMtlName)      // situation, when copy attribute and can change mtl filename. so, we need to rename link to this mtl in main obj file
             {

@@ -109,8 +109,8 @@ namespace RH.HeadShop.Render
 
         public Image DrawingImage; //!!!
 
-        private const float PointRectSize = 9;
-        private const float HalfPointRectSize = 4.5f;
+        private const float PointRectSize = 6;
+        private const float HalfPointRectSize = 3f;
 
         #endregion
 

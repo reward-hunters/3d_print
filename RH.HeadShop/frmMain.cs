@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using Assimp;
+using Ionic.Zip;
 using RH.HeadShop.Controls;
 using RH.HeadShop.Controls.Libraries;
 using RH.HeadShop.Controls.Panels;
@@ -419,7 +421,7 @@ namespace RH.HeadShop
                 return;
 
             beginExport = true;
-            ctrlRenderControl.Export();
+            Export();
             beginExport = false;
         }
 
@@ -1335,7 +1337,7 @@ namespace RH.HeadShop
                             #endregion
                             break;
                         case 2:
-                            ctrlRenderControl.Export();
+                            Export();
                             break;
                         case 3:
 
@@ -1366,7 +1368,7 @@ namespace RH.HeadShop
                                 }
                             }
 
-                            ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(ProgramCore.Project.HeadModelPath), "", Path.GetDirectoryName(sfd.FileName));
+                            ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(ProgramCore.Project.HeadModelPath), "", Path.GetDirectoryName(sfd.FileName), ProgramCore.Project.TextureSize);
 
                             #endregion
 
@@ -1489,7 +1491,7 @@ namespace RH.HeadShop
 
             #endregion
 
-            ProgramCore.Project = new Project(projectName, projectFolder, templateImage, frm1.ManType, frm1.CustomModelPath, true);
+            ProgramCore.Project = new Project(projectName, projectFolder, templateImage, frm1.ManType, frm1.CustomModelPath, true, selectedSize);
             ProgramCore.Project.FaceRectRelative = faceRecognition.FaceRectRelative;
             ProgramCore.Project.nextHeadRectF = faceRecognition.nextHeadRectF;
             ProgramCore.Project.MouthCenter = faceRecognition.MouthCenter;
@@ -1735,6 +1737,288 @@ namespace RH.HeadShop
             Cursor = cursor;
             ctrlTemplateImage.Cursor = cursor;
             ctrlRenderControl.Cursor = cursor;
+        }
+
+        /// <summary> Формат stl </summary>
+        public void Export3DPrint()
+        {
+            var fiName = string.Empty;
+            var stlName = string.Empty;
+            using (var ofd = new FolderDialogEx())
+            {
+                if (ofd.ShowDialog(Handle) != DialogResult.OK)
+                    return;
+                stlName = Path.Combine(ofd.SelectedFolder[0], ProgramCore.Project.ProjectName + ".stl");
+                fiName = Path.Combine(ofd.SelectedFolder[0], ProgramCore.Project.ProjectName + ".obj");
+            }
+
+
+            if (ProgramCore.Project != null)
+            {
+                ctrlRenderControl.pickingController.SelectedMeshes.Clear();
+                ProgramCore.Project.ToStream();
+            }
+
+            var meshInfos = new List<MeshInfo>();
+            foreach (var part in ctrlRenderControl.headMeshesController.RenderMesh.Parts)
+                meshInfos.Add(new MeshInfo(part));
+
+            ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
+                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
+               ctrlRenderControl.headMeshesController.RenderMesh.RealScale);
+
+            var importer = new AssimpImporter();
+            importer.ConvertFromFileToFile(fiName, stlName, "stl");
+        }
+
+        /// <summary> Формат dae. (collada) </summary>
+        public void ExportCollada()
+        {
+            var fiName = string.Empty;
+            var daeName = string.Empty;
+            string newDirectory = string.Empty;
+            using (var ofd = new FolderDialogEx())
+            {
+                if (ofd.ShowDialog(Handle) != DialogResult.OK)
+                    return;
+
+                if (ofd.SelectedFolder[0] == ProgramCore.Project.ProjectPath)
+                {
+                    MessageBox.Show("Can't export file to project directory.", "Warning");
+                    return;
+                }
+
+                newDirectory = Path.Combine(ofd.SelectedFolder[0], "SmoothedModelTextures");
+                FolderEx.CreateDirectory(newDirectory);
+
+                daeName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".dae");
+                fiName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".obj");
+            }
+
+            var tempScale = 5f;
+            if (ProgramCore.PluginMode)
+            {
+                var scale = 1f;
+                switch (ProgramCore.Project.ManType)
+                {
+                    case ManType.Male:
+                        scale = ctrlRenderControl.headMeshesController.SetSize(29.9421043f); // подгонка размера 
+                        break;
+                    case ManType.Female:
+                        scale = ctrlRenderControl.headMeshesController.SetSize(29.3064537f); // подгонка размера 
+                        break;
+                    case ManType.Child:
+                        scale = ctrlRenderControl.headMeshesController.SetSize(25.6209984f); // подгонка размера 
+                        break;
+                }
+
+                tempScale = ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale;
+                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale /= scale;
+            }
+
+
+            if (ProgramCore.Project != null)
+            {
+                ctrlRenderControl.pickingController.SelectedMeshes.Clear();
+                ProgramCore.Project.ToStream();
+            }
+            var morphK = float.IsNaN(ProgramCore.Project.MorphingScale) ? 0.9f : ProgramCore.Project.MorphingScale;
+            ProgramCore.MainForm.ctrlRenderControl.DoMorth(morphK);      // чтобы не потерять Smoothing
+
+            Process.Start("http://www.shapeways.com/");
+
+            var meshInfos = new List<MeshInfo>();
+            foreach (var part in ctrlRenderControl.headMeshesController.RenderMesh.Parts)
+                meshInfos.Add(new MeshInfo(part));
+
+            ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
+                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
+                ctrlRenderControl.headMeshesController.RenderMesh.RealScale, true, true);
+
+            var importer = new AssimpImporter();
+            importer.ConvertFromFileToFile(fiName, daeName, "collada");
+
+            if (ProgramCore.Project.FrontImage != null)
+                ProgramCore.Project.FrontImage.Save(Path.Combine(newDirectory, "tempHaarImage.jpg"));
+            if (ProgramCore.Project.ProfileImage != null)
+                ProgramCore.Project.ProfileImage.Save(Path.Combine(newDirectory, "ProfileImage.jpg"));
+
+            File.Delete(fiName);
+            var mtlName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".mtl");
+            if (File.Exists(mtlName))
+                File.Delete(mtlName);
+
+            using (var zip = new ZipFile())
+            {
+                zip.AddFiles(Directory.GetFiles(newDirectory), false, "");
+
+                foreach (var dir in Directory.GetDirectories(newDirectory))
+                {
+                    var files = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories);
+                    foreach (var file in files)
+                    {
+                        if (!zip.ContainsEntry((new FileInfo(file)).Name))
+                            zip.AddFile(file, "");
+                    }
+                }
+
+                zip.Save(Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".zip"));
+            }
+
+            if (ProgramCore.PluginMode)
+                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = tempScale;
+
+            MessageBox.Show("Color 3D export finished!", "Done");
+        }
+
+        /// <summary> Экспорт для 3Д печати </summary>
+        /// <param name="exportColor3DPrint">Добавляет фото профиля и анфаса. Пакует получившуюся папку в зип</param>
+        public void Export()
+        {
+            var fiName = string.Empty;
+            var diName = string.Empty;
+            var tempScale = 5f;
+            if (ProgramCore.PluginMode)
+            {
+                tempScale = ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale;
+                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = 1;          // чтобы скейл в проге не влиял на экспорт.
+
+                var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+                diName = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\");
+                fiName = Path.Combine(diName, "fs3d.obj");
+            }
+            else
+            {
+                using (var ofd = new FolderDialogEx())
+                {
+                    if (ofd.ShowDialog(Handle) != DialogResult.OK)
+                        return;
+                    fiName = Path.Combine(ofd.SelectedFolder[0], ProgramCore.Project.ProjectName + ".obj");
+                }
+            }
+
+            ctrlRenderControl.pickingController.SelectedMeshes.Clear();
+            var acDirPath = Path.GetDirectoryName(fiName);
+
+            var haPath = Path.GetFileNameWithoutExtension(fiName) + "hair.obj";
+            var hairPath = Path.Combine(ProgramCore.Project.ProjectPath, haPath);
+            ObjSaver.SaveObjFile(hairPath, ctrlRenderControl.pickingController.HairMeshes, MeshType.Hair, ctrlRenderControl.headMeshesController.RenderMesh.RealScale, true);
+
+            if (ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes.Count > 0)            // save accessories to separate file
+            {
+                var acName = Path.GetFileNameWithoutExtension(fiName) + "_accessory.obj";
+
+                var accessoryPath = Path.Combine(ProgramCore.Project.ProjectPath, acName);
+                ObjSaver.SaveObjFile(accessoryPath, ctrlRenderControl.pickingController.AccesoryMeshes, MeshType.Accessory, ctrlRenderControl.headMeshesController.RenderMesh.RealScale, true);
+            }
+
+            ctrlRenderControl.SaveHead(fiName, true);
+
+            if (ProgramCore.PluginMode)
+            {
+                var dsxPath = Path.Combine(Application.StartupPath, "Plugin", "fs3d.dsx");
+                File.Copy(dsxPath, Path.Combine(diName, "fs3d.dsx"), true);
+
+                var fsbmPath = Path.Combine(Application.StartupPath, "Plugin", "fsbm.bmp");
+                File.Copy(fsbmPath, Path.Combine(diName, "fsbm.bmp"), true);
+
+                var mtlPath = Path.Combine(Application.StartupPath, "Plugin", "fs3d.mtl");
+                File.Copy(mtlPath, Path.Combine(diName, "fs3d.mtl"), true);
+
+                var iTexture = -1;
+
+
+                foreach (var part in ctrlRenderControl.headMeshesController.RenderMesh.Parts)
+                {
+                    if (ProgramCore.MainForm.PluginUvGroups.Contains(part.Name.ToLower().Trim()))
+                    {
+                        var smoothTexs = ctrlRenderControl.SmoothedTextures.Where(s => s.Key != 0 && s.Value == part.Texture);
+                        if (smoothTexs.Any())
+                        {
+                            iTexture = smoothTexs.First().Value;
+                            break;
+                        }
+                    }
+                }
+                if (iTexture == -1)
+                {
+                    if (ctrlRenderControl.SmoothedTextures.Count > 0)
+                        iTexture = ctrlRenderControl.SmoothedTextures.Values.ElementAt(0);
+                    else
+                        iTexture = ctrlRenderControl.HeadTextureId;
+                }
+
+                var mapPath = ctrlRenderControl.GetTexturePath(iTexture);
+                if (ProgramCore.MainForm.ctrlRenderControl.brushTextures.ContainsKey(iTexture))            // применяем результаты кисточки
+                {
+                    var brushTexture = ProgramCore.MainForm.ctrlRenderControl.brushTextures[iTexture];
+                    using (var bitmap = new Bitmap(mapPath))
+                    {
+                        using (Graphics grfx = Graphics.FromImage(bitmap))
+                            grfx.DrawImage(brushTexture.TextureData, 0, 0);
+                        bitmap.Save(Path.Combine(diName, "fs3d.bmp"), ImageFormat.Bmp);
+                    }
+                }
+                else
+                {
+                    using (var ms = new Bitmap(mapPath)) // Don't use using!!
+                        ms.Save(Path.Combine(diName, "fs3d.bmp"), ImageFormat.Bmp);
+                }
+
+                var di = new DirectoryInfo(acDirPath);
+                foreach (var file in di.GetFiles())
+                {
+                    var now = DateTime.Now;
+                    file.CreationTime = now;
+                    file.LastAccessTime = now;
+                    file.LastWriteTime = now;
+                }
+
+
+                if (ProgramCore.PluginMode)
+                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = tempScale;
+
+                #region костыль
+
+                /*   var appDataPath1 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                var diApp = new DirectoryInfo(appDataPath1);
+                var head = string.Empty;
+                foreach (var folder in diApp.GetDirectories())
+                {
+                    if (folder.Name == "DAZ 3D") // хз от чего зависит. у ласло другой путь почему то
+                    {
+                        head = Path.Combine(appDataPath1, @"DAZ 3D\Studio\My Library\Runtime\FaceShop\fs\");
+                        break;
+                    }
+                    if (folder.Name == "My DAZ 3D Library")
+                    {
+                        head = Path.Combine(appDataPath1, @"My DAZ 3D Library\Runtime\FaceShop\fs\");
+                        break;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(head))
+                {
+                    FolderEx.CreateDirectory(head);
+
+                    SaveHead(Path.Combine(head, "fs.obj"));
+                    di = new DirectoryInfo(Path.GetDirectoryName(head));
+                    foreach (var file in di.GetFiles())
+                    {
+                        var now = DateTime.Now;
+                        file.CreationTime = now;
+                        file.LastAccessTime = now;
+                        file.LastWriteTime = now;
+                    }
+                }*/
+
+                #endregion
+            }
+
+            MessageBox.Show(ProgramCore.MainForm.ProgramCaption + " project successfully exported!", "Done", MessageBoxButtons.OK);
+            if (ProgramCore.PluginMode)
+                Environment.Exit(0);
         }
     }
 }

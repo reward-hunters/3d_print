@@ -62,8 +62,8 @@ namespace RH.HeadShop.Render.Controllers
         public HeadPoints<MirroredHeadPoint> AutoDots = new HeadPoints<MirroredHeadPoint>();
         public HeadPoints<MirroredHeadPoint> ShapeDots = new HeadPoints<MirroredHeadPoint>();
 
-        private const float PointRectSize = 9;
-        private const float HalfPointRectSize = 4.5f;
+        private const float PointRectSize = 6;
+        private const float HalfPointRectSize = 3f;
 
         #endregion
 

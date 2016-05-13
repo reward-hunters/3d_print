@@ -433,7 +433,7 @@ namespace RH.HeadShop.Render.Obj
                 vertexBoneWeights.AddRange(new[] { 0.0f, 0.0f, 0.0f, 0.0f });
         }
 
-        public static void CopyMtl(string mtl, string newMtlName, string path, string subFolders, string projectPath)
+        public static void CopyMtl(string mtl, string newMtlName, string path, string subFolders, string projectPath, int selectedSize)
         {
             var mtlPath = Path.Combine(path, mtl);
             var mtlFi = new FileInfo(mtlPath);
@@ -461,10 +461,10 @@ namespace RH.HeadShop.Render.Obj
                         using (var ms = new MemoryStream(File.ReadAllBytes(textureFi.FullName))) // Don't use using!!
                         {
                             var img = (Bitmap)Bitmap.FromStream(ms);
-                            var max = Math.Max(img.Width, img.Height);
-                            if (max > 1024)
+                            var max = (float)Math.Max(img.Width, img.Height);
+                            if (max != selectedSize)
                             {
-                                var k = 1024.0f / max;
+                                var k = selectedSize / max;
                                 var newImg = ImageEx.ResizeImage(img, new Size((int)(img.Width * k), (int)(img.Height * k)));
                                 newImg.Save(textureFi.FullName, ImageFormat.Jpeg);
                             }

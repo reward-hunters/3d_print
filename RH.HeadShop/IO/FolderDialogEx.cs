@@ -53,11 +53,16 @@ namespace RH.HeadShop.IO
             ofd = new OpenFileDialog { Filter = @"Folders|\n", AddExtension = false, CheckFileExists = false, DereferenceLinks = true, Multiselect = true };            // initialize standart open file dialog
         }
 
+
+        public DialogResult ShowDialog()
+        {
+            return ShowDialog(IntPtr.Zero);
+        }
         /// <summary>
         /// Shows the dialog
         /// </summary>
         /// <returns>True if the user presses OK else false</returns>
-        public DialogResult ShowDialog()
+        public DialogResult ShowDialog(IntPtr hWndOwner)
         {
             bool flag;
             
@@ -81,7 +86,7 @@ namespace RH.HeadShop.IO
                 num = (uint)parameters[1];
                 try
                 {
-                    var num2 = (int)r.CallAs(typeIFileDialog, dialog, "Show", IntPtr.Zero);
+                    var num2 = (int)r.CallAs(typeIFileDialog, dialog, "Show", hWndOwner);
                     flag = 0 == num2;
                 }
                 finally

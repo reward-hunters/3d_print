@@ -67,6 +67,9 @@ namespace RH.HeadShop
         public Vector2 ProfileEyeLocation = Vector2.Zero;
         public Vector2 ProfileMouthLocation = Vector2.Zero;
 
+        /// <summary> Размер текстур, выбранный при создании проекта </summary>
+        public int TextureSize = 1024;
+
         #region Все нужное, для работы с моделью головы
 
         public HeadPoints<HeadPoint> BaseDots; // опорные точки для произвольной башки. по дефолту - женские точки 
@@ -161,10 +164,11 @@ namespace RH.HeadShop
         /// <param name="manType"></param>
         /// <param name="headModelPath">Указываем путь до модели головы (в случае если выбрали import OBJ). Иначе - пустая строка</param>
         /// <param name="needCopy"></param>
-        public Project(string projectName, string projectPath, string templateImageName, ManType manType, string headModelPath, bool needCopy)
+        public Project(string projectName, string projectPath, string templateImageName, ManType manType, string headModelPath, bool needCopy, int selectedSize)
         {
             ProjectName = projectName;
             ProjectPath = projectPath;
+            TextureSize = selectedSize;
 
             ManType = manType;
             switch (manType)
@@ -241,7 +245,7 @@ namespace RH.HeadShop
                         }
                     }
 
-                    ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(headModelPath), "", directoryPath);
+                    ObjLoader.CopyMtl(mtl, mtl, Path.GetDirectoryName(headModelPath), "", directoryPath, selectedSize);
 
                     #endregion
 
@@ -441,6 +445,8 @@ namespace RH.HeadShop
                     bw.Write(ProgramCore.MainForm.ctrlRenderControl.camera._dy);
 
                     bw.Write(MorphingScale);
+
+                    bw.Write(TextureSize);
                 }
             }
             catch (Exception e)
@@ -482,7 +488,7 @@ namespace RH.HeadShop
                 var textureFlip = (FlipType)br.ReadInt32();
                 var shapeFlip = (FlipType)br.ReadInt32();
 
-                result = new Project(projectName, projectFi.DirectoryName, templateImagePath, manType, headModelPath, false);
+                result = new Project(projectName, projectFi.DirectoryName, templateImagePath, manType, headModelPath, false, 1024);
                 result.TextureFlip = textureFlip;
                 result.ShapeFlip = shapeFlip;
 
@@ -605,6 +611,14 @@ namespace RH.HeadShop
                 try
                 {
                     result.MorphingScale = br.ReadSingle();
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    result.TextureSize = br.ReadInt32();
                 }
                 catch
                 {
