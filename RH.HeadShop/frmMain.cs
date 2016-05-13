@@ -1796,6 +1796,7 @@ namespace RH.HeadShop
             }
 
             var tempScale = 5f;
+            var realScale = ctrlRenderControl.headMeshesController.RenderMesh.RealScale;
             if (ProgramCore.PluginMode)
             {
                 var scale = 1f;
@@ -1814,6 +1815,7 @@ namespace RH.HeadShop
 
                 tempScale = ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale;
                 ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale /= scale;
+                realScale /= scale;
             }
 
 
@@ -1832,8 +1834,7 @@ namespace RH.HeadShop
                 meshInfos.Add(new MeshInfo(part));
 
             ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
-                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos,
-                ctrlRenderControl.headMeshesController.RenderMesh.RealScale, true, true);
+                ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos, realScale, true, true);
 
             var importer = new AssimpImporter();
             importer.ConvertFromFileToFile(fiName, daeName, "collada");
