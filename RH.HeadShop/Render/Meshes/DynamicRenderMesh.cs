@@ -131,9 +131,11 @@ namespace RH.HeadShop.Render.Meshes
             worldMatrix[3, 1] = 0.0f;
             worldMatrix[3, 2] = 0.0f;
             worldMatrix *= Matrix4.CreateScale(scale);
+
             worldMatrix[3, 0] = position.X * scale;
             worldMatrix[3, 1] = position.Y * scale;
             worldMatrix[3, 2] = position.Z * scale;
+            
             return new MeshInfo(this, vertexArray, worldMatrix);
         }
 

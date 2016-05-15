@@ -10,6 +10,7 @@ using RH.HeadShop.Helpers;
 using RH.HeadShop.Render.Helpers;
 using RH.HeadShop.Render.Meshes;
 using RH.HeadEditor.Data;
+using RH.HeadShop.Render.Controllers;
 
 namespace RH.HeadShop.Render.Obj
 {
@@ -283,6 +284,33 @@ namespace RH.HeadShop.Render.Obj
             SaveMaterial(mtlPath, materials, fi, saveBrushesToTexture, isCollada);
         }
 
+        private static void TransformForPluginMode(DynamicRenderMesh mesh, MeshInfo meshInfo)
+        {
+            if (!ProgramCore.PluginMode)
+                return;            
+
+            var scaleCoef = 1f;
+            if (mesh.meshType == MeshType.Accessory)
+                scaleCoef = 246f;
+            else if (mesh.meshType == MeshType.Head)
+                scaleCoef = PickingController.GetHeadScale(ProgramCore.Project.ManType);
+            else
+                scaleCoef = PickingController.GetHairScale(ProgramCore.Project.ManType);
+
+            var d = ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport.Delta;
+            d.Y -= 0.0060975609f;
+            var tempTransform = mesh.Transform * Matrix4.CreateTranslation(d * scaleCoef);
+            var dp = new Vector3(mesh.Transform[3, 0], mesh.Transform[3, 1], mesh.Transform[3, 2]) -
+                new Vector3(tempTransform[3, 0], tempTransform[3, 1], tempTransform[3, 2]);
+
+            for (int i = 0; i < meshInfo.Positions.Count; ++i)
+            {
+                var position = meshInfo.Positions[i];
+                position += dp;
+                meshInfo.Positions[i] = position;
+            }
+        }
+
         /// <summary>  </summary>
         /// <param name="filePath"></param>
         /// <param name="HairMeshes"></param>
@@ -291,7 +319,8 @@ namespace RH.HeadShop.Render.Obj
         /// <param name="morphScale"></param>
         /// <param name="saveBrushesToTexture">При экспорте в ДАЗ или в колладу - нужно сохранять то что поправили кисточкой в туже текстуру </param>
         /// <param name="isCollada">Если коллада - то текстуры должны лежать в той же папке. Заказ старикана</param>
-        public static void ExportMergedModel(string filePath, DynamicRenderMeshes HairMeshes, DynamicRenderMeshes AccesoryMeshes, List<MeshInfo> faceParts, float morphScale, bool saveBrushesToTexture = false, bool isCollada = false)
+        public static void ExportMergedModel(string filePath, DynamicRenderMeshes HairMeshes, DynamicRenderMeshes AccesoryMeshes, 
+            List<MeshInfo> faceParts, float morphScale, bool saveBrushesToTexture = false, bool isCollada = false)
         {
             //if (meshInfos.Count == 0)
             //    return;
@@ -323,19 +352,20 @@ namespace RH.HeadShop.Render.Obj
                 foreach (var mesh in HairMeshes)
                 {
                     var meshInfo = mesh.GetMeshInfo(morphScale);
+                    TransformForPluginMode(mesh, meshInfo);
                     meshInfos.Add(meshInfo);
                 }
                 foreach (var mesh in AccesoryMeshes)
                 {
                     var meshInfo = mesh.GetMeshInfo(morphScale);
+                    TransformForPluginMode(mesh, meshInfo);
                     meshInfos.Add(meshInfo);
                 }
 
                 if (meshInfos.Count > 0)
-                {
-                    var scale = Controllers.PickingController.GetHairScale(ProgramCore.Project.ManType);
+                {                    
+                    var scale = ProgramCore.PluginMode ? 1.0f : Controllers.PickingController.GetHairScale(ProgramCore.Project.ManType);
                     var transformMatrix = Matrix4.CreateScale(scale);
-
                     SaveVerticles(meshInfos, sw, transformMatrix);       //write only additional meshes first, with translated positions
                     SaveTextureCoords(meshInfos, sw);
                     SaveNormals(meshInfos, sw, transformMatrix);

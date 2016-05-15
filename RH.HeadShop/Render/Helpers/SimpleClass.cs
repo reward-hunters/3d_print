@@ -223,6 +223,9 @@ namespace RH.HeadShop.Render.Helpers
             Material.TransparentTextureMap = ProgramCore.MainForm.ctrlRenderControl.GetTexturePath(part.TransparentTexture);
         }
 
+        public Matrix4 TempTransform = Matrix4.Identity;
+        public Vector3 DeltaTransform = Vector3.Zero;
+
         public MeshInfo(DynamicRenderMesh parent, Vertex[] vertices, Matrix4 transformMatrix)
         {
             Material = parent.Material;
@@ -230,6 +233,35 @@ namespace RH.HeadShop.Render.Helpers
             var positionsMapping = new Dictionary<Vector3, int>(new VectorEqualityComparer());
             var texCoordsMapping = new Dictionary<Vector2, int>(new VectorEqualityComparer());
             var normalsMapping = new Dictionary<Vector3, int>(new VectorEqualityComparer());
+
+            if (transformMatrix != Matrix4.Zero)
+            {
+                var scaleCoef = 1f;
+                if (parent.meshType == MeshType.Accessory)
+                    scaleCoef = 246f;
+                else if (parent.meshType == MeshType.Head)
+                    scaleCoef = PickingController.GetHeadScale(ProgramCore.Project.ManType);
+                else
+                    scaleCoef = PickingController.GetHairScale(ProgramCore.Project.ManType);
+                var useExporter = ProgramCore.PluginMode &&
+                ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport != null;
+                var invScale = Matrix4.CreateScale(useExporter ? 1.0f : 1.0f / scaleCoef);
+                TempTransform = transformMatrix;
+                TempTransform *= invScale;
+                if (useExporter)
+                {
+                    var d = ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport.Delta;
+                    d.Y -= 0.0060975609f;
+                    DeltaTransform = d * scaleCoef;
+                    TempTransform *=
+                       Matrix4.CreateTranslation(d * scaleCoef);
+                }
+            }
+            else
+            {
+                TempTransform = Matrix4.Identity;
+                DeltaTransform = Vector3.Zero;
+            }
 
             foreach (var vertex in vertices)
             {
@@ -241,31 +273,8 @@ namespace RH.HeadShop.Render.Helpers
 
                 var normal = vertex.Normal;
 
-                if (transformMatrix != Matrix4.Zero)
-                {
-                    var scaleCoef = 1f;
-                    if (parent.meshType == MeshType.Accessory)
-                        scaleCoef = 246f;
-                    else if (parent.meshType == MeshType.Head)
-                        scaleCoef = PickingController.GetHeadScale(ProgramCore.Project.ManType);
-                    else
-                        scaleCoef = PickingController.GetHairScale(ProgramCore.Project.ManType);
-                    var useExporter = ProgramCore.PluginMode &&
-                    ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport != null;
-                    var invScale = Matrix4.CreateScale(useExporter ? 1.0f : 1.0f / scaleCoef);
-                    var tempTransform = transformMatrix;
-                    tempTransform *= invScale;
-                    if (useExporter)
-                    {
-                        var d = ProgramCore.MainForm.ctrlRenderControl.pickingController.ObjExport.Delta;
-                        d.Y -= 0.0060975609f;
-                        tempTransform *=
-                           Matrix4.CreateTranslation(d * scaleCoef);
-                    }
-
-                    position = Vector3.Transform(position, tempTransform);
-                    normal = Vector3.Transform(normal, tempTransform);
-                }
+                position = Vector3.Transform(position, TempTransform);
+                normal = Vector3.Transform(normal, TempTransform);
 
                 int id;
                 if (!positionsMapping.TryGetValue(position, out id))

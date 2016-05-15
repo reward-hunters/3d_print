@@ -152,6 +152,7 @@ namespace RH.HeadShop
                 InitializeTutorialLinks();
 
             PluginUvGroups.AddRange(new[] { "1_lip", "1_skinface", "lips", "face" });
+            ProgramCore.PluginMode = true;
             if (!string.IsNullOrEmpty(fn))
             {
                 if (fn.StartsWith("fs"))
@@ -1795,7 +1796,7 @@ namespace RH.HeadShop
                 fiName = Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".obj");
             }
 
-            var tempScale = 5f;
+            //var tempScale = 5f;
             var realScale = ctrlRenderControl.headMeshesController.RenderMesh.RealScale;
             if (ProgramCore.PluginMode)
             {
@@ -1813,8 +1814,8 @@ namespace RH.HeadShop
                         break;
                 }
 
-                tempScale = ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale;
-                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale /= scale;
+                //tempScale = ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale;
+                //ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale /= scale;
                 realScale /= scale;
             }
 
@@ -1866,8 +1867,8 @@ namespace RH.HeadShop
                 zip.Save(Path.Combine(newDirectory, ProgramCore.Project.ProjectName + ".zip"));
             }
 
-            if (ProgramCore.PluginMode)
-                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = tempScale;
+            //if (ProgramCore.PluginMode)
+            //    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.MorphScale = tempScale;
 
             MessageBox.Show("Color 3D export finished!", "Done");
         }
