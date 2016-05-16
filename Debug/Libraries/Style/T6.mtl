@@ -1,0 +1,124 @@
+newmtl Legs
+d 1
+Kd 1 1 1
+
+newmtl EyeReflection
+d 0
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl Nostrils
+d 1
+Kd 1 1 1
+
+newmtl Lacrimals
+d 1
+Kd 1 1 1
+
+newmtl Pupils
+d 1
+Kd 1 1 1
+
+newmtl Lips
+d 1
+Kd 1 1 1
+
+newmtl Tear
+d 0.118182
+Ns 0.8
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl Gums
+d 1
+Kd 1 1 1
+
+newmtl Irises
+d 1
+Kd 1 1 1
+
+newmtl Teeth
+d 1
+Kd 1 1 1
+
+newmtl Cornea
+d 0
+Kd 1 1 1
+
+newmtl Face
+d 1
+Kd 1 1 1
+
+newmtl Toenails
+d 1
+Kd 1 1 1
+
+newmtl Sclera
+d 1
+Kd 1 1 1
+
+newmtl Fingernails
+d 1
+Kd 1 1 1
+
+newmtl Head
+d 1
+Kd 1 1 1
+
+newmtl Ears
+d 1
+Kd 1 1 1
+
+newmtl Hands
+d 1
+Kd 1 1 1
+
+newmtl Shoulders
+d 1
+Kd 1 1 1
+
+newmtl Neck
+d 1
+Kd 1 1 1
+
+newmtl Hips
+d 1
+Kd 1 1 1
+
+newmtl Torso
+d 1
+Kd 1 1 1
+
+newmtl Nipples
+d 1
+Kd 1 1 1
+
+newmtl Forearms
+d 1
+Kd 1 1 1
+
+newmtl Feet
+d 1
+Kd 1 1 1
+
+newmtl Eyelashes
+d 0.7
+Kd 0.211765 0.176471 0.164706
+
+newmtl Tongue
+d 1
+Kd 1 1 1
+
+newmtl InnerMouth
+d 1
+Kd 1 1 1
+
+
+

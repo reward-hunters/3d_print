@@ -1,0 +1,270 @@
+newmtl 3_SkinFoot
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 6_Eyelash
+d 0
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 5_Sclera
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 5_Pupil
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 5_Iris
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 5_Cornea
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 4_Tongue
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 4_Teeth
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 4_InnerMouth
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 4_Gums
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 3_SkinArm
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 2_SkinTorso
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 2_Nipple
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 2_SkinNeck
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 3_SkinForearm
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 3_SkinLeg
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 2_SkinHip
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 2_SkinHead
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 3_SkinHand
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 7_Tear
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 1_Nostril
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 1_Lip
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 5_Lacrimal
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 1_SkinFace
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 3_Fingernail
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl 3_Toenail
+d 1
+Ns 0.75
+Ni 1.3
+Ka 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Km 0.02
+
+newmtl Band
+d 1
+Ns 0.85
+Ni 0
+Ka 0 0 0
+Kd 1 1 0.513726
+Ks 0.176471 0.0156863 0.0235294
+Km 0.02
+
+newmtl Brim
+d 1
+Ns 0.85
+Ni 0
+Ka 0 0 0
+Kd 1 0 0
+Ks 0.176471 0.0156863 0.0235294
+Km 0.02
+
+newmtl Brim2
+d 1
+Ns 0.85
+Ni 0
+Ka 0 0 0
+Kd 1 0 0
+Ks 0.176471 0.0156863 0.0235294
+Km 0.02
+
+newmtl Hat
+d 1
+Ns 0.85
+Ni 0
+Ka 0 0 0
+Kd 1 0 0
+Ks 0.176471 0.0156863 0.0235294
+Km 0.02
+
