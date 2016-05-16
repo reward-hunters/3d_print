@@ -152,7 +152,9 @@ namespace RH.HeadShop
                 InitializeTutorialLinks();
 
             PluginUvGroups.AddRange(new[] { "1_lip", "1_skinface", "lips", "face" });
-            ProgramCore.PluginMode = true;
+
+            //ProgramCore.PluginMode = true;
+
             if (!string.IsNullOrEmpty(fn))
             {
                 if (fn.StartsWith("fs"))
