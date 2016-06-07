@@ -11,6 +11,8 @@ using RH.HeadShop.Render.Helpers;
 using RH.HeadShop.Render.Meshes;
 using RH.HeadEditor.Data;
 using RH.HeadShop.Render.Controllers;
+using RH.HeadEditor.Helpers;
+using RH.HeadShop.IO;
 
 namespace RH.HeadShop.Render.Obj
 {
@@ -352,32 +354,41 @@ namespace RH.HeadShop.Render.Obj
                 foreach (var mesh in HairMeshes)
                 {
                     var meshInfo = mesh.GetMeshInfo(morphScale);
+                    MeshInfo.FindCenter(meshInfo.Positions, "Волосы до трансформации ObjSaver::ExportMergedModel()");
                     TransformForPluginMode(mesh, meshInfo);
                     meshInfos.Add(meshInfo);
+                    MeshInfo.FindCenter(meshInfo.Positions, "Волосы после трансформации ObjSaver::ExportMergedModel()");
                 }
                 foreach (var mesh in AccesoryMeshes)
                 {
                     var meshInfo = mesh.GetMeshInfo(morphScale);
+                    MeshInfo.FindCenter(meshInfo.Positions, "Аксесуары до трансформации ObjSaver::ExportMergedModel()");
                     TransformForPluginMode(mesh, meshInfo);
                     meshInfos.Add(meshInfo);
+                    MeshInfo.FindCenter(meshInfo.Positions, "Аксесуары после трансформации ObjSaver::ExportMergedModel()");
                 }
 
                 if (meshInfos.Count > 0)
                 {                    
-                    var scale = ProgramCore.PluginMode ? 1.0f : Controllers.PickingController.GetHairScale(ProgramCore.Project.ManType);
+                    var scale = ProgramCore.PluginMode ? 1.0f : PickingController.GetHairScale(ProgramCore.Project.ManType);
+                    ProgramCore.EchoToLog(String.Format("На это умножаем волосы или аксесуары при экспорте ObjSaver::ExportMergedModel(): {0}", scale), EchoMessageType.Information);
                     var transformMatrix = Matrix4.CreateScale(scale);
                     SaveVerticles(meshInfos, sw, transformMatrix);       //write only additional meshes first, with translated positions
+                    MeshInfo.FindCenter(meshInfos, "Аксесуары и волосы, которые ушли на экспорт ObjSaver::ExportMergedModel()");
                     SaveTextureCoords(meshInfos, sw);
                     SaveNormals(meshInfos, sw, transformMatrix);
                 }
                 if (faceParts.Count > 0)
                 {
+                    ProgramCore.EchoToLog(String.Format("На это умножаем бошку при экспорте ObjSaver::ExportMergedModel(): {0}", morphScale), EchoMessageType.Information);
                     var transformMatrix = Matrix4.CreateScale(morphScale);
                     SaveVerticles(faceParts, sw, transformMatrix);
+                    MeshInfo.FindCenter(faceParts, "Бошка, которая ушла на экспорт ObjSaver::ExportMergedModel()");
                     SaveTextureCoords(faceParts, sw);
                     SaveNormals(faceParts, sw, Matrix4.Zero);
                 }
                 meshInfos.AddRange(faceParts);
+                MeshInfo.FindCenter(meshInfos, "Итоговая модель после экспорта ObjSaver::ExportMergedModel()");
 
                 var groupIndex = 0;
                 var startPositionIndex = 1;
@@ -523,13 +534,14 @@ namespace RH.HeadShop.Render.Obj
         {
             foreach (var meshInfo in meshInfos)
             {
-                foreach (var v in meshInfo.Positions)
+                for(int i = 0; i<meshInfo.Positions.Count; ++i)
                 {
-
+                    var v = meshInfo.Positions[i];
                     if (transformMatrix != Matrix4.Zero)
                     {
                         var newV = Vector3.Transform(v, transformMatrix);
                         var resStr = "v " + newV.X.ToString(ProgramCore.Nfi) + " " + newV.Y.ToString(ProgramCore.Nfi) + " " + newV.Z.ToString(ProgramCore.Nfi);
+                        meshInfo.Positions[i] = v;
                         sw.WriteLine(resStr);
                     }
                     else

@@ -75,7 +75,9 @@ namespace RH.HeadShop
                 {
                     if (value.Trim() == "") // just check. TRIM() funtion for string - remove all spaces from start and end. If our value is empty - just set folder by default. it's- logValue
                         value = "log";
-                    value = Path.Combine(Application.StartupPath, value); // Path.Combine - concatinating path to directory, where our program and filename.
+                    //Application.StartupPath
+                    var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "Abalone");
+                    value = Path.Combine(path, value); // Path.Combine - concatinating path to directory, where our program and filename.
                     Directory.CreateDirectory(value); // check and create folder 
                     logFolder = value;
                 }

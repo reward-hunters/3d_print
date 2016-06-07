@@ -22,6 +22,7 @@ using RH.HeadShop.Render;
 using RH.HeadShop.Render.Helpers;
 using RH.HeadShop.Render.Meshes;
 using RH.HeadShop.Render.Obj;
+using RH.HeadEditor.Helpers;
 
 namespace RH.HeadShop
 {
@@ -1835,7 +1836,8 @@ namespace RH.HeadShop
             var meshInfos = new List<MeshInfo>();
             foreach (var part in ctrlRenderControl.headMeshesController.RenderMesh.Parts)
                 meshInfos.Add(new MeshInfo(part));
-
+            MeshInfo.FindCenter(meshInfos, "Меши бошки до экспорта frmMain::ExportCollada()");
+            ProgramCore.EchoToLog(String.Format("realScale frmMain::ExportCollada(): {0}", realScale), EchoMessageType.Information);
             ObjSaver.ExportMergedModel(fiName, ProgramCore.MainForm.ctrlRenderControl.pickingController.HairMeshes,
                 ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes, meshInfos, realScale, true, true);
 
@@ -1907,16 +1909,18 @@ namespace RH.HeadShop
 
             var haPath = Path.GetFileNameWithoutExtension(fiName) + "hair.obj";
             var hairPath = Path.Combine(ProgramCore.Project.ProjectPath, haPath);
-            ObjSaver.SaveObjFile(hairPath, ctrlRenderControl.pickingController.HairMeshes, MeshType.Hair, ctrlRenderControl.headMeshesController.RenderMesh.RealScale, true);
+            var realScale = ProgramCore.PluginMode ? 1.0f : ctrlRenderControl.headMeshesController.RenderMesh.RealScale;
+
+            ObjSaver.SaveObjFile(hairPath, ctrlRenderControl.pickingController.HairMeshes, MeshType.Hair, realScale, true);
 
             if (ProgramCore.MainForm.ctrlRenderControl.pickingController.AccesoryMeshes.Count > 0)            // save accessories to separate file
             {
                 var acName = Path.GetFileNameWithoutExtension(fiName) + "_accessory.obj";
 
                 var accessoryPath = Path.Combine(ProgramCore.Project.ProjectPath, acName);
-                ObjSaver.SaveObjFile(accessoryPath, ctrlRenderControl.pickingController.AccesoryMeshes, MeshType.Accessory, ctrlRenderControl.headMeshesController.RenderMesh.RealScale, true);
+                ObjSaver.SaveObjFile(accessoryPath, ctrlRenderControl.pickingController.AccesoryMeshes, MeshType.Accessory, realScale, true);
             }
-
+            
             ctrlRenderControl.SaveHead(fiName, true);
 
             if (ProgramCore.PluginMode)

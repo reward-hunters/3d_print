@@ -5,6 +5,7 @@ using RH.HeadShop.Render.Controllers;
 using RH.HeadShop.Render.Meshes;
 using RH.HeadShop.Render.Obj;
 using RH.HeadEditor.Helpers;
+using RH.HeadShop.IO;
 
 namespace RH.HeadShop.Render.Helpers
 {
@@ -168,6 +169,25 @@ namespace RH.HeadShop.Render.Helpers
         public List<int> IndicesPositions = new List<int>();
         public List<int> IndicesNormals = new List<int>();
         public List<int> IndicesTexCoords = new List<int>();
+
+
+        public static void FindCenter(List<Vector3> list, String text)
+        {
+            Vector3 min, max;
+            var center = MeshUtils.FindCenter(list, out min, out max);
+            ProgramCore.EchoToLog(String.Format("{0} Center: {1}; {2}; {3}; Min: {4}; {5}; {6}; Max: {7}; {8}; {9};",
+                       text, center.X, center.Y, center.Z,
+                       min.X, min.Y, min.Z,
+                       max.X, max.Y, max.Z), EchoMessageType.Information);
+        }
+
+        public static void FindCenter(List<MeshInfo> meshes, String text)
+        {
+            var list = new List<Vector3>();
+            foreach (var mesh in meshes)
+                list.AddRange(mesh.Positions);
+            FindCenter(list, text);
+        }
 
         public MeshInfo(RenderMeshPart part, float scale = 1.0f)
         {

@@ -8,6 +8,26 @@ namespace RH.HeadEditor.Helpers
 {
     public class MeshUtils
     {
+        public static Vector3 FindCenter(List<Vector3> vertices, out Vector3 minPoint, out Vector3 maxPoint)
+        {
+            const float MAX_VALUE = 999999.0f;
+            const float MIN_VALUE = -999999.0f;
+            Vector3 min = new Vector3(MAX_VALUE, MAX_VALUE, MAX_VALUE), max = new Vector3(MIN_VALUE, MIN_VALUE, MIN_VALUE);
+            foreach(var v in vertices)
+            {
+                min.X = Math.Min(min.X, v.X);
+                min.Y = Math.Min(min.Y, v.Y);
+                min.Z = Math.Min(min.Z, v.Z);
+
+                max.X = Math.Max(max.X, v.X);
+                max.Y = Math.Max(max.Y, v.Y);
+                max.Z = Math.Max(max.Z, v.Z);
+            }
+            minPoint = min;
+            maxPoint = max;
+            return (min + max) * 0.5f;
+        }
+
         public static List<Vector3> findAdjacentNeighbors(Vector3[] v, int[] t, Vector3 vertex)
         {
             List<Vector3> adjacentV = new List<Vector3>();
