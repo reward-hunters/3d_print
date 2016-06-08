@@ -442,9 +442,6 @@
   <data name="Logo_Head3D" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo_new.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logo_HeadShop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo_HeadShop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Logo_PrintAhead" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo_PrintAhead.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -456,5 +453,8 @@
   </data>
   <data name="grabbing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grabbing.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logo_HeadShop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_HeadShop.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
