@@ -38,7 +38,7 @@ namespace RH.HeadShop
         public static NumberFormatInfo Nfi;
         public static string RegistryPath = "Software\\RH\\HeadShop";       // Registry path to keep persistent data
 
-        public const bool Debug = false;
+        public const bool Debug = true;
         public static bool PluginMode;      // запускаем ли прогу из DAZ или просто
 
         #endregion

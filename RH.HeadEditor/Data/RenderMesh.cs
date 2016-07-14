@@ -68,6 +68,26 @@ namespace RH.HeadEditor.Data
                 part.DoMorph(k);
         }
 
+        public void ScaleWidth(float k, float centerX)
+        {
+            foreach (var part in Parts)
+            {
+                for (var i = 0; i < part.Vertices.Length; i++)
+                {
+                    var vertex = part.Vertices[i];
+                    vertex.Position.X = centerX + (vertex.Position.X - centerX) * k;
+                    vertex.OriginalPosition.X = centerX + (vertex.OriginalPosition.X - centerX) * k;
+                    part.Vertices[i] = vertex;
+                }
+                foreach (var p in part.Points)
+                {
+                    var pos = p.Position;
+                    pos.X = centerX + (pos.X - centerX) * k;
+                    p.Position = pos;
+                }
+            }
+        }
+
         public float SetSize(float diagonal)
         {
             Vector2 a = new Vector2(99999.0f, 99999.0f), b = new Vector2(-99999.0f, -99999.0f);

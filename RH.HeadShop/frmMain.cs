@@ -1523,7 +1523,7 @@ namespace RH.HeadShop
             ProgramCore.Project.RightEyeCenter = faceRecognition.RightEyeCenter;
             UpdateProjectControls(true);
 
-            ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper();         // инициализация точек головы. эта инфа тоже сохранится в проект
+            ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
 
             ProgramCore.Project.ToStream();
             // ProgramCore.MainForm.ctrlRenderControl.UpdateMeshProportions();

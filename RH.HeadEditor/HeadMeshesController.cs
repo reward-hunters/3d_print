@@ -69,6 +69,13 @@ namespace RH.HeadEditor
             RenderMesh.FindFixedPoints();
         }
 
+        public void ScaleWidth(float k, float centerX)
+        {
+            RenderMesh.ScaleWidth(k, centerX);
+            foreach (var part in RenderMesh.Parts)
+                part.UpdateBuffers();
+        }
+
         public float SetSize(float diagonal)
         {
             var scale = RenderMesh.SetSize(diagonal);
