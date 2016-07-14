@@ -30,7 +30,7 @@ namespace RH.HeadShop
     {
         #region Var
 
-        private readonly MRUManager mruManager = new MRUManager();
+        public readonly MRUManager mruManager = new MRUManager();
 
         public frmMaterials frmMaterial;
         public frmAccessories frmAccessories;
@@ -109,7 +109,7 @@ namespace RH.HeadShop
         }
 
 
-        public ProgramMode CurrentProgram = ProgramMode.HeadShop;
+        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
 
 
         public readonly Cursor GrabCursor;
@@ -193,19 +193,39 @@ namespace RH.HeadShop
                 OpenProject(openProjectPath);
             else
             {
-                var newProjectDlg = new frmNewProject1(true);
-                newProjectDlg.ShowDialog(this);
-
-                if (newProjectDlg.dialogResult != DialogResult.OK)
+                if (CurrentProgram == ProgramMode.PrintAhead)
                 {
-                    Application.Exit();
-                    return;
-                }
+                    var newProjectDlg = new frmNewProject4PrintAhead(true);
+                    newProjectDlg.ShowDialog(this);
 
-                if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
-                    OpenProject(newProjectDlg.LoadingProject);
+                    if (newProjectDlg.dialogResult != DialogResult.OK)
+                    {
+                        Application.Exit();
+                        return;
+                    }
+
+                    if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
+                        OpenProject(newProjectDlg.LoadingProject);
+                    else
+                        newProjectDlg.CreateProject();
+                }
                 else
-                    CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName, newProjectDlg.TemplateImage, true, newProjectDlg.SelectedSize);
+                {
+                    var newProjectDlg = new frmNewProject1(true);
+                    newProjectDlg.ShowDialog(this);
+
+                    if (newProjectDlg.dialogResult != DialogResult.OK)
+                    {
+                        Application.Exit();
+                        return;
+                    }
+
+                    if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
+                        OpenProject(newProjectDlg.LoadingProject);
+                    else
+                        CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName,
+                            newProjectDlg.TemplateImage, true, newProjectDlg.SelectedSize);
+                }
             }
 
             if (ProgramCore.PluginMode)     // хотелка, что бы прога всегда была выше Daz'a
@@ -1920,7 +1940,7 @@ namespace RH.HeadShop
                 var accessoryPath = Path.Combine(ProgramCore.Project.ProjectPath, acName);
                 ObjSaver.SaveObjFile(accessoryPath, ctrlRenderControl.pickingController.AccesoryMeshes, MeshType.Accessory, realScale, true);
             }
-            
+
             ctrlRenderControl.SaveHead(fiName, true);
 
             if (ProgramCore.PluginMode)
