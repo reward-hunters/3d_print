@@ -441,7 +441,7 @@ namespace RH.HeadShop.Render
                     }
                 }
                 if (pickingController.ObjExport != null)
-                    pickingController.ObjExport.Scale = scale;
+                    pickingController.ObjExport.Scale = scale;               
             }
             HeadShapeController.Initialize(headMeshesController);
             brushTool.InitializeBrush(headMeshesController);
@@ -2002,10 +2002,67 @@ namespace RH.HeadShop.Render
             DisableTransparent();
         }
 
-        public void InitializeShapedotsHelper()
+        public void InitializeShapedotsHelper(bool isNew = false)
         {
             autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType));
             baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType));
+
+            if (isNew && ProgramCore.Project.ManType != ManType.Custom)
+            {
+                Vector2 min = new Vector2(99999.0f, 99999.0f), max = new Vector2(-99999.0f, -99999.0f);
+                foreach (var p in autodotsShapeHelper.ShapeInfo.Points)
+                {
+                    min.X = Math.Min(p.Value.X, min.X);
+                    min.Y = Math.Min(p.Value.Y, min.Y);
+                    max.X = Math.Max(p.Value.X, max.X);
+                    max.Y = Math.Max(p.Value.Y, max.Y);
+                }
+
+                var center = (min + max) * 0.5f;
+
+                float k = 1.25f;
+                foreach (var p in autodotsShapeHelper.ShapeInfo.Points)
+                {
+                    var dx = p.Value.X - center.X;
+                    p.Value.X = center.X + dx * k;
+                }
+                headMeshesController.ScaleWidth(k, center.X);
+                autodotsShapeHelper.InitializeShaping();
+
+                //Расставляем левый глаз
+                autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetLeftEyeIndexes());
+                MovePart(LeftEyeUserCenter, new Vector2(-2.5f, 1.25f));
+                //Расставляем правый глаз
+                autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetRightEyeIndexes());
+                //MovePart(RightEyeUserCenter, new Vector2());
+                //Расставляем рот
+                autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetMouthIndexes());
+                //MovePart(MouthUserCenter, new Vector2());
+                //Расставляем нос
+                autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetNoseIndexes());
+                //MovePart(NoseUserCenter, new Vector2());
+            }
+        }
+
+        //Двигает часть точек, таких как нос, рот, глаза в заданную позицию
+        private void MovePart(Vector2 start, Vector2 target)
+        {
+            var dv = target - start;
+            var selectedPoints = autodotsShapeHelper.ShapeInfo.Points.SelectedPoints;
+            for (var i = 0; i < selectedPoints.Count; i++)
+            {
+                var headPoint = selectedPoints[i];
+                headPoint.Value = headPoint.Value + dv;
+            }
+
+            for (var i = 0; i < headController.ShapeDots.Count; i++)
+            {
+                var p = headController.ShapeDots[i];
+                if (p.Selected)
+                    autodotsShapeHelper.Transform(p.Value, i, false); // точка в мировых координатах
+            }
+            headMeshesController.UpdateShape(ref autodotsShapeHelper.ShapeInfo);
+            UpdateCustomFaceParts(true, true);
         }
 
         private float GetMinY(IEnumerable<DynamicRenderMesh> meshes)

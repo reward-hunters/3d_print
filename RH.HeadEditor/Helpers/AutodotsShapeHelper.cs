@@ -792,7 +792,7 @@ namespace RH.HeadEditor.Helpers
             if (ind < 0)
                 return;
             ShapeInfo.Points[ind].Value = newPosition;
-            foreach (var rect in rects)
+            foreach (var rect in rects)  
             {
                 Vector2 a, b;
                 if (rect.A.Equals(index))
