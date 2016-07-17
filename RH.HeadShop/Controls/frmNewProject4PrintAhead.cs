@@ -527,28 +527,10 @@ namespace RH.HeadShop.Controls
                     tempSelectedPoint = fcr.MouthCenter;
                     Cursor = ProgramCore.MainForm.GrabbingCursor;
                 }
-                else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
-                {
-                    currentSelection = Selection.TopEdge;
-                    startEdgeRect = TopEdgeTransformed;
-                    startMousePoint = new Point(e.X, e.Y);
-                    tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
-                    tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
-                    Cursor = ProgramCore.MainForm.GrabbingCursor;
-                }
-                else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right &&
-                         e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
-                {
-                    currentSelection = Selection.BottomEdge;
-                    startEdgeRect = BottomEdgeTransformed;
-                    startMousePoint = new Point(e.X, e.Y);
-                    tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
-                    tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
-                    Cursor = ProgramCore.MainForm.GrabbingCursor;
-                }
                 else
                 {
                     var leftSelection = LeftCheek?.CheckGrab(e.X, e.Y) ?? -1;
+                    var rightSelection = RightCheek?.CheckGrab(e.X, e.Y) ?? -1;
                     if (leftSelection != -1)
                     {
                         switch (leftSelection)
@@ -570,29 +552,44 @@ namespace RH.HeadShop.Controls
                         startMousePoint = new Point(e.X, e.Y);
 
                     }
-                    else
+                    else if (rightSelection != -1)
                     {
-                        var rightSelection = RightCheek?.CheckGrab(e.X, e.Y) ?? -1;
-                        if (rightSelection != -1)
+                        switch (rightSelection)
                         {
-                            switch (rightSelection)
-                            {
-                                case 0:
-                                    currentSelection = Selection.RightTopCheek;
-                                    tempSelectedPoint = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
-                                    break;
-                                case 1:
-                                    currentSelection = Selection.RightCenterCheek;
-                                    tempSelectedPoint = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
-                                    break;
-                                case 2:
-                                    currentSelection = Selection.RightBottomCheek;
-                                    tempSelectedPoint = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
-                                    break;
-                            }
-                            Cursor = ProgramCore.MainForm.GrabbingCursor;
-                            startMousePoint = new Point(e.X, e.Y);
+                            case 0:
+                                currentSelection = Selection.RightTopCheek;
+                                tempSelectedPoint = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
+                                break;
+                            case 1:
+                                currentSelection = Selection.RightCenterCheek;
+                                tempSelectedPoint = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
+                                break;
+                            case 2:
+                                currentSelection = Selection.RightBottomCheek;
+                                tempSelectedPoint = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
+                                break;
                         }
+                        Cursor = ProgramCore.MainForm.GrabbingCursor;
+                        startMousePoint = new Point(e.X, e.Y);
+                    }
+                    else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
+                    {
+                        currentSelection = Selection.TopEdge;
+                        startEdgeRect = TopEdgeTransformed;
+                        startMousePoint = new Point(e.X, e.Y);
+                        tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
+                        tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
+                        Cursor = ProgramCore.MainForm.GrabbingCursor;
+                    }
+                    else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right &&
+                             e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
+                    {
+                        currentSelection = Selection.BottomEdge;
+                        startEdgeRect = BottomEdgeTransformed;
+                        startMousePoint = new Point(e.X, e.Y);
+                        tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
+                        tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
+                        Cursor = ProgramCore.MainForm.GrabbingCursor;
                     }
                 }
             }
