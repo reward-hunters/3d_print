@@ -2006,6 +2006,7 @@ namespace RH.HeadShop.Render
         {
             autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType));
             baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType));
+            return;
 
             if (isNew && ProgramCore.Project.ManType != ManType.Custom)
             {
@@ -2031,7 +2032,7 @@ namespace RH.HeadShop.Render
 
                 //Расставляем левый глаз
                 autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetLeftEyeIndexes());
-                MovePart(LeftEyeUserCenter, new Vector2(-2.5f, 1.25f));
+                //MovePart(LeftEyeUserCenter, new Vector2(-2.5f, 1.25f));
                 //Расставляем правый глаз
                 autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetRightEyeIndexes());
                 //MovePart(RightEyeUserCenter, new Vector2());

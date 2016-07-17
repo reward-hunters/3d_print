@@ -100,7 +100,7 @@ namespace RH.HeadShop
                 if (MouthUserCenter == Vector2.Zero)
                     MouthUserCenter = mouthCenter;
 
-                RecalcRect();
+                //RecalcRect();
             }
         }
 
@@ -118,7 +118,7 @@ namespace RH.HeadShop
                 if (LeftEyeUserCenter == Vector2.Zero)
                     LeftEyeUserCenter = leftEyeCenter;
 
-                RecalcRect();
+                //RecalcRect();
             }
         }
 
@@ -136,7 +136,7 @@ namespace RH.HeadShop
                 if (RightEyeUserCenter == Vector2.Zero)
                     RightEyeUserCenter = rightEyeCenter;
 
-                RecalcRect();
+                //RecalcRect();
             }
         }
 
