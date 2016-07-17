@@ -140,9 +140,6 @@ namespace RH.HeadShop
             }
         }
 
-        public Cheek LeftCheek;
-        public Cheek RightCheek;
-
         #endregion
 
         #region User face position

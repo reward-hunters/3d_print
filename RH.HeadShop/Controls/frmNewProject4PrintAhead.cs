@@ -335,13 +335,14 @@ namespace RH.HeadShop.Controls
             #endregion
 
             ProgramCore.Project = new Project(ProjectName, ProjectFolder, templateImage, ManType, CustomModelPath, true, selectedSize);
-            ProgramCore.Project.FaceRectRelative = fcr.FaceRectRelative;
+
+
+            ProgramCore.Project.FaceRectRelative = new RectangleF(LeftCheek.TopCheek.X, nextHeadRect.Y, (float)(RightCheek.TopCheek.X - LeftCheek.TopCheek.X), nextHeadRect.Bottom - nextHeadRect.Y);
             ProgramCore.Project.nextHeadRectF = fcr.nextHeadRectF;
             ProgramCore.Project.MouthCenter = fcr.MouthCenter;
             ProgramCore.Project.LeftEyeCenter = fcr.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
-            ProgramCore.Project.LeftCheek = LeftCheek;
-            ProgramCore.Project.RightCheek = RightCheek;
+
 
             ProgramCore.MainForm.UpdateProjectControls(true);
 
@@ -448,7 +449,6 @@ namespace RH.HeadShop.Controls
 
             fcr.nextHeadRectF.Y = (TopEdgeTransformed.Y - ImageTemplateOffsetY) / ImageTemplateHeight;
             fcr.nextHeadRectF.Height = (BottomEdgeTransformed.Bottom / ImageTemplateHeight) - fcr.nextHeadRectF.Y;
-
         }
 
         private float centerX(RectangleF rect)
