@@ -142,12 +142,14 @@ namespace RH.HeadShop.Controls
                     return;
 
                 textTemplateImage.Text = ofd.FileName;
-                using (var bmp = new Bitmap(ofd.FileName))
-                    pictureTemplate.Image = (Bitmap)bmp.Clone();
+
 
                 templateImage = ofd.FileName;
                 fcr = new FaceRecognition();
                 fcr.Recognize(ref templateImage, true);     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
+
+                using (var bmp = new Bitmap(templateImage))
+                    pictureTemplate.Image = (Bitmap)bmp.Clone();
 
                 edgePen = (Pen)DrawingTools.GreenPen.Clone();
                 //edgePen.Width = 2;
