@@ -336,17 +336,14 @@ namespace RH.HeadShop.Controls
 
             ProgramCore.Project = new Project(ProjectName, ProjectFolder, templateImage, ManType, CustomModelPath, true, selectedSize);
 
-
             ProgramCore.Project.FaceRectRelative = new RectangleF(LeftCheek.TopCheek.X, nextHeadRect.Y, (float)(RightCheek.TopCheek.X - LeftCheek.TopCheek.X), nextHeadRect.Bottom - nextHeadRect.Y);
             ProgramCore.Project.nextHeadRectF = fcr.nextHeadRectF;
             ProgramCore.Project.MouthCenter = fcr.MouthCenter;
             ProgramCore.Project.LeftEyeCenter = fcr.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
 
-
-            ProgramCore.MainForm.UpdateProjectControls(true);
-
-            ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper();         // инициализация точек головы. эта инфа тоже сохранится в проект
+            var aabb = ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
+            ProgramCore.MainForm.UpdateProjectControls(true, aabb);            
 
             ProgramCore.Project.ToStream();
             // ProgramCore.MainForm.ctrlRenderControl.UpdateMeshProportions();

@@ -126,25 +126,25 @@ namespace RH.HeadEditor.Data
             return 1.0f / scale;
         }
 
-        public Vector3 Transform(float k)
+        public void Transform(float k, RectangleAABB aabb)
         {
             if (Parts.Count == 0)
-                return Vector3.Zero;
+                return;
+            AABB = aabb;
+            var newWidht = aabb.Height * k;
+            var scaleX = newWidht / aabb.Width;
             //Scale.X = 1.0f;//(float)Math.Sqrt(Math.Abs(k * AABB.Size.Y / AABB.Size.X));
             //Scale.Y = 1.0f / Scale.X;
-            var center = Vector3.Zero;
-            var count = 0.0f;
-            foreach (var part in Parts)
-                foreach (var v in part.Vertices)
-                {
-                    count += 1.0f;
-                    center += v.Position;
-                }
-            center /= count;
-            Center = center.Xy;
-
-            var a = AABB.A;
-            var b = AABB.B;
+            var centerX = (aabb.B.X + aabb.A.X) * 0.5f;
+            //var count = 0.0f;
+            //foreach (var part in Parts)
+            //    foreach (var v in part.Vertices)
+            //    {
+            //        count += 1.0f;
+            //        center += v.Position;
+            //    }
+            //center /= count;
+            //Center = center.Xy;
 
             foreach (var part in Parts)
             {
@@ -152,32 +152,22 @@ namespace RH.HeadEditor.Data
                 {
                     var vertex = part.Vertices[i];
                     vertex.OriginalPosition = vertex.Position;
-                    vertex.Position -= center;
+                    vertex.Position.X -= centerX;
                     vertex.Position.X *= k;
                     //vertex.Position.Y *= Scale.Y;
-                    vertex.Position += center;
-                    part.Vertices[i] = vertex;
-
-                    a.X = Math.Min(vertex.Position.X, a.X);
-                    b.X = Math.Max(vertex.Position.X, b.X);
-                    a.Y = Math.Min(vertex.Position.Y, a.Y);
-                    b.Y = Math.Max(vertex.Position.Y, b.Y);        
+                    vertex.Position.X += centerX;
+                    part.Vertices[i] = vertex;    
                 }
                 foreach (var p in part.Points)
                 {
                     var pos = p.Position;
-                    pos -= center;
+                    pos.X -= centerX;
                     pos.X *= k;
                     //pos.Y *= Scale.Y;
-                    pos += center;
+                    pos.X += centerX;
                     p.Position = pos;
                 }
-            }
-
-            AABB.A = a;
-            AABB.B = b;
-
-            return center;
+            }            
         }
 
         public void SetAABB(Vector2 leye, Vector2 reye, Vector2 lip, Vector2 face)

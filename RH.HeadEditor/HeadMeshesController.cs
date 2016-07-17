@@ -84,12 +84,11 @@ namespace RH.HeadEditor
             return scale;
         }
 
-        public Vector3 FinishCreating(float widthToHeight)
+        public void FinishCreating(float widthToHeight, RectangleAABB aabb)
         {
-            var center = RenderMesh.Transform(widthToHeight);
+            RenderMesh.Transform(widthToHeight, aabb);
             foreach (var part in RenderMesh.Parts)
                 part.UpdateBuffers();
-            return center;
         }
 
         public void Smooth()

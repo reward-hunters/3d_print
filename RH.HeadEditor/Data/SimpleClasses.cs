@@ -36,6 +36,16 @@ namespace RH.HeadEditor.Data
 
     public class RectangleAABB
     {
+        public float Width
+        {
+            get { return B.X - A.X; }
+        }
+
+        public float Height
+        {
+            get { return B.Y - A.Y; }
+        }
+
         public RectangleAABB()
         {
             A = new Vector3(99999.0f, 99999.0f, 99999.0f);

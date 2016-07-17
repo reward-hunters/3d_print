@@ -23,6 +23,7 @@ using RH.HeadShop.Render.Helpers;
 using RH.HeadShop.Render.Meshes;
 using RH.HeadShop.Render.Obj;
 using RH.HeadEditor.Helpers;
+using RH.HeadEditor.Data;
 
 namespace RH.HeadShop
 {
@@ -1394,7 +1395,7 @@ namespace RH.HeadShop
             OpenProject(item.Text);
         }
 
-        public void UpdateProjectControls(bool newProject)
+        public void UpdateProjectControls(bool newProject, RectangleAABB aabb = null)
         {
             if (ProgramCore.Project == null)
             {
@@ -1402,7 +1403,7 @@ namespace RH.HeadShop
             }
             else
             {
-                ctrlRenderControl.LoadProject(newProject);
+                ctrlRenderControl.LoadProject(newProject, aabb);
                 ctrlRenderControl.camera.UpdateDy();
 
                 if (panelCut != null && panelStyles != null)
