@@ -396,7 +396,7 @@ namespace RH.HeadShop.Render
             List<MirroredHeadPoint> faceDots;
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
-                case Mode.HeadShapedots:
+               // case Mode.HeadShapedots:
                 case Mode.HeadLine:
                 case Mode.HeadShapeFirstTime:
                 case Mode.HeadShape:
@@ -459,7 +459,7 @@ namespace RH.HeadShop.Render
             List<MirroredHeadPoint> sourcePoints;
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
-                case Mode.HeadShapedots:
+         //       case Mode.HeadShapedots:
                 case Mode.HeadLine:
                 case Mode.HeadShapeFirstTime:
                 case Mode.HeadShape:
@@ -755,7 +755,7 @@ namespace RH.HeadShop.Render
 
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
-                case Mode.HeadShapedots:
+          //      case Mode.HeadShapedots:
                 case Mode.HeadAutodots:
                 case Mode.HeadAutodotsFirstTime:
                     DrawAutodotsGroupPoints(e.Graphics);
@@ -787,9 +787,9 @@ namespace RH.HeadShop.Render
                 case Mode.HeadAutodotsLassoActive:
                     DrawLassoOnPictureBox(e.Graphics, true);
                     break;
-                case Mode.HeadShapedotsLassoStart:
+                /*case Mode.HeadShapedotsLassoStart:
                 case Mode.HeadShapedotsLassoActive:
-                    DrawLassoOnPictureBox(e.Graphics, false);
+                    DrawLassoOnPictureBox(e.Graphics, false);*/
                     break;
                 case Mode.HeadLine:
                     if (ProgramCore.MainForm.HeadFront)
@@ -907,7 +907,7 @@ namespace RH.HeadShop.Render
                     case ScaleMode.Zoom:
                         switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
-                            case Mode.HeadShapedots:
+                      //      case Mode.HeadShapedots:
                             case Mode.HeadLine:                 // эти моды только для этих режимов!
                             case Mode.HeadAutodots:
                             case Mode.HeadAutodotsFirstTime:
@@ -927,7 +927,7 @@ namespace RH.HeadShop.Render
                     case ScaleMode.Move:
                         switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
-                            case Mode.HeadShapedots:
+                        // case Mode.HeadShapedots:
                             case Mode.HeadLine: // эти моды только для этих режимов!
                             case Mode.HeadAutodots:
                             case Mode.HeadAutodotsFirstTime:
@@ -1005,67 +1005,7 @@ namespace RH.HeadShop.Render
                                     }
                                 }
                                 break;
-                            case Mode.HeadAutodotsLassoStart:
-                                if (dblClick)
-                                {
-                                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsLassoActive;
-                                    headAutodotsLassoPoints.Add(headAutodotsLassoPoints.First());
-                                }
-                                break;
-                            case Mode.HeadAutodotsLassoActive:
-                                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsLassoStart;
-                                headAutodotsLassoPoints.Clear();
-                                headAutodotsLassoPoints.Add(new Vector2(e.X, e.Y));
-                                break;
-                            case Mode.HeadShapedotsLassoStart:
-                                if (dblClick)
-                                {
-                                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoActive;
-                                    headShapedotsLassoPoints.Add(headShapedotsLassoPoints.First());
-                                }
-                                break;
-                            case Mode.HeadShapedotsLassoActive:
-                                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoStart;
-                                headShapedotsLassoPoints.Clear();
-                                headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
-                                break;
-                            case Mode.HeadLine:
-                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
-                                    return;
-
-                                if (ProgramCore.MainForm.HeadFront)
-                                {
-                                    #region вид спереди
-
-                                    if (ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.None)
-                                        return;
-
-                                    if (dblClick)
-                                        FinishLine();
-                                    else
-                                    {
-                                        foreach (var item in ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints)
-                                            headTempPoints.Add(item.Clone() as MirroredHeadPoint);
-                                    }
-
-                                    #endregion
-                                }
-                                else
-                                {
-                                    #region Вид сбоку
-
-                                    if (dblClick)
-                                        FinishLine();
-                                    else
-                                    {
-                                        foreach (var item in ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints)
-                                            headTempPoints.Add(item.Clone() as MirroredHeadPoint);
-                                    }
-
-                                    #endregion
-                                }
-                                break;
-                            case Mode.HeadShapedots:
+                         /*   case Mode.HeadShapedots:
                                 {
                                     if (ProgramCore.Project.ShapeFlip != FlipType.None)
                                         return;
@@ -1108,6 +1048,66 @@ namespace RH.HeadShop.Render
                                         tempMoveRectWidth = (FaceRectTransformed.Width) / (ImageTemplateWidth * 1f);
                                         tempMoveRectHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
                                     }
+                                }
+                                break;*/
+                            case Mode.HeadAutodotsLassoStart:
+                                if (dblClick)
+                                {
+                                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsLassoActive;
+                                    headAutodotsLassoPoints.Add(headAutodotsLassoPoints.First());
+                                }
+                                break;
+                            case Mode.HeadAutodotsLassoActive:
+                                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsLassoStart;
+                                headAutodotsLassoPoints.Clear();
+                                headAutodotsLassoPoints.Add(new Vector2(e.X, e.Y));
+                                break;
+                       /*     case Mode.HeadShapedotsLassoStart:
+                                if (dblClick)
+                                {
+                                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoActive;
+                                    headShapedotsLassoPoints.Add(headShapedotsLassoPoints.First());
+                                }
+                                break;
+                            case Mode.HeadShapedotsLassoActive:
+                                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoStart;
+                                headShapedotsLassoPoints.Clear();
+                                headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
+                                break;*/
+                            case Mode.HeadLine:
+                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                    return;
+
+                                if (ProgramCore.MainForm.HeadFront)
+                                {
+                                    #region вид спереди
+
+                                    if (ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.None)
+                                        return;
+
+                                    if (dblClick)
+                                        FinishLine();
+                                    else
+                                    {
+                                        foreach (var item in ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints)
+                                            headTempPoints.Add(item.Clone() as MirroredHeadPoint);
+                                    }
+
+                                    #endregion
+                                }
+                                else
+                                {
+                                    #region Вид сбоку
+
+                                    if (dblClick)
+                                        FinishLine();
+                                    else
+                                    {
+                                        foreach (var item in ProgramCore.MainForm.ctrlRenderControl.headController.SelectedPoints)
+                                            headTempPoints.Add(item.Clone() as MirroredHeadPoint);
+                                    }
+
+                                    #endregion
                                 }
                                 break;
                             case Mode.None:
@@ -1191,7 +1191,7 @@ namespace RH.HeadShop.Render
 
                             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                             {
-                                case Mode.HeadShapedots:
+                          //      case Mode.HeadShapedots:
                                 case Mode.HeadLine: // эти моды только для этих режимов!
                                 case Mode.HeadAutodots:
                                 case Mode.HeadAutodotsFirstTime:
@@ -1214,7 +1214,7 @@ namespace RH.HeadShop.Render
                                 break;
                             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                             {
-                                case Mode.HeadShapedots:
+                             //   case Mode.HeadShapedots:
                                 case Mode.HeadLine: // эти моды только для этих режимов!
                                 case Mode.HeadAutodots:
                                 case Mode.HeadAutodotsFirstTime:
@@ -1259,6 +1259,13 @@ namespace RH.HeadShop.Render
                                         new HistoryHeadAutoDots(
                                             ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots);
                                     ProgramCore.MainForm.ctrlRenderControl.historyController.Add(history);
+
+                                    Dictionary<Guid, MeshUndoInfo> undoInfo;
+                                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.GetUndoInfo(
+                                        out undoInfo);
+                                    ProgramCore.MainForm.ctrlRenderControl.historyController.Add(
+                                        new HistoryHeadShapeDots(undoInfo,
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots));
                                 }
 
                                 if (startMove)
@@ -1372,7 +1379,7 @@ namespace RH.HeadShop.Render
                                     }
                                 }
                                 break;
-                            case Mode.HeadShapedots:
+                       /*     case Mode.HeadShapedots:
                                 if (ProgramCore.Project.ShapeFlip != FlipType.None)
                                     return;
 
@@ -1464,7 +1471,7 @@ namespace RH.HeadShop.Render
                                     }
                                 }
                                 else Cursor = ProgramCore.MainForm.GrabCursor;
-                                break;
+                                break;*/
                             case Mode.None:
                                 {
                                     switch (ControlPointsMode)
@@ -1517,7 +1524,7 @@ namespace RH.HeadShop.Render
                                     else
                                         Cursor = Cursors.Arrow;
                                     break;
-                                case Mode.HeadShapedots:
+                        /*        case Mode.HeadShapedots:
                                     if (ProgramCore.Project.ShapeFlip != FlipType.None)
                                         return;
                                     if ((e.X >= MouthTransformed.X - HalfPointRectSize &&
@@ -1551,7 +1558,7 @@ namespace RH.HeadShop.Render
                                         Cursor = ProgramCore.MainForm.GrabCursor;
                                     else
                                         Cursor = Cursors.Arrow;
-                                    break;
+                                    break;*/
                             }
                             break;
 
@@ -1623,16 +1630,70 @@ namespace RH.HeadShop.Render
                                             ProgramCore.MainForm.ctrlRenderControl.CalcReflectedBitmaps();
                                             ProgramCore.MainForm.ctrlRenderControl.headController.EndAutodots(false);
                                             ProgramCore.MainForm.ctrlRenderControl.ApplySmoothedTextures();
+
+                                            for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)      // после слияние с ShapeDots. Проверить!
+                                            {
+                                                var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
+
+                                                if (p.Selected)
+                                                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                                            }
                                         }
                                     }
                                 }
                                 break;
+                      /*      case Mode.HeadShapedots:
+                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                    return;
+
+                                if (!startMove && !dblClick)
+                                {
+                                    if (!shiftKeyPressed)
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+
+                                    if (e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsMouth();
+                                    else if (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsLeftEye();
+                                    else if (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsRightEye();
+                                    else if (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsNose();
+                                    else if (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
+                                    {
+                                        if (RectTransformMode)
+                                        {
+                                            RectTransformMode = false;
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                                        }
+                                        else
+                                        {
+                                            RectTransformMode = true;
+                                            UpdateUserCenterPositions(true, true);
+
+                                            ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsFaceEllipse();
+                                        }
+                                    }
+                                    else
+                                        ProgramCore.MainForm.ctrlRenderControl.headController.UpdateShapedotsPointSelection(e.X, e.Y, true);
+                                }
+                                else
+                                {
+                                    for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.Count; i++)
+                                    {
+                                        var p = ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots[i];
+
+                                        if (p.Selected)
+                                            ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                                    }
+                                }
+                                break;*/
                             case Mode.HeadAutodotsLassoStart:
                                 headAutodotsLassoPoints.Add(new Vector2(e.X, e.Y));
                                 break;
-                            case Mode.HeadShapedotsLassoStart:
+                        /*    case Mode.HeadShapedotsLassoStart:
                                 headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
-                                break;
+                                break;*/
                             case Mode.HeadLine:
                                 {
                                     if (ProgramCore.Project.ShapeFlip != FlipType.None)
@@ -1882,52 +1943,6 @@ namespace RH.HeadShop.Render
                                         #endregion
                                     }
 
-                                }
-                                break;
-                            case Mode.HeadShapedots:
-                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
-                                    return;
-
-                                if (!startMove && !dblClick)
-                                {
-                                    if (!shiftKeyPressed)
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-
-                                    if (e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsMouth();
-                                    else if (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsLeftEye();
-                                    else if (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsRightEye();
-                                    else if (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsNose();
-                                    else if (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
-                                    {
-                                        if (RectTransformMode)
-                                        {
-                                            RectTransformMode = false;
-                                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                                        }
-                                        else
-                                        {
-                                            RectTransformMode = true;
-                                            UpdateUserCenterPositions(true, true);
-
-                                            ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsFaceEllipse();
-                                        }
-                                    }
-                                    else
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.UpdateShapedotsPointSelection(e.X, e.Y, true);
-                                }
-                                else
-                                {
-                                    for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.Count; i++)
-                                    {
-                                        var p = ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots[i];
-
-                                        if (p.Selected)
-                                            ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
-                                    }
                                 }
                                 break;
                             case Mode.None:

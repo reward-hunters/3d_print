@@ -3794,15 +3794,15 @@ namespace RH.HeadShop.Render
         TimerZoomIn,
         TimerZoomOut,
         HeadLine,
-        HeadShapedots,
+        //HeadShapedots,
         HeadShapeFirstTime,
         HeadShape,
         HeadAutodots,
         HeadAutodotsFirstTime,
         HeadAutodotsLassoStart,
         HeadAutodotsLassoActive,
-        HeadShapedotsLassoStart,
-        HeadShapedotsLassoActive,
+       // HeadShapedotsLassoStart,
+      //  HeadShapedotsLassoActive,
         HeadFlipLeft,           // отражение слева направо
         HeadFlipRight,
         SetCustomControlPoints,     // произвольная модель. этап 1. расставить 4 главные опорные точки

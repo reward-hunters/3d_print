@@ -253,14 +253,14 @@ namespace RH.HeadShop.Render.Controllers
                 case Mode.HeadAutodotsFirstTime:
                 case Mode.HeadAutodotsLassoStart:
                 case Mode.HeadAutodotsLassoActive:
-                    if (ProgramCore.Debug)
+                //    if (ProgramCore.Debug)
                         DrawAutodots();
                     break;
-                case Mode.HeadShapedots:
+              /*  case Mode.HeadShapedots:
                 case Mode.HeadShapedotsLassoStart:
                 case Mode.HeadShapedotsLassoActive:
                     DrawShapedots();
-                    break;
+                    break;*/
                 case Mode.HeadLine:
                     if (ProgramCore.Debug && ProgramCore.MainForm.HeadFront)
                         DrawTmp();
@@ -360,11 +360,11 @@ namespace RH.HeadShop.Render.Controllers
                 case Mode.HeadAutodotsLassoActive:
                     DrawAutodots(g);
                     break;
-                case Mode.HeadShapedots:
+         /*       case Mode.HeadShapedots:
                 case Mode.HeadShapedotsLassoStart:
                 case Mode.HeadShapedotsLassoActive:
                     DrawShapedots(g);
-                    break;
+                    break;*/
                 default:
                     DrawLines(g);
                     break;
