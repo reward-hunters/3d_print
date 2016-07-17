@@ -169,6 +169,7 @@ namespace RH.HeadShop.Controls
                 RightCheek = new Cheek(rightCheekX, center);
 
                 RecalcRealTemplateImagePosition();
+
                 RenderTimer.Start();
 
                 if (ProgramCore.PluginMode)
@@ -311,8 +312,6 @@ namespace RH.HeadShop.Controls
 
         public void CreateProject()
         {
-
-
             #region Корректируем размер фотки
 
             var selectedSize = 1024;
@@ -341,6 +340,9 @@ namespace RH.HeadShop.Controls
             ProgramCore.Project.MouthCenter = fcr.MouthCenter;
             ProgramCore.Project.LeftEyeCenter = fcr.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
+            ProgramCore.Project.LeftCheek = LeftCheek;
+            ProgramCore.Project.RightCheek = RightCheek;
+
             ProgramCore.MainForm.UpdateProjectControls(true);
 
             ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper();         // инициализация точек головы. эта инфа тоже сохранится в проект
@@ -452,10 +454,6 @@ namespace RH.HeadShop.Controls
         private float centerX(RectangleF rect)
         {
             return rect.Left + rect.Width / 2;
-        }
-        private float centerY(RectangleF rect)
-        {
-            return rect.Top + rect.Height / 2;
         }
 
         private void pictureTemplate_Paint(object sender, PaintEventArgs e)
@@ -737,73 +735,6 @@ namespace RH.HeadShop.Controls
         private void frmNewProject4PrintAhead_Resize(object sender, EventArgs e)
         {
             RecalcRealTemplateImagePosition();
-        }
-
-        public class Cheek
-        {
-            public PointF TopCheek;
-            public PointF TopCheekTransformed;
-
-            public PointF CenterCheek;
-            public PointF CenterCheekTransformed;
-
-            public PointF DownCheek;
-            public PointF DownCheekTransformed;
-
-            public Cheek(float xPos, float centerY)
-            {
-                CenterCheek = new PointF(xPos, centerY);//+ (fcr.FaceRectRelative.Height + fcr.FaceRectRelative.Y) / 2f);
-                TopCheek = new PointF(xPos, centerY - centerY / 2f);
-                DownCheek = new PointF(xPos, centerY + centerY / 2f);
-            }
-
-            public void Transform(float imageWidth, float imageHeight, float offsetX, float offsetY)
-            {
-                TopCheekTransformed = new PointF(TopCheek.X * imageWidth + offsetX, TopCheek.Y * imageHeight + offsetY);
-
-                CenterCheekTransformed = new PointF(CenterCheek.X * imageWidth + offsetX, CenterCheek.Y * imageHeight + offsetY);
-
-                DownCheekTransformed = new PointF(DownCheek.X * imageWidth + offsetX, DownCheek.Y * imageHeight + offsetY);
-            }
-
-            public int CheckGrab(float x, float y)
-            {
-                if (x >= TopCheekTransformed.X - HalfCircleSmallRadius && x <= TopCheekTransformed.X + HalfCircleSmallRadius && y >= TopCheekTransformed.Y - HalfCircleSmallRadius && y <= TopCheekTransformed.Y + HalfCircleSmallRadius)
-                    return 0;
-
-                if (x >= CenterCheekTransformed.X - HalfCircleSmallRadius && x <= CenterCheekTransformed.X + HalfCircleSmallRadius && y >= CenterCheekTransformed.Y - HalfCircleSmallRadius && y <= CenterCheekTransformed.Y + HalfCircleSmallRadius)
-                    return 1;
-
-                if (x >= DownCheekTransformed.X - HalfCircleSmallRadius && x <= DownCheekTransformed.X + HalfCircleSmallRadius && y >= DownCheekTransformed.Y - HalfCircleSmallRadius && y <= DownCheekTransformed.Y + HalfCircleSmallRadius)
-                    return 2;
-
-                return -1;
-            }
-
-
-            Pen arrowsPen = new Pen(Color.DarkOliveGreen, 2);
-            public void DrawLeft(Graphics g)
-            {
-                g.FillRectangle(Brushes.DarkOliveGreen, TopCheekTransformed.X - HalfCircleSmallRadius, TopCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-                g.DrawLine(arrowsPen, TopCheekTransformed.X, TopCheekTransformed.Y, TopCheekTransformed.X + HalfCircleRadius, TopCheekTransformed.Y + HalfCircleRadius);
-
-                g.FillRectangle(Brushes.DarkOliveGreen, CenterCheekTransformed.X - HalfCircleSmallRadius, CenterCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-                g.DrawLine(arrowsPen, CenterCheekTransformed.X, CenterCheekTransformed.Y, CenterCheekTransformed.X + HalfCircleRadius, CenterCheekTransformed.Y);
-
-                g.FillRectangle(Brushes.DarkOliveGreen, DownCheekTransformed.X - HalfCircleSmallRadius, DownCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-                g.DrawLine(arrowsPen, DownCheekTransformed.X, DownCheekTransformed.Y, DownCheekTransformed.X + HalfCircleRadius, DownCheekTransformed.Y - HalfCircleRadius);
-            }
-            public void DrawRight(Graphics g)
-            {
-                g.FillRectangle(Brushes.DarkOliveGreen, TopCheekTransformed.X - HalfCircleSmallRadius, TopCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-                g.DrawLine(arrowsPen, TopCheekTransformed.X, TopCheekTransformed.Y, TopCheekTransformed.X - HalfCircleRadius, TopCheekTransformed.Y + HalfCircleRadius);
-
-                g.FillRectangle(Brushes.DarkOliveGreen, CenterCheekTransformed.X - HalfCircleSmallRadius, CenterCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-                g.DrawLine(arrowsPen, CenterCheekTransformed.X, CenterCheekTransformed.Y, CenterCheekTransformed.X - HalfCircleRadius, CenterCheekTransformed.Y);
-
-                g.FillRectangle(Brushes.DarkOliveGreen, DownCheekTransformed.X - HalfCircleSmallRadius, DownCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-                g.DrawLine(arrowsPen, DownCheekTransformed.X, DownCheekTransformed.Y, DownCheekTransformed.X - HalfCircleRadius, DownCheekTransformed.Y - HalfCircleRadius);
-            }
         }
 
     }

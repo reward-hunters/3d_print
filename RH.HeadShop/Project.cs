@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using OpenTK;
 using RH.HeadEditor.Data;
+using RH.HeadShop.Controls;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render;
@@ -138,6 +139,9 @@ namespace RH.HeadShop
                 RecalcRect();
             }
         }
+
+        public Cheek LeftCheek;
+        public Cheek RightCheek;
 
         #endregion
 

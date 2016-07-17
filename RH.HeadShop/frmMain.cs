@@ -193,39 +193,20 @@ namespace RH.HeadShop
                 OpenProject(openProjectPath);
             else
             {
-                if (CurrentProgram == ProgramMode.PrintAhead)
+                var newProjectDlg = new frmNewProject4PrintAhead(true);
+                newProjectDlg.ShowDialog(this);
+
+                if (newProjectDlg.dialogResult != DialogResult.OK)
                 {
-                    var newProjectDlg = new frmNewProject4PrintAhead(true);
-                    newProjectDlg.ShowDialog(this);
-
-                    if (newProjectDlg.dialogResult != DialogResult.OK)
-                    {
-                        Application.Exit();
-                        return;
-                    }
-
-                    if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
-                        OpenProject(newProjectDlg.LoadingProject);
-                    else
-                        newProjectDlg.CreateProject();
+                    Application.Exit();
+                    return;
                 }
+
+                if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
+                    OpenProject(newProjectDlg.LoadingProject);
                 else
-                {
-                    var newProjectDlg = new frmNewProject1(true);
-                    newProjectDlg.ShowDialog(this);
+                    newProjectDlg.CreateProject();
 
-                    if (newProjectDlg.dialogResult != DialogResult.OK)
-                    {
-                        Application.Exit();
-                        return;
-                    }
-
-                    if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
-                        OpenProject(newProjectDlg.LoadingProject);
-                    else
-                        CreateNewProject(newProjectDlg.ProjectFolder, newProjectDlg.ProjectName,
-                            newProjectDlg.TemplateImage, true, newProjectDlg.SelectedSize);
-                }
             }
 
             if (ProgramCore.PluginMode)     // хотелка, что бы прога всегда была выше Daz'a
