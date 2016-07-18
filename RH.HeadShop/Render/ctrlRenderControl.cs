@@ -517,8 +517,12 @@ namespace RH.HeadShop.Render
             ProgramCore.Project.SmoothedTextures = true;
 
             #endregion
-
-            UpdateMeshProportions(aabb);
+            if(newProject)
+            {
+                var scaleX = UpdateMeshProportions(aabb);
+                UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
+            }
+            
             RenderTimer.Start();
         }
 
@@ -530,12 +534,24 @@ namespace RH.HeadShop.Render
             pickingController.AddMehes(path, type, false, manType, false);
         }
 
-        public void UpdateMeshProportions(RectangleAABB aabb)
+        private void UpdatePointsProportion(float scaleX, float centerX)
+        {
+            foreach(var p in autodotsShapeHelper.ShapeInfo.Points)
+            {
+                var v = p.Value;
+                v.X -= centerX;
+                v.X *= scaleX;
+                v.X += centerX;
+                p.Value = v;
+            }
+        }
+
+        public float UpdateMeshProportions(RectangleAABB aabb)
         {
             var widthToHeight = 0.669f; // подгоняем размер модели под размер еблища
             if (ProgramCore.Project.FaceRectRelative != RectangleF.Empty)
                 widthToHeight = (ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width) / (ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height);
-            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.FinishCreating(widthToHeight, aabb);
+            return ProgramCore.MainForm.ctrlRenderControl.headMeshesController.FinishCreating(widthToHeight, aabb);
         }
         public void CleanProjectMeshes()
         {
@@ -1780,6 +1796,7 @@ namespace RH.HeadShop.Render
             //            DrawProfileControlTmpPoints();
             if (ProgramCore.Debug)
             {
+                DrawAABB();
                 if (showTriangles)
                     DrawHelpTriangles();
                 if (showInfo)
@@ -1896,9 +1913,30 @@ namespace RH.HeadShop.Render
         public List<TextRenderHelper> TextRenderHelpers = null;
         public Font TextFont = new Font(new FontFamily(GenericFontFamilies.SansSerif), 20, GraphicsUnit.Pixel);
 
+        void DrawAABB()
+        {
+            GL.Begin(PrimitiveType.Lines);
+            GL.Color3(1.0f, 0.0f, 0.0f);
+
+            var p0 = headMeshesController.RenderMesh.AABB.A.Xy;
+            var p1 = new Vector2(headMeshesController.RenderMesh.AABB.A.X, headMeshesController.RenderMesh.AABB.B.Y);
+            var p2 = headMeshesController.RenderMesh.AABB.B.Xy;
+            var p3 = new Vector2(headMeshesController.RenderMesh.AABB.B.X, headMeshesController.RenderMesh.AABB.A.Y);
+
+            GL.Vertex2(p0);
+            GL.Vertex2(p1);
+            GL.Vertex2(p1);
+            GL.Vertex2(p2);
+            GL.Vertex2(p2);
+            GL.Vertex2(p3);
+            GL.Vertex2(p3);
+            GL.Vertex2(p0);
+
+            GL.End();
+        }
+
         void DrawHelpTriangles()
         {
-
             GL.Begin(PrimitiveType.Lines);
             GL.Color3(0.0f, 0.0f, 1.0f);
             for (var i = 0; i < autodotsShapeHelper.ShapeInfo.Indices.Length; i += 3)
@@ -2003,7 +2041,7 @@ namespace RH.HeadShop.Render
         {
             autodotsShapeHelper.headMeshesController = headMeshesController;
             autodotsShapeHelper.SetType((int)ProgramCore.Project.ManType);
-            autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType));
+            autodotsShapeHelper.Initialise( HeadController.GetDots(ProgramCore.Project.ManType));
             baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType));
 
             var result = new RectangleAABB();
@@ -2011,8 +2049,9 @@ namespace RH.HeadShop.Render
             if (isNew && ProgramCore.Project.ManType != ManType.Custom)
             {
                 Vector3 min = result.A, max = result.B;
-                foreach (var p in autodotsShapeHelper.ShapeInfo.Points)
+                for(int i = 8; i < autodotsShapeHelper.ShapeInfo.Points.Count; ++i)
                 {
+                    var p = autodotsShapeHelper.ShapeInfo.Points[i];
                     min.X = Math.Min(p.Value.X, min.X);
                     min.Y = Math.Min(p.Value.Y, min.Y);
                     max.X = Math.Max(p.Value.X, max.X);

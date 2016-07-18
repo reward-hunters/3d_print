@@ -20,7 +20,7 @@ namespace RH.HeadEditor.Data
             set;
         }
         public RectangleAABB AABB = new RectangleAABB();
-        public Vector2 Scale = Vector2.Zero;
+        public Vector2 Scale = Vector2.One;
         public Vector2 Center = Vector2.Zero;
         private static float MORPH_SCALE = 10.0f;
         private static float MORPH_SCALE_MAX = 0.7f;
@@ -126,10 +126,10 @@ namespace RH.HeadEditor.Data
             return 1.0f / scale;
         }
 
-        public void Transform(float k, RectangleAABB aabb)
+        public float Transform(float k, RectangleAABB aabb)
         {
             if (Parts.Count == 0)
-                return;
+                return 0.0f;
             AABB = aabb;
             var newWidht = aabb.Height * k;
             var scaleX = newWidht / aabb.Width;
@@ -153,7 +153,7 @@ namespace RH.HeadEditor.Data
                     var vertex = part.Vertices[i];
                     vertex.OriginalPosition = vertex.Position;
                     vertex.Position.X -= centerX;
-                    vertex.Position.X *= k;
+                    vertex.Position.X *= scaleX;
                     //vertex.Position.Y *= Scale.Y;
                     vertex.Position.X += centerX;
                     part.Vertices[i] = vertex;    
@@ -162,12 +162,16 @@ namespace RH.HeadEditor.Data
                 {
                     var pos = p.Position;
                     pos.X -= centerX;
-                    pos.X *= k;
+                    pos.X *= scaleX;
                     //pos.Y *= Scale.Y;
                     pos.X += centerX;
                     p.Position = pos;
                 }
-            }            
+            }
+
+            AABB.A = new Vector3((AABB.A.X - centerX) * scaleX + centerX, AABB.A.Y, AABB.A.Z);
+            AABB.B = new Vector3((AABB.B.X - centerX) * scaleX + centerX, AABB.B.Y, AABB.B.Z);
+            return scaleX;
         }
 
         public void SetAABB(Vector2 leye, Vector2 reye, Vector2 lip, Vector2 face)
