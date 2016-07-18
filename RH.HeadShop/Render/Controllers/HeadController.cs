@@ -1196,8 +1196,15 @@ namespace RH.HeadShop.Render.Controllers
                     v.X /= ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.X;
                     v.Y /= (-ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.Y);
 
-                    v.X = ProgramCore.Project.FaceRectRelative.Width * v.X + ProgramCore.Project.FaceRectRelative.X;
-                    v.Y = ProgramCore.Project.FaceRectRelative.Height * v.Y + ProgramCore.Project.FaceRectRelative.Y;
+                    var width = ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width;
+                    var height = ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height;
+
+                    var x = ProgramCore.Project.FaceRectRelative.X * ProgramCore.Project.FrontImage.Width;
+                    var y = ProgramCore.Project.FaceRectRelative.Y * ProgramCore.Project.FrontImage.Height;
+
+                    v.X = ((v.X * width) + x) / ProgramCore.Project.FrontImage.Width;
+                    v.Y = ((v.Y * width) + y) / ProgramCore.Project.FrontImage.Height;                    
+
                     ValueMirrored = v;
                 }
                 else if (ProgramCore.MainForm.HeadProfile)
@@ -1232,8 +1239,15 @@ namespace RH.HeadShop.Render.Controllers
             if (ProgramCore.MainForm.HeadFront)
             {
                 Vector2 v;
-                v.X = (valueMirrored.X - ProgramCore.Project.FaceRectRelative.X) / ProgramCore.Project.FaceRectRelative.Width;
-                v.Y = (valueMirrored.Y - ProgramCore.Project.FaceRectRelative.Y) / ProgramCore.Project.FaceRectRelative.Height;
+
+                var width = ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width;
+                var height = ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height;
+
+                var x = ProgramCore.Project.FaceRectRelative.X * ProgramCore.Project.FrontImage.Width;
+                var y = ProgramCore.Project.FaceRectRelative.Y * ProgramCore.Project.FrontImage.Height;
+
+                v.X = ((valueMirrored.X * ProgramCore.Project.FrontImage.Width) - x) / width;
+                v.Y = ((valueMirrored.Y * ProgramCore.Project.FrontImage.Height) - y) / height;
 
                 result.X = v.X * ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.X + ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.A.X;
                 result.Y = v.Y * (-ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.Y) + ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.B.Y;
