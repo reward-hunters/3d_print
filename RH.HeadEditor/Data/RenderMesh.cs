@@ -133,6 +133,7 @@ namespace RH.HeadEditor.Data
             AABB = aabb;
             var newWidht = aabb.Height * k;
             var scaleX = newWidht / aabb.Width;
+            //Scale.X = scaleX;
             //Scale.X = 1.0f;//(float)Math.Sqrt(Math.Abs(k * AABB.Size.Y / AABB.Size.X));
             //Scale.Y = 1.0f / Scale.X;
             var centerX = (aabb.B.X + aabb.A.X) * 0.5f;
