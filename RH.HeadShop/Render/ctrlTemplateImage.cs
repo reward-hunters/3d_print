@@ -1338,7 +1338,6 @@ namespace RH.HeadShop.Render
                                             var headPoint = selectedPoints[i];
                                             headPoint.ValueMirrored = headTempPoints[i].ValueMirrored + delta2;
 
-                                            if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots)
                                                 headPoint.UpdateWorldPoint();
                                         }
                                         UpdateUserCenterPositions(true, true);
