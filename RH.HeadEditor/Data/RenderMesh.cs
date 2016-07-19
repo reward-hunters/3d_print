@@ -175,8 +175,19 @@ namespace RH.HeadEditor.Data
             return scaleX;
         }
 
-        public void SetAABB(Vector2 leye, Vector2 reye, Vector2 lip, Vector2 face)
+        public void SetBlendingInfo(Vector2 leye, Vector2 reye, Vector2 lip, Vector2 face)
         {
+            var aabb = new RectangleAABB();
+
+            var a = aabb.A;
+            var b = aabb.B;
+            a.Y = Math.Min(Math.Min(leye.Y, lip.Y), reye.Y);
+            b.Y = Math.Max(Math.Max(leye.Y, lip.Y), reye.Y);
+            a.X = Math.Min(Math.Min(leye.X, lip.X), reye.X);
+            b.X = Math.Max(Math.Max(leye.X, lip.X), reye.X);
+            aabb.A = a;
+            aabb.B = b;
+
             BlendingInfos.Clear();
             var radius = Math.Abs(leye.X - reye.X) * 0.5f;
             BlendingInfos.Add(new BlendingInfo
@@ -191,18 +202,18 @@ namespace RH.HeadEditor.Data
             });
             BlendingInfos.Add(new BlendingInfo
             {
-                Position = AABB.Center.Xy,
-                Radius = (AABB.Center.Xy - AABB.B.Xy).Length
+                Position = aabb.Center.Xy,
+                Radius = (aabb.Center.Xy - aabb.B.Xy).Length
             });
             BlendingInfos.Add(new BlendingInfo
             {
                 Position = lip,
-                Radius = (AABB.Center.Xy - lip).Length
+                Radius = (aabb.Center.Xy - lip).Length
             });
             BlendingInfos.Add(new BlendingInfo
             {
                 Position = face,
-                Radius = (AABB.B.Xy - face).Length * 0.6f
+                Radius = (aabb.B.Xy - face).Length * 0.6f
             });
             foreach (var part in Parts)
                 part.FillBlendingData(BlendingInfos);
