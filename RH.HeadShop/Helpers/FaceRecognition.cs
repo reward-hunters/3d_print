@@ -332,6 +332,22 @@ namespace RH.HeadShop.Helpers
             return -1;
         }
 
+        public float GetMaxX()
+        {
+            var max = float.MinValue;
+            max = Math.Max(TopCheek.X, max);
+            max = Math.Max(CenterCheek.X, max);
+            max = Math.Max(DownCheek.X, max);
+            return max;
+        }
+        public float GetMinX()
+        {
+            var min = float.MaxValue;
+            min = Math.Min(TopCheek.X, min);
+            min = Math.Min(CenterCheek.X, min);
+            min = Math.Min(DownCheek.X, min);
+            return min;
+        }
 
         Pen arrowsPen = new Pen(Color.DarkOliveGreen, 2);
         public void DrawLeft(Graphics g)
