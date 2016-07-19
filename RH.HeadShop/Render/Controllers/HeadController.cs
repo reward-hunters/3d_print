@@ -1030,10 +1030,10 @@ namespace RH.HeadShop.Render.Controllers
             }
 
             // Уточняем положение глаз и рта, относительно центра указанного пользователем
-            ClarifyEyeAndMouth(new List<int> { 21, 22, 23, 24 }, ProgramCore.Project.LeftEyeCenter);  // Left eye
-            ClarifyEyeAndMouth(new List<int> { 43, 44, 45, 46 }, ProgramCore.Project.RightEyeCenter);  // Right eye
+            //ClarifyEyeAndMouth(new List<int> { 21, 22, 23, 24 }, ProgramCore.Project.LeftEyeCenter);  // Left eye
+            //ClarifyEyeAndMouth(new List<int> { 43, 44, 45, 46 }, ProgramCore.Project.RightEyeCenter);  // Right eye
 
-            ClarifyEyeAndMouth(new List<int> { 1, 15, 16, 17, 37, 38, 39, 51 }, ProgramCore.Project.MouthCenter);  // Mouth
+            //ClarifyEyeAndMouth(new List<int> { 1, 15, 16, 17, 37, 38, 39, 51 }, ProgramCore.Project.MouthCenter);  // Mouth
 
             ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
         }
@@ -1200,11 +1200,10 @@ namespace RH.HeadShop.Render.Controllers
                     //v.Y = ProgramCore.Project.FaceRectRelative.Height * v.Y + ProgramCore.Project.FaceRectRelative.Y;
                     //ValueMirrored = v;
 
-                    var v = point - new Vector2(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.A.X, 
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.A.Y);
-
-                    v.X /= ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Width;
-                    v.Y /= ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Height;
+                    var v = point - new Vector2(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.A.X,
+                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.B.Y);
+                    v.X /= ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.X;
+                    v.Y /= (-ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.Y);
 
                     var width = ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width;
                     var height = ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height;
@@ -1213,7 +1212,7 @@ namespace RH.HeadShop.Render.Controllers
                     var y = ProgramCore.Project.FaceRectRelative.Y * ProgramCore.Project.FrontImage.Height;
 
                     v.X = ((v.X * width) + x) / ProgramCore.Project.FrontImage.Width;
-                    v.Y = (y - (v.Y * height)) / ProgramCore.Project.FrontImage.Height;                    
+                    v.Y = ((v.Y * height) + y) / ProgramCore.Project.FrontImage.Height;                    
 
                     ValueMirrored = v;
                 }
