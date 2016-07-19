@@ -52,6 +52,26 @@ namespace RH.HeadEditor.Data
             B = new Vector3(-99999.0f, -99999.0f, -99999.0f);
         }
 
+        public void AddPoint(Vector3 point)
+        {
+            a.X = Math.Min(A.X, point.X);
+            a.Y = Math.Min(A.Y, point.Y);
+            a.Z = Math.Max(A.Z, point.Z);
+
+            b.X = Math.Max(B.X, point.X);
+            b.Y = Math.Max(B.Y, point.Y);
+            b.Z = Math.Max(B.Z, point.Z);
+        }
+
+        public void AddPoint(Vector2 point)
+        {
+            a.X = Math.Min(a.X, point.X);
+            a.Y = Math.Min(a.Y, point.Y);
+
+            b.X = Math.Max(b.X, point.X);
+            b.Y = Math.Max(b.Y, point.Y);
+        }
+
         private Vector3 a;
         public Vector3 A
         {

@@ -455,7 +455,7 @@ namespace RH.HeadShop.Render
             }
 
             var baseDots = HeadController.GetBaseDots(ProgramCore.Project.ManType);
-            headMeshesController.RenderMesh.SetAABB(baseDots[0], baseDots[1], baseDots[2], baseDots[3]);
+            headMeshesController.RenderMesh.SetBlendingInfo(baseDots[0], baseDots[1], baseDots[2], baseDots[3]);
 
             #region Сглаживание текстур
 

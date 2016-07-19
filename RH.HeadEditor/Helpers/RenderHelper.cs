@@ -423,6 +423,7 @@ namespace RH.HeadEditor.Helpers
                     else if (length < (b.Radius + b.HalfRadius))
                         k = Math.Max(k, (1.0f - ((length - b.Radius) / b.HalfRadius)));
                 }
+
                 foreach (var i in p.Indices)
                     Vertices[i].AutodotsTexCoord.Z = k;
             }
