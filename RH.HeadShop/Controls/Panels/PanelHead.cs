@@ -443,7 +443,7 @@ namespace RH.HeadShop.Controls.Panels
                     ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();
                     ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
 
-                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.UpdatePointsInfo(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Scale, ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Center.Xy);
+                    //ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.UpdatePointsInfo(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Scale, ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Center.Xy);
                     ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
                     ProgramCore.MainForm.ctrlRenderControl.headController.StartAutodots();
 

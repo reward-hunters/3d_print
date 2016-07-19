@@ -719,7 +719,6 @@ namespace RH.HeadEditor.Helpers
             return result;
         }
 
-
         #endregion
 
         private Dictionary<int, int> dotsDictionary = new Dictionary<int, int>();
