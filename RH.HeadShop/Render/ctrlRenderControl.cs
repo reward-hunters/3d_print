@@ -390,7 +390,7 @@ namespace RH.HeadShop.Render
 
         public void LoadProject(bool newProject, RectangleAABB aabb)
         {
-            tempBitmaps.Clear();            
+            tempBitmaps.Clear();
             var headTexturePath = Path.Combine(ProgramCore.Project.ProjectPath, ProgramCore.Project.FrontImagePath);
             HeadTextureId = 0;
             if (!string.IsNullOrEmpty(headTexturePath))
@@ -440,10 +440,10 @@ namespace RH.HeadShop.Render
                     }
                 }
                 if (pickingController.ObjExport != null)
-                    pickingController.ObjExport.Scale = scale;               
+                    pickingController.ObjExport.Scale = scale;
             }
             HeadShapeController.Initialize(headMeshesController);
-            brushTool.InitializeBrush(headMeshesController);            
+            brushTool.InitializeBrush(headMeshesController);
 
             if (ProgramCore.Project.ManType != ManType.Custom)
             {
@@ -517,12 +517,23 @@ namespace RH.HeadShop.Render
             ProgramCore.Project.SmoothedTextures = true;
 
             #endregion
-            if(newProject)
+            if (newProject)
             {
                 var scaleX = UpdateMeshProportions(aabb);
                 UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
             }
-            
+
+            if (!ProgramCore.Project.AutodotsUsed)
+            {
+                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.TransformRects();
+                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();
+            }
+
+            if (newProject)     // твоя плюха!
+            {
+
+            }
+
             RenderTimer.Start();
         }
 
@@ -536,7 +547,7 @@ namespace RH.HeadShop.Render
 
         private void UpdatePointsProportion(float scaleX, float centerX)
         {
-            foreach(var p in autodotsShapeHelper.ShapeInfo.Points)
+            foreach (var p in autodotsShapeHelper.ShapeInfo.Points)
             {
                 var v = p.Value;
                 v.X -= centerX;
@@ -2041,7 +2052,7 @@ namespace RH.HeadShop.Render
         {
             autodotsShapeHelper.headMeshesController = headMeshesController;
             autodotsShapeHelper.SetType((int)ProgramCore.Project.ManType);
-            autodotsShapeHelper.Initialise( HeadController.GetDots(ProgramCore.Project.ManType));
+            autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType));
             baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType));
 
             var result = new RectangleAABB();
@@ -2049,7 +2060,7 @@ namespace RH.HeadShop.Render
             if (isNew && ProgramCore.Project.ManType != ManType.Custom)
             {
                 Vector3 min = result.A, max = result.B;
-                for(int i = 8; i < autodotsShapeHelper.ShapeInfo.Points.Count; ++i)
+                for (int i = 8; i < autodotsShapeHelper.ShapeInfo.Points.Count; ++i)
                 {
                     var p = autodotsShapeHelper.ShapeInfo.Points[i];
                     min.X = Math.Min(p.Value.X, min.X);
@@ -3856,8 +3867,8 @@ namespace RH.HeadShop.Render
         HeadAutodotsFirstTime,
         HeadAutodotsLassoStart,
         HeadAutodotsLassoActive,
-       // HeadShapedotsLassoStart,
-      //  HeadShapedotsLassoActive,
+        // HeadShapedotsLassoStart,
+        //  HeadShapedotsLassoActive,
         HeadFlipLeft,           // отражение слева направо
         HeadFlipRight,
         SetCustomControlPoints,     // произвольная модель. этап 1. расставить 4 главные опорные точки
