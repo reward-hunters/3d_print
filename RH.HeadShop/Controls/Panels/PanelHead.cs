@@ -49,7 +49,7 @@ namespace RH.HeadShop.Controls.Panels
         {
             btnAutodots.Visible = isFrontTab;
             //TODO: uncomment if need return  
-            btnDots.Visible = isFrontTab;
+            //  btnDots.Visible = isFrontTab;
 
             btnNewPict.Visible = false;
 
@@ -72,8 +72,8 @@ namespace RH.HeadShop.Controls.Panels
             if (btnAutodots.Tag.ToString() == "1")
                 btnAutodots_Click(null, EventArgs.Empty);
 
-       /*     if (btnDots.Tag.ToString() == "1")
-                btnDots_Click(null, EventArgs.Empty);*/
+            /*     if (btnDots.Tag.ToString() == "1")
+                     btnDots_Click(null, EventArgs.Empty);*/
 
             if (btnPolyLine.Tag.ToString() == "1")
                 btnPolyLine_Click(null, EventArgs.Empty);
@@ -160,19 +160,19 @@ namespace RH.HeadShop.Controls.Panels
                 case Mode.HeadFlipLeft:
                 case Mode.HeadFlipRight:
                     break;
-        /*        case Mode.HeadShapedots:
-                    btnMirror.Enabled = false;
-                    btnAutodots.Enabled = false;
+                /*        case Mode.HeadShapedots:
+                            btnMirror.Enabled = false;
+                            btnAutodots.Enabled = false;
 
-                    btnLasso.Enabled = true;
+                            btnLasso.Enabled = true;
 
-                    btnDots.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedots;
-                    btnPolyLine.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadLine;
-                    btnShapeTool.Enabled = false;
+                            btnDots.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedots;
+                            btnPolyLine.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadLine;
+                            btnShapeTool.Enabled = false;
 
-                    btnFlipLeft.Enabled = true;
-                    btnFlipRight.Enabled = true;
-                    break;*/
+                            btnFlipLeft.Enabled = true;
+                            btnFlipRight.Enabled = true;
+                            break;*/
                 case Mode.HeadLine:
                     btnMirror.Enabled = false;
                     btnAutodots.Enabled = false;
@@ -188,8 +188,8 @@ namespace RH.HeadShop.Controls.Panels
                     break;
                 case Mode.HeadAutodotsLassoStart:
                 case Mode.HeadAutodotsLassoActive:
-             //   case Mode.HeadShapedotsLassoStart:
-             //   case Mode.HeadShapedotsLassoActive:
+                //   case Mode.HeadShapedotsLassoStart:
+                //   case Mode.HeadShapedotsLassoActive:
                 case Mode.LassoStart:
                 case Mode.LassoActive:
                     break;
@@ -346,8 +346,8 @@ namespace RH.HeadShop.Controls.Panels
 
                 if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodotsFirstTime)
                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsLassoStart;
-              /*  else if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedots)
-                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoStart;*/
+                /*  else if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedots)
+                      ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoStart;*/
 
                 SetPanelLogic();
             }
@@ -363,12 +363,12 @@ namespace RH.HeadShop.Controls.Panels
                     ProgramCore.MainForm.ctrlTemplateImage.SelectAutodotsByLasso();
                     ProgramCore.MainForm.ctrlRenderControl.Mode = ProgramCore.Project.AutodotsUsed ? Mode.HeadAutodots : Mode.HeadAutodotsFirstTime;
                 }
-           /*     else if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedotsLassoStart || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedotsLassoActive)
-                {
-                    ProgramCore.MainForm.ctrlTemplateImage.SelectShapedotsByLasso();
-                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
-                }
-                */
+                /*     else if (ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedotsLassoStart || ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadShapedotsLassoActive)
+                     {
+                         ProgramCore.MainForm.ctrlTemplateImage.SelectShapedotsByLasso();
+                         ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
+                     }
+                     */
                 SetPanelLogic();
             }
         }
@@ -440,7 +440,7 @@ namespace RH.HeadShop.Controls.Panels
                 else
                 {
                     ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.TransformRects();
-                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();
+                    //      ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();       // перенес в ctrlRenderControl
                     ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
 
                     ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.UpdatePointsInfo(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Scale, ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Center.Xy);
@@ -540,6 +540,12 @@ namespace RH.HeadShop.Controls.Panels
                     btnProfile.Enabled = true;
                     ProgramCore.MainForm.ctrlRenderControl.headController.EndAutodots();
                     ProgramCore.MainForm.ctrlRenderControl.ApplySmoothedTextures();
+
+                    for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)      // после слияние с ShapeDots. Проверить!
+                    {
+                        var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
+                        ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                    }
                 }
 
                 btnFlipLeft.Visible = false;
@@ -555,36 +561,36 @@ namespace RH.HeadShop.Controls.Panels
         }
         private void btnDots_Click(object sender, EventArgs e)
         {
-    /*        if (btnDots.Tag.ToString() == "2")
-            {
-                btnDots.Tag = "1";
-                btnPolyLine.Tag = btnShapeTool.Tag = "2";
+            /*        if (btnDots.Tag.ToString() == "2")
+                    {
+                        btnDots.Tag = "1";
+                        btnPolyLine.Tag = btnShapeTool.Tag = "2";
 
-                btnDots.Image = Properties.Resources.btnDotsPressed;
-                btnPolyLine.Image = Properties.Resources.btnPolyLineNormal;
-                btnShapeTool.Image = Properties.Resources.btnHandNormal1;
+                        btnDots.Image = Properties.Resources.btnDotsPressed;
+                        btnPolyLine.Image = Properties.Resources.btnPolyLineNormal;
+                        btnShapeTool.Image = Properties.Resources.btnHandNormal1;
 
-                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
-                ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
-                ProgramCore.MainForm.DisableRotating();
+                        ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedots;
+                        ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
+                        ProgramCore.MainForm.DisableRotating();
 
-                UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
-                SetPanelLogic();
+                        UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
+                        SetPanelLogic();
 
-                if (frontTab && UserConfig.ByName("Options")["Tutorials", "Shapedots", "1"] == "1")
-                    ProgramCore.MainForm.frmTutShapedots.ShowDialog(this);
-            }
-            else
-            {
-                btnDots.Tag = "2";
-                btnDots.Image = Properties.Resources.btnDotsNormal;
-                UpdateNormals();
+                        if (frontTab && UserConfig.ByName("Options")["Tutorials", "Shapedots", "1"] == "1")
+                            ProgramCore.MainForm.frmTutShapedots.ShowDialog(this);
+                    }
+                    else
+                    {
+                        btnDots.Tag = "2";
+                        btnDots.Image = Properties.Resources.btnDotsNormal;
+                        UpdateNormals();
 
-                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
-                ProgramCore.MainForm.EnableRotating();
-                DisableFlip();
-                SetPanelLogic();
-            }*/
+                        ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
+                        ProgramCore.MainForm.EnableRotating();
+                        DisableFlip();
+                        SetPanelLogic();
+                    }*/
         }
 
         public readonly Tutorials.frmLineToolTutorial frmTutLineTool = new Tutorials.frmLineToolTutorial();
@@ -718,7 +724,7 @@ namespace RH.HeadShop.Controls.Panels
                 switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                 {
                     case Mode.HeadLine:
-                //    case Mode.HeadShapedots:
+                        //    case Mode.HeadShapedots:
                         ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(true, 0);
                         ProgramCore.Project.ShapeFlip = FlipType.LeftToRight;
 
@@ -752,7 +758,7 @@ namespace RH.HeadShop.Controls.Panels
                 switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                 {
                     case Mode.HeadLine:
-               //     case Mode.HeadShapedots:
+                        //     case Mode.HeadShapedots:
                         ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();
                         ProgramCore.Project.ShapeFlip = FlipType.None;
                         break;
@@ -778,7 +784,7 @@ namespace RH.HeadShop.Controls.Panels
                 switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                 {
                     case Mode.HeadLine:
-             //       case Mode.HeadShapedots:
+                        //       case Mode.HeadShapedots:
                         ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(false, 0);
                         ProgramCore.Project.ShapeFlip = FlipType.RightToLeft;
 
@@ -810,7 +816,7 @@ namespace RH.HeadShop.Controls.Panels
                 switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                 {
                     case Mode.HeadLine:
-                //    case Mode.HeadShapedots:
+                        //    case Mode.HeadShapedots:
                         ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();
                         ProgramCore.Project.ShapeFlip = FlipType.None;
                         break;
