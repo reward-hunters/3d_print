@@ -532,88 +532,44 @@ namespace RH.HeadShop.Render
 
             if (newProject)     // твоя плюха!
             {
-                #region Подгоняем ротик
+                var points = ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots();
+                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
+                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
+                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
 
-                ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutdotsMouth();
-                var center = GetCenter(ProgramCore.MainForm.ctrlRenderControl.headController.GetMouthIndexes());
-                var delta2 = center - ProgramCore.Project.MouthCenter;
-
-                for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)
-                {
-                    var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
-                    if (!p.Selected)
-                        continue;
-
-                    p.ValueMirrored += delta2;
-                    p.UpdateWorldPoint();
-
-                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
-                }
-
-                #endregion
-
-                #region Подгоняем левый глазик
-
-                ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsLeftEye();
-                center = GetCenter(ProgramCore.MainForm.ctrlRenderControl.headController.GetLeftEyeIndexes());
-                delta2 = center - ProgramCore.Project.MouthCenter;
-
-                for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)
-                {
-                    var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
-                    if (!p.Selected)
-                        continue;
-
-                    p.ValueMirrored += delta2;
-                    p.UpdateWorldPoint();
-
-                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
-                }
-
-                #endregion
-
-                #region Правый глазик
-
-                ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsRightEye();
-                center = GetCenter(ProgramCore.MainForm.ctrlRenderControl.headController.GetRightEyeIndexes());
-                delta2 = center - ProgramCore.Project.MouthCenter;
-
-                for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)
-                {
-                    var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
-                    if (!p.Selected)
-                        continue;
-
-                    p.ValueMirrored += delta2;
-                    p.UpdateWorldPoint();
-
-                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
-                }
-
-                #endregion
+                var eyesDiff = (ProgramCore.Project.LeftEyeCenter.Y + ProgramCore.Project.RightEyeCenter.Y) * 0.5f;
+                var nosePoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff - ProgramCore.Project.MouthUserCenter.Y) * 0.75f) + ProgramCore.Project.MouthUserCenter.Y);
+                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseIndexes(), nosePoint);
             }
 
             RenderTimer.Start();
         }
 
-        private Vector2 GetCenter(IEnumerable<int> indexes)
+        private void SpecialMouthEyesUpdate(List<HeadPoint> points, List<int> indexes, Vector2 targetPoint)
         {
-            var dots = new List<MirroredHeadPoint>();
+            var center = GetCenter(points, indexes);
+            var rightPosUserSelected = MirroredHeadPoint.GetFrontWorldPoint(targetPoint);          // перенояем координаты с левой картинки в правой
+            var delta2 = rightPosUserSelected - center;
+
             foreach (var index in indexes)
             {
-                var dot = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[index];
-                if (!dot.Selected)
-                    continue;
-                dots.Add(dot);
+                var p = points[index];
+                p.Value += delta2;
+
+                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, index); // точка в мировых координатах
             }
+        }
+        private Vector2 GetCenter(List<HeadPoint> points, List<int> indexes)
+        {
+            var dots = indexes.Select(index => points[index]).ToList();
 
             if (dots.Count == 0)
                 return Vector2.Zero;
 
-            var minX = dots.Min(point => point.ValueMirrored.X);
-            var maxX = dots.Max(point => point.ValueMirrored.X);
-            var minY = dots.Min(point => point.ValueMirrored.Y);
-            var maxY = dots.Max(point => point.ValueMirrored.Y);
+            var minX = dots.Min(point => point.Value.X);
+            var maxX = dots.Max(point => point.Value.X);
+            var minY = dots.Min(point => point.Value.Y);
+            var maxY = dots.Max(point => point.Value.Y);
 
             return new Vector2((maxX + minX) * 0.5f, (maxY + minY) * 0.5f);
         }

@@ -253,14 +253,14 @@ namespace RH.HeadShop.Render.Controllers
                 case Mode.HeadAutodotsFirstTime:
                 case Mode.HeadAutodotsLassoStart:
                 case Mode.HeadAutodotsLassoActive:
-                //    if (ProgramCore.Debug)
-                        DrawAutodots();
+                    //    if (ProgramCore.Debug)
+                    DrawAutodots();
                     break;
-              /*  case Mode.HeadShapedots:
-                case Mode.HeadShapedotsLassoStart:
-                case Mode.HeadShapedotsLassoActive:
-                    DrawShapedots();
-                    break;*/
+                /*  case Mode.HeadShapedots:
+                  case Mode.HeadShapedotsLassoStart:
+                  case Mode.HeadShapedotsLassoActive:
+                      DrawShapedots();
+                      break;*/
                 case Mode.HeadLine:
                     if (ProgramCore.Debug && ProgramCore.MainForm.HeadFront)
                         DrawTmp();
@@ -360,11 +360,11 @@ namespace RH.HeadShop.Render.Controllers
                 case Mode.HeadAutodotsLassoActive:
                     DrawAutodots(g);
                     break;
-         /*       case Mode.HeadShapedots:
-                case Mode.HeadShapedotsLassoStart:
-                case Mode.HeadShapedotsLassoActive:
-                    DrawShapedots(g);
-                    break;*/
+                /*       case Mode.HeadShapedots:
+                       case Mode.HeadShapedotsLassoStart:
+                       case Mode.HeadShapedotsLassoActive:
+                           DrawShapedots(g);
+                           break;*/
                 default:
                     DrawLines(g);
                     break;
@@ -1212,7 +1212,7 @@ namespace RH.HeadShop.Render.Controllers
                     var y = ProgramCore.Project.FaceRectRelative.Y * ProgramCore.Project.FrontImage.Height;
 
                     v.X = ((v.X * width) + x) / ProgramCore.Project.FrontImage.Width;
-                    v.Y = ((v.Y * height) + y) / ProgramCore.Project.FrontImage.Height;                    
+                    v.Y = ((v.Y * height) + y) / ProgramCore.Project.FrontImage.Height;
 
                     ValueMirrored = v;
                 }
@@ -1242,25 +1242,29 @@ namespace RH.HeadShop.Render.Controllers
             Value = UpdateWorldPoint(ValueMirrored);
         }
 
+        public static Vector2 GetFrontWorldPoint(Vector2 valueMirrored)
+        {
+            Vector2 v;
+            var result = new Vector2();
+
+            var width = ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width;
+            var height = ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height;
+
+            var x = ProgramCore.Project.FaceRectRelative.X * ProgramCore.Project.FrontImage.Width;
+            var y = ProgramCore.Project.FaceRectRelative.Y * ProgramCore.Project.FrontImage.Height;
+
+            v.X = ((valueMirrored.X * ProgramCore.Project.FrontImage.Width) - x) / width;
+            v.Y = ((valueMirrored.Y * ProgramCore.Project.FrontImage.Height) - y) / height;
+
+            result.X = v.X * ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.X + ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.A.X;
+            result.Y = v.Y * (-ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.Y) + ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.B.Y;
+            return result;
+        }
         public static Vector2 UpdateWorldPoint(Vector2 valueMirrored)
         {
             var result = new Vector2();
             if (ProgramCore.MainForm.HeadFront)
-            {
-                Vector2 v;
-
-                var width = ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width;
-                var height = ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height;
-
-                var x = ProgramCore.Project.FaceRectRelative.X * ProgramCore.Project.FrontImage.Width;
-                var y = ProgramCore.Project.FaceRectRelative.Y * ProgramCore.Project.FrontImage.Height;
-
-                v.X = ((valueMirrored.X * ProgramCore.Project.FrontImage.Width) - x) / width;
-                v.Y = ((valueMirrored.Y * ProgramCore.Project.FrontImage.Height) - y) / height;
-
-                result.X = v.X * ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.X + ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.A.X;
-                result.Y = v.Y * (-ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Size.Y) + ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.B.Y;
-            }
+                result = GetFrontWorldPoint(valueMirrored);
             else if (ProgramCore.MainForm.HeadProfile)
             {
                 Vector2 v;
