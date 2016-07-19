@@ -517,6 +517,7 @@ namespace RH.HeadShop.Render
             ProgramCore.Project.SmoothedTextures = true;
 
             #endregion
+
             if (newProject)
             {
                 var scaleX = UpdateMeshProportions(aabb);
@@ -531,10 +532,90 @@ namespace RH.HeadShop.Render
 
             if (newProject)     // твоя плюха!
             {
+                #region Подгоняем ротик
 
+                ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutdotsMouth();
+                var center = GetCenter(ProgramCore.MainForm.ctrlRenderControl.headController.GetMouthIndexes());
+                var delta2 = center - ProgramCore.Project.MouthCenter;
+
+                for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)
+                {
+                    var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
+                    if (!p.Selected)
+                        continue;
+
+                    p.ValueMirrored += delta2;
+                    p.UpdateWorldPoint();
+
+                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                }
+
+                #endregion
+
+                #region Подгоняем левый глазик
+
+                ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsLeftEye();
+                center = GetCenter(ProgramCore.MainForm.ctrlRenderControl.headController.GetLeftEyeIndexes());
+                delta2 = center - ProgramCore.Project.MouthCenter;
+
+                for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)
+                {
+                    var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
+                    if (!p.Selected)
+                        continue;
+
+                    p.ValueMirrored += delta2;
+                    p.UpdateWorldPoint();
+
+                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                }
+
+                #endregion
+
+                #region Правый глазик
+
+                ProgramCore.MainForm.ctrlRenderControl.headController.SelectAutodotsRightEye();
+                center = GetCenter(ProgramCore.MainForm.ctrlRenderControl.headController.GetRightEyeIndexes());
+                delta2 = center - ProgramCore.Project.MouthCenter;
+
+                for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.Count; i++)
+                {
+                    var p = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[i];
+                    if (!p.Selected)
+                        continue;
+
+                    p.ValueMirrored += delta2;
+                    p.UpdateWorldPoint();
+
+                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                }
+
+                #endregion
             }
 
             RenderTimer.Start();
+        }
+
+        private Vector2 GetCenter(IEnumerable<int> indexes)
+        {
+            var dots = new List<MirroredHeadPoint>();
+            foreach (var index in indexes)
+            {
+                var dot = ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots[index];
+                if (!dot.Selected)
+                    continue;
+                dots.Add(dot);
+            }
+
+            if (dots.Count == 0)
+                return Vector2.Zero;
+
+            var minX = dots.Min(point => point.ValueMirrored.X);
+            var maxX = dots.Max(point => point.ValueMirrored.X);
+            var minY = dots.Min(point => point.ValueMirrored.Y);
+            var maxY = dots.Max(point => point.ValueMirrored.Y);
+
+            return new Vector2((maxX + minX) * 0.5f, (maxY + minY) * 0.5f);
         }
 
         public void LoadModel(string path, bool needClean, ManType manType, MeshType type)
