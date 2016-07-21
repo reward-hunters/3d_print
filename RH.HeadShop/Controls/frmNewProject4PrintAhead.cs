@@ -148,8 +148,12 @@ namespace RH.HeadShop.Controls
                 fcr = new FaceRecognition();
                 fcr.Recognize(ref templateImage, true);     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
 
-                using (var bmp = new Bitmap(templateImage))
-                    pictureTemplate.Image = (Bitmap)bmp.Clone();
+                using (var ms = new MemoryStream(File.ReadAllBytes(templateImage))) // Don't use using!!
+                {
+                    var img = (Bitmap)Bitmap.FromStream(ms);
+                    pictureTemplate.Image = (Bitmap)img.Clone();
+                    img.Dispose();
+                }
 
                 edgePen = (Pen)DrawingTools.GreenPen.Clone();
                 //edgePen.Width = 2;
