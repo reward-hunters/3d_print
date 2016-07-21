@@ -66,32 +66,34 @@ namespace RH.HeadEditor
 
         public void FinishCreating()
         {
-            foreach (var part in RenderMesh.Parts)
-                part.UpdateBuffers();
+            UpdateBuffers();
             RenderMesh.FindFixedPoints();
         }
 
         public void ScaleWidth(float k, float centerX)
         {
             RenderMesh.ScaleWidth(k, centerX);
-            foreach (var part in RenderMesh.Parts)
-                part.UpdateBuffers();
+            UpdateBuffers();
         }
 
         public float SetSize(float diagonal)
         {
             var scale = RenderMesh.SetSize(diagonal);
-            foreach (var part in RenderMesh.Parts)
-                part.UpdateBuffers();
+            UpdateBuffers();
             return scale;
         }
 
         public float FinishCreating(float widthToHeight, RectangleAABB aabb)
         {
             var result = RenderMesh.Transform(widthToHeight, aabb);
+            UpdateBuffers();
+            return result;
+        }
+
+        public void UpdateBuffers()
+        {
             foreach (var part in RenderMesh.Parts)
                 part.UpdateBuffers();
-            return result;
         }
 
         public void Smooth()
