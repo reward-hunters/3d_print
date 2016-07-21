@@ -537,6 +537,8 @@ namespace RH.HeadShop.Render
 
                 SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseTopIndexes(), eyesDiff);
             }
+            else
+                headMeshesController.UpdateBuffers();
 
             RenderTimer.Start();
         }
@@ -595,7 +597,7 @@ namespace RH.HeadShop.Render
             var widthToHeight = 0.669f; // подгоняем размер модели под размер еблища
             if (ProgramCore.Project.FaceRectRelative != RectangleF.Empty)
                 widthToHeight = (ProgramCore.Project.FaceRectRelative.Width * ProgramCore.Project.FrontImage.Width) / (ProgramCore.Project.FaceRectRelative.Height * ProgramCore.Project.FrontImage.Height);
-            return ProgramCore.MainForm.ctrlRenderControl.headMeshesController.FinishCreating(widthToHeight, aabb);
+            return headMeshesController.FinishCreating(widthToHeight, aabb);
         }
         public void CleanProjectMeshes()
         {
