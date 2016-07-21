@@ -444,9 +444,9 @@ namespace RH.HeadEditor.Helpers
         {
             for (var i = 0; i < t.Indices.Length; i += 3)
             {
-                var a = t.Points[t.Indices[i]].Value;
-                var b = t.Points[t.Indices[i + 1]].Value;
-                var c = t.Points[t.Indices[i + 2]].Value;
+                var a = t.Points[t.Indices[i]].OriginalValue;
+                var b = t.Points[t.Indices[i + 1]].OriginalValue;
+                var c = t.Points[t.Indices[i + 2]].OriginalValue;
                 for (var index = 0; index < Points.Count; index++)
                 {
                     var point = Points[index];
@@ -458,28 +458,6 @@ namespace RH.HeadEditor.Helpers
                     {
                         triangle.TrinagleIndex = i / 3;
                         var x = isProfile ? p.Z : p.X;
-                        //var currentPoint = new Vector2(x, p.Y);
-                        //var a1 = GetPerpendicularPoint(a, b, c);
-                        //var b1 = GetPerpendicularPoint(b, c, a);
-                        //var c1 = GetPerpendicularPoint(c, a, b);
-
-                        //var AA = (a1 - a).Length;
-                        //var BB = (b1 - b).Length;
-                        //var CC = (c1 - c).Length;
-
-                        //var temp = GetPerpendicularPoint(currentPoint, a, a1);
-                        //var AAh = (a - temp).Length;
-
-                        //temp = GetPerpendicularPoint(currentPoint, b, b1);
-                        //var BBh = (b - temp).Length;
-
-                        //temp = GetPerpendicularPoint(currentPoint, c, c1);
-                        //var CCh = (c - temp).Length;
-
-                        //triangle.U = 1.0f - AAh / AA;
-                        //triangle.V = 1.0f - BBh / BB;
-                        //triangle.W = 1.0f - CCh / CC;
-
                         var uv = Vector3.Cross(
                             new Vector3(c.X - a.X, b.X - a.X, a.X - x),
                             new Vector3(c.Y - a.Y, b.Y - a.Y, a.Y - p.Y));
@@ -491,18 +469,6 @@ namespace RH.HeadEditor.Helpers
                             triangle.V = uv.Y / uv.Z;
                             triangle.W = uv.X / uv.Z;
                         }
-
-                        //var aup = a.X - x;
-                        //var bup = b.X - x;
-                        //var cup = c.X - x;
-                        //var avp = a.Y - p.Y;
-                        //var bvp = b.Y - p.Y;
-                        //var cvp = c.Y - p.Y;
-
-                        //var f = 1.0f / ((b.X - a.X) * (c.Y - a.Y) - (b.Y - a.Y) * (c.X - a.X));
-                        //triangle.U = (bup * cvp - bvp * cup) * f;
-                        //triangle.V = (cup * avp - cvp * aup) * f;
-                        //triangle.W = 1.0f - (triangle.U + triangle.V);
                     }
                     Points[index] = point;
                 }

@@ -920,6 +920,14 @@ namespace RH.HeadShop.Render.Controllers
         {
             return new List<int> { 2, 18, 19, 20, 40, 41, 42, 52 };
         }
+        public List<int> GetNoseTopIndexes()
+        {
+            return new List<int> { 18, 40};
+        }
+        public List<int> GetNoseBottomIndexes()
+        {
+            return new List<int> { 2, 19, 20, 41, 42, 52 };
+        }
 
         #endregion
 

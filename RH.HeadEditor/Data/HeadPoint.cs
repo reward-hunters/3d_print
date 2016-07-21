@@ -9,6 +9,7 @@ namespace RH.HeadEditor.Data
     /// <summary> Точка, используемая для трансформации головы </summary>
     public class HeadPoint
     {
+        public Vector2 OriginalValue;
         public Vector2 Value;
         public bool Visible = true;
         public bool Selected;
@@ -19,10 +20,13 @@ namespace RH.HeadEditor.Data
         public HeadPoint(Vector2 value)
         {
             Value = value;
+            OriginalValue = value;
         }
+
         public HeadPoint(float x, float y)
         {
             Value = new Vector2(x, y);
+            OriginalValue = Value;
         }
 
         /// <summary> Проверить входит ли точка в лассо выделение </summary>

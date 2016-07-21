@@ -522,24 +522,20 @@ namespace RH.HeadShop.Render
             {
                 var scaleX = UpdateMeshProportions(aabb);
                 UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
-            }
 
-            if (!ProgramCore.Project.AutodotsUsed)
-            {
                 ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.TransformRects();
                 ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();
-            }
 
-            if (newProject)     // твоя плюха!
-            {
                 var points = ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots();
                 SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
                 SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
                 SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
 
-                var eyesDiff = (ProgramCore.Project.LeftEyeCenter.Y + ProgramCore.Project.RightEyeCenter.Y) * 0.5f;
-                var nosePoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff - ProgramCore.Project.MouthUserCenter.Y) * 0.75f) + ProgramCore.Project.MouthUserCenter.Y);
-                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseIndexes(), nosePoint);
+                var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
+                var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
+                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseBottomIndexes(), noseBottomPoint);
+
+                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseTopIndexes(), eyesDiff);
             }
 
             RenderTimer.Start();
@@ -2110,64 +2106,7 @@ namespace RH.HeadShop.Render
             }
 
             return result;
-
-            //if (isNew && ProgramCore.Project.ManType != ManType.Custom)
-            //{
-            //    Vector2 min = new Vector2(99999.0f, 99999.0f), max = new Vector2(-99999.0f, -99999.0f);
-            //    foreach (var p in autodotsShapeHelper.ShapeInfo.Points)
-            //    {
-            //        min.X = Math.Min(p.Value.X, min.X);
-            //        min.Y = Math.Min(p.Value.Y, min.Y);
-            //        max.X = Math.Max(p.Value.X, max.X);
-            //        max.Y = Math.Max(p.Value.Y, max.Y);
-            //    }
-
-            //    var center = (min + max) * 0.5f;
-
-            //    float k = 1.25f;
-            //    foreach (var p in autodotsShapeHelper.ShapeInfo.Points)
-            //    {
-            //        var dx = p.Value.X - center.X;
-            //        p.Value.X = center.X + dx * k;
-            //    }
-            //    headMeshesController.ScaleWidth(k, center.X);
-            //    autodotsShapeHelper.InitializeShaping();
-
-            //    //Расставляем левый глаз
-            //    autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetLeftEyeIndexes());
-            //    //MovePart(LeftEyeUserCenter, new Vector2(-2.5f, 1.25f));
-            //    //Расставляем правый глаз
-            //    autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetRightEyeIndexes());
-            //    //MovePart(RightEyeUserCenter, new Vector2());
-            //    //Расставляем рот
-            //    autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetMouthIndexes());
-            //    //MovePart(MouthUserCenter, new Vector2());
-            //    //Расставляем нос
-            //    autodotsShapeHelper.ShapeInfo.Points.SelectPoints(autodotsShapeHelper.GetNoseIndexes());
-            //    //MovePart(NoseUserCenter, new Vector2());
-            //}
-        }
-
-        //Двигает часть точек, таких как нос, рот, глаза в заданную позицию
-        private void MovePart(Vector2 start, Vector2 target)
-        {
-            var dv = target - start;
-            var selectedPoints = autodotsShapeHelper.ShapeInfo.Points.SelectedPoints;
-            for (var i = 0; i < selectedPoints.Count; i++)
-            {
-                var headPoint = selectedPoints[i];
-                headPoint.Value = headPoint.Value + dv;
-            }
-
-            for (var i = 0; i < headController.ShapeDots.Count; i++)
-            {
-                var p = headController.ShapeDots[i];
-                if (p.Selected)
-                    autodotsShapeHelper.Transform(p.Value, i, false); // точка в мировых координатах
-            }
-            headMeshesController.UpdateShape(ref autodotsShapeHelper.ShapeInfo);
-            UpdateCustomFaceParts(true, true);
-        }
+        }    
 
         private float GetMinY(IEnumerable<DynamicRenderMesh> meshes)
         {
