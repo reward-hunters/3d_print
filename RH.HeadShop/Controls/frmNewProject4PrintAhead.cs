@@ -229,7 +229,30 @@ namespace RH.HeadShop.Controls
         private void rbNew_CheckedChanged(object sender, EventArgs e)
         {
             groupLoadProject.Enabled = !rbNew.Checked;
-            groupBox1.Enabled = rbNew.Checked;
+            groupBox1.Enabled = btnMale.Enabled = btnFemale.Enabled = btnChild.Enabled = rbNew.Checked;
+
+            if (rbNew.Checked)
+            {
+                btnMale_Click(null, EventArgs.Empty);
+            }
+            else
+            {
+                if (btnMale.Tag.ToString() == "1")
+                {
+                    btnMale.Image = Properties.Resources.btnMaleGray;
+                    btnMale.Tag = "2";
+                }
+                else if (btnFemale.Tag.ToString() == "1")
+                {
+                    btnFemale.Image = Properties.Resources.btnFemaleGray;
+                    btnFemale.Tag = "2";
+                }
+                else if (btnChild.Tag.ToString() == "1")
+                {
+                    btnChild.Image = Properties.Resources.btnChildGray;
+                    btnChild.Tag = "2";
+                }
+            }
         }
 
         private void btnQuestion_Click(object sender, EventArgs e)
@@ -738,5 +761,9 @@ namespace RH.HeadShop.Controls
             RecalcRealTemplateImagePosition();
         }
 
+        private void rbSaved_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

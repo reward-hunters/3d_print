@@ -523,6 +523,9 @@ namespace RH.HeadShop.Render
                 var scaleX = UpdateMeshProportions(aabb);
                 UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
 
+                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
+                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
+
                 ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.TransformRects();
                 ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();
 

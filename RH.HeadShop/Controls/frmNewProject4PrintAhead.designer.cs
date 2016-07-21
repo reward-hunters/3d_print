@@ -306,6 +306,7 @@ namespace RH.HeadShop.Controls
             this.rbSaved.TabIndex = 16;
             this.rbSaved.Text = "Open Saved Project";
             this.rbSaved.UseVisualStyleBackColor = true;
+            this.rbSaved.CheckedChanged += new System.EventHandler(this.rbSaved_CheckedChanged);
             // 
             // panel1
             // 

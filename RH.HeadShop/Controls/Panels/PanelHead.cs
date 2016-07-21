@@ -439,69 +439,12 @@ namespace RH.HeadShop.Controls.Panels
                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodots;
                 else
                 {
-                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.TransformRects();
-                    //      ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();       // перенес в ctrlRenderControl
-                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
-
-                    //ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.UpdatePointsInfo(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Scale, ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.AABB.Center.Xy);
-                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
+                //   ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
+                //    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
                     ProgramCore.MainForm.ctrlRenderControl.headController.StartAutodots();
 
                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsFirstTime;
 
-                    //if (ProgramCore.Project.nextHeadRectF.Height != 0) // update to pregenerated height
-                    //{
-                    //    ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
-                    //    var FaceRectTransformed = ProgramCore.MainForm.ctrlTemplateImage.FaceRectTransformed;
-
-                    //    var point = new Point((int)ProgramCore.MainForm.ctrlTemplateImage.CentralFacePoint.X, (int)ProgramCore.MainForm.ctrlTemplateImage.CentralFacePoint.Y);
-                    //    var eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
-                    //    ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseDown(null, eMouse);
-                    //    ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
-
-                    //    float jawCoeff;
-                    //    switch (ProgramCore.Project.ManType)
-                    //    {
-                    //        case ManType.Male: jawCoeff = 0.9345454f; break;
-                    //        case ManType.Child:
-                    //        case ManType.Female:
-                    //        default: jawCoeff = 0.9285714f; break;
-                    //    }
-
-                    //    var yDiff = (int)(ProgramCore.Project.nextHeadRectF.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - FaceRectTransformed.Y;
-                    //    //yDiff = 0;
-                    //    if (Math.Abs(yDiff) > 1)
-                    //    {
-                    //        point.Y -= 10;
-                    //        //point = new Point(FaceRectTransformed.X - 5, FaceRectTransformed.Y - 5);
-                    //        eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseDown(null, eMouse);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseMove(null, eMouse);
-                    //        point.Y += yDiff;
-                    //        eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseMove(null, eMouse);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
-                    //    }
-                    //    FaceRectTransformed = ProgramCore.MainForm.ctrlTemplateImage.FaceRectTransformed;
-                    //    var hDiff = (int)(ProgramCore.Project.nextHeadRectF.Bottom * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) - (int)(FaceRectTransformed.Height * jawCoeff + FaceRectTransformed.Y);
-                    //    //hDiff = 0;
-                    //    if (Math.Abs(hDiff) > 1)
-                    //    {
-                    //        point = new Point(FaceRectTransformed.X, FaceRectTransformed.Y + FaceRectTransformed.Height);
-                    //        eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseDown(null, eMouse);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseMove(null, eMouse);
-                    //        point.Y += hDiff;
-                    //        eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseMove(null, eMouse);
-                    //        ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
-                    //    }
-
-                    //    point = new Point((int)ProgramCore.MainForm.ctrlTemplateImage.CentralFacePoint.X, (int)ProgramCore.MainForm.ctrlTemplateImage.CentralFacePoint.Y);
-                    //    eMouse = new MouseEventArgs(MouseButtons.Left, 1, point.X, point.Y, 0);
-                    //    ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseDown(null, eMouse);
-                    //    ProgramCore.MainForm.ctrlTemplateImage.pictureTemplate_MouseUp(null, eMouse);
-                    //}
                 }
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
@@ -524,7 +467,7 @@ namespace RH.HeadShop.Controls.Panels
                 if (!ProgramCore.Project.AutodotsUsed)
                 {
                     //заменть все шейп-точки на новые
-                    ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAllShapedotsFromAutodots();
+                //    ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAllShapedotsFromAutodots();
 
                     for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Parts.Count; i++)
                     {
