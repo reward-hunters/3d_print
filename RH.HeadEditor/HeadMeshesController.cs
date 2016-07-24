@@ -57,7 +57,7 @@ namespace RH.HeadEditor
             TexturingInfo.Points = new HeadPoints<HeadPoint>();
             TexturingInfo.Points.AddRange(points);
 
-            TexturingInfo.UpdatePointsInfo(RenderMesh.Scale, RenderMesh.AABB.Center.Xy);
+            //TexturingInfo.UpdatePointsInfo(RenderMesh.Scale, RenderMesh.AABB.Center.Xy);
 
             TexturingInfo.Indices = indices.ToArray();
             foreach (var p in RenderMesh.Parts)

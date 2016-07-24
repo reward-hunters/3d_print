@@ -1216,7 +1216,7 @@ namespace RH.HeadEditor.Helpers
 
         private List<HeadPoint> defaultDots = null;
 
-        public void Initialise(List<HeadPoint> baseDots)
+        public void Initialise(List<HeadPoint> baseDots, bool isNew)
         {
             defaultDots = baseDots;
             var shapePoints = new List<Vector2>();
@@ -1613,13 +1613,16 @@ namespace RH.HeadEditor.Helpers
                 Type = MeshPartType.None
             }.Initialise(new[] { baseDots[52].Value }, ref shapePoints, true));
 
-            ShapeInfo.Points = new HeadPoints<HeadPoint>();
-            ShapeInfo.Points.AddRange(shapePoints.Select(p => new HeadPoint(p)).ToArray());
+            if (isNew)
+            {
+                ShapeInfo.Points = new HeadPoints<HeadPoint>();
+                ShapeInfo.Points.AddRange(shapePoints.Select(p => new HeadPoint(p)).ToArray());
 
-            ShapeInfo.Indices = ShapeIndices.ToArray();
+                ShapeInfo.Indices = ShapeIndices.ToArray();
+            }
         }
 
-        public List<int> InitializeProfile(List<Vector2> baseDots)
+        public List<int> InitializeProfile(List<Vector2> baseDots, bool isNew)
         {
             var result = new List<int>();
             ProfileRects.Clear();
@@ -1891,12 +1894,13 @@ namespace RH.HeadEditor.Helpers
 
             indices.AddRange(new[] { index0, rect.ShapeIndices[rect.ShapeIndices.Length - 3], index1 });
             indices.AddRange(new[] { index1, rect.ShapeIndices[rect.ShapeIndices.Length - 3], rect.ShapeIndices[rect.ShapeIndices.Length - 2] });*/
+            if (isNew)
+            {
+                ShapeProfileInfo.Points = new HeadPoints<HeadPoint>();
+                ShapeProfileInfo.Points.AddRange(shapePoints.Select(p => new HeadPoint(p)).ToArray());
+                var list = ShapeProfileInfo.Points.Select(p => p.Value).ToList();
 
-            ShapeProfileInfo.Points = new HeadPoints<HeadPoint>();
-            ShapeProfileInfo.Points.AddRange(shapePoints.Select(p => new HeadPoint(p)).ToArray());
-            var list = ShapeProfileInfo.Points.Select(p => p.Value).ToList();
-
-            ShapeProfileInfo.Indices = new[] { //indices.ToArray(); 
+                ShapeProfileInfo.Indices = new[] { //indices.ToArray(); 
                 1, 0, 2,
                 1, 2, 3,
                 1, 3, 4,
@@ -1960,6 +1964,7 @@ namespace RH.HeadEditor.Helpers
                 37, 52, 53,
                 37, 53, 42,
                 42, 53, 54};
+            }
             return result;
         }
 

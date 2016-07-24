@@ -439,8 +439,8 @@ namespace RH.HeadShop.Controls.Panels
                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodots;
                 else
                 {
-                //   ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
-                //    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
+                    ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
+                    ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
                     ProgramCore.MainForm.ctrlRenderControl.headController.StartAutodots();
 
                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadAutodotsFirstTime;

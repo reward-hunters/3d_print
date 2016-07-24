@@ -541,8 +541,7 @@ namespace RH.HeadShop
                 result.FatCoefficient = br.ReadSingle();
 
                 #region Информация о модели головы
-
-
+                
                 var rmPath = Path.Combine(projectFi.DirectoryName, "Model", "MeshParts.rm");
                 ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Load(rmPath);
                 foreach (var part in ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Parts)

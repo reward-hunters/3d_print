@@ -523,25 +523,31 @@ namespace RH.HeadShop.Render
                 var scaleX = UpdateMeshProportions(aabb);
                 UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
 
-                ProgramCore.MainForm.ctrlRenderControl.headMeshesController.InitializeTexturing(ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
-                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.TexturingInfo.Points.ToArray());
+                //headMeshesController.InitializeTexturing(autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
+                //autodotsShapeHelper.Transform(headMeshesController.TexturingInfo.Points.ToArray());
 
-                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.TransformRects();
-                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.InitializeShaping();
+                autodotsShapeHelper.TransformRects();
+                autodotsShapeHelper.InitializeShaping();
 
-                var points = ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.GetBaseDots();
-                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
-                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
-                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
+                var points = autodotsShapeHelper.GetBaseDots();
+                SpecialMouthEyesUpdate(points, headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
+                SpecialMouthEyesUpdate(points, headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
+                SpecialMouthEyesUpdate(points, headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
 
                 var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
                 var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
-                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseBottomIndexes(), noseBottomPoint);
+                SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint);
 
-                SpecialMouthEyesUpdate(points, ProgramCore.MainForm.ctrlRenderControl.headController.GetNoseTopIndexes(), eyesDiff);
+                SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
+
+                //autodotsShapeHelper.TransformRects();
+                //headMeshesController.UpdateBuffers();
             }
             else
+            {
+                autodotsShapeHelper.TransformRects();
                 headMeshesController.UpdateBuffers();
+            }
 
             RenderTimer.Start();
         }
@@ -557,7 +563,7 @@ namespace RH.HeadShop.Render
                 var p = points[index];
                 p.Value += delta2;
 
-                ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, index); // точка в мировых координатах
+                autodotsShapeHelper.Transform(p.Value, index); // точка в мировых координатах
             }
         }
         private Vector2 GetCenter(List<HeadPoint> points, List<int> indexes)
@@ -974,7 +980,7 @@ namespace RH.HeadShop.Render
                     {
                         case Mode.ColorPicker:
                             {
-                                using (var img = ProgramCore.MainForm.ctrlRenderControl.GrabScreenshot(string.Empty, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Width, ProgramCore.MainForm.ctrlRenderControl.ClientSize.Height))
+                                using (var img = GrabScreenshot(string.Empty, ClientSize.Width, ClientSize.Height))
                                 {
                                     var color = img.GetPixel((int)e.X, (int)e.Y);
                                     ProgramCore.MainForm.frmMaterial.SetColorFromPicker(color);
@@ -1457,10 +1463,10 @@ namespace RH.HeadShop.Render
 
 
 
-                                ProgramCore.Project.projectCamera._dy = ProgramCore.MainForm.ctrlRenderControl.camera._dy;
-                                ProgramCore.Project.projectCamera.beta = ProgramCore.MainForm.ctrlRenderControl.camera.beta;
-                                ProgramCore.Project.projectCamera.Scale = ProgramCore.MainForm.ctrlRenderControl.camera.Scale;
-                                ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
+                                ProgramCore.Project.projectCamera._dy = camera._dy;
+                                ProgramCore.Project.projectCamera.beta = camera.beta;
+                                ProgramCore.Project.projectCamera.Scale = camera.Scale;
+                                camera.AfterLoadVoid();
                             }
                             break;
                     }
@@ -1516,7 +1522,7 @@ namespace RH.HeadShop.Render
                             var p1 = new Vector3(HeadShapeP.X, HeadShapeP.Y, HeadShapeZ);
                             p1 = Vector3.Transform(p1, camera.ViewMatrix.Inverted());
                             Dictionary<Guid, MeshUndoInfo> undoInfo;
-                            ProgramCore.MainForm.ctrlRenderControl.HeadShapeController.MoveShapePoint(p1, out undoInfo);
+                            HeadShapeController.MoveShapePoint(p1, out undoInfo);
 
                             historyController.Add(new HistoryHeadShape(undoInfo));
                             break;
@@ -2090,8 +2096,8 @@ namespace RH.HeadShop.Render
         {
             autodotsShapeHelper.headMeshesController = headMeshesController;
             autodotsShapeHelper.SetType((int)ProgramCore.Project.ManType);
-            autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType));
-            baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType));
+            autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType), isNew);
+            baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType), isNew);
 
             var result = new RectangleAABB();
 
@@ -2809,7 +2815,7 @@ namespace RH.HeadShop.Render
             set
             {
                 bTexture = value;
-                backgroundTexture = ProgramCore.MainForm.ctrlRenderControl.GetTexture(bTexture);
+                backgroundTexture = GetTexture(bTexture);
             }
         }
         private void DrawBackground()
@@ -3058,7 +3064,7 @@ namespace RH.HeadShop.Render
             shader.Begin();
 
             GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.Texture2D, ProgramCore.MainForm.ctrlRenderControl.HeadTextureId);
+            GL.BindTexture(TextureTarget.Texture2D, HeadTextureId);
             shader.UpdateUniform("u_Texture", 0);
             shader.UpdateUniform("u_BlendStartDepth", -0.5f);
             shader.UpdateUniform("u_BlendDepth", 4f);
@@ -3768,8 +3774,8 @@ namespace RH.HeadShop.Render
         {
             var originalImg = ProgramCore.Project.FrontImage;
 
-            var indicies = ProgramCore.MainForm.ctrlRenderControl.headController.GetFaceIndexes();
-            var faceDots = ProgramCore.MainForm.ctrlRenderControl.headController.GetSpecialAutodots(indicies);
+            var indicies = headController.GetFaceIndexes();
+            var faceDots = headController.GetSpecialAutodots(indicies);
 
             var minX = faceDots.Min(point => point.ValueMirrored.X) * originalImg.Width;
             var maxX = faceDots.Max(point => point.ValueMirrored.X) * originalImg.Width;
