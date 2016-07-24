@@ -2014,9 +2014,12 @@ namespace RH.HeadEditor.Helpers
             var result = new HeadPoint[defaultDots.Count];
             foreach (var p in pointsDict)
                 result[p.Key] = p.Value;
-            for(var i = 0; i<result.Length; i++)
+            for (var i = 0; i < result.Length; i++)
+            {
                 if (result[i] == null)
                     result[i] = defaultDots[i];
+                result[i].OriginalValue = defaultDots[i].OriginalValue;
+            }
 
             result[7].LinkedPoints.Add(47);      // уши
             result[8].LinkedPoints.Add(48);

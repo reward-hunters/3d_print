@@ -387,7 +387,6 @@ namespace RH.HeadEditor.Helpers
 
         public void UpdateTexCoords(ref TexturingInfo t)
         {
-
             foreach (var p in Points)
             {
                 if (p.TextureTrinagleInfo.TrinagleIndex < 0)

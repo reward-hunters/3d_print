@@ -71,6 +71,7 @@ namespace RH.HeadEditor.Data
             var newPoint = new HeadPoint(Value)
                                {
                                    Visible = Visible,
+                                   OriginalValue = OriginalValue,
                                    Selected = Selected
                                };
             newPoint.LinkedPoints.AddRange(LinkedPoints);
@@ -88,6 +89,7 @@ namespace RH.HeadEditor.Data
             foreach (var lp in LinkedPoints)
                 bw.Write(lp);
         }
+
         public static HeadPoint FromStream(BinaryReader br)
         {
             var result = new HeadPoint(br.ReadSingle(), br.ReadSingle());
