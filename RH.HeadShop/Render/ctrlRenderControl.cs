@@ -2099,6 +2099,9 @@ namespace RH.HeadShop.Render
             autodotsShapeHelper.Initialise(HeadController.GetDots(ProgramCore.Project.ManType), isNew);
             baseProfilePoints = autodotsShapeHelper.InitializeProfile(HeadController.GetProfileBaseDots(ProgramCore.Project.ManType), isNew);
 
+            if (!isNew)
+                autodotsShapeHelper.TransformRects();
+
             var result = new RectangleAABB();
 
             if (isNew && ProgramCore.Project.ManType != ManType.Custom)

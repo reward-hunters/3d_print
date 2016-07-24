@@ -1322,6 +1322,7 @@ namespace RH.HeadShop.Render
                                             p.X *= kx;
                                             p.Y *= ky;
                                             point.ValueMirrored = p + center;
+                                            point.UpdateWorldPoint();
                                         }
                                         tempMoveRectCenter = center;
                                         tempMoveRectWidth = newWidth;
