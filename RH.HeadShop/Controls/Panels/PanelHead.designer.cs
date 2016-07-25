@@ -39,14 +39,15 @@
             this.btnLasso = new System.Windows.Forms.Button();
             this.btnFlipLeft = new System.Windows.Forms.Button();
             this.btnFlipRight = new System.Windows.Forms.Button();
-            this.btnNewPict = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
+            this.lblProfileSmoothing = new System.Windows.Forms.Label();
+            this.trackProfileSmoothing = new RH.HeadShop.Controls.TrackBar.TrackBarEx();
             this.SuspendLayout();
             // 
             // btnMirror
             // 
             this.btnMirror.BackColor = System.Drawing.SystemColors.Control;
-            this.btnMirror.Location = new System.Drawing.Point(18, 16);
+            this.btnMirror.Location = new System.Drawing.Point(914, 13);
             this.btnMirror.Name = "btnMirror";
             this.btnMirror.Size = new System.Drawing.Size(63, 23);
             this.btnMirror.TabIndex = 1;
@@ -178,20 +179,6 @@
             this.btnFlipRight.UseVisualStyleBackColor = true;
             this.btnFlipRight.Click += new System.EventHandler(this.btnFlipRight_Click);
             // 
-            // btnNewPict
-            // 
-            this.btnNewPict.BackColor = System.Drawing.SystemColors.Control;
-            this.btnNewPict.Location = new System.Drawing.Point(97, 16);
-            this.btnNewPict.Name = "btnNewPict";
-            this.btnNewPict.Size = new System.Drawing.Size(63, 23);
-            this.btnNewPict.TabIndex = 12;
-            this.btnNewPict.Tag = "2";
-            this.btnNewPict.Text = "New Pict";
-            this.btnNewPict.UseVisualStyleBackColor = false;
-            this.btnNewPict.Visible = false;
-            this.btnNewPict.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnNewPict_MouseDown);
-            this.btnNewPict.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnNewPict_MouseUp);
-            // 
             // btnProfile
             // 
             this.btnProfile.BackColor = System.Drawing.SystemColors.Control;
@@ -204,11 +191,50 @@
             this.btnProfile.UseVisualStyleBackColor = false;
             this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
             // 
+            // lblProfileSmoothing
+            // 
+            this.lblProfileSmoothing.AutoSize = true;
+            this.lblProfileSmoothing.BackColor = System.Drawing.Color.Transparent;
+            this.lblProfileSmoothing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblProfileSmoothing.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblProfileSmoothing.Location = new System.Drawing.Point(47, 5);
+            this.lblProfileSmoothing.Name = "lblProfileSmoothing";
+            this.lblProfileSmoothing.Size = new System.Drawing.Size(84, 17);
+            this.lblProfileSmoothing.TabIndex = 15;
+            this.lblProfileSmoothing.Text = "Smoothing";
+            this.lblProfileSmoothing.Visible = false;
+            // 
+            // trackProfileSmoothing
+            // 
+            this.trackProfileSmoothing.BackColor = System.Drawing.Color.Transparent;
+            this.trackProfileSmoothing.BorderColor = System.Drawing.SystemColors.ActiveBorder;
+            this.trackProfileSmoothing.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trackProfileSmoothing.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
+            this.trackProfileSmoothing.IndentHeight = 6;
+            this.trackProfileSmoothing.Location = new System.Drawing.Point(9, 18);
+            this.trackProfileSmoothing.Maximum = 100;
+            this.trackProfileSmoothing.Minimum = 1;
+            this.trackProfileSmoothing.Name = "trackProfileSmoothing";
+            this.trackProfileSmoothing.Size = new System.Drawing.Size(151, 28);
+            this.trackProfileSmoothing.TabIndex = 16;
+            this.trackProfileSmoothing.TextTickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackProfileSmoothing.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(146)))), ((int)(((byte)(148)))));
+            this.trackProfileSmoothing.TickHeight = 4;
+            this.trackProfileSmoothing.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackProfileSmoothing.TrackerColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(130)))), ((int)(((byte)(198)))));
+            this.trackProfileSmoothing.TrackerSize = new System.Drawing.Size(16, 16);
+            this.trackProfileSmoothing.TrackLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(93)))), ((int)(((byte)(90)))));
+            this.trackProfileSmoothing.TrackLineHeight = 3;
+            this.trackProfileSmoothing.Value = 1;
+            this.trackProfileSmoothing.Visible = false;
+            // 
             // PanelHead
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::RH.HeadShop.Properties.Resources.menuBackground;
+            this.Controls.Add(this.lblProfileSmoothing);
+            this.Controls.Add(this.trackProfileSmoothing);
             this.Controls.Add(this.btnProfile);
             this.Controls.Add(this.btnFlipRight);
             this.Controls.Add(this.btnFlipLeft);
@@ -220,11 +246,11 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnMirror);
-            this.Controls.Add(this.btnNewPict);
             this.Controls.Add(this.btnAutodots);
             this.Name = "PanelHead";
             this.Size = new System.Drawing.Size(994, 49);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -240,8 +266,9 @@
         private System.Windows.Forms.Button btnLasso;
         private System.Windows.Forms.Button btnFlipLeft;
         private System.Windows.Forms.Button btnFlipRight;
-        private System.Windows.Forms.Button btnNewPict;
         public System.Windows.Forms.Button btnAutodots;
         public System.Windows.Forms.Button btnProfile;
+        private System.Windows.Forms.Label lblProfileSmoothing;
+        public TrackBar.TrackBarEx trackProfileSmoothing;
     }
 }

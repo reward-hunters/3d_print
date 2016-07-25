@@ -48,10 +48,10 @@ namespace RH.HeadShop.Controls.Panels
         private void ReInitializeControl(bool isFrontTab)
         {
             btnAutodots.Visible = isFrontTab;
+            lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = !isFrontTab;
+
             //TODO: uncomment if need return  
             //  btnDots.Visible = isFrontTab;
-
-            btnNewPict.Visible = false;
 
         }
 
@@ -467,7 +467,7 @@ namespace RH.HeadShop.Controls.Panels
                 if (!ProgramCore.Project.AutodotsUsed)
                 {
                     //заменть все шейп-точки на новые
-                //    ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAllShapedotsFromAutodots();
+                    //    ProgramCore.MainForm.ctrlRenderControl.headController.UpdateAllShapedotsFromAutodots();
 
                     for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Parts.Count; i++)
                     {
@@ -639,19 +639,6 @@ namespace RH.HeadShop.Controls.Panels
                 DisableFlip();
                 SetPanelLogic();
             }
-        }
-
-        private void btnNewPict_MouseDown(object sender, MouseEventArgs e)
-        {
-            btnNewPict.BackColor = SystemColors.ControlDarkDark;
-            btnNewPict.ForeColor = Color.White;
-        }
-        private void btnNewPict_MouseUp(object sender, MouseEventArgs e)
-        {
-            btnNewPict.BackColor = SystemColors.Control;
-            btnNewPict.ForeColor = Color.Black;
-
-            ProgramCore.MainForm.ctrlRenderControl.headController.LoadNewProfileImage();
         }
 
         public void btnFlipLeft_Click(object sender, EventArgs e)
