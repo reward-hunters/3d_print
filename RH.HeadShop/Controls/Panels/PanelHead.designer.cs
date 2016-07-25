@@ -227,6 +227,8 @@
             this.trackProfileSmoothing.TrackLineHeight = 3;
             this.trackProfileSmoothing.Value = 1;
             this.trackProfileSmoothing.Visible = false;
+            this.trackProfileSmoothing.ValueChanged += new RH.HeadShop.Controls.TrackBar.ValueChangedHandler(this.trackProfileSmoothing_ValueChanged);
+            this.trackProfileSmoothing.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackProfileSmoothing_MouseUp);
             // 
             // PanelHead
             // 

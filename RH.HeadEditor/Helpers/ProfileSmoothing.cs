@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RH.HeadEditor.Helpers
 {
-    class ProfileSmoothing
+    public class ProfileSmoothing
     {
         private RenderMesh renderMesh;
         private Dictionary<Guid, KeyValuePair<MeshUndoInfo, MeshUndoInfo>> smoothingInfo = new Dictionary<Guid, KeyValuePair<MeshUndoInfo, MeshUndoInfo>>();

@@ -112,6 +112,7 @@ namespace RH.HeadShop.Render
         private const float PointRectSize = 6;
         private const float HalfPointRectSize = 3f;
 
+        internal ProfileSmoothing ProfileSmoothing;
         private bool isProfileSmoothing;
 
         #endregion
@@ -697,6 +698,8 @@ namespace RH.HeadShop.Render
                                     th.Start();
                                     while (th.IsAlive)
                                         ProgramCore.Progress("Please wait");
+
+                                    ProfileSmoothing = new ProfileSmoothing(ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh, undoInfo);
                                 }
 
                                 foreach (var p in ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Parts)
