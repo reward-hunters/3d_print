@@ -368,6 +368,7 @@ namespace RH.HeadShop.Controls
             ProgramCore.Project.MouthCenter = fcr.MouthCenter;
             ProgramCore.Project.LeftEyeCenter = fcr.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
+            ProgramCore.Project.FaceColor = fcr.FaceColor;
 
             var aabb = ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
             ProgramCore.MainForm.UpdateProjectControls(true, aabb);

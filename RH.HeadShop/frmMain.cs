@@ -1503,6 +1503,7 @@ namespace RH.HeadShop
             ProgramCore.Project.MouthCenter = faceRecognition.MouthCenter;
             ProgramCore.Project.LeftEyeCenter = faceRecognition.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = faceRecognition.RightEyeCenter;
+            ProgramCore.Project.FaceColor = faceRecognition.FaceColor;
             UpdateProjectControls(true);
 
             ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
