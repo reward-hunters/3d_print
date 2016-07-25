@@ -19,6 +19,7 @@ namespace RH.HeadShop.Helpers
         public Vector2 LeftEyeCenter;
         public Vector2 RightEyeCenter;
         public Vector2 MouthCenter;
+        public Vector4 FaceColor;
 
         private int angleCount = 0;
 
@@ -42,6 +43,44 @@ namespace RH.HeadShop.Helpers
             //normalizes brightness and increases contrast of the image
             gray._EqualizeHist();
 
+            if(needCrop)
+            {
+                var detector = new AdaptiveSkinDetector(1, AdaptiveSkinDetector.MorphingMethod.NONE);
+
+                using (var skin = new Image<Gray, Byte>(image.Width, image.Height))
+                {
+                    var color = new Bgr(0, 0, 0);
+                    var count = 0;
+                    detector.Process(image, skin);
+                    for (int y = 0; y < skin.Height; y++)
+                    {
+                        for (int x = 0; x < skin.Width; x++)
+                        {
+                            byte value = skin.Data[y, x, 0];
+                            if (value != 0)
+                            {
+                                var c = image[y, x];
+                                color.Red += c.Red;
+                                color.Green += c.Green;
+                                color.Blue += c.Blue;
+                                ++count;
+                            }
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        color.Red /= count;
+                        color.Green /= count;
+                        color.Blue /= count;
+                        FaceColor = new Vector4((float)color.Red / 255f, (float)color.Green / 255f, (float)color.Blue / 255f, 1.0f);
+                    }
+                    else
+                    {
+                        FaceColor = new Vector4(0.72f, 0.72f, 0.72f, 1.0f);
+                    }
+                }
+            }
+           
             using (var face = new HaarCascade(faceFileName))
             using (var eye = new HaarCascade(eyeFileName))
             using (var mouth = new HaarCascade(mouthFileName))

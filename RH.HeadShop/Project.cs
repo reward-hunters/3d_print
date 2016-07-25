@@ -122,6 +122,8 @@ namespace RH.HeadShop
             }
         }
 
+        public Vector4 FaceColor { get; set; }
+
         /// <summary> Центр правого глаза, опредееленный распознаванием лица. Относительные координаты </summary>
         private Vector2 rightEyeCenter;
         public Vector2 RightEyeCenter
@@ -365,6 +367,11 @@ namespace RH.HeadShop
                     bw.Write(AgeCoefficient);
                     bw.Write(FatCoefficient);
 
+                    //Сохраняем цвет головы
+                    bw.Write(FaceColor.X);
+                    bw.Write(FaceColor.Y);
+                    bw.Write(FaceColor.Z);
+
                     #region Информация о модели головы
 
                     var rmPath = Path.Combine(ProjectPath, "Model", "MeshParts.rm");
@@ -540,8 +547,11 @@ namespace RH.HeadShop
                 result.AgeCoefficient = br.ReadSingle();
                 result.FatCoefficient = br.ReadSingle();
 
+                //Сохраняем цвет головы
+                result.FaceColor = new Vector4(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(), 1.0f);
+
                 #region Информация о модели головы
-                
+
                 var rmPath = Path.Combine(projectFi.DirectoryName, "Model", "MeshParts.rm");
                 ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Load(rmPath);
                 foreach (var part in ProgramCore.MainForm.ctrlRenderControl.headMeshesController.RenderMesh.Parts)

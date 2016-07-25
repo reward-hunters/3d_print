@@ -411,6 +411,7 @@ namespace RH.HeadShop.Render
                     ProgramCore.Project.MouthCenter = faceRecognition.MouthCenter;
                     ProgramCore.Project.LeftEyeCenter = faceRecognition.LeftEyeCenter;
                     ProgramCore.Project.RightEyeCenter = faceRecognition.RightEyeCenter;
+                    ProgramCore.Project.FaceColor = faceRecognition.FaceColor;
                 }
 
             }
@@ -1686,9 +1687,12 @@ namespace RH.HeadShop.Render
                         mesh.Transform[3, 2] += s[2];
                         mesh.IsChanged = true;
                         mesh.MeshSize = meshSize;
+                        
                     }
                     else mesh.InterpolateMesh(meshSize);
                 }
+                if (meshType == MeshType.Accessory)
+                    mesh.Material.DiffuseColor = ProgramCore.Project.FaceColor;
 
                 mesh.Title = ctrl.Title + "_" + i;
                 PartsLibraryMeshes[ctrl.Title].Add(mesh);
@@ -3059,8 +3063,8 @@ namespace RH.HeadShop.Render
 
         private bool DrawToTexture(ShaderController shader, int oldTextureId, int textureId)
         {
-            GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
-            DrawQuad(1f, 1f, 1f, 1f);
+            //GL.BindTexture(TextureTarget.Texture2D, oldTextureId);
+            DrawQuad(ProgramCore.Project.FaceColor.X, ProgramCore.Project.FaceColor.Y, ProgramCore.Project.FaceColor.Z, 1f);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.Enable(EnableCap.Blend);
 
