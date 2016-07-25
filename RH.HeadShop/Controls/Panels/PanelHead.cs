@@ -48,7 +48,7 @@ namespace RH.HeadShop.Controls.Panels
         private void ReInitializeControl(bool isFrontTab)
         {
             btnAutodots.Visible = isFrontTab;
-            lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = !isFrontTab;
+         
 
             //TODO: uncomment if need return  
             //  btnDots.Visible = isFrontTab;
@@ -251,6 +251,11 @@ namespace RH.HeadShop.Controls.Panels
 
             btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
             btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
+        }
+
+        public void UpdateProfileSmoothing(bool isSmoothing)
+        {
+              lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = isSmoothing;
         }
 
         #endregion

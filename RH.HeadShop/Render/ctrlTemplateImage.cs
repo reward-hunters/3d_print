@@ -112,6 +112,8 @@ namespace RH.HeadShop.Render
         private const float PointRectSize = 6;
         private const float HalfPointRectSize = 3f;
 
+        private bool isProfileSmoothing;
+
         #endregion
 
         public ctrlTemplateImage()
@@ -396,7 +398,7 @@ namespace RH.HeadShop.Render
             List<MirroredHeadPoint> faceDots;
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
-               // case Mode.HeadShapedots:
+                // case Mode.HeadShapedots:
                 case Mode.HeadLine:
                 case Mode.HeadShapeFirstTime:
                 case Mode.HeadShape:
@@ -459,7 +461,7 @@ namespace RH.HeadShop.Render
             List<MirroredHeadPoint> sourcePoints;
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
-         //       case Mode.HeadShapedots:
+                //       case Mode.HeadShapedots:
                 case Mode.HeadLine:
                 case Mode.HeadShapeFirstTime:
                 case Mode.HeadShape:
@@ -625,6 +627,12 @@ namespace RH.HeadShop.Render
                     case Mode.HeadLine:
                         if (ProgramCore.MainForm.HeadProfile)
                         {
+                            if (isProfileSmoothing)
+                            {
+                                isProfileSmoothing = false;
+                                ProgramCore.MainForm.panelFront.UpdateProfileSmoothing(isProfileSmoothing);
+                            }
+                            else
                             if (ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Count == 2)
                             {
                                 if (ProgramCore.MainForm.ctrlRenderControl.headController.AllPoints.Count > 3)
@@ -697,6 +705,8 @@ namespace RH.HeadShop.Render
                                 ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Clear();
                                 //ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.ProfileTop ? MeshPartType.ProfileBottom : MeshPartType.ProfileTop;
                                 ProgramCore.MainForm.ctrlRenderControl.UpdateProfileRectangle();
+                                isProfileSmoothing = true;
+                                ProgramCore.MainForm.panelFront.UpdateProfileSmoothing(isProfileSmoothing);
                             }
                             else
                                 FinishLine();
@@ -755,7 +765,7 @@ namespace RH.HeadShop.Render
 
             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
             {
-          //      case Mode.HeadShapedots:
+                //      case Mode.HeadShapedots:
                 case Mode.HeadAutodots:
                 case Mode.HeadAutodotsFirstTime:
                     DrawAutodotsGroupPoints(e.Graphics);
@@ -787,9 +797,9 @@ namespace RH.HeadShop.Render
                 case Mode.HeadAutodotsLassoActive:
                     DrawLassoOnPictureBox(e.Graphics, true);
                     break;
-                /*case Mode.HeadShapedotsLassoStart:
-                case Mode.HeadShapedotsLassoActive:
-                    DrawLassoOnPictureBox(e.Graphics, false);*/
+                    /*case Mode.HeadShapedotsLassoStart:
+                    case Mode.HeadShapedotsLassoActive:
+                        DrawLassoOnPictureBox(e.Graphics, false);*/
                     break;
                 case Mode.HeadLine:
                     if (ProgramCore.MainForm.HeadFront)
@@ -907,7 +917,7 @@ namespace RH.HeadShop.Render
                     case ScaleMode.Zoom:
                         switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
-                      //      case Mode.HeadShapedots:
+                            //      case Mode.HeadShapedots:
                             case Mode.HeadLine:                 // эти моды только для этих режимов!
                             case Mode.HeadAutodots:
                             case Mode.HeadAutodotsFirstTime:
@@ -927,7 +937,7 @@ namespace RH.HeadShop.Render
                     case ScaleMode.Move:
                         switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                         {
-                        // case Mode.HeadShapedots:
+                            // case Mode.HeadShapedots:
                             case Mode.HeadLine: // эти моды только для этих режимов!
                             case Mode.HeadAutodots:
                             case Mode.HeadAutodotsFirstTime:
@@ -1005,51 +1015,51 @@ namespace RH.HeadShop.Render
                                     }
                                 }
                                 break;
-                         /*   case Mode.HeadShapedots:
-                                {
-                                    if (ProgramCore.Project.ShapeFlip != FlipType.None)
-                                        return;
+                            /*   case Mode.HeadShapedots:
+                                   {
+                                       if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                           return;
 
-                                    if (dblClick)
-                                    {
-                                        RectTransformMode = false;
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                                    }
+                                       if (dblClick)
+                                       {
+                                           RectTransformMode = false;
+                                           ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                                       }
 
-                                    #region Rectangle transforM ?
+                                       #region Rectangle transforM ?
 
-                                    moveRectIndex = -1;
-                                    if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
-                                        moveRectIndex = 1;
-                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
-                                             && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
-                                        moveRectIndex = 2;
-                                    else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
-                                             && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
-                                        moveRectIndex = 3;
-                                    else if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize
-                                             && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
-                                        moveRectIndex = 4;
+                                       moveRectIndex = -1;
+                                       if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
+                                           moveRectIndex = 1;
+                                       else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
+                                                && e.Y >= FaceRectTransformed.Y - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + HalfPointRectSize)
+                                           moveRectIndex = 2;
+                                       else if (e.X >= FaceRectTransformed.X + FaceRectTransformed.Width - HalfPointRectSize && e.X <= FaceRectTransformed.X + FaceRectTransformed.Width + HalfPointRectSize
+                                                && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
+                                           moveRectIndex = 3;
+                                       else if (e.X >= FaceRectTransformed.X - HalfPointRectSize && e.X <= FaceRectTransformed.X + HalfPointRectSize && e.Y >= FaceRectTransformed.Y + FaceRectTransformed.Height - HalfPointRectSize
+                                                && e.Y <= FaceRectTransformed.Y + FaceRectTransformed.Height + HalfPointRectSize)
+                                           moveRectIndex = 4;
 
-                                    #endregion
+                                       #endregion
 
-                                    if (moveRectIndex == -1) // если таскаем не прямоугольник, а точки
-                                    {
-                                        foreach (var item in ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints)
-                                            headTempPoints.Add(item.Clone() as MirroredHeadPoint);
-                                    }
-                                    else
-                                    {
-                                        var temp = FaceRectTransformed.X + FaceRectTransformed.Width * 0.5f;
-                                        tempMoveRectCenter.X = (temp - ImageTemplateOffsetX) / (ImageTemplateWidth * 1f);
-                                        temp = FaceRectTransformed.Y + FaceRectTransformed.Height * 0.5f;
-                                        tempMoveRectCenter.Y = (temp - ImageTemplateOffsetY) / (ImageTemplateHeight * 1f);
+                                       if (moveRectIndex == -1) // если таскаем не прямоугольник, а точки
+                                       {
+                                           foreach (var item in ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints)
+                                               headTempPoints.Add(item.Clone() as MirroredHeadPoint);
+                                       }
+                                       else
+                                       {
+                                           var temp = FaceRectTransformed.X + FaceRectTransformed.Width * 0.5f;
+                                           tempMoveRectCenter.X = (temp - ImageTemplateOffsetX) / (ImageTemplateWidth * 1f);
+                                           temp = FaceRectTransformed.Y + FaceRectTransformed.Height * 0.5f;
+                                           tempMoveRectCenter.Y = (temp - ImageTemplateOffsetY) / (ImageTemplateHeight * 1f);
 
-                                        tempMoveRectWidth = (FaceRectTransformed.Width) / (ImageTemplateWidth * 1f);
-                                        tempMoveRectHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
-                                    }
-                                }
-                                break;*/
+                                           tempMoveRectWidth = (FaceRectTransformed.Width) / (ImageTemplateWidth * 1f);
+                                           tempMoveRectHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
+                                       }
+                                   }
+                                   break;*/
                             case Mode.HeadAutodotsLassoStart:
                                 if (dblClick)
                                 {
@@ -1062,18 +1072,18 @@ namespace RH.HeadShop.Render
                                 headAutodotsLassoPoints.Clear();
                                 headAutodotsLassoPoints.Add(new Vector2(e.X, e.Y));
                                 break;
-                       /*     case Mode.HeadShapedotsLassoStart:
-                                if (dblClick)
-                                {
-                                    ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoActive;
-                                    headShapedotsLassoPoints.Add(headShapedotsLassoPoints.First());
-                                }
-                                break;
-                            case Mode.HeadShapedotsLassoActive:
-                                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoStart;
-                                headShapedotsLassoPoints.Clear();
-                                headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
-                                break;*/
+                            /*     case Mode.HeadShapedotsLassoStart:
+                                     if (dblClick)
+                                     {
+                                         ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoActive;
+                                         headShapedotsLassoPoints.Add(headShapedotsLassoPoints.First());
+                                     }
+                                     break;
+                                 case Mode.HeadShapedotsLassoActive:
+                                     ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadShapedotsLassoStart;
+                                     headShapedotsLassoPoints.Clear();
+                                     headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
+                                     break;*/
                             case Mode.HeadLine:
                                 if (ProgramCore.Project.ShapeFlip != FlipType.None)
                                     return;
@@ -1098,6 +1108,9 @@ namespace RH.HeadShop.Render
                                 else
                                 {
                                     #region Вид сбоку
+
+                                    if (isProfileSmoothing)
+                                        return;
 
                                     if (dblClick)
                                         FinishLine();
@@ -1191,7 +1204,7 @@ namespace RH.HeadShop.Render
 
                             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                             {
-                          //      case Mode.HeadShapedots:
+                                //      case Mode.HeadShapedots:
                                 case Mode.HeadLine: // эти моды только для этих режимов!
                                 case Mode.HeadAutodots:
                                 case Mode.HeadAutodotsFirstTime:
@@ -1214,7 +1227,7 @@ namespace RH.HeadShop.Render
                                 break;
                             switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
                             {
-                             //   case Mode.HeadShapedots:
+                                //   case Mode.HeadShapedots:
                                 case Mode.HeadLine: // эти моды только для этих режимов!
                                 case Mode.HeadAutodots:
                                 case Mode.HeadAutodotsFirstTime:
@@ -1339,7 +1352,7 @@ namespace RH.HeadShop.Render
                                             var headPoint = selectedPoints[i];
                                             headPoint.ValueMirrored = headTempPoints[i].ValueMirrored + delta2;
 
-                                                headPoint.UpdateWorldPoint();
+                                            headPoint.UpdateWorldPoint();
                                         }
                                         UpdateUserCenterPositions(true, true);
                                     }
@@ -1379,99 +1392,99 @@ namespace RH.HeadShop.Render
                                     }
                                 }
                                 break;
-                       /*     case Mode.HeadShapedots:
-                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
-                                    return;
+                            /*     case Mode.HeadShapedots:
+                                     if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                         return;
 
-                                if (startMove)
-                                {
-                                    if (firstMove)
-                                        Cursor = ProgramCore.MainForm.GrabbingCursor;
+                                     if (startMove)
+                                     {
+                                         if (firstMove)
+                                             Cursor = ProgramCore.MainForm.GrabbingCursor;
 
-                                    if (firstMove &&
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints
-                                            .Count > 0)
-                                    {
-                                        Dictionary<Guid, MeshUndoInfo> undoInfo;
-                                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.GetUndoInfo(
-                                            out undoInfo);
-                                        ProgramCore.MainForm.ctrlRenderControl.historyController.Add(
-                                            new HistoryHeadShapeDots(undoInfo,
-                                                ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots));
-                                    }
+                                         if (firstMove &&
+                                             ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.SelectedPoints
+                                                 .Count > 0)
+                                         {
+                                             Dictionary<Guid, MeshUndoInfo> undoInfo;
+                                             ProgramCore.MainForm.ctrlRenderControl.headMeshesController.GetUndoInfo(
+                                                 out undoInfo);
+                                             ProgramCore.MainForm.ctrlRenderControl.historyController.Add(
+                                                 new HistoryHeadShapeDots(undoInfo,
+                                                     ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots));
+                                         }
 
-                                    delta2 = newPoint - headLastPointRelative;
-                                    if (moveRectIndex != -1) //таскаем прямоугольничек
-                                    {
-                                        var deltaX = (int)(e.X - headLastPoint.X);
-                                        var deltaY = (int)(e.Y - headLastPoint.Y);
-                                        switch (moveRectIndex)
-                                        {
-                                            case 1:
-                                                FaceRectTransformed.X += deltaX;
-                                                FaceRectTransformed.Width -= deltaX;
-                                                FaceRectTransformed.Y += deltaY;
-                                                FaceRectTransformed.Height -= deltaY;
-                                                break;
-                                            case 2:
-                                                FaceRectTransformed.Width += deltaX;
-                                                FaceRectTransformed.Y += deltaY;
-                                                FaceRectTransformed.Height -= deltaY;
-                                                break;
-                                            case 3:
-                                                FaceRectTransformed.Width += deltaX;
-                                                FaceRectTransformed.Height += deltaY;
-                                                break;
-                                            case 4:
-                                                FaceRectTransformed.Width -= deltaX;
-                                                FaceRectTransformed.X += deltaX;
-                                                FaceRectTransformed.Height += deltaY;
-                                                break;
-                                        }
-                                        headLastPoint = new Vector2(e.X, e.Y);
+                                         delta2 = newPoint - headLastPointRelative;
+                                         if (moveRectIndex != -1) //таскаем прямоугольничек
+                                         {
+                                             var deltaX = (int)(e.X - headLastPoint.X);
+                                             var deltaY = (int)(e.Y - headLastPoint.Y);
+                                             switch (moveRectIndex)
+                                             {
+                                                 case 1:
+                                                     FaceRectTransformed.X += deltaX;
+                                                     FaceRectTransformed.Width -= deltaX;
+                                                     FaceRectTransformed.Y += deltaY;
+                                                     FaceRectTransformed.Height -= deltaY;
+                                                     break;
+                                                 case 2:
+                                                     FaceRectTransformed.Width += deltaX;
+                                                     FaceRectTransformed.Y += deltaY;
+                                                     FaceRectTransformed.Height -= deltaY;
+                                                     break;
+                                                 case 3:
+                                                     FaceRectTransformed.Width += deltaX;
+                                                     FaceRectTransformed.Height += deltaY;
+                                                     break;
+                                                 case 4:
+                                                     FaceRectTransformed.Width -= deltaX;
+                                                     FaceRectTransformed.X += deltaX;
+                                                     FaceRectTransformed.Height += deltaY;
+                                                     break;
+                                             }
+                                             headLastPoint = new Vector2(e.X, e.Y);
 
-                                        Vector2 center;
-                                        var temp = FaceRectTransformed.X + FaceRectTransformed.Width * 0.5f;
-                                        center.X = ((temp - ImageTemplateOffsetX) / (ImageTemplateWidth * 1f));
-                                        temp = FaceRectTransformed.Y + FaceRectTransformed.Height * 0.5f;
-                                        center.Y = (temp - ImageTemplateOffsetY) / (ImageTemplateHeight * 1f);
+                                             Vector2 center;
+                                             var temp = FaceRectTransformed.X + FaceRectTransformed.Width * 0.5f;
+                                             center.X = ((temp - ImageTemplateOffsetX) / (ImageTemplateWidth * 1f));
+                                             temp = FaceRectTransformed.Y + FaceRectTransformed.Height * 0.5f;
+                                             center.Y = (temp - ImageTemplateOffsetY) / (ImageTemplateHeight * 1f);
 
-                                        var newWidth = (FaceRectTransformed.Width) / (ImageTemplateWidth * 1f);
-                                        var newHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
-                                        var kx = newWidth / tempMoveRectWidth;
-                                        var ky = newHeight / tempMoveRectHeight;
-                                        foreach (
-                                            var point in
-                                                ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots
-                                                    .SelectedPoints)
-                                        {
-                                            var p = point.ValueMirrored - tempMoveRectCenter;
-                                            p.X *= kx;
-                                            p.Y *= ky;
-                                            point.ValueMirrored = p + center;
-                                            point.UpdateWorldPoint();
-                                        }
-                                        tempMoveRectCenter = center;
-                                        tempMoveRectWidth = newWidth;
-                                        tempMoveRectHeight = newHeight;
-                                        UpdateUserCenterPositions(false, true);
-                                    }
-                                    else // таскаем точки
-                                    {
-                                        var selectedPoints =
-                                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots
-                                                .SelectedPoints;
-                                        for (var i = 0; i < selectedPoints.Count; i++)
-                                        {
-                                            var headPoint = selectedPoints[i];
-                                            headPoint.ValueMirrored = headTempPoints[i].ValueMirrored + delta2;
-                                            headPoint.UpdateWorldPoint();
-                                        }
-                                        UpdateUserCenterPositions(true, true);
-                                    }
-                                }
-                                else Cursor = ProgramCore.MainForm.GrabCursor;
-                                break;*/
+                                             var newWidth = (FaceRectTransformed.Width) / (ImageTemplateWidth * 1f);
+                                             var newHeight = (FaceRectTransformed.Height) / (ImageTemplateHeight * 1f);
+                                             var kx = newWidth / tempMoveRectWidth;
+                                             var ky = newHeight / tempMoveRectHeight;
+                                             foreach (
+                                                 var point in
+                                                     ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots
+                                                         .SelectedPoints)
+                                             {
+                                                 var p = point.ValueMirrored - tempMoveRectCenter;
+                                                 p.X *= kx;
+                                                 p.Y *= ky;
+                                                 point.ValueMirrored = p + center;
+                                                 point.UpdateWorldPoint();
+                                             }
+                                             tempMoveRectCenter = center;
+                                             tempMoveRectWidth = newWidth;
+                                             tempMoveRectHeight = newHeight;
+                                             UpdateUserCenterPositions(false, true);
+                                         }
+                                         else // таскаем точки
+                                         {
+                                             var selectedPoints =
+                                                 ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots
+                                                     .SelectedPoints;
+                                             for (var i = 0; i < selectedPoints.Count; i++)
+                                             {
+                                                 var headPoint = selectedPoints[i];
+                                                 headPoint.ValueMirrored = headTempPoints[i].ValueMirrored + delta2;
+                                                 headPoint.UpdateWorldPoint();
+                                             }
+                                             UpdateUserCenterPositions(true, true);
+                                         }
+                                     }
+                                     else Cursor = ProgramCore.MainForm.GrabCursor;
+                                     break;*/
                             case Mode.None:
                                 {
                                     switch (ControlPointsMode)
@@ -1524,41 +1537,41 @@ namespace RH.HeadShop.Render
                                     else
                                         Cursor = Cursors.Arrow;
                                     break;
-                        /*        case Mode.HeadShapedots:
-                                    if (ProgramCore.Project.ShapeFlip != FlipType.None)
-                                        return;
-                                    if ((e.X >= MouthTransformed.X - HalfPointRectSize &&
-                                         e.X <= MouthTransformed.X + HalfPointRectSize &&
-                                         e.Y >= MouthTransformed.Y - HalfPointRectSize &&
-                                         e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
-                                        ||
-                                        (e.X >= LeftEyeTransformed.X - HalfPointRectSize &&
-                                         e.X <= LeftEyeTransformed.X + HalfPointRectSize &&
-                                         e.Y >= LeftEyeTransformed.Y - HalfPointRectSize &&
-                                         e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
-                                        ||
-                                        (e.X >= RightEyeTransformed.X - HalfPointRectSize &&
-                                         e.X <= RightEyeTransformed.X + HalfPointRectSize &&
-                                         e.Y >= RightEyeTransformed.Y - HalfPointRectSize &&
-                                         e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
-                                        ||
-                                        (e.X >= NoseTransformed.X - HalfPointRectSize &&
-                                         e.X <= NoseTransformed.X + HalfPointRectSize &&
-                                         e.Y >= NoseTransformed.Y - HalfPointRectSize &&
-                                         e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
-                                        ||
-                                        (e.X >= CentralFacePoint.X - HalfPointRectSize &&
-                                         e.X <= CentralFacePoint.X + HalfPointRectSize &&
-                                         e.Y >= CentralFacePoint.Y - HalfPointRectSize &&
-                                         e.Y <= CentralFacePoint.Y + HalfPointRectSize)
-                                        // прямоугольник и выделение всех точек
-                                        ||
-                                        ProgramCore.MainForm.ctrlRenderControl.headController
-                                            .UpdateShapedotsPointSelection(e.X, e.Y, false))
-                                        Cursor = ProgramCore.MainForm.GrabCursor;
-                                    else
-                                        Cursor = Cursors.Arrow;
-                                    break;*/
+                                    /*        case Mode.HeadShapedots:
+                                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                                    return;
+                                                if ((e.X >= MouthTransformed.X - HalfPointRectSize &&
+                                                     e.X <= MouthTransformed.X + HalfPointRectSize &&
+                                                     e.Y >= MouthTransformed.Y - HalfPointRectSize &&
+                                                     e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
+                                                    ||
+                                                    (e.X >= LeftEyeTransformed.X - HalfPointRectSize &&
+                                                     e.X <= LeftEyeTransformed.X + HalfPointRectSize &&
+                                                     e.Y >= LeftEyeTransformed.Y - HalfPointRectSize &&
+                                                     e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
+                                                    ||
+                                                    (e.X >= RightEyeTransformed.X - HalfPointRectSize &&
+                                                     e.X <= RightEyeTransformed.X + HalfPointRectSize &&
+                                                     e.Y >= RightEyeTransformed.Y - HalfPointRectSize &&
+                                                     e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
+                                                    ||
+                                                    (e.X >= NoseTransformed.X - HalfPointRectSize &&
+                                                     e.X <= NoseTransformed.X + HalfPointRectSize &&
+                                                     e.Y >= NoseTransformed.Y - HalfPointRectSize &&
+                                                     e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
+                                                    ||
+                                                    (e.X >= CentralFacePoint.X - HalfPointRectSize &&
+                                                     e.X <= CentralFacePoint.X + HalfPointRectSize &&
+                                                     e.Y >= CentralFacePoint.Y - HalfPointRectSize &&
+                                                     e.Y <= CentralFacePoint.Y + HalfPointRectSize)
+                                                    // прямоугольник и выделение всех точек
+                                                    ||
+                                                    ProgramCore.MainForm.ctrlRenderControl.headController
+                                                        .UpdateShapedotsPointSelection(e.X, e.Y, false))
+                                                    Cursor = ProgramCore.MainForm.GrabCursor;
+                                                else
+                                                    Cursor = Cursors.Arrow;
+                                                break;*/
                             }
                             break;
 
@@ -1642,58 +1655,58 @@ namespace RH.HeadShop.Render
                                     }
                                 }
                                 break;
-                      /*      case Mode.HeadShapedots:
-                                if (ProgramCore.Project.ShapeFlip != FlipType.None)
-                                    return;
+                            /*      case Mode.HeadShapedots:
+                                      if (ProgramCore.Project.ShapeFlip != FlipType.None)
+                                          return;
 
-                                if (!startMove && !dblClick)
-                                {
-                                    if (!shiftKeyPressed)
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                                      if (!startMove && !dblClick)
+                                      {
+                                          if (!shiftKeyPressed)
+                                              ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
 
-                                    if (e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsMouth();
-                                    else if (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsLeftEye();
-                                    else if (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsRightEye();
-                                    else if (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsNose();
-                                    else if (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
-                                    {
-                                        if (RectTransformMode)
-                                        {
-                                            RectTransformMode = false;
-                                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                                        }
-                                        else
-                                        {
-                                            RectTransformMode = true;
-                                            UpdateUserCenterPositions(true, true);
+                                          if (e.X >= MouthTransformed.X - HalfPointRectSize && e.X <= MouthTransformed.X + HalfPointRectSize && e.Y >= MouthTransformed.Y - HalfPointRectSize && e.Y <= MouthTransformed.Y + HalfPointRectSize) // рот
+                                              ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsMouth();
+                                          else if (e.X >= LeftEyeTransformed.X - HalfPointRectSize && e.X <= LeftEyeTransformed.X + HalfPointRectSize && e.Y >= LeftEyeTransformed.Y - HalfPointRectSize && e.Y <= LeftEyeTransformed.Y + HalfPointRectSize) // левый глаз
+                                              ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsLeftEye();
+                                          else if (e.X >= RightEyeTransformed.X - HalfPointRectSize && e.X <= RightEyeTransformed.X + HalfPointRectSize && e.Y >= RightEyeTransformed.Y - HalfPointRectSize && e.Y <= RightEyeTransformed.Y + HalfPointRectSize) // правый глаз
+                                              ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsRightEye();
+                                          else if (e.X >= NoseTransformed.X - HalfPointRectSize && e.X <= NoseTransformed.X + HalfPointRectSize && e.Y >= NoseTransformed.Y - HalfPointRectSize && e.Y <= NoseTransformed.Y + HalfPointRectSize) // нос
+                                              ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsNose();
+                                          else if (e.X >= CentralFacePoint.X - HalfPointRectSize && e.X <= CentralFacePoint.X + HalfPointRectSize && e.Y >= CentralFacePoint.Y - HalfPointRectSize && e.Y <= CentralFacePoint.Y + HalfPointRectSize) // прямоугольник и выделение всех точек
+                                          {
+                                              if (RectTransformMode)
+                                              {
+                                                  RectTransformMode = false;
+                                                  ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                                              }
+                                              else
+                                              {
+                                                  RectTransformMode = true;
+                                                  UpdateUserCenterPositions(true, true);
 
-                                            ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsFaceEllipse();
-                                        }
-                                    }
-                                    else
-                                        ProgramCore.MainForm.ctrlRenderControl.headController.UpdateShapedotsPointSelection(e.X, e.Y, true);
-                                }
-                                else
-                                {
-                                    for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.Count; i++)
-                                    {
-                                        var p = ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots[i];
+                                                  ProgramCore.MainForm.ctrlRenderControl.headController.SelectShapedotsFaceEllipse();
+                                              }
+                                          }
+                                          else
+                                              ProgramCore.MainForm.ctrlRenderControl.headController.UpdateShapedotsPointSelection(e.X, e.Y, true);
+                                      }
+                                      else
+                                      {
+                                          for (var i = 0; i < ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.Count; i++)
+                                          {
+                                              var p = ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots[i];
 
-                                        if (p.Selected)
-                                            ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
-                                    }
-                                }
-                                break;*/
+                                              if (p.Selected)
+                                                  ProgramCore.MainForm.ctrlRenderControl.autodotsShapeHelper.Transform(p.Value, i); // точка в мировых координатах
+                                          }
+                                      }
+                                      break;*/
                             case Mode.HeadAutodotsLassoStart:
                                 headAutodotsLassoPoints.Add(new Vector2(e.X, e.Y));
                                 break;
-                        /*    case Mode.HeadShapedotsLassoStart:
-                                headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
-                                break;*/
+                            /*    case Mode.HeadShapedotsLassoStart:
+                                    headShapedotsLassoPoints.Add(new Vector2(e.X, e.Y));
+                                    break;*/
                             case Mode.HeadLine:
                                 {
                                     if (ProgramCore.Project.ShapeFlip != FlipType.None)
@@ -1870,6 +1883,9 @@ namespace RH.HeadShop.Render
                                     else
                                     {
                                         #region Вид сбоку
+
+                                        if (isProfileSmoothing)
+                                            return;
 
                                         if (!startMove && !dblClick)
                                         {
