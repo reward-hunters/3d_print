@@ -57,6 +57,7 @@
     <Compile Include="HeadMeshesController.cs" />
     <Compile Include="Helpers\BrushTool.cs" />
     <Compile Include="Helpers\MeshUtils.cs" />
+    <Compile Include="Helpers\ProfileSmoothing.cs" />
     <Compile Include="Helpers\SmoothFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\RenderHelper.cs" />
