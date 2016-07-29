@@ -48,7 +48,7 @@ namespace RH.HeadShop.Controls.Panels
         private void ReInitializeControl(bool isFrontTab)
         {
             btnAutodots.Visible = isFrontTab;
-         
+
 
             //TODO: uncomment if need return  
             //  btnDots.Visible = isFrontTab;
@@ -255,7 +255,7 @@ namespace RH.HeadShop.Controls.Panels
 
         public void UpdateProfileSmoothing(bool isSmoothing)
         {
-              lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = isSmoothing;
+            lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = isSmoothing;
         }
 
         #endregion
@@ -841,6 +841,8 @@ namespace RH.HeadShop.Controls.Panels
 
                 ProgramCore.MainForm.ctrlTemplateImage.btnCopyProfileImg.Visible = false;
                 ProgramCore.MainForm.ctrlTemplateImage.btnNewProfilePict.Visible = false;
+                lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = false;
+                ProgramCore.MainForm.ctrlTemplateImage.isProfileSmoothing = false;
                 ProgramCore.MainForm.ctrlRenderControl.OrtoTop();            // поворачиваем морду как надо
                 ProgramCore.MainForm.EnableRotating();
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица

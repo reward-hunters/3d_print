@@ -47,7 +47,7 @@
             // btnMirror
             // 
             this.btnMirror.BackColor = System.Drawing.SystemColors.Control;
-            this.btnMirror.Location = new System.Drawing.Point(914, 13);
+            this.btnMirror.Location = new System.Drawing.Point(832, 11);
             this.btnMirror.Name = "btnMirror";
             this.btnMirror.Size = new System.Drawing.Size(63, 23);
             this.btnMirror.TabIndex = 1;
@@ -60,7 +60,7 @@
             // btnAutodots
             // 
             this.btnAutodots.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAutodots.Location = new System.Drawing.Point(97, 16);
+            this.btnAutodots.Location = new System.Drawing.Point(15, 14);
             this.btnAutodots.Name = "btnAutodots";
             this.btnAutodots.Size = new System.Drawing.Size(63, 23);
             this.btnAutodots.TabIndex = 2;
@@ -72,7 +72,7 @@
             // btnUndo
             // 
             this.btnUndo.BackColor = System.Drawing.SystemColors.Control;
-            this.btnUndo.Location = new System.Drawing.Point(358, 16);
+            this.btnUndo.Location = new System.Drawing.Point(276, 14);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(63, 23);
             this.btnUndo.TabIndex = 5;
@@ -85,7 +85,7 @@
             // btnDelete
             // 
             this.btnDelete.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDelete.Location = new System.Drawing.Point(278, 16);
+            this.btnDelete.Location = new System.Drawing.Point(196, 14);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(63, 23);
             this.btnDelete.TabIndex = 4;
@@ -98,7 +98,7 @@
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSave.Location = new System.Drawing.Point(198, 16);
+            this.btnSave.Location = new System.Drawing.Point(116, 14);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(63, 23);
             this.btnSave.TabIndex = 3;
@@ -112,7 +112,7 @@
             // 
             this.btnDots.Enabled = false;
             this.btnDots.Image = global::RH.HeadShop.Properties.Resources.btnDotsNormal;
-            this.btnDots.Location = new System.Drawing.Point(662, 9);
+            this.btnDots.Location = new System.Drawing.Point(580, 7);
             this.btnDots.Name = "btnDots";
             this.btnDots.Size = new System.Drawing.Size(30, 30);
             this.btnDots.TabIndex = 6;
@@ -125,7 +125,7 @@
             // 
             this.btnPolyLine.Enabled = false;
             this.btnPolyLine.Image = global::RH.HeadShop.Properties.Resources.btnPolyLineNormal;
-            this.btnPolyLine.Location = new System.Drawing.Point(701, 9);
+            this.btnPolyLine.Location = new System.Drawing.Point(619, 7);
             this.btnPolyLine.Name = "btnPolyLine";
             this.btnPolyLine.Size = new System.Drawing.Size(30, 30);
             this.btnPolyLine.TabIndex = 7;
@@ -137,7 +137,7 @@
             // 
             this.btnShapeTool.Enabled = false;
             this.btnShapeTool.Image = global::RH.HeadShop.Properties.Resources.btnHandNormal1;
-            this.btnShapeTool.Location = new System.Drawing.Point(742, 9);
+            this.btnShapeTool.Location = new System.Drawing.Point(660, 7);
             this.btnShapeTool.Name = "btnShapeTool";
             this.btnShapeTool.Size = new System.Drawing.Size(30, 30);
             this.btnShapeTool.TabIndex = 8;
@@ -148,7 +148,7 @@
             // btnLasso
             // 
             this.btnLasso.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLasso.Location = new System.Drawing.Point(567, 16);
+            this.btnLasso.Location = new System.Drawing.Point(485, 14);
             this.btnLasso.Name = "btnLasso";
             this.btnLasso.Size = new System.Drawing.Size(63, 23);
             this.btnLasso.TabIndex = 9;
@@ -160,7 +160,7 @@
             // btnFlipLeft
             // 
             this.btnFlipLeft.Image = global::RH.HeadShop.Properties.Resources.btnToRightNormal;
-            this.btnFlipLeft.Location = new System.Drawing.Point(805, 9);
+            this.btnFlipLeft.Location = new System.Drawing.Point(723, 7);
             this.btnFlipLeft.Name = "btnFlipLeft";
             this.btnFlipLeft.Size = new System.Drawing.Size(30, 30);
             this.btnFlipLeft.TabIndex = 10;
@@ -171,7 +171,7 @@
             // btnFlipRight
             // 
             this.btnFlipRight.Image = global::RH.HeadShop.Properties.Resources.btnToLeftNormal;
-            this.btnFlipRight.Location = new System.Drawing.Point(845, 9);
+            this.btnFlipRight.Location = new System.Drawing.Point(763, 7);
             this.btnFlipRight.Name = "btnFlipRight";
             this.btnFlipRight.Size = new System.Drawing.Size(30, 30);
             this.btnFlipRight.TabIndex = 11;
@@ -182,7 +182,7 @@
             // btnProfile
             // 
             this.btnProfile.BackColor = System.Drawing.SystemColors.Control;
-            this.btnProfile.Location = new System.Drawing.Point(438, 16);
+            this.btnProfile.Location = new System.Drawing.Point(356, 14);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(63, 23);
             this.btnProfile.TabIndex = 13;
@@ -197,7 +197,7 @@
             this.lblProfileSmoothing.BackColor = System.Drawing.Color.Transparent;
             this.lblProfileSmoothing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblProfileSmoothing.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblProfileSmoothing.Location = new System.Drawing.Point(47, 5);
+            this.lblProfileSmoothing.Location = new System.Drawing.Point(746, 5);
             this.lblProfileSmoothing.Name = "lblProfileSmoothing";
             this.lblProfileSmoothing.Size = new System.Drawing.Size(84, 17);
             this.lblProfileSmoothing.TabIndex = 15;
@@ -211,7 +211,7 @@
             this.trackProfileSmoothing.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.trackProfileSmoothing.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
             this.trackProfileSmoothing.IndentHeight = 6;
-            this.trackProfileSmoothing.Location = new System.Drawing.Point(9, 18);
+            this.trackProfileSmoothing.Location = new System.Drawing.Point(708, 18);
             this.trackProfileSmoothing.Maximum = 100;
             this.trackProfileSmoothing.Minimum = 1;
             this.trackProfileSmoothing.Name = "trackProfileSmoothing";
@@ -250,7 +250,7 @@
             this.Controls.Add(this.btnMirror);
             this.Controls.Add(this.btnAutodots);
             this.Name = "PanelHead";
-            this.Size = new System.Drawing.Size(994, 49);
+            this.Size = new System.Drawing.Size(1093, 49);
             this.ResumeLayout(false);
             this.PerformLayout();
 

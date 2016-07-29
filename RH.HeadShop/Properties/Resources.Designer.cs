@@ -953,6 +953,16 @@ namespace RH.HeadShop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap newProfile {
+            get {
+                object obj = ResourceManager.GetObject("newProfile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap newProfilePictNormal {
             get {
                 object obj = ResourceManager.GetObject("newProfilePictNormal", resourceCulture);

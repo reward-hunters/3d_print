@@ -642,6 +642,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\newProfile.png" />
     <None Include="Resources\lol.jpg" />
     <None Include="Resources\grabbing.cur" />
     <None Include="Resources\grab.cur" />

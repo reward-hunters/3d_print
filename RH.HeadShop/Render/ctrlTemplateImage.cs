@@ -113,7 +113,7 @@ namespace RH.HeadShop.Render
         private const float HalfPointRectSize = 3f;
 
         internal ProfileSmoothing ProfileSmoothing;
-        private bool isProfileSmoothing;
+        internal bool isProfileSmoothing;
 
         #endregion
 
