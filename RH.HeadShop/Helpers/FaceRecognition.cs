@@ -43,7 +43,7 @@ namespace RH.HeadShop.Helpers
             //normalizes brightness and increases contrast of the image
             gray._EqualizeHist();
 
-            if(needCrop)
+            if (needCrop)
             {
                 var detector = new AdaptiveSkinDetector(1, AdaptiveSkinDetector.MorphingMethod.NONE);
 
@@ -80,7 +80,7 @@ namespace RH.HeadShop.Helpers
                     }
                 }
             }
-           
+
             using (var face = new HaarCascade(faceFileName))
             using (var eye = new HaarCascade(eyeFileName))
             using (var mouth = new HaarCascade(mouthFileName))
@@ -330,12 +330,18 @@ namespace RH.HeadShop.Helpers
     {
         public PointF TopCheek;
         public PointF TopCheekTransformed;
+        public bool TopVisible = true;
+        public bool TopTouched;
 
         public PointF CenterCheek;
         public PointF CenterCheekTransformed;
+        public bool CenterVisible = true;
+        public bool CenterTouched;
 
         public PointF DownCheek;
         public PointF DownCheekTransformed;
+        public bool DownVisible = true;
+        public bool DownTouched;
 
         private const int HalfCircleRadius = 15;
         private const int CircleSmallRadius = 8;
@@ -357,18 +363,56 @@ namespace RH.HeadShop.Helpers
             DownCheekTransformed = new PointF(DownCheek.X * imageWidth + offsetX, DownCheek.Y * imageHeight + offsetY);
         }
 
-        public int CheckGrab(float x, float y)
+        public int CheckGrab(float x, float y, bool mousePressed)
         {
-            if (x >= TopCheekTransformed.X - HalfCircleSmallRadius && x <= TopCheekTransformed.X + HalfCircleSmallRadius && y >= TopCheekTransformed.Y - HalfCircleSmallRadius && y <= TopCheekTransformed.Y + HalfCircleSmallRadius)
+            if (x >= TopCheekTransformed.X - HalfCircleSmallRadius && x <= TopCheekTransformed.X + HalfCircleSmallRadius &&
+                y >= TopCheekTransformed.Y - HalfCircleSmallRadius && y <= TopCheekTransformed.Y + HalfCircleSmallRadius)
+            {
+                if (mousePressed)
+                {
+                    TopVisible = true;
+                    TopTouched = true;
+                }
                 return 0;
+            }
 
-            if (x >= CenterCheekTransformed.X - HalfCircleSmallRadius && x <= CenterCheekTransformed.X + HalfCircleSmallRadius && y >= CenterCheekTransformed.Y - HalfCircleSmallRadius && y <= CenterCheekTransformed.Y + HalfCircleSmallRadius)
+            if (x >= CenterCheekTransformed.X - HalfCircleSmallRadius &&
+                x <= CenterCheekTransformed.X + HalfCircleSmallRadius &&
+                y >= CenterCheekTransformed.Y - HalfCircleSmallRadius &&
+                y <= CenterCheekTransformed.Y + HalfCircleSmallRadius)
+            {
+                if (mousePressed)
+                {
+                    CenterVisible = true;
+                    CenterTouched = true;
+                }
                 return 1;
+            }
 
-            if (x >= DownCheekTransformed.X - HalfCircleSmallRadius && x <= DownCheekTransformed.X + HalfCircleSmallRadius && y >= DownCheekTransformed.Y - HalfCircleSmallRadius && y <= DownCheekTransformed.Y + HalfCircleSmallRadius)
+            if (x >= DownCheekTransformed.X - HalfCircleSmallRadius &&
+                x <= DownCheekTransformed.X + HalfCircleSmallRadius &&
+                y >= DownCheekTransformed.Y - HalfCircleSmallRadius &&
+                y <= DownCheekTransformed.Y + HalfCircleSmallRadius)
+            {
+                if (mousePressed)
+                {
+                    DownVisible = true;
+                    DownTouched = true;
+                }
                 return 2;
+            }
 
             return -1;
+        }
+
+        public void UpdateVisibility()
+        {
+            if (!TopTouched)
+                TopVisible = !TopVisible;
+            if (!CenterTouched)
+                CenterVisible = !CenterVisible;
+            if (!DownTouched)
+                DownVisible = !DownVisible;
         }
 
         public float GetMaxX()
@@ -391,25 +435,55 @@ namespace RH.HeadShop.Helpers
         Pen arrowsPen = new Pen(Color.DarkOliveGreen, 2);
         public void DrawLeft(Graphics g)
         {
-            g.FillRectangle(Brushes.DarkOliveGreen, TopCheekTransformed.X - HalfCircleSmallRadius, TopCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            g.DrawLine(arrowsPen, TopCheekTransformed.X, TopCheekTransformed.Y, TopCheekTransformed.X + HalfCircleRadius, TopCheekTransformed.Y + HalfCircleRadius);
+            if (TopVisible)
+            {
+                g.FillRectangle(Brushes.DarkOliveGreen, TopCheekTransformed.X - HalfCircleSmallRadius,
+                    TopCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+                g.DrawLine(arrowsPen, TopCheekTransformed.X, TopCheekTransformed.Y,
+                    TopCheekTransformed.X + HalfCircleRadius, TopCheekTransformed.Y + HalfCircleRadius);
+            }
 
-            g.FillRectangle(Brushes.DarkOliveGreen, CenterCheekTransformed.X - HalfCircleSmallRadius, CenterCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            g.DrawLine(arrowsPen, CenterCheekTransformed.X, CenterCheekTransformed.Y, CenterCheekTransformed.X + HalfCircleRadius, CenterCheekTransformed.Y);
+            if (CenterVisible)
+            {
+                g.FillRectangle(Brushes.DarkOliveGreen, CenterCheekTransformed.X - HalfCircleSmallRadius,
+                    CenterCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+                g.DrawLine(arrowsPen, CenterCheekTransformed.X, CenterCheekTransformed.Y,
+                    CenterCheekTransformed.X + HalfCircleRadius, CenterCheekTransformed.Y);
+            }
 
-            g.FillRectangle(Brushes.DarkOliveGreen, DownCheekTransformed.X - HalfCircleSmallRadius, DownCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            g.DrawLine(arrowsPen, DownCheekTransformed.X, DownCheekTransformed.Y, DownCheekTransformed.X + HalfCircleRadius, DownCheekTransformed.Y - HalfCircleRadius);
+            if (DownVisible)
+            {
+                g.FillRectangle(Brushes.DarkOliveGreen, DownCheekTransformed.X - HalfCircleSmallRadius,
+                    DownCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+                g.DrawLine(arrowsPen, DownCheekTransformed.X, DownCheekTransformed.Y,
+                    DownCheekTransformed.X + HalfCircleRadius, DownCheekTransformed.Y - HalfCircleRadius);
+            }
         }
         public void DrawRight(Graphics g)
         {
-            g.FillRectangle(Brushes.DarkOliveGreen, TopCheekTransformed.X - HalfCircleSmallRadius, TopCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            g.DrawLine(arrowsPen, TopCheekTransformed.X, TopCheekTransformed.Y, TopCheekTransformed.X - HalfCircleRadius, TopCheekTransformed.Y + HalfCircleRadius);
+            if (TopVisible)
+            {
+                g.FillRectangle(Brushes.DarkOliveGreen, TopCheekTransformed.X - HalfCircleSmallRadius,
+                    TopCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+                g.DrawLine(arrowsPen, TopCheekTransformed.X, TopCheekTransformed.Y,
+                    TopCheekTransformed.X - HalfCircleRadius, TopCheekTransformed.Y + HalfCircleRadius);
+            }
 
-            g.FillRectangle(Brushes.DarkOliveGreen, CenterCheekTransformed.X - HalfCircleSmallRadius, CenterCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            g.DrawLine(arrowsPen, CenterCheekTransformed.X, CenterCheekTransformed.Y, CenterCheekTransformed.X - HalfCircleRadius, CenterCheekTransformed.Y);
+            if (CenterVisible)
+            {
+                g.FillRectangle(Brushes.DarkOliveGreen, CenterCheekTransformed.X - HalfCircleSmallRadius,
+                    CenterCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+                g.DrawLine(arrowsPen, CenterCheekTransformed.X, CenterCheekTransformed.Y,
+                    CenterCheekTransformed.X - HalfCircleRadius, CenterCheekTransformed.Y);
+            }
 
-            g.FillRectangle(Brushes.DarkOliveGreen, DownCheekTransformed.X - HalfCircleSmallRadius, DownCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            g.DrawLine(arrowsPen, DownCheekTransformed.X, DownCheekTransformed.Y, DownCheekTransformed.X - HalfCircleRadius, DownCheekTransformed.Y - HalfCircleRadius);
+            if (DownVisible)
+            {
+                g.FillRectangle(Brushes.DarkOliveGreen, DownCheekTransformed.X - HalfCircleSmallRadius,
+                    DownCheekTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+                g.DrawLine(arrowsPen, DownCheekTransformed.X, DownCheekTransformed.Y,
+                    DownCheekTransformed.X - HalfCircleRadius, DownCheekTransformed.Y - HalfCircleRadius);
+            }
         }
     }
 }

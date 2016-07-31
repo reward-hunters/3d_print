@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render;
@@ -72,7 +73,43 @@ namespace RH.HeadShop.Controls
         private readonly bool atStartup;
 
         private FaceRecognition fcr;
+        private readonly int videoCardSize;
 
+        public int SelectedSize
+        {
+            get { return rb512.Checked ? 512 : (rb1024.Checked ? 1024 : 2048); }
+        }
+        private Pen edgePen;
+        private Pen arrowPen;
+        public RectangleF nextHeadRect = new RectangleF();
+        public RectangleF nextHeadRectF = new RectangleF();
+
+        public int ImageTemplateWidth;
+        public int ImageTemplateHeight;
+        public int ImageTemplateOffsetX;
+        public int ImageTemplateOffsetY;
+
+        public PointF MouthTransformed;
+        public PointF LeftEyeTransformed;
+        public PointF RightEyeTransformed;
+
+        private float eWidth;
+        public RectangleF TopEdgeTransformed;
+        public RectangleF BottomEdgeTransformed;
+        public Cheek LeftCheek;
+        public Cheek RightCheek;
+
+        private const int CircleRadius = 30;
+        private const int HalfCircleRadius = 15;
+        private const int CircleSmallRadius = 8;
+        private const int HalfCircleSmallRadius = 4;
+
+        private bool leftMousePressed;
+        private Point startMousePoint;
+        private RectangleF startEdgeRect;
+        private Vector2 headHandPoint = Vector2.Zero;
+        private Vector2 tempSelectedPoint = Vector2.Zero;
+        private Vector2 tempSelectedPoint2 = Vector2.Zero;
 
         #endregion
 
@@ -90,14 +127,20 @@ namespace RH.HeadShop.Controls
 
             rbNew.Enabled = atStartup;
             ShowInTaskbar = atStartup;
+
+            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShop)
+            {
+                GL.GetInteger(GetPName.MaxTextureSize, out videoCardSize);
+                rb512.Visible = rb1024.Visible = rb2048.Visible = true;
+                rb512.Enabled = rbNew.Checked && videoCardSize >= 512;
+                rb1024.Enabled = rbNew.Checked && videoCardSize >= 1024;
+                rb2048.Enabled = rbNew.Checked && videoCardSize >= 2048;
+            }
+            else
+                rb512.Visible = rb1024.Visible = rb2048.Visible = false;
         }
 
         #region Form's event
-
-        private Pen edgePen;
-        private Pen arrowPen;
-        public RectangleF nextHeadRect = new RectangleF();
-        public RectangleF nextHeadRectF = new RectangleF();
 
         private void btnApply_Click(object sender, EventArgs e)
         {
@@ -175,6 +218,7 @@ namespace RH.HeadShop.Controls
                 RecalcRealTemplateImagePosition();
 
                 RenderTimer.Start();
+                CheekTimer.Start();
 
                 if (ProgramCore.PluginMode)
                 {
@@ -224,8 +268,6 @@ namespace RH.HeadShop.Controls
             }
         }
 
-        #endregion
-
         private void rbNew_CheckedChanged(object sender, EventArgs e)
         {
             groupLoadProject.Enabled = !rbNew.Checked;
@@ -234,6 +276,13 @@ namespace RH.HeadShop.Controls
             if (rbNew.Checked)
             {
                 btnMale_Click(null, EventArgs.Empty);
+
+                if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShop)
+                {
+                    rb512.Enabled = rbNew.Checked && videoCardSize >= 512;
+                    rb1024.Enabled = rbNew.Checked && videoCardSize >= 1024;
+                    rb2048.Enabled = rbNew.Checked && videoCardSize >= 2048;
+                }
             }
             else
             {
@@ -255,38 +304,28 @@ namespace RH.HeadShop.Controls
             }
         }
 
-        private void btnQuestion_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnQuestion_MouseDown(object sender, MouseEventArgs e)
         {
             btnQuestion.Image = Properties.Resources.btnQuestionPressed;
         }
-
         private void btnQuestion_MouseUp(object sender, MouseEventArgs e)
         {
             ProgramCore.MainForm.ShowTutorial();
             btnQuestion.Image = Properties.Resources.btnQuestionNormal;
         }
-
         private void btnPlay_MouseDown(object sender, MouseEventArgs e)
         {
             btnPlay.Image = Properties.Resources.btnPlayPressed;
         }
-
         private void btnPlay_MouseUp(object sender, MouseEventArgs e)
         {
             ProgramCore.MainForm.ShowVideo();
             btnPlay.Image = Properties.Resources.btnPlayNormal;
         }
-
         private void btnInfo_MouseDown(object sender, MouseEventArgs e)
         {
             btnInfo.Image = Properties.Resources.btnInfoPressed;
         }
-
         private void btnInfo_MouseUp(object sender, MouseEventArgs e)
         {
             ProgramCore.MainForm.ShowSiteInfo();
@@ -308,7 +347,6 @@ namespace RH.HeadShop.Controls
 
             }
         }
-
         private void btnFemale_Click(object sender, EventArgs e)
         {
             if (btnFemale.Tag.ToString() == "2")
@@ -322,7 +360,6 @@ namespace RH.HeadShop.Controls
                 //   rbImportObj.Checked = false;
             }
         }
-
         private void btnChild_Click(object sender, EventArgs e)
         {
             if (btnChild.Tag.ToString() == "2")
@@ -337,18 +374,21 @@ namespace RH.HeadShop.Controls
             }
         }
 
+        #endregion
+
+
+
         public void CreateProject()
         {
             #region Корректируем размер фотки
 
-            var selectedSize = 1024;
             using (var ms = new MemoryStream(File.ReadAllBytes(templateImage))) // Don't use using!!
             {
                 var img = (Bitmap)Bitmap.FromStream(ms);
                 var max = (float)Math.Max(img.Width, img.Height);
-                if (max != selectedSize)
+                if (max != SelectedSize)
                 {
-                    var k = selectedSize / max;
+                    var k = SelectedSize / max;
                     var newImg = ImageEx.ResizeImage(img, new Size((int)Math.Round(img.Width * k), (int)Math.Round((img.Height * k))));
 
                     templateImage = UserConfig.AppDataDir;
@@ -361,7 +401,7 @@ namespace RH.HeadShop.Controls
 
             #endregion
 
-            ProgramCore.Project = new Project(ProjectName, ProjectFolder, templateImage, ManType, CustomModelPath, true, selectedSize);
+            ProgramCore.Project = new Project(ProjectName, ProjectFolder, templateImage, ManType, CustomModelPath, true, SelectedSize);
 
             ProgramCore.Project.FaceRectRelative = new RectangleF(LeftCheek.GetMinX(), nextHeadRect.Y, RightCheek.GetMaxX() - LeftCheek.GetMinX(), nextHeadRect.Bottom - nextHeadRect.Y);
             ProgramCore.Project.nextHeadRectF = fcr.nextHeadRectF;
@@ -390,25 +430,7 @@ namespace RH.HeadShop.Controls
             ProgramCore.MainForm.mruManager.Add(projectPath);
         }
 
-        public int ImageTemplateWidth;
-        public int ImageTemplateHeight;
-        public int ImageTemplateOffsetX;
-        public int ImageTemplateOffsetY;
 
-        public PointF MouthTransformed;
-        public PointF LeftEyeTransformed;
-        public PointF RightEyeTransformed;
-
-        private float eWidth;
-        public RectangleF TopEdgeTransformed;
-        public RectangleF BottomEdgeTransformed;
-        public Cheek LeftCheek;
-        public Cheek RightCheek;
-
-        private const int CircleRadius = 30;
-        private const int HalfCircleRadius = 15;
-        private const int CircleSmallRadius = 8;
-        private const int HalfCircleSmallRadius = 4;
 
         /// <summary> Пересчитать положение прямоугольника в зависимост от размера картинки на picturetemplate </summary>
         private void RecalcRealTemplateImagePosition()
@@ -524,7 +546,6 @@ namespace RH.HeadShop.Controls
             //arrowPen.Width = 1;
             //e.Graphics.DrawRectangle(arrowPen, x1, y1, w1, h1);
         }
-
         private void pictureTemplate_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -554,8 +575,8 @@ namespace RH.HeadShop.Controls
                 }
                 else
                 {
-                    var leftSelection = LeftCheek?.CheckGrab(e.X, e.Y) ?? -1;
-                    var rightSelection = RightCheek?.CheckGrab(e.X, e.Y) ?? -1;
+                    var leftSelection = LeftCheek?.CheckGrab(e.X, e.Y, true) ?? -1;
+                    var rightSelection = RightCheek?.CheckGrab(e.X, e.Y, true) ?? -1;
                     if (leftSelection != -1)
                     {
                         switch (leftSelection)
@@ -563,14 +584,17 @@ namespace RH.HeadShop.Controls
                             case 0:
                                 currentSelection = Selection.LeftTopCheek;
                                 tempSelectedPoint = new Vector2(LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y);
+                                tempSelectedPoint2 = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
                                 break;
                             case 1:
                                 currentSelection = Selection.LeftCenterCheek;
                                 tempSelectedPoint = new Vector2(LeftCheek.CenterCheek.X, LeftCheek.CenterCheek.Y);
+                                tempSelectedPoint2 = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
                                 break;
                             case 2:
                                 currentSelection = Selection.LeftBottomCheek;
                                 tempSelectedPoint = new Vector2(LeftCheek.DownCheek.X, LeftCheek.DownCheek.Y);
+                                tempSelectedPoint2 = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
                                 break;
                         }
                         Cursor = ProgramCore.MainForm.GrabbingCursor;
@@ -584,14 +608,17 @@ namespace RH.HeadShop.Controls
                             case 0:
                                 currentSelection = Selection.RightTopCheek;
                                 tempSelectedPoint = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
+                                tempSelectedPoint2 = new Vector2(LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y);
                                 break;
                             case 1:
                                 currentSelection = Selection.RightCenterCheek;
                                 tempSelectedPoint = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
+                                tempSelectedPoint2 = new Vector2(LeftCheek.CenterCheek.X, LeftCheek.CenterCheek.Y);
                                 break;
                             case 2:
                                 currentSelection = Selection.RightBottomCheek;
                                 tempSelectedPoint = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
+                                tempSelectedPoint2 = new Vector2(LeftCheek.DownCheek.X, LeftCheek.DownCheek.Y);
                                 break;
                         }
                         Cursor = ProgramCore.MainForm.GrabbingCursor;
@@ -619,7 +646,6 @@ namespace RH.HeadShop.Controls
                 }
             }
         }
-
         private void pictureTemplate_MouseMove(object sender, MouseEventArgs e)
         {
             if (startMousePoint == Point.Empty)
@@ -662,31 +688,49 @@ namespace RH.HeadShop.Controls
                     case Selection.LeftTopCheek:
                         var newCheekPoint = tempSelectedPoint + delta2;
                         LeftCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+
+                        newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                        RightCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
                     case Selection.LeftCenterCheek:
                         newCheekPoint = tempSelectedPoint + delta2;
                         LeftCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+
+                        newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                        RightCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
                     case Selection.LeftBottomCheek:
                         newCheekPoint = tempSelectedPoint + delta2;
                         LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+
+                        newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                        RightCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
                     case Selection.RightTopCheek:
                         newCheekPoint = tempSelectedPoint + delta2;
                         RightCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+
+                        newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                        LeftCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
                     case Selection.RightCenterCheek:
                         newCheekPoint = tempSelectedPoint + delta2;
                         RightCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+
+                        newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                        LeftCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
                     case Selection.RightBottomCheek:
                         newCheekPoint = tempSelectedPoint + delta2;
                         RightCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+
+                        newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                        LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
                 }
@@ -703,9 +747,9 @@ namespace RH.HeadShop.Controls
                     Cursor = ProgramCore.MainForm.GrabCursor;
                 else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right && e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
                     Cursor = ProgramCore.MainForm.GrabCursor;
-                else if (LeftCheek != null && LeftCheek.CheckGrab(e.X, e.Y) != -1)
+                else if (LeftCheek != null && LeftCheek.CheckGrab(e.X, e.Y, false) != -1)
                     Cursor = ProgramCore.MainForm.GrabCursor;
-                else if (RightCheek != null && RightCheek.CheckGrab(e.X, e.Y) != -1)
+                else if (RightCheek != null && RightCheek.CheckGrab(e.X, e.Y, false) != -1)
                     Cursor = ProgramCore.MainForm.GrabCursor;
                 else
                     Cursor = Cursors.Arrow;
@@ -713,12 +757,7 @@ namespace RH.HeadShop.Controls
 
         }
 
-        private bool leftMousePressed;
-        private Point startMousePoint;
-        private RectangleF startEdgeRect;
-        private Vector2 headHandPoint = Vector2.Zero;
-        private Vector2 tempSelectedPoint = Vector2.Zero;
-        private Vector2 tempSelectedPoint2 = Vector2.Zero;
+
 
         public enum Selection
         {
@@ -765,6 +804,11 @@ namespace RH.HeadShop.Controls
         private void rbSaved_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void CheekTimer_Tick(object sender, EventArgs e)
+        {
+            LeftCheek.UpdateVisibility();
         }
     }
 }

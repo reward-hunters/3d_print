@@ -858,12 +858,6 @@ namespace RH.HeadShop.Controls.Panels
         private void trackProfileSmoothing_MouseUp(object sender, MouseEventArgs e)
         {
             ProgramCore.MainForm.ctrlTemplateImage.ProfileSmoothing.Smooth(trackProfileSmoothing.Value / (float)(trackProfileSmoothing.Maximum));
-
-        }
-
-        private void trackProfileSmoothing_ValueChanged(object sender, decimal value)
-        {
-
         }
     }
 }

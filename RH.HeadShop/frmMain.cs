@@ -110,7 +110,7 @@ namespace RH.HeadShop
         }
 
 
-        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
+        public ProgramMode CurrentProgram = ProgramMode.HeadShop;
 
 
         public readonly Cursor GrabCursor;
@@ -1280,13 +1280,12 @@ namespace RH.HeadShop
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new frmNewProject1(false);
+            var frm = new frmNewProject4PrintAhead(false);
             frm.ShowDialog();
-
             if (frm.dialogResult != DialogResult.OK)
                 return;
 
-            CreateNewProject(frm.ProjectFolder, frm.ProjectName, frm.TemplateImage, false, frm.SelectedSize);
+            frm.CreateProject();
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1457,71 +1456,6 @@ namespace RH.HeadShop
 
             MessageBox.Show("Project successfully loaded!", "Done");
             mruManager.Add(fileName);
-        }
-
-        private void CreateNewProject(string projectFolder, string projectName, string templateImage, bool needClose, int selectedSize)
-        {
-            var projectPath = Path.Combine(projectFolder, string.Format("{0}.hds", projectName));
-
-            var faceRecognition = new FaceRecognition();
-            faceRecognition.Recognize(ref templateImage, true);     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
-
-            var frm1 = new frmNewProject2(projectPath, templateImage, faceRecognition);
-            frm1.ShowDialog(this);
-
-            if (frm1.dialogResult != DialogResult.OK)
-            {
-                if (needClose)
-                    Application.Exit();
-                return;
-            }
-
-            #region Корректируем размер фотки
-
-            using (var ms = new MemoryStream(File.ReadAllBytes(templateImage))) // Don't use using!!
-            {
-                var img = (Bitmap)Bitmap.FromStream(ms);
-                var max = (float)Math.Max(img.Width, img.Height);
-                if (max != selectedSize)
-                {
-                    var k = selectedSize / max;
-                    var newImg = ImageEx.ResizeImage(img, new Size((int)Math.Round(img.Width * k), (int)Math.Round((img.Height * k))));
-
-                    templateImage = UserConfig.AppDataDir;
-                    FolderEx.CreateDirectory(templateImage);
-                    templateImage = Path.Combine(templateImage, "tempProjectImage.jpg");
-
-                    newImg.Save(templateImage, ImageFormat.Jpeg);
-                }
-            }
-
-            #endregion
-
-            ProgramCore.Project = new Project(projectName, projectFolder, templateImage, frm1.ManType, frm1.CustomModelPath, true, selectedSize);
-            ProgramCore.Project.FaceRectRelative = faceRecognition.FaceRectRelative;
-            ProgramCore.Project.nextHeadRectF = faceRecognition.nextHeadRectF;
-            ProgramCore.Project.MouthCenter = faceRecognition.MouthCenter;
-            ProgramCore.Project.LeftEyeCenter = faceRecognition.LeftEyeCenter;
-            ProgramCore.Project.RightEyeCenter = faceRecognition.RightEyeCenter;
-            ProgramCore.Project.FaceColor = faceRecognition.FaceColor;
-            UpdateProjectControls(true);
-
-            ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
-
-            ProgramCore.Project.ToStream();
-            // ProgramCore.MainForm.ctrlRenderControl.UpdateMeshProportions();
-
-            if (ProgramCore.Project.ManType == ManType.Custom)
-            {
-                ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.SetCustomControlPoints;
-                ProgramCore.MainForm.ctrlRenderControl.InitializeCustomControlSpritesPosition();
-
-                var exampleImgPath = Path.Combine(Application.StartupPath, "Plugin", "ControlBaseDotsExample.jpg");
-                using (var ms = new MemoryStream(File.ReadAllBytes(exampleImgPath))) // Don't use using!!
-                    ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage((Bitmap)Bitmap.FromStream(ms), false);          // устанавливаем картинку помощь для юзера
-            }
-
-            mruManager.Add(projectPath);
         }
 
         internal void ResetModeTools()

@@ -65,6 +65,10 @@ namespace RH.HeadShop.Controls
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.RenderTimer = new System.Windows.Forms.Timer(this.components);
+            this.rb2048 = new System.Windows.Forms.RadioButton();
+            this.rb1024 = new System.Windows.Forms.RadioButton();
+            this.rb512 = new System.Windows.Forms.RadioButton();
+            this.CheekTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTemplate)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -93,7 +97,7 @@ namespace RH.HeadShop.Controls
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(8, 208);
+            this.label2.Location = new System.Drawing.Point(9, 220);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(440, 54);
             this.label2.TabIndex = 3;
@@ -105,7 +109,7 @@ namespace RH.HeadShop.Controls
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(8, 276);
+            this.label3.Location = new System.Drawing.Point(9, 288);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 17);
             this.label3.TabIndex = 4;
@@ -114,7 +118,7 @@ namespace RH.HeadShop.Controls
             // textProjectName
             // 
             this.textProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.textProjectName.Location = new System.Drawing.Point(108, 272);
+            this.textProjectName.Location = new System.Drawing.Point(109, 284);
             this.textProjectName.Name = "textProjectName";
             this.textProjectName.Size = new System.Drawing.Size(297, 24);
             this.textProjectName.TabIndex = 5;
@@ -122,7 +126,7 @@ namespace RH.HeadShop.Controls
             // textProjectFolder
             // 
             this.textProjectFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.textProjectFolder.Location = new System.Drawing.Point(108, 302);
+            this.textProjectFolder.Location = new System.Drawing.Point(109, 314);
             this.textProjectFolder.Name = "textProjectFolder";
             this.textProjectFolder.ReadOnly = true;
             this.textProjectFolder.Size = new System.Drawing.Size(297, 24);
@@ -132,7 +136,7 @@ namespace RH.HeadShop.Controls
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(8, 306);
+            this.label4.Location = new System.Drawing.Point(9, 318);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 17);
             this.label4.TabIndex = 6;
@@ -152,7 +156,7 @@ namespace RH.HeadShop.Controls
             // btnOpenFolderDlg
             // 
             this.btnOpenFolderDlg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnOpenFolderDlg.Location = new System.Drawing.Point(411, 302);
+            this.btnOpenFolderDlg.Location = new System.Drawing.Point(412, 314);
             this.btnOpenFolderDlg.Name = "btnOpenFolderDlg";
             this.btnOpenFolderDlg.Size = new System.Drawing.Size(33, 24);
             this.btnOpenFolderDlg.TabIndex = 9;
@@ -196,7 +200,7 @@ namespace RH.HeadShop.Controls
             this.pictureTemplate.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureTemplate.Location = new System.Drawing.Point(12, 12);
             this.pictureTemplate.Name = "pictureTemplate";
-            this.pictureTemplate.Size = new System.Drawing.Size(327, 422);
+            this.pictureTemplate.Size = new System.Drawing.Size(327, 438);
             this.pictureTemplate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureTemplate.TabIndex = 0;
             this.pictureTemplate.TabStop = false;
@@ -207,7 +211,10 @@ namespace RH.HeadShop.Controls
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rb2048);
             this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.rb1024);
+            this.groupBox1.Controls.Add(this.rb512);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnOpenFileDlg);
             this.groupBox1.Controls.Add(this.label2);
@@ -221,7 +228,7 @@ namespace RH.HeadShop.Controls
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(350, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(449, 332);
+            this.groupBox1.Size = new System.Drawing.Size(449, 348);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Create new project";
@@ -243,7 +250,7 @@ namespace RH.HeadShop.Controls
             this.groupLoadProject.Controls.Add(this.textLoadProject);
             this.groupLoadProject.Enabled = false;
             this.groupLoadProject.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupLoadProject.Location = new System.Drawing.Point(345, 377);
+            this.groupLoadProject.Location = new System.Drawing.Point(354, 393);
             this.groupLoadProject.Name = "groupLoadProject";
             this.groupLoadProject.Size = new System.Drawing.Size(449, 57);
             this.groupLoadProject.TabIndex = 14;
@@ -286,7 +293,7 @@ namespace RH.HeadShop.Controls
             this.rbNew.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbNew.Checked = true;
             this.rbNew.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold);
-            this.rbNew.Location = new System.Drawing.Point(350, 350);
+            this.rbNew.Location = new System.Drawing.Point(359, 366);
             this.rbNew.Name = "rbNew";
             this.rbNew.Size = new System.Drawing.Size(106, 21);
             this.rbNew.TabIndex = 15;
@@ -300,7 +307,7 @@ namespace RH.HeadShop.Controls
             this.rbSaved.AutoSize = true;
             this.rbSaved.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbSaved.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold);
-            this.rbSaved.Location = new System.Drawing.Point(510, 350);
+            this.rbSaved.Location = new System.Drawing.Point(519, 366);
             this.rbSaved.Name = "rbSaved";
             this.rbSaved.Size = new System.Drawing.Size(156, 21);
             this.rbSaved.TabIndex = 16;
@@ -324,7 +331,7 @@ namespace RH.HeadShop.Controls
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 449);
+            this.panel1.Location = new System.Drawing.Point(0, 461);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(811, 100);
             this.panel1.TabIndex = 17;
@@ -395,7 +402,6 @@ namespace RH.HeadShop.Controls
             this.btnQuestion.Size = new System.Drawing.Size(34, 34);
             this.btnQuestion.TabIndex = 12;
             this.btnQuestion.TabStop = false;
-            this.btnQuestion.Click += new System.EventHandler(this.btnQuestion_Click);
             this.btnQuestion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnQuestion_MouseDown);
             this.btnQuestion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnQuestion_MouseUp);
             // 
@@ -457,11 +463,48 @@ namespace RH.HeadShop.Controls
             this.RenderTimer.Interval = 40;
             this.RenderTimer.Tick += new System.EventHandler(this.RenderTimer_Tick);
             // 
+            // rb2048
+            // 
+            this.rb2048.AutoSize = true;
+            this.rb2048.Location = new System.Drawing.Point(318, 194);
+            this.rb2048.Name = "rb2048";
+            this.rb2048.Size = new System.Drawing.Size(107, 23);
+            this.rb2048.TabIndex = 24;
+            this.rb2048.Text = "2048 x 2048";
+            this.rb2048.UseVisualStyleBackColor = true;
+            // 
+            // rb1024
+            // 
+            this.rb1024.AutoSize = true;
+            this.rb1024.Checked = true;
+            this.rb1024.Location = new System.Drawing.Point(172, 194);
+            this.rb1024.Name = "rb1024";
+            this.rb1024.Size = new System.Drawing.Size(107, 23);
+            this.rb1024.TabIndex = 23;
+            this.rb1024.TabStop = true;
+            this.rb1024.Text = "1024 x 1024";
+            this.rb1024.UseVisualStyleBackColor = true;
+            // 
+            // rb512
+            // 
+            this.rb512.AutoSize = true;
+            this.rb512.Location = new System.Drawing.Point(30, 194);
+            this.rb512.Name = "rb512";
+            this.rb512.Size = new System.Drawing.Size(91, 23);
+            this.rb512.TabIndex = 22;
+            this.rb512.Text = "512 x 512";
+            this.rb512.UseVisualStyleBackColor = true;
+            // 
+            // CheekTimer
+            // 
+            this.CheekTimer.Interval = 600;
+            this.CheekTimer.Tick += new System.EventHandler(this.CheekTimer_Tick);
+            // 
             // frmNewProject4PrintAhead
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 549);
+            this.ClientSize = new System.Drawing.Size(811, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.rbSaved);
             this.Controls.Add(this.rbNew);
@@ -536,5 +579,9 @@ namespace RH.HeadShop.Controls
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.Timer RenderTimer;
+        private System.Windows.Forms.RadioButton rb2048;
+        private System.Windows.Forms.RadioButton rb1024;
+        private System.Windows.Forms.RadioButton rb512;
+        public System.Windows.Forms.Timer CheekTimer;
     }
 }
