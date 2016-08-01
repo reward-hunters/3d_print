@@ -708,7 +708,7 @@ namespace RH.HeadShop.Render
                                 ProgramCore.MainForm.ctrlRenderControl.headController.Lines.Clear();
                                 //ProgramCore.MainForm.ctrlRenderControl.HeadLineMode = ProgramCore.MainForm.ctrlRenderControl.HeadLineMode == MeshPartType.ProfileTop ? MeshPartType.ProfileBottom : MeshPartType.ProfileTop;
                                 ProgramCore.MainForm.ctrlRenderControl.UpdateProfileRectangle();
-                                isProfileSmoothing = ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.PrintAhead;     // сглаживание только для PrintAhead
+                                isProfileSmoothing = true;
                                 ProgramCore.MainForm.panelFront.UpdateProfileSmoothing(isProfileSmoothing);
                             }
                             else
