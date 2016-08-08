@@ -1423,6 +1423,8 @@ namespace RH.HeadShop
                     using (var bmp = new Bitmap(ProgramCore.Project.FrontImage))
                         ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage((Bitmap)bmp.Clone());
                 }
+                if (newProject && ProgramCore.Project.ManType == ManType.Custom)
+                    ctrlRenderControl.camera.ResetCamera(true);
             }
 
             if (frmStages != null)

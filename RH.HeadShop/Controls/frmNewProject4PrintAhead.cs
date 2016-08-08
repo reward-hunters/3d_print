@@ -226,7 +226,7 @@ namespace RH.HeadShop.Controls
                     var dazPath = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\", "fs3d.obj");
                     if (File.Exists(dazPath))
                     {
-                        //   rbImportObj.Checked = true;
+                        rbImportObj.Checked = true;
                         CustomModelPath = dazPath;
                     }
                     else
@@ -343,7 +343,7 @@ namespace RH.HeadShop.Controls
                 btnChild.Tag = btnFemale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
-                //   rbImportObj.Checked = false;
+                rbImportObj.Checked = false;
 
             }
         }
@@ -357,7 +357,7 @@ namespace RH.HeadShop.Controls
                 btnChild.Tag = btnMale.Tag = "2";
                 btnChild.Image = Properties.Resources.btnChildGray;
                 btnMale.Image = Properties.Resources.btnMaleGray;
-                //   rbImportObj.Checked = false;
+                rbImportObj.Checked = false;
             }
         }
         private void btnChild_Click(object sender, EventArgs e)
@@ -370,7 +370,7 @@ namespace RH.HeadShop.Controls
                 btnMale.Tag = btnFemale.Tag = "2";
                 btnMale.Image = Properties.Resources.btnMaleGray;
                 btnFemale.Image = Properties.Resources.btnFemaleGray;
-                //   rbImportObj.Checked = false;
+                rbImportObj.Checked = false;
             }
         }
 
@@ -501,6 +501,33 @@ namespace RH.HeadShop.Controls
         private float centerX(RectangleF rect)
         {
             return rect.Left + rect.Width / 2;
+        }
+
+        private void rbImportObj_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbImportObj.Checked)
+            {
+                btnFemale.Tag = btnChild.Tag = btnMale.Tag = "2";
+                btnChild.Image = Properties.Resources.btnChildGray;
+                btnMale.Image = Properties.Resources.btnMaleGray;
+                btnFemale.Image = Properties.Resources.btnFemaleGray;
+
+                if (!ProgramCore.PluginMode)
+                {
+                    using (var ofd = new OpenFileDialogEx("Select obj file", "OBJ Files|*.obj"))
+                    {
+                        ofd.Multiselect = false;
+                        if (ofd.ShowDialog() != DialogResult.OK)
+                        {
+                            btnMale_Click(this, new EventArgs());
+                            return;
+                        }
+
+                        //btnNext.Enabled = true;
+                        CustomModelPath = ofd.FileName;
+                    }
+                }
+            }
         }
 
         private void pictureTemplate_Paint(object sender, PaintEventArgs e)

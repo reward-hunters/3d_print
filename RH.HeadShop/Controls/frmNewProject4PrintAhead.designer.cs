@@ -58,6 +58,8 @@ namespace RH.HeadShop.Controls
             this.btnMale = new System.Windows.Forms.PictureBox();
             this.btnInfo = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.PictureBox();
+            this.rbImportObj = new System.Windows.Forms.RadioButton();
+            this.label11 = new System.Windows.Forms.Label();
             this.btnQuestion = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -318,6 +320,8 @@ namespace RH.HeadShop.Controls
             // panel1
             // 
             this.panel1.BackgroundImage = global::RH.HeadShop.Properties.Resources.bgWizard2;
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.rbImportObj);
             this.panel1.Controls.Add(this.btnChild);
             this.panel1.Controls.Add(this.btnFemale);
             this.panel1.Controls.Add(this.btnMale);
@@ -339,7 +343,7 @@ namespace RH.HeadShop.Controls
             // btnChild
             // 
             this.btnChild.Image = global::RH.HeadShop.Properties.Resources.btnChildGray;
-            this.btnChild.Location = new System.Drawing.Point(472, 29);
+            this.btnChild.Location = new System.Drawing.Point(417, 29);
             this.btnChild.Name = "btnChild";
             this.btnChild.Size = new System.Drawing.Size(59, 59);
             this.btnChild.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -351,7 +355,7 @@ namespace RH.HeadShop.Controls
             // btnFemale
             // 
             this.btnFemale.Image = global::RH.HeadShop.Properties.Resources.btnFemaleGray;
-            this.btnFemale.Location = new System.Drawing.Point(367, 29);
+            this.btnFemale.Location = new System.Drawing.Point(312, 29);
             this.btnFemale.Name = "btnFemale";
             this.btnFemale.Size = new System.Drawing.Size(59, 59);
             this.btnFemale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -363,7 +367,7 @@ namespace RH.HeadShop.Controls
             // btnMale
             // 
             this.btnMale.Image = global::RH.HeadShop.Properties.Resources.btnMaleNormal;
-            this.btnMale.Location = new System.Drawing.Point(266, 29);
+            this.btnMale.Location = new System.Drawing.Point(211, 29);
             this.btnMale.Name = "btnMale";
             this.btnMale.Size = new System.Drawing.Size(59, 59);
             this.btnMale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -371,6 +375,29 @@ namespace RH.HeadShop.Controls
             this.btnMale.TabStop = false;
             this.btnMale.Tag = "1";
             this.btnMale.Click += new System.EventHandler(this.btnMale_Click);
+            // 
+            // rbImportObj
+            // 
+            this.rbImportObj.AutoSize = true;
+            this.rbImportObj.BackColor = System.Drawing.Color.Transparent;
+            this.rbImportObj.Location = new System.Drawing.Point(541, 56);
+            this.rbImportObj.Name = "rbImportObj";
+            this.rbImportObj.Size = new System.Drawing.Size(14, 13);
+            this.rbImportObj.TabIndex = 18;
+            this.rbImportObj.TabStop = true;
+            this.rbImportObj.UseVisualStyleBackColor = false;
+            this.rbImportObj.CheckedChanged += new System.EventHandler(this.rbImportObj_CheckedChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(506, 12);
+            this.label11.Name = "label1";
+            this.label11.Size = new System.Drawing.Size(95, 18);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "Custom obj";
             // 
             // btnInfo
             // 
@@ -430,7 +457,7 @@ namespace RH.HeadShop.Controls
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(478, 7);
+            this.label8.Location = new System.Drawing.Point(423, 7);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(46, 18);
             this.label8.TabIndex = 7;
@@ -441,7 +468,7 @@ namespace RH.HeadShop.Controls
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(363, 7);
+            this.label9.Location = new System.Drawing.Point(308, 7);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 18);
             this.label9.TabIndex = 6;
@@ -452,7 +479,7 @@ namespace RH.HeadShop.Controls
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(273, 7);
+            this.label10.Location = new System.Drawing.Point(218, 7);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(44, 18);
             this.label10.TabIndex = 5;
@@ -542,7 +569,7 @@ namespace RH.HeadShop.Controls
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+        }        
 
         #endregion
 
@@ -583,5 +610,7 @@ namespace RH.HeadShop.Controls
         private System.Windows.Forms.RadioButton rb1024;
         private System.Windows.Forms.RadioButton rb512;
         public System.Windows.Forms.Timer CheekTimer;
+        private System.Windows.Forms.RadioButton rbImportObj;
+        private System.Windows.Forms.Label label11;
     }
 }

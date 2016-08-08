@@ -341,7 +341,9 @@ namespace RH.HeadShop.Render
 
         private void InitializeCustomBaseSprites()
         {
-            customBasePointsSprites.Clear();
+            //customBasePointsSprites.Clear();
+            if (customBasePointsSprites.Count > 0)
+                return;
 
             var spriteTexturePath = Path.Combine(Application.StartupPath, "sprite.png");
             var spriteTexture = GetTexture(spriteTexturePath);
@@ -377,6 +379,7 @@ namespace RH.HeadShop.Render
         }
         public void InitializeCustomControlSpritesPosition()
         {
+            InitializeCustomBaseSprites();
             for (var i = 0; i < 4; i++)
             {
                 var sprite = customBasePointsSprites[i];
@@ -424,7 +427,10 @@ namespace RH.HeadShop.Render
 
                 float scale = 0;
                 if (ProgramCore.Project.ManType == ManType.Custom)
+                {
                     scale = headMeshesController.SetSize(29.3064537f); // подгонка размера для произвольной башки
+                    customBasePointsSprites.Clear();
+                }
                 else if (ProgramCore.PluginMode)
                 {
                     switch (ProgramCore.Project.ManType)
@@ -521,28 +527,35 @@ namespace RH.HeadShop.Render
 
             if (newProject)
             {
-                var scaleX = UpdateMeshProportions(aabb);
-                UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
+                if (ProgramCore.Project.ManType != ManType.Custom)
+                {
+                    var scaleX = UpdateMeshProportions(aabb);
+                    UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
 
-                //headMeshesController.InitializeTexturing(autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
-                //autodotsShapeHelper.Transform(headMeshesController.TexturingInfo.Points.ToArray());
+                    //headMeshesController.InitializeTexturing(autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
+                    //autodotsShapeHelper.Transform(headMeshesController.TexturingInfo.Points.ToArray());
 
-                autodotsShapeHelper.TransformRects();
-                autodotsShapeHelper.InitializeShaping();
+                    autodotsShapeHelper.TransformRects();
+                    autodotsShapeHelper.InitializeShaping();
 
-                var points = autodotsShapeHelper.GetBaseDots();
-                SpecialMouthEyesUpdate(points, headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
-                SpecialMouthEyesUpdate(points, headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
-                SpecialMouthEyesUpdate(points, headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
+                    var points = autodotsShapeHelper.GetBaseDots();
+                    SpecialMouthEyesUpdate(points, headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
+                    SpecialMouthEyesUpdate(points, headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
+                    SpecialMouthEyesUpdate(points, headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
 
-                var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
-                var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
-                SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint);
+                    var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
+                    var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
+                    SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint);
 
-                SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
+                    SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
 
-                //autodotsShapeHelper.TransformRects();
-                //headMeshesController.UpdateBuffers();
+                    //autodotsShapeHelper.TransformRects();
+                    //headMeshesController.UpdateBuffers();
+                }
+                else
+                {
+                    camera.ResetCamera(true);
+                }
             }
             else
             {
@@ -776,6 +789,42 @@ namespace RH.HeadShop.Render
         }
         //temp
 
+        private void InitializeCustomHead()
+        {
+            var aabb = new RectangleAABB();
+            Vector3 min = aabb.A, max = aabb.B;
+            for (int i = 8; i < autodotsShapeHelper.ShapeInfo.Points.Count; ++i)
+            {
+                var p = autodotsShapeHelper.ShapeInfo.Points[i];
+                min.X = Math.Min(p.Value.X, min.X);
+                min.Y = Math.Min(p.Value.Y, min.Y);
+                max.X = Math.Max(p.Value.X, max.X);
+                max.Y = Math.Max(p.Value.Y, max.Y);
+            }
+            aabb.A = min;
+            aabb.B = max;
+
+            var scaleX = UpdateMeshProportions(aabb);
+            UpdatePointsProportion(scaleX, (aabb.A.X + aabb.B.X) * 0.5f);
+
+            //headMeshesController.InitializeTexturing(autodotsShapeHelper.GetBaseDots(), HeadController.GetIndices());
+            //autodotsShapeHelper.Transform(headMeshesController.TexturingInfo.Points.ToArray());
+
+            autodotsShapeHelper.TransformRects();
+            autodotsShapeHelper.InitializeShaping();
+
+            var points = autodotsShapeHelper.GetBaseDots();
+            SpecialMouthEyesUpdate(points, headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
+            SpecialMouthEyesUpdate(points, headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
+            SpecialMouthEyesUpdate(points, headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
+
+            var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
+            var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
+            SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint);
+
+            SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
+        }
+
         private void glControl_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -794,6 +843,8 @@ namespace RH.HeadShop.Render
                             RectTransformMode = false;
                             Mode = Mode.None;
                             ProgramCore.MainForm.panelMenuFront_Click(null, EventArgs.Empty); // set opened by default
+                            InitializeCustomHead();
+                            camera.ResetCamera(true);
                         }
                         break;
                     case Mode.SetCustomProfilePoints:
@@ -2687,8 +2738,7 @@ namespace RH.HeadShop.Render
         }
 
         private void DrawCustomControlPoints()
-        {
-            InitializeCustomBaseSprites();
+        {            
             InitializeCustomControlSpritesPosition();
             for (var i = 0; i < ProgramCore.Project.BaseDots.Count; i++)
             {
