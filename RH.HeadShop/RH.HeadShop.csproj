@@ -622,6 +622,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\logo.png" />
     <None Include="Resources\10.2splash.jpg" />
     <None Include="Resources\newProfile.png" />
     <None Include="Resources\lol.jpg" />

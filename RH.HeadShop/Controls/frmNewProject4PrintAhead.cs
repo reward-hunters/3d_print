@@ -104,6 +104,9 @@ namespace RH.HeadShop.Controls
         private const int CircleSmallRadius = 8;
         private const int HalfCircleSmallRadius = 4;
 
+        private RectangleF centerFace;
+        private RectangleF startCenterFaceRect;
+
         private bool leftMousePressed;
         private Point startMousePoint;
         private RectangleF startEdgeRect;
@@ -186,7 +189,6 @@ namespace RH.HeadShop.Controls
 
                 textTemplateImage.Text = ofd.FileName;
 
-
                 templateImage = ofd.FileName;
                 fcr = new FaceRecognition();
                 fcr.Recognize(ref templateImage, true);     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
@@ -215,7 +217,12 @@ namespace RH.HeadShop.Controls
                 LeftCheek = new Cheek(leftCheekX, center);
                 RightCheek = new Cheek(rightCheekX, center);
 
+
+
                 RecalcRealTemplateImagePosition();
+
+                var centerX = LeftCheek.CenterCheekTransformed.X + (RightCheek.CenterCheekTransformed.X - LeftCheek.CenterCheekTransformed.X) * 0.5f;
+                centerFace = new RectangleF(centerX, LeftEyeTransformed.Y, 2f, Math.Abs(RightEyeTransformed.Y - MouthTransformed.Y) - 5f);
 
                 RenderTimer.Start();
                 CheekTimer.Start();
@@ -484,8 +491,6 @@ namespace RH.HeadShop.Controls
             LeftCheek.Transform(ImageTemplateWidth, ImageTemplateHeight, ImageTemplateOffsetX, ImageTemplateOffsetY);
             RightCheek.Transform(ImageTemplateWidth, ImageTemplateHeight, ImageTemplateOffsetX, ImageTemplateOffsetY);
 
-
-
             //fcr.nextHeadRectF.Y = nextHeadRect.Y;
             //fcr.nextHeadRectF.Height = nextHeadRect.Height;
             //fcr.NextHeadRectInt.Y = (int)TopEdgeTransformed.Y;
@@ -551,27 +556,11 @@ namespace RH.HeadShop.Controls
             e.Graphics.DrawArc(edgePen, BottomEdgeTransformed, 50, 80);
             e.Graphics.DrawLine(arrowPen, centerX(BottomEdgeTransformed), BottomEdgeTransformed.Bottom, centerX(BottomEdgeTransformed), BottomEdgeTransformed.Bottom - 20);
 
-            /*   e.Graphics.DrawArc(edgePen, LeftCheek.TopCheek, 200, 50);
-               e.Graphics.DrawLine(arrowPen, centerX(LeftCheek.TopCheek), LeftCheek.TopCheek.Bottom, centerX(LeftCheek.TopCheek), LeftCheek.TopCheek.Bottom - 20);
-               e.Graphics.DrawRectangle(edgePen,LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y, LeftCheek.TopCheek.Width, LeftCheek.TopCheek.Height);*/
-
             LeftCheek.DrawLeft(e.Graphics);
             RightCheek.DrawRight(e.Graphics);
 
-            ////e.Graphics.DrawRectangle(edgePen, 107, -48, 435, 569);
-            ////ImageTemplateWidth + ImageTemplateOffsetX
-            ////TopEdgeTransformed.Y = nextHeadRect.Y * ImageTemplateHeight + ImageTemplateOffsetY;
-            ////BottomEdgeTransformed.Y = (nextHeadRect.Bottom * ImageTemplateHeight + ImageTemplateOffsetY) - BottomEdgeTransformed.Height;
-            //float x1 = 0.07151565f;
-            //float w1 = 0.8970337f-0.07151565f;
-            //float y1 = 0.00f * ImageTemplateHeight + ImageTemplateOffsetY;
-            //float h1 = 0.999f * ImageTemplateHeight + ImageTemplateOffsetY;
-            //x1 = x1 * ImageTemplateWidth + ImageTemplateOffsetX;
-            //w1 = w1 * ImageTemplateWidth + ImageTemplateOffsetX;
-            ////y1 = y1 * ImageTemplateHeight + ImageTemplateOffsetY;
-            ////h1 = h1 * ImageTemplateHeight + ImageTemplateOffsetY;
-            //arrowPen.Width = 1;
-            //e.Graphics.DrawRectangle(arrowPen, x1, y1, w1, h1);
+
+            e.Graphics.FillRectangle(currentSelection == Selection.Center ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, centerFace);
         }
         private void pictureTemplate_MouseDown(object sender, MouseEventArgs e)
         {
@@ -670,6 +659,17 @@ namespace RH.HeadShop.Controls
                         tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
                         Cursor = ProgramCore.MainForm.GrabbingCursor;
                     }
+                    else if (centerFace.Contains(e.X, e.Y))
+                    {
+                        currentSelection = Selection.Center;
+                        startCenterFaceRect = centerFace;
+                        startEdgeRect = TopEdgeTransformed;
+                        startMousePoint = new Point(e.X, e.Y);
+                        tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
+                        tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
+                        Cursor = ProgramCore.MainForm.GrabbingCursor;
+
+                    }
                 }
             }
         }
@@ -760,6 +760,11 @@ namespace RH.HeadShop.Controls
                         LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
+                    case Selection.Center:
+                        centerFace.X = startCenterFaceRect.X + (e.X - startMousePoint.X);
+                        TopEdgeTransformed.X = BottomEdgeTransformed.X = startEdgeRect.X + (e.X - startMousePoint.X);
+                        RecalcRealTemplateImagePosition();
+                        break;
                 }
             }
             else
@@ -778,10 +783,26 @@ namespace RH.HeadShop.Controls
                     Cursor = ProgramCore.MainForm.GrabCursor;
                 else if (RightCheek != null && RightCheek.CheckGrab(e.X, e.Y, false) != -1)
                     Cursor = ProgramCore.MainForm.GrabCursor;
+                else if (centerFace.Contains(e.X, e.Y))
+                    Cursor = ProgramCore.MainForm.GrabCursor;
                 else
                     Cursor = Cursors.Arrow;
             }
 
+        }
+        private void pictureTemplate_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (leftMousePressed && currentSelection != Selection.Empty)
+                RecalcRealTemplateImagePosition();
+
+            startMousePoint = Point.Empty;
+            currentSelection = Selection.Empty;
+            leftMousePressed = false;
+
+            headHandPoint = Vector2.Zero;
+            tempSelectedPoint = Vector2.Zero;
+            tempSelectedPoint2 = Vector2.Zero;
+            Cursor = Cursors.Arrow;
         }
 
 
@@ -799,24 +820,10 @@ namespace RH.HeadShop.Controls
             RightTopCheek,
             RightCenterCheek,
             RightBottomCheek,
+            Center,
             Empty
         }
         private Selection currentSelection = Selection.Empty;
-
-        private void pictureTemplate_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (leftMousePressed && currentSelection != Selection.Empty)
-                RecalcRealTemplateImagePosition();
-
-            startMousePoint = Point.Empty;
-            currentSelection = Selection.Empty;
-            leftMousePressed = false;
-
-            headHandPoint = Vector2.Zero;
-            tempSelectedPoint = Vector2.Zero;
-            tempSelectedPoint2 = Vector2.Zero;
-            Cursor = Cursors.Arrow;
-        }
 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
