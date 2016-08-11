@@ -5,17 +5,17 @@ using System.Windows.Forms;
 using RH.HeadShop.Helpers;
 using RH.HeadShop.IO;
 
-namespace RH.HeadShop.Controls.Tutorials
+namespace RH.HeadShop.Controls.Tutorials.HairShop
 {
-    public partial class frmRecognizeTutorial : FormEx
+    public partial class frmExportTutorial : FormEx
     {
-        public frmRecognizeTutorial()
+        public frmExportTutorial()
         {
             InitializeComponent();
-            linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Recognize", "https://www.youtube.com/watch?v=AjG09RGgHvw"];
+            linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Export", "https://youtu.be/aPsJOD1Nroc"];
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
-            var filePath = Path.Combine(directoryPath, "TutRecognize.jpg");
+            var filePath = Path.Combine(directoryPath, "TutExport.jpg");
             if (File.Exists(filePath))
                 BackgroundImage = Image.FromFile(filePath);
         }
@@ -28,13 +28,13 @@ namespace RH.HeadShop.Controls.Tutorials
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var link = UserConfig.ByName("Tutorials")["Links", "Recognize", "https://www.youtube.com/watch?v=AjG09RGgHvw"];
+            var link = UserConfig.ByName("Tutorials")["Links", "Export", "https://youtu.be/aPsJOD1Nroc"];
             Process.Start(link);
         }
 
         private void cbShow_CheckedChanged(object sender, System.EventArgs e)
         {
-            UserConfig.ByName("Options")["Tutorials", "Recognize"] = cbShow.Checked ? "0" : "1";
+            UserConfig.ByName("Options")["Tutorials", "Export"] = cbShow.Checked ? "0" : "1";
         }
     }
 }

@@ -104,7 +104,7 @@ namespace RH.HeadShop.Controls
         private const int CircleSmallRadius = 8;
         private const int HalfCircleSmallRadius = 4;
 
-        private RectangleF centerFace;
+  //      private RectangleF centerFace;
         private RectangleF startCenterFaceRect;
 
         private bool leftMousePressed;
@@ -121,8 +121,8 @@ namespace RH.HeadShop.Controls
             InitializeComponent();
 
             this.atStartup = atStartup;
-            groupLoadProject.Enabled = atStartup && !ProgramCore.PluginMode;
-            rbSaved.Enabled = atStartup && !ProgramCore.PluginMode;
+            groupLoadProject.Enabled = atStartup; //&& !ProgramCore.PluginMode;     //11.08. эм. раньше запрещено было для плагина. сейчас старикан попросил разрешить. хз почему
+            rbSaved.Enabled = atStartup;  //&& !ProgramCore.PluginMode;
 
             eWidth = pictureTemplate.Width - 100;
             TopEdgeTransformed = new RectangleF(pictureTemplate.Width / 2f - eWidth / 2f, 30, eWidth, eWidth);
@@ -222,7 +222,7 @@ namespace RH.HeadShop.Controls
                 RecalcRealTemplateImagePosition();
 
                 var centerX = LeftCheek.CenterCheekTransformed.X + (RightCheek.CenterCheekTransformed.X - LeftCheek.CenterCheekTransformed.X) * 0.5f;
-                centerFace = new RectangleF(centerX, LeftEyeTransformed.Y, 2f, Math.Abs(RightEyeTransformed.Y - MouthTransformed.Y) - 5f);
+            //    centerFace = new RectangleF(centerX, LeftEyeTransformed.Y, 2f, Math.Abs(RightEyeTransformed.Y - MouthTransformed.Y) - 5f);
 
                 RenderTimer.Start();
                 CheekTimer.Start();
@@ -560,7 +560,7 @@ namespace RH.HeadShop.Controls
             RightCheek.DrawRight(e.Graphics);
 
 
-            e.Graphics.FillRectangle(currentSelection == Selection.Center ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, centerFace);
+         //   e.Graphics.FillRectangle(currentSelection == Selection.Center ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, centerFace);
         }
         private void pictureTemplate_MouseDown(object sender, MouseEventArgs e)
         {
@@ -659,7 +659,7 @@ namespace RH.HeadShop.Controls
                         tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
                         Cursor = ProgramCore.MainForm.GrabbingCursor;
                     }
-                    else if (centerFace.Contains(e.X, e.Y))
+                 /*   else if (centerFace.Contains(e.X, e.Y))
                     {
                         currentSelection = Selection.Center;
                         startCenterFaceRect = centerFace;
@@ -669,7 +669,7 @@ namespace RH.HeadShop.Controls
                         tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
                         Cursor = ProgramCore.MainForm.GrabbingCursor;
 
-                    }
+                    }*/
                 }
             }
         }
@@ -760,11 +760,11 @@ namespace RH.HeadShop.Controls
                         LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
                         RecalcRealTemplateImagePosition();
                         break;
-                    case Selection.Center:
+             /*       case Selection.Center:
                         centerFace.X = startCenterFaceRect.X + (e.X - startMousePoint.X);
                         TopEdgeTransformed.X = BottomEdgeTransformed.X = startEdgeRect.X + (e.X - startMousePoint.X);
                         RecalcRealTemplateImagePosition();
-                        break;
+                        break;*/
                 }
             }
             else
@@ -783,8 +783,8 @@ namespace RH.HeadShop.Controls
                     Cursor = ProgramCore.MainForm.GrabCursor;
                 else if (RightCheek != null && RightCheek.CheckGrab(e.X, e.Y, false) != -1)
                     Cursor = ProgramCore.MainForm.GrabCursor;
-                else if (centerFace.Contains(e.X, e.Y))
-                    Cursor = ProgramCore.MainForm.GrabCursor;
+           /*     else if (centerFace.Contains(e.X, e.Y))
+                    Cursor = ProgramCore.MainForm.GrabCursor;*/
                 else
                     Cursor = Cursors.Arrow;
             }
@@ -820,7 +820,7 @@ namespace RH.HeadShop.Controls
             RightTopCheek,
             RightCenterCheek,
             RightBottomCheek,
-            Center,
+         //   Center,
             Empty
         }
         private Selection currentSelection = Selection.Empty;

@@ -71,6 +71,10 @@ namespace RH.HeadShop
         public readonly frmProfileTutorial frmTutProfile = new frmProfileTutorial();
         public readonly frmLineToolTutorial frmTutLineTool = new frmLineToolTutorial();
 
+        public readonly frmFeaturesTutorial frmTutFeatures = new frmFeaturesTutorial();
+        public readonly frm3dPrintTutorial frmTut3dPrint = new frm3dPrintTutorial();
+        public readonly frmExportTutorial frmTutExport = new frmExportTutorial();
+
         /// <summary> Флаг, означающий что мы находимся во вкладкам изменения ибала. </summary>
         public bool HeadMode
         {
@@ -426,6 +430,9 @@ namespace RH.HeadShop
             if (beginExport)
                 return;
 
+            if (UserConfig.ByName("Options")["Tutorials", "Export", "1"] == "1")
+                ProgramCore.MainForm.frmTut3dPrint.ShowDialog(this);
+
             beginExport = true;
             Export();
             beginExport = false;
@@ -433,25 +440,54 @@ namespace RH.HeadShop
 
         private void InitializeTutorialLinks()
         {
-            UserConfig.ByName("Tutorials")["Links", "Start"] = "http://youtu.be/JC5z64YP1xA";
-            UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
-            UserConfig.ByName("Tutorials")["Links", "Profile"] = "http://youtu.be/Olc7oeQUmWk";
-            UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
-            UserConfig.ByName("Tutorials")["Links", "LineTool"] = "https://www.youtube.com/watch?v=c7YbRsm8m9I";
-            UserConfig.ByName("Tutorials")["Links", "Freehand"] = "http://youtu.be/c2Yvd2DaiDg";
-            UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
-            UserConfig.ByName("Tutorials")["Links", "Autodots"] = "http://youtu.be/JC5z64YP1xA";
+            if (CurrentProgram == ProgramMode.PrintAhead)
+            {
+                UserConfig.ByName("Tutorials")["Links", "Start"] = "http://youtu.be/JC5z64YP1xA";
+                UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
+                UserConfig.ByName("Tutorials")["Links", "Profile"] = "http://youtu.be/Olc7oeQUmWk";
+                UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
+                UserConfig.ByName("Tutorials")["Links", "LineTool"] = "https://www.youtube.com/watch?v=c7YbRsm8m9I";
+                UserConfig.ByName("Tutorials")["Links", "Freehand"] = "http://youtu.be/c2Yvd2DaiDg";
+                UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
+                UserConfig.ByName("Tutorials")["Links", "Autodots"] = "http://youtu.be/JC5z64YP1xA";
 
-            UserConfig.ByName("Tutorials")["Links", "Style"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-            UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Style"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
 
-            UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/gWOkSUDbv0I";
-            UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/8cejdijABQY";
+                UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/gWOkSUDbv0I";
+                UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/8cejdijABQY";
+            }
+            else
+            {
+                UserConfig.ByName("Tutorials")["Links", "Start"] = "https://www.youtube.com/watch?v=0baUErHwngA";
+                UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
+                UserConfig.ByName("Tutorials")["Links", "Profile"] = "https://youtu.be/IFvfVc-81M4";
+                UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
+                UserConfig.ByName("Tutorials")["Links", "LineTool"] = " https://youtu.be/dzLtPdsmtMY";
+                UserConfig.ByName("Tutorials")["Links", "Freehand"] = "https://youtu.be/-Lg6AWr17gU";
+                UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
+                UserConfig.ByName("Tutorials")["Links", "Autodots"] = "https://youtu.be/Cxi_eTyCh-Y";
+
+                UserConfig.ByName("Tutorials")["Links", "Style"] = "https://youtu.be/8_7CnBSW85M";
+                UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+
+                UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/7sovzyHCnRY";
+                UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/z8rnXteNnm0";
+
+                UserConfig.ByName("Tutorials")["Links", "Features"] = "https://youtu.be/_hADE739X9w";
+                UserConfig.ByName("Tutorials")["Links", "Export"] = "https://youtu.be/aPsJOD1Nroc";
+                UserConfig.ByName("Tutorials")["Links", "3DPrinting"] = "https://youtu.be/A_MQCNI4E8U";
+            }
         }
 
         #region Information
@@ -929,8 +965,8 @@ namespace RH.HeadShop
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица
 
 
-                /*       if (UserConfig.ByName("Options")["Tutorials", "Features", "1"] == "1")
-                           frmTutStage.ShowDialog(this);*/
+                if (UserConfig.ByName("Options")["Tutorials", "Features", "1"] == "1")
+                    frmTutFeatures.ShowDialog(this);
             }
         }
 

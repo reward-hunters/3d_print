@@ -233,34 +233,46 @@
     <Compile Include="Controls\Tutorials\frmRecognizeTutorial.designer.cs">
       <DependentUpon>frmRecognizeTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmAccessoryTutorial.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmAccessoryTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmAccessoryTutorial.designer.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmAccessoryTutorial.designer.cs">
       <DependentUpon>frmAccessoryTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmCutTutorial.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmCutTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmCutTutorial.designer.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmCutTutorial.designer.cs">
       <DependentUpon>frmCutTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmMaterialTutorial.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frm3dPrintTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmMaterialTutorial.designer.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frm3dPrintTutorial.designer.cs">
+      <DependentUpon>frm3dPrintTutorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tutorials\PrintAhead\frmExportTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Tutorials\PrintAhead\frmExportTutorial.designer.cs">
+      <DependentUpon>frmExportTutorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tutorials\PrintAhead\frmMaterialTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Tutorials\PrintAhead\frmMaterialTutorial.designer.cs">
       <DependentUpon>frmMaterialTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmShapeTutorial.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmShapeTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmShapeTutorial.designer.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmShapeTutorial.designer.cs">
       <DependentUpon>frmShapeTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmStageTutorial.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmStageTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmStageTutorial.designer.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmStageTutorial.designer.cs">
       <DependentUpon>frmStageTutorial.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tutorials\frmStartTutorial.cs">
@@ -269,10 +281,16 @@
     <Compile Include="Controls\Tutorials\frmStartTutorial.designer.cs">
       <DependentUpon>frmStartTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmStyleTutorial.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmFeaturesTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Tutorials\HairShop\frmStyleTutorial.designer.cs">
+    <Compile Include="Controls\Tutorials\PrintAhead\frmFeaturesTutorial.designer.cs">
+      <DependentUpon>frmFeaturesTutorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tutorials\PrintAhead\frmStyleTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Tutorials\PrintAhead\frmStyleTutorial.designer.cs">
       <DependentUpon>frmStyleTutorial.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tutorials\HeadShop\frmCustomHeadsTutorial.cs">
@@ -457,25 +475,34 @@
     <EmbeddedResource Include="Controls\Tutorials\frmRecognizeTutorial.resx">
       <DependentUpon>frmRecognizeTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Tutorials\HairShop\frmAccessoryTutorial.resx">
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmAccessoryTutorial.resx">
       <DependentUpon>frmAccessoryTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Tutorials\HairShop\frmCutTutorial.resx">
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmCutTutorial.resx">
       <DependentUpon>frmCutTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Tutorials\HairShop\frmMaterialTutorial.resx">
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frm3dPrintTutorial.resx">
+      <DependentUpon>frm3dPrintTutorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmExportTutorial.resx">
+      <DependentUpon>frmExportTutorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmMaterialTutorial.resx">
       <DependentUpon>frmMaterialTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Tutorials\HairShop\frmShapeTutorial.resx">
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmShapeTutorial.resx">
       <DependentUpon>frmShapeTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Tutorials\HairShop\frmStageTutorial.resx">
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmStageTutorial.resx">
       <DependentUpon>frmStageTutorial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Tutorials\frmStartTutorial.resx">
       <DependentUpon>frmStartTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Tutorials\HairShop\frmStyleTutorial.resx">
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmFeaturesTutorial.resx">
+      <DependentUpon>frmFeaturesTutorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmStyleTutorial.resx">
       <DependentUpon>frmStyleTutorial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Tutorials\HeadShop\frmCustomHeadsTutorial.resx">

@@ -333,10 +333,16 @@ namespace RH.HeadShop.Controls.Libraries
 
         private void btn3DPrint_Click(object sender, EventArgs e)
         {
+            if (UserConfig.ByName("Options")["Tutorials", "3DPrinting", "1"] == "1")
+                ProgramCore.MainForm.frmTut3dPrint.ShowDialog(this);
+
             ProgramCore.MainForm.Export3DPrint();
         }
         private void btnColor3DPrint_Click(object sender, EventArgs e)
         {
+            if (UserConfig.ByName("Options")["Tutorials", "Export", "1"] == "1")
+                ProgramCore.MainForm.frmTut3dPrint.ShowDialog(this);
+
             ProgramCore.MainForm.ExportCollada();
         }
 

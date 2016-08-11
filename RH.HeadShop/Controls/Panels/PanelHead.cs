@@ -32,12 +32,12 @@ namespace RH.HeadShop.Controls.Panels
             InitializeComponent();
             frontTab = true;
 
-
+            /*
             if (ProgramCore.PluginMode)
             {
                 btnFlipLeft.Visible = false;
                 btnFlipRight.Visible = false;
-            }
+            }*/
 
             if (ProgramCore.Project != null)
                 ResetButtons();
@@ -78,10 +78,10 @@ namespace RH.HeadShop.Controls.Panels
             if (btnPolyLine.Tag.ToString() == "1")
                 btnPolyLine_Click(null, EventArgs.Empty);
 
-            if (btnFlipLeft.Tag.ToString() == "1")
+      /*      if (btnFlipLeft.Tag.ToString() == "1")
                 btnFlipLeft_Click(null, EventArgs.Empty);
             if (btnFlipRight.Tag.ToString() == "1")
-                btnFlipRight_Click(null, EventArgs.Empty);
+                btnFlipRight_Click(null, EventArgs.Empty);*/
 
             ResetButtons();
         }
@@ -98,8 +98,8 @@ namespace RH.HeadShop.Controls.Panels
                 btnPolyLine.Enabled = true;
                 btnShapeTool.Enabled = true;
 
-                btnFlipLeft.Enabled = false;
-                btnFlipRight.Enabled = false;
+       /*         btnFlipLeft.Enabled = false;
+                btnFlipRight.Enabled = false;*/
 
                 btnProfile.Enabled = true;
             }
@@ -114,8 +114,8 @@ namespace RH.HeadShop.Controls.Panels
                 btnPolyLine.Enabled = false;
                 btnShapeTool.Enabled = false;
 
-                btnFlipLeft.Enabled = false;
-                btnFlipRight.Enabled = false;
+            /*    btnFlipLeft.Enabled = false;
+                btnFlipRight.Enabled = false;*/
 
                 btnProfile.Enabled = false;
             }
@@ -137,8 +137,8 @@ namespace RH.HeadShop.Controls.Panels
                         btnPolyLine.Enabled = false;
                         btnShapeTool.Enabled = true;
 
-                        btnFlipLeft.Enabled = true;
-                        btnFlipRight.Enabled = true;
+                        /*btnFlipLeft.Enabled = true;
+                        btnFlipRight.Enabled = true;*/
                     }
                     break;
                 case Mode.HeadAutodots:
@@ -153,8 +153,8 @@ namespace RH.HeadShop.Controls.Panels
                         btnPolyLine.Enabled = false;
                         btnShapeTool.Enabled = false;
 
-                        btnFlipLeft.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;
-                        btnFlipRight.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;
+                       /* btnFlipLeft.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;
+                        btnFlipRight.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;*/
                     }
                     break;
                 case Mode.HeadFlipLeft:
@@ -183,8 +183,8 @@ namespace RH.HeadShop.Controls.Panels
                     btnPolyLine.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadLine;
                     btnShapeTool.Enabled = false;
 
-                    btnFlipLeft.Enabled = true;
-                    btnFlipRight.Enabled = true;
+               /*     btnFlipLeft.Enabled = true;
+                    btnFlipRight.Enabled = true;*/
                     break;
                 case Mode.HeadAutodotsLassoStart:
                 case Mode.HeadAutodotsLassoActive:
@@ -216,7 +216,7 @@ namespace RH.HeadShop.Controls.Panels
                 part.UpdateNormals();
         }
 
-        private void UpdateFlipEnable(FlipType flip)
+       /* private void UpdateFlipEnable(FlipType flip)
         {
             switch (flip)
             {
@@ -227,8 +227,8 @@ namespace RH.HeadShop.Controls.Panels
                     EnableFlipRightToLeft();
                     break;
             }
-        }
-        private void EnableFlipLeftToRight()
+        }*/
+    /*    private void EnableFlipLeftToRight()
         {
             btnFlipLeft.Tag = "1";
             btnFlipRight.Tag = "2";
@@ -251,7 +251,7 @@ namespace RH.HeadShop.Controls.Panels
 
             btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
             btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
-        }
+        }*/
 
         public void UpdateProfileSmoothing(bool isSmoothing)
         {
@@ -391,7 +391,7 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.frmFreeHand.cbMirror.Enabled = false;
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
-                UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
+        //        UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
                 SetPanelLogic();
 
                 if (OnShapeTool != null && sender != null)
@@ -454,9 +454,9 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
 
-                btnFlipLeft.Visible = true;
-                btnFlipRight.Visible = true;
-                UpdateFlipEnable(ProgramCore.Project.TextureFlip);
+       //         btnFlipLeft.Visible = true;
+         //       btnFlipRight.Visible = true;
+           //     UpdateFlipEnable(ProgramCore.Project.TextureFlip);
                 SetPanelLogic();
 
                 if (frontTab && UserConfig.ByName("Options")["Tutorials", "Autodots", "1"] == "1")
@@ -496,14 +496,14 @@ namespace RH.HeadShop.Controls.Panels
                     }
                 }
 
-                btnFlipLeft.Visible = false;
-                btnFlipRight.Visible = false;
+        //        btnFlipLeft.Visible = false;
+        //        btnFlipRight.Visible = false;
                 ProgramCore.MainForm.ctrlRenderControl.CalcReflectedBitmaps();
                 ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
                 ProgramCore.MainForm.EnableRotating();
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
                 SetPanelLogic();
-                DisableFlip();
+          //      DisableFlip();
             }
             EndUpdate();
         }
@@ -570,7 +570,7 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadLine;
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
-                UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
+              //  UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
                 SetPanelLogic();
                 if (ProgramCore.MainForm.HeadProfile)
                 {
@@ -641,14 +641,14 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.ctrlTemplateImage.ResetProfileRects();
                 ProgramCore.MainForm.ctrlRenderControl.ProfileFaceRect = RectangleF.Empty;
 
-                DisableFlip();
+            //    DisableFlip();
                 SetPanelLogic();
             }
         }
 
         public void btnFlipLeft_Click(object sender, EventArgs e)
         {
-            if (btnFlipLeft.Tag.ToString() == "2")
+        /*    if (btnFlipLeft.Tag.ToString() == "2")
             {
                 btnFlipLeft.Tag = "1";
                 btnFlipRight.Tag = "2";
@@ -704,11 +704,11 @@ namespace RH.HeadShop.Controls.Panels
                         ProgramCore.Project.TextureFlip = FlipType.None;
                         break;
                 }
-            }
+            }*/
         }
         public void btnFlipRight_Click(object sender, EventArgs e)
         {
-            if (btnFlipRight.Tag.ToString() == "2")
+          /*  if (btnFlipRight.Tag.ToString() == "2")
             {
                 btnFlipRight.Tag = "1";
                 btnFlipLeft.Tag = "2";
@@ -764,7 +764,7 @@ namespace RH.HeadShop.Controls.Panels
                 }
 
                 SetPanelLogic();
-            }
+            }*/
         }
 
         #endregion

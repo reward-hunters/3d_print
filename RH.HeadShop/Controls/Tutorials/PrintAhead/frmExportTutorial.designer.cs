@@ -1,6 +1,6 @@
 ﻿namespace RH.HeadShop.Controls.Tutorials.HairShop
 {
-    partial class frmStyleTutorial
+    partial class frmExportTutorial
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStyleTutorial));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFeaturesTutorial));
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.cbShow = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
@@ -38,7 +38,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.linkLabel1.Location = new System.Drawing.Point(353, 500);
+            this.linkLabel1.Location = new System.Drawing.Point(354, 513);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(297, 16);
             this.linkLabel1.TabIndex = 2;
@@ -58,7 +58,7 @@
             this.cbShow.UseVisualStyleBackColor = false;
             this.cbShow.CheckedChanged += new System.EventHandler(this.cbShow_CheckedChanged);
             // 
-            // frmStyleTutorial
+            // frmFeaturesTutorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -70,7 +70,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmStyleTutorial";
+            this.Name = "frmFeaturesTutorial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "HeadShop";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmStartTutorial_FormClosing);
