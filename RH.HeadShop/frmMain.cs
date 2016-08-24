@@ -151,7 +151,7 @@ namespace RH.HeadShop
             else
             {
                 Text = "HeadShop 10";
-                aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10";
+                aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10.2";
             }
 
             if (!UserConfig.ByName("Tutorials").HasAny())
@@ -481,8 +481,8 @@ namespace RH.HeadShop
                 UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
                 UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
 
-                UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/7sovzyHCnRY";
-                UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/z8rnXteNnm0";
+                UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/z8rnXteNnm0";
+                UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/7sovzyHCnRY";
 
                 UserConfig.ByName("Tutorials")["Links", "Features"] = "https://youtu.be/_hADE739X9w";
                 UserConfig.ByName("Tutorials")["Links", "Export"] = "https://youtu.be/aPsJOD1Nroc";
@@ -1532,7 +1532,7 @@ namespace RH.HeadShop
         }
         private void videoTutorialPart2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var advancedLink = UserConfig.ByName("Tutorials")["Links", "AdvancedManual", "https://youtu.be/gWOkSUDbv0I"];
+            var advancedLink = UserConfig.ByName("Tutorials")["Links", "AdvancedManual", "https://youtu.be/z8rnXteNnm0"];
             Process.Start(advancedLink);
         }
 
@@ -1551,15 +1551,15 @@ namespace RH.HeadShop
         }
         private void accessoriesHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutAccessory.ShowDialog(this);
+            frmTutFeatures.ShowDialog(this);
         }
         private void materialHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutMaterial.ShowDialog(this);
+            frmTutExport.ShowDialog(this);
         }
         private void stageHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutStage.ShowDialog(this);
+            frmTut3dPrint.ShowDialog(this);
         }
         private void styleHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1576,7 +1576,7 @@ namespace RH.HeadShop
         }
         private void mirrorHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutMirror.ShowDialog(this);
+            frmTutLineTool.ShowDialog(this);
         }
         private void freehandHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
