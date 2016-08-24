@@ -367,7 +367,7 @@ namespace RH.HeadEditor.Helpers
         {
             foreach (var p in Points)
             {
-                if (p.ShapeTrinagleInfo.TrinagleIndex < 0 || (p.IsFixed != null && p.IsFixed.Value))
+                if (p.ShapeTrinagleInfo.TrinagleIndex < 0)// || (p.IsFixed != null && p.IsFixed.Value))
                     continue;
                 var ti = p.ShapeTrinagleInfo.TrinagleIndex * 3;
                 var v1 = s.Points[s.Indices[ti]].Value;

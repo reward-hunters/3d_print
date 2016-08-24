@@ -591,8 +591,8 @@ namespace RH.HeadShop.Controls
                 }
                 else
                 {
-                    var leftSelection = LeftCheek?.CheckGrab(e.X, e.Y, true) ?? -1;
-                    var rightSelection = RightCheek?.CheckGrab(e.X, e.Y, true) ?? -1;
+                    var leftSelection = LeftCheek != null ? LeftCheek.CheckGrab(e.X, e.Y, true) : -1;
+                    var rightSelection = RightCheek!= null ? RightCheek.CheckGrab(e.X, e.Y, true) : -1;
                     if (leftSelection != -1)
                     {
                         switch (leftSelection)
