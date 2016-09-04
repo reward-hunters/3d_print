@@ -477,9 +477,9 @@ namespace RH.HeadShop
                 UserConfig.ByName("Tutorials")["Links", "Style"] = "https://youtu.be/8_7CnBSW85M";
                 UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
                 UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Material"] = "https://youtu.be/zHA7_1ODIl0";
                 UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://youtu.be/UeQljfKlNG8";            
 
                 UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/z8rnXteNnm0";
                 UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/7sovzyHCnRY";
@@ -494,7 +494,7 @@ namespace RH.HeadShop
 
         public void ShowTutorial()
         {
-            Process.Start("http://lib.store.yahoo.net/lib/yhst-48396527764316/HeadShop1.0.pdf");
+            Process.Start("http://ep.yimg.com/ty/cdn/yhst-48396527764316/HeadShop10.2manual.pdf");
         }
         public void ShowSiteInfo()
         {
@@ -2002,6 +2002,16 @@ namespace RH.HeadShop
             MessageBox.Show(ProgramCore.MainForm.ProgramCaption + " project successfully exported!", "Done", MessageBoxButtons.OK);
             if (ProgramCore.PluginMode)
                 Environment.Exit(0);
+        }
+
+        private void accessoriesHelpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmTutAccessory.ShowDialog(this);
+        }
+
+        private void colorHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmTutMaterial.ShowDialog(this);
         }
     }
 }

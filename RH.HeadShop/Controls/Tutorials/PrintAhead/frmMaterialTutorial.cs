@@ -13,7 +13,7 @@ namespace RH.HeadShop.Controls.Tutorials.HairShop
         public frmMaterialTutorial()
         {
             InitializeComponent();
-            linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Material", "https://www.youtube.com/watch?v=AjG09RGgHvw"];
+            linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Material", "https://youtu.be/zHA7_1ODIl0"];
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
             var filePath = Path.Combine(directoryPath, "MaterialTutorial.jpg");
@@ -29,7 +29,7 @@ namespace RH.HeadShop.Controls.Tutorials.HairShop
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var link = UserConfig.ByName("Tutorials")["Links", "Material", "https://www.youtube.com/watch?v=AjG09RGgHvw"];
+            var link = UserConfig.ByName("Tutorials")["Links", "Material", "https://youtu.be/zHA7_1ODIl0"];
             Process.Start(link);
         }
 
