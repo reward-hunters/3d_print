@@ -131,6 +131,8 @@ namespace RH.HeadShop
             this.freehandHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
+            this.accessoriesHelpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accessoriesHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.styleHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,8 +143,6 @@ namespace RH.HeadShop
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.showManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutHeadShopProToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.accessoriesHelpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelRender.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -1086,6 +1086,20 @@ namespace RH.HeadShop
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(216, 6);
             // 
+            // accessoriesHelpToolStripMenuItem1
+            // 
+            this.accessoriesHelpToolStripMenuItem1.Name = "accessoriesHelpToolStripMenuItem1";
+            this.accessoriesHelpToolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
+            this.accessoriesHelpToolStripMenuItem1.Text = "Accessories Help";
+            this.accessoriesHelpToolStripMenuItem1.Click += new System.EventHandler(this.accessoriesHelpToolStripMenuItem1_Click);
+            // 
+            // colorHelpToolStripMenuItem
+            // 
+            this.colorHelpToolStripMenuItem.Name = "colorHelpToolStripMenuItem";
+            this.colorHelpToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.colorHelpToolStripMenuItem.Text = "Color Help";
+            this.colorHelpToolStripMenuItem.Click += new System.EventHandler(this.colorHelpToolStripMenuItem_Click);
+            // 
             // accessoriesHelpToolStripMenuItem
             // 
             this.accessoriesHelpToolStripMenuItem.Name = "accessoriesHelpToolStripMenuItem";
@@ -1151,20 +1165,6 @@ namespace RH.HeadShop
             this.aboutHeadShopProToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
             this.aboutHeadShopProToolStripMenuItem.Click += new System.EventHandler(this.aboutHeadShopProToolStripMenuItem_Click);
-            // 
-            // accessoriesHelpToolStripMenuItem1
-            // 
-            this.accessoriesHelpToolStripMenuItem1.Name = "accessoriesHelpToolStripMenuItem1";
-            this.accessoriesHelpToolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
-            this.accessoriesHelpToolStripMenuItem1.Text = "Accessories Help";
-            this.accessoriesHelpToolStripMenuItem1.Click += new System.EventHandler(this.accessoriesHelpToolStripMenuItem1_Click);
-            // 
-            // colorHelpToolStripMenuItem
-            // 
-            this.colorHelpToolStripMenuItem.Name = "colorHelpToolStripMenuItem";
-            this.colorHelpToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.colorHelpToolStripMenuItem.Text = "Color Help";
-            this.colorHelpToolStripMenuItem.Click += new System.EventHandler(this.colorHelpToolStripMenuItem_Click);
             // 
             // frmMain
             // 

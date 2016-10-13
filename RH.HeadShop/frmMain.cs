@@ -24,6 +24,7 @@ using RH.HeadShop.Render.Meshes;
 using RH.HeadShop.Render.Obj;
 using RH.HeadEditor.Helpers;
 using RH.HeadEditor.Data;
+using Luxand;
 
 namespace RH.HeadShop
 {
@@ -114,7 +115,7 @@ namespace RH.HeadShop
         }
 
 
-        public ProgramMode CurrentProgram = ProgramMode.HeadShop;
+        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
 
 
         public readonly Cursor GrabCursor;
@@ -147,11 +148,13 @@ namespace RH.HeadShop
             {
                 Text = "PrintAhead";
                 aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
+                panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
             }
             else
             {
                 Text = "HeadShop 10";
                 aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10.2";
+                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
             }
 
             if (!UserConfig.ByName("Tutorials").HasAny())
@@ -160,6 +163,19 @@ namespace RH.HeadShop
             PluginUvGroups.AddRange(new[] { "1_lip", "1_skinface", "lips", "face" });
 
             //ProgramCore.PluginMode = true;
+
+            #region активация охуенной распознавалки
+
+            if (FSDK.FSDKE_OK != FSDK.ActivateLibrary("eJd0lDVIedRyi6Rpdd3X7ydAufndPO9U8gjDVMPK5i0sfnKQQGHP56yHVHt11CJTup04oP27M7489SmGl6Qwtm2qHEy5E+be3ZgQ+4EgUEvbblceZkMLd6ICwNxBHXOYc4qw8zdv7u2mEEFy59o8UD6RDS0hWDPO+TtjtJBTW9w="))
+            {
+                MessageBox.Show("Please run the License Key Wizard (Start - Luxand - FaceSDK - License Key Wizard)", "Error activating FaceSDK", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+            #endregion
+
+            FSDK.InitializeLibrary();
+            FSDK.SetFaceDetectionParameters(true, true, 384);
 
             if (!string.IsNullOrEmpty(fn))
             {
@@ -198,19 +214,43 @@ namespace RH.HeadShop
                 OpenProject(openProjectPath);
             else
             {
-                var newProjectDlg = new frmNewProject4PrintAhead(true);
-                newProjectDlg.ShowDialog(this);
-
-                if (newProjectDlg.dialogResult != DialogResult.OK)
+                if (CurrentProgram == ProgramMode.HeadShop)
                 {
-                    Application.Exit();
-                    return;
-                }
+                    #region новый проект для HeadShop
 
-                if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
-                    OpenProject(newProjectDlg.LoadingProject);
-                else
+                    var newProjectDlg = new frmNewProject4HeadShop(true);
+                    newProjectDlg.ShowDialog(this);
+
+                    if (newProjectDlg.dialogResult != DialogResult.OK)
+                    {
+                        Application.Exit();
+                        return;
+                    }
+
+                    if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
+                        OpenProject(newProjectDlg.LoadingProject);
+                    else
+                        newProjectDlg.CreateProject();
+
+                    #endregion
+                }
+                else if (CurrentProgram == ProgramMode.PrintAhead)
+                {
+                    #region проект для PrintAhead
+
+                    var newProjectDlg = new frmNewProject4PrintAhead(true);
+                    newProjectDlg.ShowDialog(this);
+
+                    if (newProjectDlg.dialogResult != DialogResult.OK)
+                    {
+                        Application.Exit();
+                        return;
+                    }
+
                     newProjectDlg.CreateProject();
+
+                    #endregion
+                }
 
             }
 
@@ -479,7 +519,7 @@ namespace RH.HeadShop
                 UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
                 UserConfig.ByName("Tutorials")["Links", "Material"] = "https://youtu.be/zHA7_1ODIl0";
                 UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://youtu.be/UeQljfKlNG8";            
+                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://youtu.be/UeQljfKlNG8";
 
                 UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/z8rnXteNnm0";
                 UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/7sovzyHCnRY";
@@ -648,7 +688,7 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -686,7 +726,7 @@ namespace RH.HeadShop
                 panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -724,7 +764,7 @@ namespace RH.HeadShop
                 panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -761,7 +801,7 @@ namespace RH.HeadShop
                 panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -789,7 +829,7 @@ namespace RH.HeadShop
             {
                 activePanel = 4;
                 panelMenuStage.Tag = "1";
-                panelMenuStage.Image = Properties.Resources.btnMenuStagePressed;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStagePressed : Properties.Resources.btnMenuPrintPressed;
                 panelMenuControl.Controls.Clear();
                 panelMenuControl.Controls.Add(panelStages);
 
@@ -855,7 +895,7 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -898,7 +938,7 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
@@ -948,7 +988,7 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
 
                 panelMenuFront.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -1316,12 +1356,25 @@ namespace RH.HeadShop
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new frmNewProject4PrintAhead(false);
-            frm.ShowDialog();
-            if (frm.dialogResult != DialogResult.OK)
-                return;
 
-            frm.CreateProject();
+            if (CurrentProgram == ProgramMode.HeadShop)
+            {
+                var frm = new frmNewProject4HeadShop(false);
+                frm.ShowDialog();
+                if (frm.dialogResult != DialogResult.OK)
+                    return;
+
+                frm.CreateProject();
+            }
+            else
+            {
+                var frm = new frmNewProject4PrintAhead(false);
+                frm.ShowDialog();
+                if (frm.dialogResult != DialogResult.OK)
+                    return;
+
+                frm.CreateProject();
+            }
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {

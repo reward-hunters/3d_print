@@ -407,7 +407,7 @@ namespace RH.HeadShop.Render
                 {
                     var fileName = Path.Combine(ProgramCore.Project.ProjectPath, ProgramCore.Project.FrontImagePath);
 
-                    var faceRecognition = new FaceRecognition();
+                    var faceRecognition = new OpenCvFaceRecognition();
                     faceRecognition.Recognize(ref fileName, false);
 
                     ProgramCore.Project.FaceRectRelative = faceRecognition.FaceRectRelative;

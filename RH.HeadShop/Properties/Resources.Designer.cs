@@ -533,6 +533,26 @@ namespace RH.HeadShop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap btnMenuPrintNormal {
+            get {
+                object obj = ResourceManager.GetObject("btnMenuPrintNormal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap btnMenuPrintPressed {
+            get {
+                object obj = ResourceManager.GetObject("btnMenuPrintPressed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnMenuProfileNormal {
             get {
                 object obj = ResourceManager.GetObject("btnMenuProfileNormal", resourceCulture);

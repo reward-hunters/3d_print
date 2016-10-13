@@ -9,10 +9,11 @@ using OpenTK;
 using RH.HeadShop.IO;
 using RH.HeadShop.Render.Helpers;
 using System.Drawing.Imaging;
+using Luxand;
 
 namespace RH.HeadShop.Helpers
 {
-    public class FaceRecognition
+    public class OpenCvFaceRecognition
     {
         public RectangleF FaceRectRelative;
         public RectangleF nextHeadRectF = new RectangleF();
@@ -323,6 +324,170 @@ namespace RH.HeadShop.Helpers
             FaceRectRelative = new RectangleF(leftTop.X, leftTop.Y, rightBottom.X - leftTop.X, rightBottom.Y - leftTop.Y);
 
             #endregion
+        }
+    }
+
+    public class LuxandFaceRecognition
+    {
+        public RectangleF FaceRectRelative;
+        public Vector2 LeftEyeCenter;
+        public Vector2 RightEyeCenter;
+
+        public Vector2 MouthLeft;
+        public Vector2 MouthRight;
+        public Vector4 FaceColor;
+
+        public FSDK.TPoint[] facialFeatures;
+        public bool IsMale;
+
+
+        private int angleCount = 0;
+
+        public void Recognize(ref string path, bool needCrop)
+        {
+            FaceRectRelative = RectangleF.Empty;
+            LeftEyeCenter = RightEyeCenter = MouthLeft = MouthRight = Vector2.Zero;
+
+            var executablePath = Path.GetDirectoryName(Application.ExecutablePath);
+
+            FSDK.CImage image = new FSDK.CImage(path);
+
+
+            var faceRectangle = Rectangle.Empty;
+            var mouthRectangle = Rectangle.Empty;
+
+            #region Определение цвета лица
+
+            if (needCrop)
+            {
+                var openCvImage = new Image<Bgr, byte>(path);
+                var detector = new AdaptiveSkinDetector(1, AdaptiveSkinDetector.MorphingMethod.NONE);
+
+                using (var skin = new Image<Gray, Byte>(image.Width, image.Height))
+                {
+                    var color = new Bgr(0, 0, 0);
+                    var count = 0;
+                    detector.Process(openCvImage, skin);
+                    for (int y = 0; y < skin.Height; y++)
+                    {
+                        for (int x = 0; x < skin.Width; x++)
+                        {
+                            byte value = skin.Data[y, x, 0];
+                            if (value != 0)
+                            {
+                                var c = openCvImage[y, x];
+                                color.Red += c.Red;
+                                color.Green += c.Green;
+                                color.Blue += c.Blue;
+                                ++count;
+                            }
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        color.Red /= count;
+                        color.Green /= count;
+                        color.Blue /= count;
+                        FaceColor = new Vector4((float)color.Red / 255f, (float)color.Green / 255f, (float)color.Blue / 255f, 1.0f);
+                    }
+                    else
+                    {
+                        FaceColor = new Vector4(0.72f, 0.72f, 0.72f, 1.0f);
+                    }
+                }
+            }
+
+            #endregion
+
+            FSDK.TFacePosition facePosition = image.DetectFace();
+            if (0 == facePosition.w)
+            {
+                faceRectangle = new Rectangle(0, 0, image.Width, image.Height);
+                MessageBox.Show("No faces detected", "Face Detection");
+            }
+            else
+            {
+                facialFeatures = image.DetectFacialFeaturesInRegion(ref facePosition);
+
+                String AttributeValues;         // определение пола
+                FSDK.DetectFacialAttributeUsingFeatures(image.ImageHandle, ref facialFeatures, "Gender", out AttributeValues, 1024);
+                float ConfidenceMale = 0.0f;
+                float ConfidenceFemale = 0.0f;
+                FSDK.GetValueConfidence(AttributeValues, "Male", ref ConfidenceMale);
+                FSDK.GetValueConfidence(AttributeValues, "Female", ref ConfidenceFemale);
+                IsMale = ConfidenceMale > ConfidenceFemale;
+
+
+                int left = facePosition.xc - (int)(facePosition.w * 0.6f);
+                int top = facePosition.yc - (int)(facePosition.w * 0.5f);
+                faceRectangle = new Rectangle(left, top, (int)(facePosition.w * 1.2), (int)(facePosition.w * 1.2));
+
+                if (needCrop)       // если это создание проекта - то нужно обрезать фотку и оставить только голову
+                {
+                    using (var croppedImage = ImageEx.Crop(path, faceRectangle))
+                    {
+                        path = UserConfig.AppDataDir;
+                        FolderEx.CreateDirectory(path);
+                        path = Path.Combine(path, "tempHaarImage.jpg");
+                        croppedImage.Save(path, ImageFormat.Jpeg);
+
+                        Recognize(ref path, false);
+                        return;
+                    }
+                }
+
+                LeftEyeCenter = new Vector2(facialFeatures[0].x, facialFeatures[0].y);
+                RightEyeCenter = new Vector2(facialFeatures[1].x, facialFeatures[1].y);
+
+                MouthLeft = new Vector2(facialFeatures[3].x, facialFeatures[3].y);
+                MouthRight = new Vector2(facialFeatures[4].x, facialFeatures[4].y);
+
+                #region Поворот фотки по глазам!
+
+                var v = new Vector2(LeftEyeCenter.X - RightEyeCenter.X, LeftEyeCenter.Y - RightEyeCenter.Y);
+                v.Normalize();      // ПД !
+                var xVector = new Vector2(1, 0);
+
+                var xDiff = xVector.X - v.X;
+                var yDiff = xVector.Y - v.Y;
+                var angle = Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
+
+                if (Math.Abs(angle) > 1 && angleCount <= 5)                // поворачиваем наклоненные головы
+                {
+                    ++angleCount;
+
+                    using (var ms = new MemoryStream(File.ReadAllBytes(path))) // Don't use using!!
+                    {
+                        var originalImg = (Bitmap)Bitmap.FromStream(ms);
+
+                        path = UserConfig.AppDataDir;
+                        FolderEx.CreateDirectory(path);
+                        path = Path.Combine(path, "tempHaarImage.jpg");
+
+                        using (var ii = ImageEx.RotateImage(new Bitmap(originalImg), (float)-angle))
+                            ii.Save(path, ImageFormat.Jpeg);
+                    }
+
+                    Recognize(ref path, false);
+                    return;
+                }
+
+                #endregion
+
+                #region Переводим в относительные координаты
+
+                MouthLeft = new Vector2(MouthLeft.X / (image.Width * 1f), MouthLeft.Y / (image.Height * 1f));
+                MouthRight = new Vector2(MouthRight.X / (image.Width * 1f), MouthRight.Y / (image.Height * 1f));
+                LeftEyeCenter = new Vector2(LeftEyeCenter.X / (image.Width * 1f), LeftEyeCenter.Y / (image.Height * 1f));
+                RightEyeCenter = new Vector2(RightEyeCenter.X / (image.Width * 1f), RightEyeCenter.Y / (image.Height * 1f));
+
+                var leftTop = new Vector2(LeftEyeCenter.X, Math.Max(LeftEyeCenter.Y, RightEyeCenter.Y));
+                var rightBottom = new Vector2(RightEyeCenter.X, MouthLeft.Y);
+
+                FaceRectRelative = new RectangleF(leftTop.X, leftTop.Y, rightBottom.X - leftTop.X, rightBottom.Y - leftTop.Y);
+
+                #endregion
+            }
         }
     }
 
