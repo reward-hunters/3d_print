@@ -61,10 +61,16 @@ namespace RH.HeadShop.Controls
         public PointF RightMouthTransformed;
         public PointF LeftEyeTransformed;
         public PointF RightEyeTransformed;
+        public PointF LeftNoseTransformed;
+        public PointF RightNoseTransformed;
+
+        public PointF TopFaceTransformed;
+        public PointF MiddleFace1Transformed;
+        public PointF MiddleFace2Transformed;
+        public PointF BottomFaceTransformed;
 
         private float eWidth;
         public RectangleF TopEdgeTransformed;
-        public RectangleF BottomEdgeTransformed;
         public Cheek LeftCheek;
         public Cheek RightCheek;
 
@@ -93,7 +99,6 @@ namespace RH.HeadShop.Controls
 
             eWidth = pictureTemplate.Width - 100;
             TopEdgeTransformed = new RectangleF(pictureTemplate.Width / 2f - eWidth / 2f, 30, eWidth, eWidth);
-            BottomEdgeTransformed = new RectangleF(pictureTemplate.Width / 2f - eWidth / 2f, eWidth - eWidth / 4f, eWidth, eWidth);
 
             ShowInTaskbar = atStartup;
         }
@@ -272,28 +277,29 @@ namespace RH.HeadShop.Controls
             ImageTemplateOffsetX = (pb.Width - ImageTemplateWidth) / 2;
             ImageTemplateOffsetY = (pb.Height - ImageTemplateHeight) / 2;
 
-            LeftMouthTransformed = new PointF(fcr.MouthLeft.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                                          fcr.MouthLeft.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            RightMouthTransformed = new PointF(fcr.MouthRight.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                                          fcr.MouthRight.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            LeftMouthTransformed = new PointF(fcr.LeftMouth.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                                          fcr.LeftMouth.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            RightMouthTransformed = new PointF(fcr.RightMouth.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                                          fcr.RightMouth.Y * ImageTemplateHeight + ImageTemplateOffsetY);
 
+            LeftNoseTransformed = new PointF(fcr.LeftNose.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                  fcr.LeftNose.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            RightNoseTransformed = new PointF(fcr.RightNose.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                              fcr.RightNose.Y * ImageTemplateHeight + ImageTemplateOffsetY);
 
             LeftEyeTransformed = new PointF(fcr.LeftEyeCenter.X * ImageTemplateWidth + ImageTemplateOffsetX,
                               fcr.LeftEyeCenter.Y * ImageTemplateHeight + ImageTemplateOffsetY);
             RightEyeTransformed = new PointF(fcr.RightEyeCenter.X * ImageTemplateWidth + ImageTemplateOffsetX,
                               fcr.RightEyeCenter.Y * ImageTemplateHeight + ImageTemplateOffsetY);
 
-
-
-            //     TopEdgeTransformed.Y = nextHeadRect.Y * ImageTemplateHeight + ImageTemplateOffsetY;
-            //    BottomEdgeTransformed.Y = (nextHeadRect.Bottom * ImageTemplateHeight + ImageTemplateOffsetY) - BottomEdgeTransformed.Height;
-
-
-
-            //         LeftCheek.Transform(ImageTemplateWidth, ImageTemplateHeight, ImageTemplateOffsetX, ImageTemplateOffsetY);
-            //         RightCheek.Transform(ImageTemplateWidth, ImageTemplateHeight, ImageTemplateOffsetX, ImageTemplateOffsetY);
-
-
+            TopFaceTransformed = new PointF(fcr.TopFace.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                  fcr.TopFace.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            MiddleFace1Transformed = new PointF(fcr.MiddleFace1.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                  fcr.MiddleFace1.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            MiddleFace2Transformed = new PointF(fcr.MiddleFace2.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                  fcr.MiddleFace2.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            BottomFaceTransformed = new PointF(fcr.BottomFace.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                  fcr.BottomFace.Y * ImageTemplateHeight + ImageTemplateOffsetY);
 
             if (TopEdgeTransformed.Y < 0)
                 TopEdgeTransformed.Y = 0;
@@ -343,260 +349,231 @@ namespace RH.HeadShop.Controls
             e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftMouthTransformed.X - HalfCircleSmallRadius, LeftMouthTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
             e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightMouthTransformed.X - HalfCircleSmallRadius, RightMouthTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
 
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftNoseTransformed.X - HalfCircleSmallRadius, LeftNoseTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightNoseTransformed.X - HalfCircleSmallRadius, RightNoseTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
 
-            /*       e.Graphics.DrawArc(edgePen, TopEdgeTransformed, 220, 100);
-                   e.Graphics.DrawLine(arrowPen, centerX(TopEdgeTransformed), TopEdgeTransformed.Top, centerX(TopEdgeTransformed), TopEdgeTransformed.Top + 20);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, TopFaceTransformed.X - HalfCircleSmallRadius, TopFaceTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, MiddleFace1Transformed.X - HalfCircleSmallRadius, MiddleFace1Transformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, MiddleFace2Transformed.X - HalfCircleSmallRadius, MiddleFace2Transformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, BottomFaceTransformed.X - HalfCircleSmallRadius, BottomFaceTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
 
-                   e.Graphics.DrawArc(edgePen, BottomEdgeTransformed, 50, 80);
-                   e.Graphics.DrawLine(arrowPen, centerX(BottomEdgeTransformed), BottomEdgeTransformed.Bottom, centerX(BottomEdgeTransformed), BottomEdgeTransformed.Bottom - 20);
-       */
-            //    LeftCheek.DrawLeft(e.Graphics);
-            //   RightCheek.DrawRight(e.Graphics);
-
-
-            //   e.Graphics.FillRectangle(currentSelection == Selection.Center ? DrawingTools.RedSolidBrush : DrawingTools.BlueSolidBrush, centerFace);
+            e.Graphics.DrawArc(edgePen, TopEdgeTransformed, 220, 100);
+            e.Graphics.DrawLine(arrowPen, centerX(TopEdgeTransformed), TopEdgeTransformed.Top, centerX(TopEdgeTransformed), TopEdgeTransformed.Top + 20);
         }
         private void pictureTemplate_MouseDown(object sender, MouseEventArgs e)
         {
-            /*      if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
+            {
+                leftMousePressed = true;
+
+                headHandPoint.X = (ImageTemplateOffsetX + e.X) / (ImageTemplateWidth * 1f);
+                headHandPoint.Y = (ImageTemplateOffsetY + e.Y) / (ImageTemplateHeight * 1f);
+
+                /*  if (e.X >= LeftEyeTransformed.X - HalfCircleRadius && e.X <= LeftEyeTransformed.X + HalfCircleRadius && e.Y >= LeftEyeTransformed.Y - HalfCircleRadius && e.Y <= LeftEyeTransformed.Y + HalfCircleRadius)
                   {
-                      leftMousePressed = true;
-
-                      headHandPoint.X = (ImageTemplateOffsetX + e.X) / (ImageTemplateWidth * 1f);
-                      headHandPoint.Y = (ImageTemplateOffsetY + e.Y) / (ImageTemplateHeight * 1f);
-
-                      if (e.X >= LeftEyeTransformed.X - HalfCircleRadius && e.X <= LeftEyeTransformed.X + HalfCircleRadius && e.Y >= LeftEyeTransformed.Y - HalfCircleRadius && e.Y <= LeftEyeTransformed.Y + HalfCircleRadius)
+                      currentSelection = Selection.LeftEye;
+                      tempSelectedPoint = fcr.LeftEyeCenter;
+                      Cursor = ProgramCore.MainForm.GrabbingCursor;
+                  }
+                  else if (e.X >= RightEyeTransformed.X - HalfCircleRadius && e.X <= RightEyeTransformed.X + HalfCircleRadius && e.Y >= RightEyeTransformed.Y - HalfCircleRadius && e.Y <= RightEyeTransformed.Y + HalfCircleRadius)
+                  {
+                      currentSelection = Selection.RightEye;
+                      tempSelectedPoint = fcr.RightEyeCenter;
+                      Cursor = ProgramCore.MainForm.GrabbingCursor;
+                  }
+                  else if (e.X >= MouthTransformed.X - HalfCircleRadius && e.X <= MouthTransformed.X + HalfCircleRadius && e.Y >= MouthTransformed.Y - HalfCircleRadius && e.Y <= MouthTransformed.Y + HalfCircleRadius)
+                  {
+                      currentSelection = Selection.Mouth;
+                      tempSelectedPoint = fcr.MouthCenter;
+                      Cursor = ProgramCore.MainForm.GrabbingCursor;
+                  }
+                  else
+                  {
+                      var leftSelection = LeftCheek != null ? LeftCheek.CheckGrab(e.X, e.Y, true) : -1;
+                      var rightSelection = RightCheek != null ? RightCheek.CheckGrab(e.X, e.Y, true) : -1;
+                      if (leftSelection != -1)
                       {
-                          currentSelection = Selection.LeftEye;
-                          tempSelectedPoint = fcr.LeftEyeCenter;
+                          switch (leftSelection)
+                          {
+                              case 0:
+                                  currentSelection = Selection.LeftTopCheek;
+                                  tempSelectedPoint = new Vector2(LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y);
+                                  tempSelectedPoint2 = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
+                                  break;
+                              case 1:
+                                  currentSelection = Selection.LeftCenterCheek;
+                                  tempSelectedPoint = new Vector2(LeftCheek.CenterCheek.X, LeftCheek.CenterCheek.Y);
+                                  tempSelectedPoint2 = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
+                                  break;
+                              case 2:
+                                  currentSelection = Selection.LeftBottomCheek;
+                                  tempSelectedPoint = new Vector2(LeftCheek.DownCheek.X, LeftCheek.DownCheek.Y);
+                                  tempSelectedPoint2 = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
+                                  break;
+                          }
                           Cursor = ProgramCore.MainForm.GrabbingCursor;
-                      }
-                      else if (e.X >= RightEyeTransformed.X - HalfCircleRadius && e.X <= RightEyeTransformed.X + HalfCircleRadius && e.Y >= RightEyeTransformed.Y - HalfCircleRadius && e.Y <= RightEyeTransformed.Y + HalfCircleRadius)
-                      {
-                          currentSelection = Selection.RightEye;
-                          tempSelectedPoint = fcr.RightEyeCenter;
-                          Cursor = ProgramCore.MainForm.GrabbingCursor;
-                      }
-                      else if (e.X >= MouthTransformed.X - HalfCircleRadius && e.X <= MouthTransformed.X + HalfCircleRadius && e.Y >= MouthTransformed.Y - HalfCircleRadius && e.Y <= MouthTransformed.Y + HalfCircleRadius)
-                      {
-                          currentSelection = Selection.Mouth;
-                          tempSelectedPoint = fcr.MouthCenter;
-                          Cursor = ProgramCore.MainForm.GrabbingCursor;
-                      }
-                      else
-                      {
-                          var leftSelection = LeftCheek != null ? LeftCheek.CheckGrab(e.X, e.Y, true) : -1;
-                          var rightSelection = RightCheek != null ? RightCheek.CheckGrab(e.X, e.Y, true) : -1;
-                          if (leftSelection != -1)
-                          {
-                              switch (leftSelection)
-                              {
-                                  case 0:
-                                      currentSelection = Selection.LeftTopCheek;
-                                      tempSelectedPoint = new Vector2(LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y);
-                                      tempSelectedPoint2 = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
-                                      break;
-                                  case 1:
-                                      currentSelection = Selection.LeftCenterCheek;
-                                      tempSelectedPoint = new Vector2(LeftCheek.CenterCheek.X, LeftCheek.CenterCheek.Y);
-                                      tempSelectedPoint2 = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
-                                      break;
-                                  case 2:
-                                      currentSelection = Selection.LeftBottomCheek;
-                                      tempSelectedPoint = new Vector2(LeftCheek.DownCheek.X, LeftCheek.DownCheek.Y);
-                                      tempSelectedPoint2 = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
-                                      break;
-                              }
-                              Cursor = ProgramCore.MainForm.GrabbingCursor;
-                              startMousePoint = new Point(e.X, e.Y);
+                          startMousePoint = new Point(e.X, e.Y);
 
-                          }
-                          else if (rightSelection != -1)
+                      }
+                      else if (rightSelection != -1)
+                      {
+                          switch (rightSelection)
                           {
-                              switch (rightSelection)
-                              {
-                                  case 0:
-                                      currentSelection = Selection.RightTopCheek;
-                                      tempSelectedPoint = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
-                                      tempSelectedPoint2 = new Vector2(LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y);
-                                      break;
-                                  case 1:
-                                      currentSelection = Selection.RightCenterCheek;
-                                      tempSelectedPoint = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
-                                      tempSelectedPoint2 = new Vector2(LeftCheek.CenterCheek.X, LeftCheek.CenterCheek.Y);
-                                      break;
-                                  case 2:
-                                      currentSelection = Selection.RightBottomCheek;
-                                      tempSelectedPoint = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
-                                      tempSelectedPoint2 = new Vector2(LeftCheek.DownCheek.X, LeftCheek.DownCheek.Y);
-                                      break;
-                              }
-                              Cursor = ProgramCore.MainForm.GrabbingCursor;
-                              startMousePoint = new Point(e.X, e.Y);
+                              case 0:
+                                  currentSelection = Selection.RightTopCheek;
+                                  tempSelectedPoint = new Vector2(RightCheek.TopCheek.X, RightCheek.TopCheek.Y);
+                                  tempSelectedPoint2 = new Vector2(LeftCheek.TopCheek.X, LeftCheek.TopCheek.Y);
+                                  break;
+                              case 1:
+                                  currentSelection = Selection.RightCenterCheek;
+                                  tempSelectedPoint = new Vector2(RightCheek.CenterCheek.X, RightCheek.CenterCheek.Y);
+                                  tempSelectedPoint2 = new Vector2(LeftCheek.CenterCheek.X, LeftCheek.CenterCheek.Y);
+                                  break;
+                              case 2:
+                                  currentSelection = Selection.RightBottomCheek;
+                                  tempSelectedPoint = new Vector2(RightCheek.DownCheek.X, RightCheek.DownCheek.Y);
+                                  tempSelectedPoint2 = new Vector2(LeftCheek.DownCheek.X, LeftCheek.DownCheek.Y);
+                                  break;
                           }
-                          else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
-                          {
-                              currentSelection = Selection.TopEdge;
-                              startEdgeRect = TopEdgeTransformed;
-                              startMousePoint = new Point(e.X, e.Y);
-                              tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
-                              tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
-                              Cursor = ProgramCore.MainForm.GrabbingCursor;
-                          }
-                          else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right &&
-                                   e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
-                          {
-                              currentSelection = Selection.BottomEdge;
-                              startEdgeRect = BottomEdgeTransformed;
-                              startMousePoint = new Point(e.X, e.Y);
-                              tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
-                              tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
-                              Cursor = ProgramCore.MainForm.GrabbingCursor;
-                          }
-                          /*   else if (centerFace.Contains(e.X, e.Y))
-                             {
-                                 currentSelection = Selection.Center;
-                                 startCenterFaceRect = centerFace;
-                                 startEdgeRect = TopEdgeTransformed;
-                                 startMousePoint = new Point(e.X, e.Y);
-                                 tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
-                                 tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
-                                 Cursor = ProgramCore.MainForm.GrabbingCursor;
+                          Cursor = ProgramCore.MainForm.GrabbingCursor;
+                          startMousePoint = new Point(e.X, e.Y);
+                      }
+                      else*/
+                if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
+                {
+                    currentSelection = Selection.TopEdge;
+                    startEdgeRect = TopEdgeTransformed;
+                    startMousePoint = new Point(e.X, e.Y);
+                    //    tempSelectedPoint = new Vector2(0, nextHeadRect.Y);
+                    //      tempSelectedPoint2 = new Vector2(0, nextHeadRect.Height);
+                    Cursor = ProgramCore.MainForm.GrabbingCursor;
+                }
 
-                             }*/
-            /*  }
-          }*/
+                //   }
+            }
         }
         private void pictureTemplate_MouseMove(object sender, MouseEventArgs e)
         {
-            /*  if (startMousePoint == Point.Empty)
-                  startMousePoint = new Point(e.X, e.Y);
+            if (startMousePoint == Point.Empty)
+                startMousePoint = new Point(e.X, e.Y);
 
-              if (leftMousePressed && currentSelection != Selection.Empty)
-              {
-                  Vector2 newPoint;
-                  Vector2 delta2;
-                  newPoint.X = (ImageTemplateOffsetX + e.X) / (ImageTemplateWidth * 1f);
-                  newPoint.Y = (ImageTemplateOffsetY + e.Y) / (ImageTemplateHeight * 1f);
+            if (leftMousePressed && currentSelection != Selection.Empty)
+            {
+                Vector2 newPoint;
+                Vector2 delta2;
+                newPoint.X = (ImageTemplateOffsetX + e.X) / (ImageTemplateWidth * 1f);
+                newPoint.Y = (ImageTemplateOffsetY + e.Y) / (ImageTemplateHeight * 1f);
 
-                  delta2 = newPoint - headHandPoint;
-                  switch (currentSelection)
-                  {
-                      case Selection.LeftEye:
+                delta2 = newPoint - headHandPoint;
+                switch (currentSelection)
+                {
+                    /*     case Selection.LeftEye:
 
-                          fcr.LeftEyeCenter = tempSelectedPoint + delta2;
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.RightEye:
-                          fcr.RightEyeCenter = tempSelectedPoint + delta2;
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.Mouth:
-                          fcr.MouthCenter = tempSelectedPoint + delta2;
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.TopEdge:
-                          nextHeadRect.Y = (tempSelectedPoint + delta2).Y;
-                          nextHeadRect.Height = (tempSelectedPoint2 - delta2).Y;
-                          TopEdgeTransformed.X = BottomEdgeTransformed.X = startEdgeRect.X + (e.X - startMousePoint.X);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.BottomEdge:
-                          nextHeadRect.Height = (tempSelectedPoint2 + delta2).Y;
-                          TopEdgeTransformed.X = BottomEdgeTransformed.X = startEdgeRect.X + (e.X - startMousePoint.X);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.LeftTopCheek:
-                          var newCheekPoint = tempSelectedPoint + delta2;
-                          LeftCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                             fcr.LeftEyeCenter = tempSelectedPoint + delta2;
+                             RecalcRealTemplateImagePosition();
+                             break;
+                         case Selection.RightEye:
+                             fcr.RightEyeCenter = tempSelectedPoint + delta2;
+                             RecalcRealTemplateImagePosition();
+                             break;
+                         case Selection.Mouth:
+                             fcr.MouthCenter = tempSelectedPoint + delta2;
+                             RecalcRealTemplateImagePosition();
+                             break;*/
+                    case Selection.TopEdge:
+                        TopEdgeTransformed.Y = startEdgeRect.Y + (e.Y - startMousePoint.Y);
+                        RecalcRealTemplateImagePosition();
+                        break;
+                        /*    case Selection.BottomEdge:
+                                nextHeadRect.Height = (tempSelectedPoint2 + delta2).Y;
+                                TopEdgeTransformed.X = BottomEdgeTransformed.X = startEdgeRect.X + (e.X - startMousePoint.X);
+                                RecalcRealTemplateImagePosition();
+                                break;
+                            case Selection.LeftTopCheek:
+                                var newCheekPoint = tempSelectedPoint + delta2;
+                                LeftCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
 
-                          newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
-                          RightCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.LeftCenterCheek:
-                          newCheekPoint = tempSelectedPoint + delta2;
-                          LeftCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                                RightCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                RecalcRealTemplateImagePosition();
+                                break;
+                            case Selection.LeftCenterCheek:
+                                newCheekPoint = tempSelectedPoint + delta2;
+                                LeftCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
 
-                          newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
-                          RightCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.LeftBottomCheek:
-                          newCheekPoint = tempSelectedPoint + delta2;
-                          LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                                RightCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                RecalcRealTemplateImagePosition();
+                                break;
+                            case Selection.LeftBottomCheek:
+                                newCheekPoint = tempSelectedPoint + delta2;
+                                LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
 
-                          newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
-                          RightCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.RightTopCheek:
-                          newCheekPoint = tempSelectedPoint + delta2;
-                          RightCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                                RightCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                RecalcRealTemplateImagePosition();
+                                break;
+                            case Selection.RightTopCheek:
+                                newCheekPoint = tempSelectedPoint + delta2;
+                                RightCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
 
-                          newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
-                          LeftCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.RightCenterCheek:
-                          newCheekPoint = tempSelectedPoint + delta2;
-                          RightCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                                LeftCheek.TopCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                RecalcRealTemplateImagePosition();
+                                break;
+                            case Selection.RightCenterCheek:
+                                newCheekPoint = tempSelectedPoint + delta2;
+                                RightCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
 
-                          newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
-                          LeftCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                      case Selection.RightBottomCheek:
-                          newCheekPoint = tempSelectedPoint + delta2;
-                          RightCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                                LeftCheek.CenterCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                RecalcRealTemplateImagePosition();
+                                break;
+                            case Selection.RightBottomCheek:
+                                newCheekPoint = tempSelectedPoint + delta2;
+                                RightCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
 
-                          newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
-                          LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
-                          RecalcRealTemplateImagePosition();
-                          break;
-                          /*       case Selection.Center:
-                                     centerFace.X = startCenterFaceRect.X + (e.X - startMousePoint.X);
-                                     TopEdgeTransformed.X = BottomEdgeTransformed.X = startEdgeRect.X + (e.X - startMousePoint.X);
-                                     RecalcRealTemplateImagePosition();
-                                     break;*/
-            /*   }
-           }
-           else
-           {
-               if (e.X >= LeftEyeTransformed.X - HalfCircleRadius && e.X <= LeftEyeTransformed.X + HalfCircleRadius && e.Y >= LeftEyeTransformed.Y - HalfCircleRadius && e.Y <= LeftEyeTransformed.Y + HalfCircleRadius)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               else if (e.X >= RightEyeTransformed.X - HalfCircleRadius && e.X <= RightEyeTransformed.X + HalfCircleRadius && e.Y >= RightEyeTransformed.Y - HalfCircleRadius && e.Y <= RightEyeTransformed.Y + HalfCircleRadius)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               else if (e.X >= MouthTransformed.X - HalfCircleRadius && e.X <= MouthTransformed.X + HalfCircleRadius && e.Y >= MouthTransformed.Y - HalfCircleRadius && e.Y <= MouthTransformed.Y + HalfCircleRadius)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               else if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right && e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               else if (LeftCheek != null && LeftCheek.CheckGrab(e.X, e.Y, false) != -1)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               else if (RightCheek != null && RightCheek.CheckGrab(e.X, e.Y, false) != -1)
-                   Cursor = ProgramCore.MainForm.GrabCursor;
-               /*     else if (centerFace.Contains(e.X, e.Y))
-                        Cursor = ProgramCore.MainForm.GrabCursor;*/
-            /*   else
-                   Cursor = Cursors.Arrow;
-           }
-*/
+                                newCheekPoint = new Vector2(tempSelectedPoint2.X - delta2.X, tempSelectedPoint2.Y + delta2.Y);
+                                LeftCheek.DownCheek = new PointF(newCheekPoint.X, newCheekPoint.Y);
+                                RecalcRealTemplateImagePosition();
+                                break;*/
+                }
+            }
+            else
+            {
+                /*  if (e.X >= LeftEyeTransformed.X - HalfCircleRadius && e.X <= LeftEyeTransformed.X + HalfCircleRadius && e.Y >= LeftEyeTransformed.Y - HalfCircleRadius && e.Y <= LeftEyeTransformed.Y + HalfCircleRadius)
+                      Cursor = ProgramCore.MainForm.GrabCursor;
+                  else if (e.X >= RightEyeTransformed.X - HalfCircleRadius && e.X <= RightEyeTransformed.X + HalfCircleRadius && e.Y >= RightEyeTransformed.Y - HalfCircleRadius && e.Y <= RightEyeTransformed.Y + HalfCircleRadius)
+                      Cursor = ProgramCore.MainForm.GrabCursor;
+                  else if (e.X >= MouthTransformed.X - HalfCircleRadius && e.X <= MouthTransformed.X + HalfCircleRadius && e.Y >= MouthTransformed.Y - HalfCircleRadius && e.Y <= MouthTransformed.Y + HalfCircleRadius)
+                      Cursor = ProgramCore.MainForm.GrabCursor;
+                  else*/
+                if (e.X >= TopEdgeTransformed.Left && e.X <= TopEdgeTransformed.Right && e.Y >= TopEdgeTransformed.Y && e.Y <= TopEdgeTransformed.Y + 20)
+                    Cursor = ProgramCore.MainForm.GrabCursor;
+                /*  else if (e.X >= BottomEdgeTransformed.Left && e.X <= BottomEdgeTransformed.Right && e.Y >= BottomEdgeTransformed.Bottom - 20 && e.Y <= BottomEdgeTransformed.Bottom)
+                      Cursor = ProgramCore.MainForm.GrabCursor;
+                  else if (LeftCheek != null && LeftCheek.CheckGrab(e.X, e.Y, false) != -1)
+                      Cursor = ProgramCore.MainForm.GrabCursor;
+                  else if (RightCheek != null && RightCheek.CheckGrab(e.X, e.Y, false) != -1)
+                      Cursor = ProgramCore.MainForm.GrabCursor;*/
+                else
+                    Cursor = Cursors.Arrow;
+            }
+
         }
         private void pictureTemplate_MouseUp(object sender, MouseEventArgs e)
         {
-            /*       if (leftMousePressed && currentSelection != Selection.Empty)
-                       RecalcRealTemplateImagePosition();
+            if (leftMousePressed && currentSelection != Selection.Empty)
+                RecalcRealTemplateImagePosition();
 
-                   startMousePoint = Point.Empty;
-                   currentSelection = Selection.Empty;
-                   leftMousePressed = false;
+            startMousePoint = Point.Empty;
+            currentSelection = Selection.Empty;
+            leftMousePressed = false;
 
-                   headHandPoint = Vector2.Zero;
-                   tempSelectedPoint = Vector2.Zero;
-                   tempSelectedPoint2 = Vector2.Zero;
-                   Cursor = Cursors.Arrow;*/
+            headHandPoint = Vector2.Zero;
+            tempSelectedPoint = Vector2.Zero;
+            tempSelectedPoint2 = Vector2.Zero;
+            Cursor = Cursors.Arrow;
         }
 
 
@@ -637,6 +614,9 @@ namespace RH.HeadShop.Controls
 
         private void pictureTemplate_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(textTemplateImage.Text))
+                return;
+
             using (var ofd = new OpenFileDialogEx("Select template file", "Image Files|*.jpg;*.png;*.jpeg;*.bmp"))
             {
                 ofd.Multiselect = false;
@@ -675,6 +655,7 @@ namespace RH.HeadShop.Controls
 
 
                 RecalcRealTemplateImagePosition();
+                TopEdgeTransformed.Y = RightEyeTransformed.Y + (RightNoseTransformed.Y - BottomFaceTransformed.Y);
 
                 //       var centerX = LeftCheek.CenterCheekTransformed.X + (RightCheek.CenterCheekTransformed.X - LeftCheek.CenterCheekTransformed.X) * 0.5f;
                 //    centerFace = new RectangleF(centerX, LeftEyeTransformed.Y, 2f, Math.Abs(RightEyeTransformed.Y - MouthTransformed.Y) - 5f);
@@ -696,6 +677,12 @@ namespace RH.HeadShop.Controls
                 }
 
             }
+        }
+
+        private void pictureTemplate_DoubleClick(object sender, EventArgs e)
+        {
+            textTemplateImage.Text = string.Empty;
+            pictureTemplate_Click(sender, e);
         }
     }
 }

@@ -330,12 +330,22 @@ namespace RH.HeadShop.Helpers
     public class LuxandFaceRecognition
     {
         public RectangleF FaceRectRelative;
+        public Vector4 FaceColor;
+
         public Vector2 LeftEyeCenter;
         public Vector2 RightEyeCenter;
 
-        public Vector2 MouthLeft;
-        public Vector2 MouthRight;
-        public Vector4 FaceColor;
+        public Vector2 LeftMouth;
+        public Vector2 RightMouth;
+
+        public Vector2 LeftNose;
+        public Vector2 RightNose;
+
+        public Vector2 TopFace;
+        public Vector2 MiddleFace1;
+        public Vector2 MiddleFace2;
+        public Vector2 BottomFace;
+
 
         public FSDK.TPoint[] facialFeatures;
         public bool IsMale;
@@ -346,7 +356,7 @@ namespace RH.HeadShop.Helpers
         public void Recognize(ref string path, bool needCrop)
         {
             FaceRectRelative = RectangleF.Empty;
-            LeftEyeCenter = RightEyeCenter = MouthLeft = MouthRight = Vector2.Zero;
+            LeftEyeCenter = RightEyeCenter = LeftMouth = LeftNose = RightNose = RightMouth = Vector2.Zero;
 
             var executablePath = Path.GetDirectoryName(Application.ExecutablePath);
 
@@ -419,9 +429,8 @@ namespace RH.HeadShop.Helpers
 
 
                 int left = facePosition.xc - (int)(facePosition.w * 0.6f);
-                int top = facePosition.yc - (int)(facePosition.w * 0.5f);
-                faceRectangle = new Rectangle(left, top, (int)(facePosition.w * 1.2), (int)(facePosition.w * 1.2));
-
+             //   int top = facePosition.yc - (int)(facePosition.w * 0.5f);             // верхушку определяет неправильлно. поэтому просто не будем обрезать :)
+                faceRectangle = new Rectangle(left, 0, (int)(facePosition.w * 1.2), (int)image.Height);
                 if (needCrop)       // если это создание проекта - то нужно обрезать фотку и оставить только голову
                 {
                     using (var croppedImage = ImageEx.Crop(path, faceRectangle))
@@ -439,8 +448,16 @@ namespace RH.HeadShop.Helpers
                 LeftEyeCenter = new Vector2(facialFeatures[0].x, facialFeatures[0].y);
                 RightEyeCenter = new Vector2(facialFeatures[1].x, facialFeatures[1].y);
 
-                MouthLeft = new Vector2(facialFeatures[3].x, facialFeatures[3].y);
-                MouthRight = new Vector2(facialFeatures[4].x, facialFeatures[4].y);
+                LeftMouth = new Vector2(facialFeatures[3].x, facialFeatures[3].y);
+                RightMouth = new Vector2(facialFeatures[4].x, facialFeatures[4].y);
+
+                LeftNose = new Vector2(facialFeatures[45].x, facialFeatures[45].y);
+                RightNose = new Vector2(facialFeatures[46].x, facialFeatures[46].y);
+
+                TopFace = new Vector2(facialFeatures[66].x, facialFeatures[66].y);
+                MiddleFace1 = new Vector2(facialFeatures[66].x, facialFeatures[66].y);
+                MiddleFace2 = new Vector2(facialFeatures[5].x, facialFeatures[5].y);
+                BottomFace = new Vector2(facialFeatures[11].x, facialFeatures[11].y);
 
                 #region Поворот фотки по глазам!
 
@@ -476,15 +493,34 @@ namespace RH.HeadShop.Helpers
 
                 #region Переводим в относительные координаты
 
-                MouthLeft = new Vector2(MouthLeft.X / (image.Width * 1f), MouthLeft.Y / (image.Height * 1f));
-                MouthRight = new Vector2(MouthRight.X / (image.Width * 1f), MouthRight.Y / (image.Height * 1f));
+                LeftMouth = new Vector2(LeftMouth.X / (image.Width * 1f), LeftMouth.Y / (image.Height * 1f));
+                RightMouth = new Vector2(RightMouth.X / (image.Width * 1f), RightMouth.Y / (image.Height * 1f));
+
                 LeftEyeCenter = new Vector2(LeftEyeCenter.X / (image.Width * 1f), LeftEyeCenter.Y / (image.Height * 1f));
                 RightEyeCenter = new Vector2(RightEyeCenter.X / (image.Width * 1f), RightEyeCenter.Y / (image.Height * 1f));
 
-                var leftTop = new Vector2(LeftEyeCenter.X, Math.Max(LeftEyeCenter.Y, RightEyeCenter.Y));
-                var rightBottom = new Vector2(RightEyeCenter.X, MouthLeft.Y);
+                LeftNose = new Vector2(LeftNose.X / (image.Width * 1f), LeftNose.Y / (image.Height * 1f));
+                RightNose = new Vector2(RightNose.X / (image.Width * 1f), RightNose.Y / (image.Height * 1f));
 
-                FaceRectRelative = new RectangleF(leftTop.X, leftTop.Y, rightBottom.X - leftTop.X, rightBottom.Y - leftTop.Y);
+                TopFace = new Vector2(TopFace.X / (image.Width * 1f), TopFace.Y / (image.Height * 1f));
+                MiddleFace1 = new Vector2(MiddleFace1.X / (image.Width * 1f), MiddleFace1.Y / (image.Height * 1f));
+                MiddleFace2 = new Vector2(MiddleFace2.X / (image.Width * 1f), MiddleFace2.Y / (image.Height * 1f));
+                BottomFace = new Vector2(BottomFace.X / (image.Width * 1f), BottomFace.Y / (image.Height * 1f));
+
+
+
+                /*     int left = facePosition.xc - (int)(facePosition.w * 0.6f);
+                     int top = facePosition.yc - (int)(facePosition.w * 0.5f);
+                     var lRelative = 
+
+                     faceRectangle = new Rectangle(left, top, (int)(facePosition.w * 1.2), (int)(facePosition.w * 1.2));
+                     FaceRectRelative = 
+                     */
+
+
+                //      var leftTop = new Vector2(LeftEyeCenter.X, Math.Max(LeftEyeCenter.Y, RightEyeCenter.Y));
+                //     var rightBottom = new Vector2(RightEyeCenter.X, LeftMouth.Y);
+                // FaceRectRelative = new RectangleF(leftTop.X, leftTop.Y, rightBottom.X - leftTop.X, rightBottom.Y - leftTop.Y);
 
                 #endregion
             }

@@ -122,6 +122,7 @@ namespace RH.HeadShop.Controls
             this.pictureTemplate.TabStop = false;
             this.pictureTemplate.Click += new System.EventHandler(this.pictureTemplate_Click);
             this.pictureTemplate.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureTemplate_Paint);
+            this.pictureTemplate.DoubleClick += new System.EventHandler(this.pictureTemplate_DoubleClick);
             this.pictureTemplate.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureTemplate_MouseDown);
             this.pictureTemplate.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureTemplate_MouseMove);
             this.pictureTemplate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureTemplate_MouseUp);
