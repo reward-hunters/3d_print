@@ -7,17 +7,20 @@ namespace RH.HeadShop.Helpers
     {
         /// <summary>Create directory and all subdirectories on the path to this directory </summary>
         /// <param name="directory">Path to directory</param>
-        public static void CreateDirectory(string directory)
+        public static void CreateDirectory(string directory, bool needRemove = false)
         {
             var di = new DirectoryInfo(directory);
             CreateDirectory(di);
         }
         /// <summary>Create directory and all subdirectories on the path to this directory </summary>
         /// <param name="directory">Path to directory</param>
-        public static void CreateDirectory(DirectoryInfo directory)
+        public static void CreateDirectory(DirectoryInfo directory, bool needRemove = false)
         {
             if (!directory.Parent.Exists)
                 CreateDirectory(directory.Parent);
+
+            if (needRemove && directory.Exists)
+                directory.Delete(true);
             if (!directory.Exists)
                 directory.Create();
         }

@@ -346,6 +346,25 @@ namespace RH.HeadShop.Helpers
         public Vector2 MiddleFace2;
         public Vector2 BottomFace;
 
+        private Vector2 RightMiddleFace1;
+        private Vector2 RightMiddleFace2;
+
+        public float GetMinX()
+        {
+            var minX = float.MaxValue;
+            minX = Math.Min(TopFace.X, minX);
+            minX = Math.Min(MiddleFace1.X, minX);
+            minX = Math.Min(MiddleFace2.X, minX);
+            return minX;
+        }
+        public float GetMaxX()
+        {
+            var maxX = float.MinValue;
+            maxX = Math.Max(TopFace.X, maxX);
+            maxX = Math.Max(RightMiddleFace1.X, maxX);
+            maxX = Math.Max(RightMiddleFace2.X, maxX);
+            return maxX;
+        }
 
         public FSDK.TPoint[] facialFeatures;
         public bool IsMale;
@@ -429,7 +448,7 @@ namespace RH.HeadShop.Helpers
 
 
                 int left = facePosition.xc - (int)(facePosition.w * 0.6f);
-             //   int top = facePosition.yc - (int)(facePosition.w * 0.5f);             // верхушку определяет неправильлно. поэтому просто не будем обрезать :)
+                //   int top = facePosition.yc - (int)(facePosition.w * 0.5f);             // верхушку определяет неправильлно. поэтому просто не будем обрезать :)
                 faceRectangle = new Rectangle(left, 0, (int)(facePosition.w * 1.2), (int)image.Height);
                 if (needCrop)       // если это создание проекта - то нужно обрезать фотку и оставить только голову
                 {
@@ -458,6 +477,9 @@ namespace RH.HeadShop.Helpers
                 MiddleFace1 = new Vector2(facialFeatures[66].x, facialFeatures[66].y);
                 MiddleFace2 = new Vector2(facialFeatures[5].x, facialFeatures[5].y);
                 BottomFace = new Vector2(facialFeatures[11].x, facialFeatures[11].y);
+
+                RightMiddleFace1 = new Vector2(facialFeatures[67].x, facialFeatures[67].y);
+                RightMiddleFace2 = new Vector2(facialFeatures[6].x, facialFeatures[6].y);
 
                 #region Поворот фотки по глазам!
 
@@ -507,7 +529,8 @@ namespace RH.HeadShop.Helpers
                 MiddleFace2 = new Vector2(MiddleFace2.X / (image.Width * 1f), MiddleFace2.Y / (image.Height * 1f));
                 BottomFace = new Vector2(BottomFace.X / (image.Width * 1f), BottomFace.Y / (image.Height * 1f));
 
-
+                RightMiddleFace1 = new Vector2(RightMiddleFace1.X / (image.Width * 1f), RightMiddleFace1.Y / (image.Height * 1f));
+                RightMiddleFace2 = new Vector2(RightMiddleFace2.X / (image.Width * 1f), RightMiddleFace2.Y / (image.Height * 1f));
 
                 /*     int left = facePosition.xc - (int)(facePosition.w * 0.6f);
                      int top = facePosition.yc - (int)(facePosition.w * 0.5f);

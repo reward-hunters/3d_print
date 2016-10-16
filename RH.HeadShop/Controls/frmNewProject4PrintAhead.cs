@@ -71,8 +71,6 @@ namespace RH.HeadShop.Controls
 
         private float eWidth;
         public RectangleF TopEdgeTransformed;
-        public Cheek LeftCheek;
-        public Cheek RightCheek;
 
         private const int CircleRadius = 30;
         private const int HalfCircleRadius = 15;
@@ -195,8 +193,6 @@ namespace RH.HeadShop.Controls
 
         #endregion
 
-
-
         public void CreateProject()
         {
             #region Корректируем размер фотки
@@ -220,10 +216,17 @@ namespace RH.HeadShop.Controls
 
             #endregion
 
-            ProgramCore.Project = new Project("hui", "@C:\\13", templateImage, ManType, CustomModelPath, true, SelectedSize);
+            var path = UserConfig.AppDataDir;
+            path = Path.Combine(path, "TempProject");
+            FolderEx.CreateDirectory(path, true);
 
-            //      ProgramCore.Project.FaceRectRelative = new RectangleF(LeftCheek.GetMinX(), nextHeadRect.Y, RightCheek.GetMaxX() - LeftCheek.GetMinX(), nextHeadRect.Bottom - nextHeadRect.Y);
-            //     ProgramCore.Project.MouthCenter = fcr.MouthCenter;
+            ProgramCore.Project = new Project("PrintAheadProject", path, templateImage, ManType, CustomModelPath, true, SelectedSize);
+
+            var minX = fcr.GetMinX();
+            var topPoint = (TopEdgeTransformed.Y - ImageTemplateOffsetY) / ImageTemplateHeight;
+            ProgramCore.Project.FaceRectRelative = new RectangleF(minX, topPoint, fcr.GetMaxX() - minX, fcr.BottomFace.Y - topPoint);
+            ProgramCore.Project.MouthCenter = new Vector2(fcr.LeftMouth.X + (fcr.RightMouth.X - fcr.LeftMouth.X) * 0.5f, fcr.LeftMouth.Y + (fcr.RightMouth.Y - fcr.LeftMouth.Y) * 0.5f);
+
             ProgramCore.Project.LeftEyeCenter = fcr.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
             ProgramCore.Project.FaceColor = fcr.FaceColor;
@@ -244,8 +247,6 @@ namespace RH.HeadShop.Controls
                     ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage((Bitmap)Bitmap.FromStream(ms), false);          // устанавливаем картинку помощь для юзера
             }
         }
-
-
 
         /// <summary> Пересчитать положение прямоугольника в зависимост от размера картинки на picturetemplate </summary>
         private void RecalcRealTemplateImagePosition()
@@ -646,19 +647,10 @@ namespace RH.HeadShop.Controls
                 arrowPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
                 //arrowPen.Width = 2;
 
-                var leftCheekX = fcr.LeftEyeCenter.X - (fcr.RightEyeCenter.X - fcr.LeftEyeCenter.X) / 2f;
-                var rightCheekX = fcr.RightEyeCenter.X + (fcr.RightEyeCenter.X - fcr.LeftEyeCenter.X) / 2f;
-
-                //      LeftCheek = new Cheek(leftCheekX, center);
-                //     RightCheek = new Cheek(rightCheekX, center);
-
 
 
                 RecalcRealTemplateImagePosition();
                 TopEdgeTransformed.Y = RightEyeTransformed.Y + (RightNoseTransformed.Y - BottomFaceTransformed.Y);
-
-                //       var centerX = LeftCheek.CenterCheekTransformed.X + (RightCheek.CenterCheekTransformed.X - LeftCheek.CenterCheekTransformed.X) * 0.5f;
-                //    centerFace = new RectangleF(centerX, LeftEyeTransformed.Y, 2f, Math.Abs(RightEyeTransformed.Y - MouthTransformed.Y) - 5f);
 
                 RenderTimer.Start();
                 CheekTimer.Start();
