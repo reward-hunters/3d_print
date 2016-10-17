@@ -2021,6 +2021,12 @@ namespace RH.HeadEditor.Helpers
                 result[i].OriginalValue = defaultDots[i].OriginalValue;
             }
 
+            result[20].Visible = false;
+            result[42].Visible = false;
+
+            result[41].LinkedPoints.Add(42);
+            result[19].LinkedPoints.Add(20);
+
             result[7].LinkedPoints.Add(47);      // уши
             result[8].LinkedPoints.Add(48);
             result[29].LinkedPoints.Add(49);

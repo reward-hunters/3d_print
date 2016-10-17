@@ -539,15 +539,18 @@ namespace RH.HeadShop.Render
                     autodotsShapeHelper.InitializeShaping();
 
                     var points = autodotsShapeHelper.GetBaseDots();
-                    SpecialMouthEyesUpdate(points, headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter);
+                    SpecialMouthEyesUpdate(points, headController.GetMouthIndexes(), ProgramCore.Project.MouthCenter, 
+                        new List<Vector2> { ProgramCore.Project.DetectedPoints[0], ProgramCore.Project.DetectedPoints[1] });
                     SpecialMouthEyesUpdate(points, headController.GetLeftEyeIndexes(), ProgramCore.Project.LeftEyeCenter);
                     SpecialMouthEyesUpdate(points, headController.GetRightEyeIndexes(), ProgramCore.Project.RightEyeCenter);
 
                     var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
                     var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
-                    SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint);
+                    SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint,
+                        new List<Vector2> { ProgramCore.Project.DetectedPoints[2], ProgramCore.Project.DetectedPoints[3] });
 
                     SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
+                    SpecialBottomPointsUpdate();
 
                     //autodotsShapeHelper.TransformRects();
                     //headMeshesController.UpdateBuffers();
@@ -566,29 +569,58 @@ namespace RH.HeadShop.Render
             RenderTimer.Start();
         }
 
-        private void SpecialMouthEyesUpdate(List<HeadPoint> points, List<int> indexes, Vector2 targetPoint)
+        private void SpecialBottomPointsUpdate()
         {
-            var center = GetCenter(points, indexes);
+
+        }
+
+        private void SpecialMouthEyesUpdate(List<HeadPoint> points, List<int> indexes, Vector2 targetPoint, List<Vector2> borders = null)
+        {
+            float maxX, minX;
+            var center = GetCenter(points, indexes, out minX, out maxX);
             var rightPosUserSelected = MirroredHeadPoint.GetFrontWorldPoint(targetPoint);          // перенояем координаты с левой картинки в правой
             var delta2 = rightPosUserSelected - center;
 
-            foreach (var index in indexes)
+            if (borders != null)
             {
-                var p = points[index];
-                p.Value += delta2;
+                var leftBorder = MirroredHeadPoint.GetFrontWorldPoint(borders[0]) - rightPosUserSelected;
+                var rightBorder = MirroredHeadPoint.GetFrontWorldPoint(borders[1]) - rightPosUserSelected;
 
-                autodotsShapeHelper.Transform(p.Value, index); // точка в мировых координатах
+                minX = minX - center.X;
+                maxX = maxX - center.X;
+
+                foreach (var index in indexes)
+                {
+                    var p = points[index];
+                    var dx = p.Value.X - center.X;
+                    dx = dx < 0.0f ? (dx * leftBorder.X / minX) : (rightBorder.X * dx / maxX);
+                    p.Value = new Vector2(center.X + dx + delta2.X, p.Value.Y + delta2.Y);
+                    autodotsShapeHelper.Transform(p.Value, index);
+                }
             }
+            else
+            {
+                foreach (var index in indexes)
+                {
+                    var p = points[index];
+                    p.Value += delta2;
+                    autodotsShapeHelper.Transform(p.Value, index);
+                }
+            }            
         }
-        private Vector2 GetCenter(List<HeadPoint> points, List<int> indexes)
+        private Vector2 GetCenter(List<HeadPoint> points, List<int> indexes, out float xmin, out float xmax)
         {
             var dots = indexes.Select(index => points[index]).ToList();
 
             if (dots.Count == 0)
+            {
+                xmin = xmax = 0.0f;
                 return Vector2.Zero;
+            }
+                
 
-            var minX = dots.Min(point => point.Value.X);
-            var maxX = dots.Max(point => point.Value.X);
+            var minX = xmin = dots.Min(point => point.Value.X);
+            var maxX = xmax = dots.Max(point => point.Value.X);
             var minY = dots.Min(point => point.Value.Y);
             var maxY = dots.Max(point => point.Value.Y);
 
@@ -821,7 +853,6 @@ namespace RH.HeadShop.Render
             var eyesDiff = (ProgramCore.Project.LeftEyeCenter + ProgramCore.Project.RightEyeCenter) * 0.5f;
             var noseBottomPoint = new Vector2(ProgramCore.Project.MouthCenter.X, ((eyesDiff.Y - ProgramCore.Project.MouthUserCenter.Y) * 0.4f) + ProgramCore.Project.MouthUserCenter.Y);
             SpecialMouthEyesUpdate(points, headController.GetNoseBottomIndexes(), noseBottomPoint);
-
             SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
         }
 
