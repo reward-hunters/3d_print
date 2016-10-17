@@ -710,9 +710,9 @@ namespace RH.HeadShop.Render.Controllers
                 new HeadPoint(-5.42075f, -8.08329f),                        //9        // Левая нижняя часть (шея и подбородок)
                 new HeadPoint(-4.217142f, -9.371833f),                      //10       // Левая нижняя часть (шея и подбородок)
                 new HeadPoint(-1.009934f, -10.85862f),                      //11       // Левая нижняя часть (шея и подбородок)
-                new HeadPoint(-4.741577f, -9.973206f),                      //12       // Левая нижняя часть (шея и подбородок)
-                new HeadPoint(-2.835503f, -11.6133f),                       //13       // Левая нижняя часть (шея и подбородок)
-                new HeadPoint(-0.9294291f, -12.60291f),                     //14       // Левая нижняя часть (шея и подбородок)
+                new HeadPoint(-4.741577f, -9.973206f)   { Visible = false },                      //12       // Левая нижняя часть (шея и подбородок)
+                new HeadPoint(-2.835503f, -11.6133f)   { Visible = false },                       //13       // Левая нижняя часть (шея и подбородок)
+                new HeadPoint(-0.9294291f, -12.60291f)   { Visible = false },                     //14       // Левая нижняя часть (шея и подбородок)
                 new HeadPoint(-2.505571f, -6.369632f),                      //15        // Рот    
                 new HeadPoint(-1.022702f, -5.397916f),                      //16        // Рот  
                 new HeadPoint(-1.616331f, -7.183366f),                      //17        // Рот 
@@ -729,12 +729,12 @@ namespace RH.HeadShop.Render.Controllers
                 new HeadPoint(7.634505f, 4.589076f),                            //28
                 new HeadPoint(7.394f, 0.1770133f),                              //29 +
                 new HeadPoint(6.864106f, -4.398919f),                           //30 +
-                new HeadPoint(5.42075f, -8.08329f),                             //31
-                new HeadPoint(4.217142f, -9.371833f),                           //32
-                new HeadPoint(1.009934f, -10.85862f),                           //33
-                new HeadPoint(4.741577f, -9.973206f),                           //34
-                new HeadPoint(2.835503f, -11.6133f),                            //35
-                new HeadPoint(0.9294291f, -12.60291f),                          //36
+                new HeadPoint(5.42075f, -8.08329f),                             //31        // Правая нижняя часть (шея и подбородок)
+                new HeadPoint(4.217142f, -9.371833f),                           //32        // Правая нижняя часть (шея и подбородок)
+                new HeadPoint(1.009934f, -10.85862f),                           //33        // Правая нижняя часть (шея и подбородок)
+                new HeadPoint(4.741577f, -9.973206f)   { Visible = false },                           //34        // Правая нижняя часть (шея и подбородок)
+                new HeadPoint(2.835503f, -11.6133f)   { Visible = false },                            //35        // Правая нижняя часть (шея и подбородок)
+                new HeadPoint(0.9294291f, -12.60291f)   { Visible = false },                          //36        // Правая нижняя часть (шея и подбородок)
                 new HeadPoint(2.505571f, -6.369632f),                           //37        // Рот
                 new HeadPoint(1.022702f, -5.397916f),                           //38        // Рот
                 new HeadPoint(1.616331f, -7.183366f),                           //39        // Рот
@@ -756,6 +756,13 @@ namespace RH.HeadShop.Render.Controllers
                 //new HeadPoint(0.53173f, -3.703351f),                            //54         //nose bulb  2
                 //new HeadPoint(0f, -3.003351f)                                   //55         //nose bulb  2
             };
+
+            newPoints[10].LinkedPoints.Add(12);
+            newPoints[33].LinkedPoints.Add(35);
+            newPoints[33].LinkedPoints.Add(36);
+            newPoints[11].LinkedPoints.Add(13);
+            newPoints[11].LinkedPoints.Add(14);
+            newPoints[32].LinkedPoints.Add(34);
 
             newPoints[41].LinkedPoints.Add(42);
             newPoints[19].LinkedPoints.Add(20);
@@ -783,9 +790,9 @@ namespace RH.HeadShop.Render.Controllers
                 new HeadPoint(-5.56878f, -7.898001f),                       //9        // Левая нижняя часть (шея и подбородок)
                 new HeadPoint(-4.181715f, -9.318408f),                      //10       // Левая нижняя часть (шея и подбородок)
                 new HeadPoint(-0.9582672f, -10.97441f),                     //11       // Левая нижняя часть (шея и подбородок)
-                new HeadPoint(-4.741577f, -9.973206f),                      //12       // Левая нижняя часть (шея и подбородок)
-                new HeadPoint(-2.835503f, -11.6133f),                       //13       // Левая нижняя часть (шея и подбородок)
-                new HeadPoint(-0.9294291f, -12.60291f),                     //14       // Левая нижняя часть (шея и подбородок)
+                new HeadPoint(-4.741577f, -9.973206f)   { Visible = false },                      //12       // Левая нижняя часть (шея и подбородок)
+                new HeadPoint(-2.835503f, -11.6133f)   { Visible = false },                       //13       // Левая нижняя часть (шея и подбородок)
+                new HeadPoint(-0.9294291f, -12.60291f)   { Visible = false },                     //14       // Левая нижняя часть (шея и подбородок)
                 new HeadPoint(-2.718971f, -6.03537f),                       //15        // Рот    
                 new HeadPoint(-1.26607f, -5.090575f),                       //16        // Рот  
                 new HeadPoint(-1.703346f, -6.788739f),                      //17        // Рот 
@@ -805,9 +812,9 @@ namespace RH.HeadShop.Render.Controllers
                 new HeadPoint(5.56878f, -7.898001f),                        //31
                 new HeadPoint(4.181715f, -9.318408f),                       //32
                 new HeadPoint(0.9582672f, -10.97441f),                      //33
-                new HeadPoint(4.741577f, -9.973206f),                       //34
-                new HeadPoint(2.835503f, -11.6133f),                        //35
-                new HeadPoint(0.9294291f, -12.60291f),                      //36
+                new HeadPoint(4.741577f, -9.973206f)   { Visible = false },                       //34
+                new HeadPoint(2.835503f, -11.6133f)   { Visible = false },                        //35
+                new HeadPoint(0.9294291f, -12.60291f)   { Visible = false },                      //36
                 new HeadPoint(2.718971f, -6.03537f),                        //37        // Рот
                 new HeadPoint(1.26607f, -5.090575f),                        //38        // Рот
                 new HeadPoint(1.703346f, -6.788739f),                       //39        // Рот
@@ -826,6 +833,13 @@ namespace RH.HeadShop.Render.Controllers
 
                 new HeadPoint(0f, -3.503351f)                               //52         //nose bulb  
             };
+
+            newPoints[10].LinkedPoints.Add(12);
+            newPoints[33].LinkedPoints.Add(35);
+            newPoints[33].LinkedPoints.Add(36);
+            newPoints[11].LinkedPoints.Add(13);
+            newPoints[11].LinkedPoints.Add(14);
+            newPoints[32].LinkedPoints.Add(34);
 
             newPoints[41].LinkedPoints.Add(42);
             newPoints[19].LinkedPoints.Add(20);
@@ -853,9 +867,9 @@ namespace RH.HeadShop.Render.Controllers
                new HeadPoint(-5.243114f, -6.8904f),                             //9        // Левая нижняя часть (шея и подбородок)
                new HeadPoint(-4.022252f, -8.074624f),                           //10       // Левая нижняя часть (шея и подбородок)
                new HeadPoint(-1.048055f, -9.454509f),                           //11       // Левая нижняя часть (шея и подбородок)
-               new HeadPoint(-4.741577f, -9.973206f),                           //12       // Левая нижняя часть (шея и подбородок)
-               new HeadPoint(-2.835503f, -11.6133f),                            //13       // Левая нижняя часть (шея и подбородок)
-               new HeadPoint(-0.9294291f, -12.60291f),                          //14       // Левая нижняя часть (шея и подбородок)
+               new HeadPoint(-4.741577f, -9.973206f)   { Visible = false },                           //12       // Левая нижняя часть (шея и подбородок)
+               new HeadPoint(-2.835503f, -11.6133f)   { Visible = false },                            //13       // Левая нижняя часть (шея и подбородок)
+               new HeadPoint(-0.9294291f, -12.60291f)   { Visible = false },                          //14       // Левая нижняя часть (шея и подбородок)
                new HeadPoint(-1.865658f, -6.201596f),                           //15        // Рот    
                new HeadPoint(-0.8154634f, -5.328717f),                          //16        // Рот  
                new HeadPoint(-1.162038f, -6.793632f),                           //17        // Рот 
@@ -875,9 +889,9 @@ namespace RH.HeadShop.Render.Controllers
                 new HeadPoint(5.243114f, -6.8904f),                             //31
                 new HeadPoint(4.022252f, -8.074624f),                           //32
                 new HeadPoint(1.048055f, -9.454509f),                           //33
-                new HeadPoint(4.741577f, -9.973206f),                           //34
-                new HeadPoint(2.835503f, -11.6133f),                            //35
-                new HeadPoint(0.9294291f, -12.60291f),                          //36
+                new HeadPoint(4.741577f, -9.973206f)   { Visible = false },                           //34
+                new HeadPoint(2.835503f, -11.6133f)   { Visible = false },                            //35
+                new HeadPoint(0.9294291f, -12.60291f)   { Visible = false },                          //36
                 new HeadPoint(1.865658f, -6.201596f),                           //37        // Рот
                 new HeadPoint(0.8154634f, -5.328717f),                          //38        // Рот
                 new HeadPoint(1.162038f, -6.793632f),                           //39        // Рот
@@ -897,6 +911,13 @@ namespace RH.HeadShop.Render.Controllers
 
                 new HeadPoint(0f, -3.503351f)                                   //52         //nose bulb  
             };
+
+            newPoints[10].LinkedPoints.Add(12);
+            newPoints[33].LinkedPoints.Add(35);
+            newPoints[33].LinkedPoints.Add(36);
+            newPoints[11].LinkedPoints.Add(13);
+            newPoints[11].LinkedPoints.Add(14);
+            newPoints[32].LinkedPoints.Add(34);
 
             newPoints[41].LinkedPoints.Add(42);
             newPoints[19].LinkedPoints.Add(20);

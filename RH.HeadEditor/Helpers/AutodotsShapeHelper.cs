@@ -2024,6 +2024,21 @@ namespace RH.HeadEditor.Helpers
             result[20].Visible = false;
             result[42].Visible = false;
 
+
+            result[12].Visible = false;
+            result[13].Visible = false;
+            result[14].Visible = false;
+            result[34].Visible = false;
+            result[35].Visible = false;
+            result[36].Visible = false;
+
+            result[10].LinkedPoints.Add(12);
+            result[33].LinkedPoints.Add(35);
+            result[33].LinkedPoints.Add(36);
+            result[11].LinkedPoints.Add(13);
+            result[11].LinkedPoints.Add(14);
+            result[32].LinkedPoints.Add(34);
+
             result[41].LinkedPoints.Add(42);
             result[19].LinkedPoints.Add(20);
 

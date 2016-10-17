@@ -550,7 +550,7 @@ namespace RH.HeadShop.Render
                         new List<Vector2> { ProgramCore.Project.DetectedPoints[2], ProgramCore.Project.DetectedPoints[3] });
 
                     SpecialMouthEyesUpdate(points, headController.GetNoseTopIndexes(), eyesDiff);
-                    SpecialBottomPointsUpdate();
+                    SpecialBottomPointsUpdate(points);
 
                     //autodotsShapeHelper.TransformRects();
                     //headMeshesController.UpdateBuffers();
@@ -569,9 +569,32 @@ namespace RH.HeadShop.Render
             RenderTimer.Start();
         }
 
-        private void SpecialBottomPointsUpdate()
+        private void SpecialBottomPointsUpdate(List<HeadPoint> points)
         {
+            var bottomPoints = new int[] {  9, 10, 11, 33, 32, 31 };
+            for(int i = 0; i < bottomPoints.Length; ++i)
+            {
+                var point = points[bottomPoints[i]];
+                var delta = MirroredHeadPoint.GetFrontWorldPoint(ProgramCore.Project.DetectedPoints[i + 4]) - point.Value;
+                point.Value += delta;
+                autodotsShapeHelper.Transform(point.Value, bottomPoints[i]);
+            }
 
+            var bottomPointsX = new int[] { 7, 8, 30, 29 };
+            for (int i = 0; i < bottomPointsX.Length; ++i)
+            {
+                var point = points[bottomPointsX[i]];
+                var delta = MirroredHeadPoint.GetFrontWorldPoint(ProgramCore.Project.DetectedPoints[i + 10]) - point.Value;
+                delta = new Vector2(point.Value.X + delta.X, point.Value.Y) - point.Value;
+                point.Value += delta;
+                foreach(var l in point.LinkedPoints)
+                {
+                    var p = points[l];
+                    p.Value += delta;
+                    autodotsShapeHelper.Transform(p.Value, l);
+                }
+                autodotsShapeHelper.Transform(point.Value, bottomPointsX[i]);
+            }
         }
 
         private void SpecialMouthEyesUpdate(List<HeadPoint> points, List<int> indexes, Vector2 targetPoint, List<Vector2> borders = null)
