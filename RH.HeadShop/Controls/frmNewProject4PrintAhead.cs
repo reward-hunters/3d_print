@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using Luxand;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RH.HeadShop.Helpers;
@@ -57,17 +59,7 @@ namespace RH.HeadShop.Controls
         public int ImageTemplateOffsetX;
         public int ImageTemplateOffsetY;
 
-        public PointF LeftMouthTransformed;
-        public PointF RightMouthTransformed;
-        public PointF LeftEyeTransformed;
-        public PointF RightEyeTransformed;
-        public PointF LeftNoseTransformed;
-        public PointF RightNoseTransformed;
-
-        public PointF TopFaceTransformed;
-        public PointF MiddleFace1Transformed;
-        public PointF MiddleFace2Transformed;
-        public PointF BottomFaceTransformed;
+        public List<PointF> facialFeaturesTransformed = new List<PointF>();
 
         private float eWidth;
         public RectangleF TopEdgeTransformed;
@@ -278,29 +270,13 @@ namespace RH.HeadShop.Controls
             ImageTemplateOffsetX = (pb.Width - ImageTemplateWidth) / 2;
             ImageTemplateOffsetY = (pb.Height - ImageTemplateHeight) / 2;
 
-            LeftMouthTransformed = new PointF(fcr.LeftMouth.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                                          fcr.LeftMouth.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            RightMouthTransformed = new PointF(fcr.RightMouth.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                                          fcr.RightMouth.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-
-            LeftNoseTransformed = new PointF(fcr.LeftNose.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                  fcr.LeftNose.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            RightNoseTransformed = new PointF(fcr.RightNose.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                              fcr.RightNose.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-
-            LeftEyeTransformed = new PointF(fcr.LeftEyeCenter.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                              fcr.LeftEyeCenter.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            RightEyeTransformed = new PointF(fcr.RightEyeCenter.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                              fcr.RightEyeCenter.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-
-            TopFaceTransformed = new PointF(fcr.TopFace.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                  fcr.TopFace.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            MiddleFace1Transformed = new PointF(fcr.MiddleFace1.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                  fcr.MiddleFace1.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            MiddleFace2Transformed = new PointF(fcr.MiddleFace2.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                  fcr.MiddleFace2.Y * ImageTemplateHeight + ImageTemplateOffsetY);
-            BottomFaceTransformed = new PointF(fcr.BottomFace.X * ImageTemplateWidth + ImageTemplateOffsetX,
-                  fcr.BottomFace.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+            facialFeaturesTransformed.Clear();
+            foreach (var point in fcr.FacialFeatures)
+            {
+                var pointTransformed = new PointF(point.X * ImageTemplateWidth + ImageTemplateOffsetX,
+                                          point.Y * ImageTemplateHeight + ImageTemplateOffsetY);
+                facialFeaturesTransformed.Add(pointTransformed);
+            }
 
             if (TopEdgeTransformed.Y < 0)
                 TopEdgeTransformed.Y = 0;
@@ -344,19 +320,8 @@ namespace RH.HeadShop.Controls
             if (string.IsNullOrEmpty(templateImage))
                 return;
 
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftEyeTransformed.X - HalfCircleSmallRadius, LeftEyeTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightEyeTransformed.X - HalfCircleSmallRadius, RightEyeTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftMouthTransformed.X - HalfCircleSmallRadius, LeftMouthTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightMouthTransformed.X - HalfCircleSmallRadius, RightMouthTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, LeftNoseTransformed.X - HalfCircleSmallRadius, LeftNoseTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, RightNoseTransformed.X - HalfCircleSmallRadius, RightNoseTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, TopFaceTransformed.X - HalfCircleSmallRadius, TopFaceTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, MiddleFace1Transformed.X - HalfCircleSmallRadius, MiddleFace1Transformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, MiddleFace2Transformed.X - HalfCircleSmallRadius, MiddleFace2Transformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
-            e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, BottomFaceTransformed.X - HalfCircleSmallRadius, BottomFaceTransformed.Y - HalfCircleSmallRadius, CircleSmallRadius, CircleSmallRadius);
+            foreach (var point in facialFeaturesTransformed)
+                e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, point.X - 2, point.Y - 2, 4, 4);
 
             e.Graphics.DrawArc(edgePen, TopEdgeTransformed, 220, 100);
             e.Graphics.DrawLine(arrowPen, centerX(TopEdgeTransformed), TopEdgeTransformed.Top, centerX(TopEdgeTransformed), TopEdgeTransformed.Top + 20);
@@ -650,7 +615,9 @@ namespace RH.HeadShop.Controls
 
 
                 RecalcRealTemplateImagePosition();
-                TopEdgeTransformed.Y = RightEyeTransformed.Y + (RightNoseTransformed.Y - BottomFaceTransformed.Y);
+
+                var distance = facialFeaturesTransformed[2].Y - facialFeaturesTransformed[11].Y;
+                TopEdgeTransformed.Y = facialFeaturesTransformed[16].Y + distance;          // определение высоты по алгоритму старикана
 
                 RenderTimer.Start();
                 CheekTimer.Start();

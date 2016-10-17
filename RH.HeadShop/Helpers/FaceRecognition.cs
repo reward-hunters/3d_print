@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -366,7 +367,7 @@ namespace RH.HeadShop.Helpers
             return maxX;
         }
 
-        public FSDK.TPoint[] facialFeatures;
+        public List<PointF> FacialFeatures;
         public bool IsMale;
 
 
@@ -378,7 +379,7 @@ namespace RH.HeadShop.Helpers
             LeftEyeCenter = RightEyeCenter = LeftMouth = LeftNose = RightNose = RightMouth = Vector2.Zero;
 
             var executablePath = Path.GetDirectoryName(Application.ExecutablePath);
-
+            FSDK.TPoint[] pointFeature;
             FSDK.CImage image = new FSDK.CImage(path);
 
 
@@ -436,10 +437,10 @@ namespace RH.HeadShop.Helpers
             }
             else
             {
-                facialFeatures = image.DetectFacialFeaturesInRegion(ref facePosition);
+                pointFeature = image.DetectFacialFeaturesInRegion(ref facePosition);
 
                 String AttributeValues;         // определение пола
-                FSDK.DetectFacialAttributeUsingFeatures(image.ImageHandle, ref facialFeatures, "Gender", out AttributeValues, 1024);
+                FSDK.DetectFacialAttributeUsingFeatures(image.ImageHandle, ref pointFeature, "Gender", out AttributeValues, 1024);
                 float ConfidenceMale = 0.0f;
                 float ConfidenceFemale = 0.0f;
                 FSDK.GetValueConfidence(AttributeValues, "Male", ref ConfidenceMale);
@@ -464,22 +465,22 @@ namespace RH.HeadShop.Helpers
                     }
                 }
 
-                LeftEyeCenter = new Vector2(facialFeatures[0].x, facialFeatures[0].y);
-                RightEyeCenter = new Vector2(facialFeatures[1].x, facialFeatures[1].y);
+                LeftEyeCenter = new Vector2(pointFeature[0].x, pointFeature[0].y);
+                RightEyeCenter = new Vector2(pointFeature[1].x, pointFeature[1].y);
 
-                LeftMouth = new Vector2(facialFeatures[3].x, facialFeatures[3].y);
-                RightMouth = new Vector2(facialFeatures[4].x, facialFeatures[4].y);
+                LeftMouth = new Vector2(pointFeature[3].x, pointFeature[3].y);
+                RightMouth = new Vector2(pointFeature[4].x, pointFeature[4].y);
 
-                LeftNose = new Vector2(facialFeatures[45].x, facialFeatures[45].y);
-                RightNose = new Vector2(facialFeatures[46].x, facialFeatures[46].y);
+                LeftNose = new Vector2(pointFeature[45].x, pointFeature[45].y);
+                RightNose = new Vector2(pointFeature[46].x, pointFeature[46].y);
 
-                TopFace = new Vector2(facialFeatures[66].x, facialFeatures[66].y);
-                MiddleFace1 = new Vector2(facialFeatures[66].x, facialFeatures[66].y);
-                MiddleFace2 = new Vector2(facialFeatures[5].x, facialFeatures[5].y);
-                BottomFace = new Vector2(facialFeatures[11].x, facialFeatures[11].y);
+                TopFace = new Vector2(pointFeature[66].x, pointFeature[66].y);
+                MiddleFace1 = new Vector2(pointFeature[66].x, pointFeature[66].y);
+                MiddleFace2 = new Vector2(pointFeature[5].x, pointFeature[5].y);
+                BottomFace = new Vector2(pointFeature[11].x, pointFeature[11].y);
 
-                RightMiddleFace1 = new Vector2(facialFeatures[67].x, facialFeatures[67].y);
-                RightMiddleFace2 = new Vector2(facialFeatures[6].x, facialFeatures[6].y);
+                RightMiddleFace1 = new Vector2(pointFeature[67].x, pointFeature[67].y);
+                RightMiddleFace2 = new Vector2(pointFeature[6].x, pointFeature[6].y);
 
                 #region Поворот фотки по глазам!
 
@@ -531,6 +532,10 @@ namespace RH.HeadShop.Helpers
 
                 RightMiddleFace1 = new Vector2(RightMiddleFace1.X / (image.Width * 1f), RightMiddleFace1.Y / (image.Height * 1f));
                 RightMiddleFace2 = new Vector2(RightMiddleFace2.X / (image.Width * 1f), RightMiddleFace2.Y / (image.Height * 1f));
+
+                FacialFeatures = new List<PointF>();
+                foreach (var point in pointFeature)
+                    FacialFeatures.Add(new PointF(point.x / (image.Width * 1f), point.y / (image.Height * 1f)));
 
                 /*     int left = facePosition.xc - (int)(facePosition.w * 0.6f);
                      int top = facePosition.yc - (int)(facePosition.w * 0.5f);

@@ -209,6 +209,7 @@ namespace RH.HeadShop.Controls
             this.btnChild.TabIndex = 17;
             this.btnChild.TabStop = false;
             this.btnChild.Tag = "2";
+            this.btnChild.Visible = false;
             this.btnChild.Click += new System.EventHandler(this.btnChild_Click);
             // 
             // btnFemale
@@ -221,6 +222,7 @@ namespace RH.HeadShop.Controls
             this.btnFemale.TabIndex = 16;
             this.btnFemale.TabStop = false;
             this.btnFemale.Tag = "2";
+            this.btnFemale.Visible = false;
             this.btnFemale.Click += new System.EventHandler(this.btnFemale_Click);
             // 
             // btnMale
@@ -233,6 +235,7 @@ namespace RH.HeadShop.Controls
             this.btnMale.TabIndex = 15;
             this.btnMale.TabStop = false;
             this.btnMale.Tag = "1";
+            this.btnMale.Visible = false;
             this.btnMale.Click += new System.EventHandler(this.btnMale_Click);
             // 
             // btnInfo
@@ -298,6 +301,7 @@ namespace RH.HeadShop.Controls
             this.label8.Size = new System.Drawing.Size(46, 18);
             this.label8.TabIndex = 7;
             this.label8.Text = "Child";
+            this.label8.Visible = false;
             // 
             // label9
             // 
@@ -309,6 +313,7 @@ namespace RH.HeadShop.Controls
             this.label9.Size = new System.Drawing.Size(63, 18);
             this.label9.TabIndex = 6;
             this.label9.Text = "Female";
+            this.label9.Visible = false;
             // 
             // label10
             // 
@@ -320,6 +325,7 @@ namespace RH.HeadShop.Controls
             this.label10.Size = new System.Drawing.Size(44, 18);
             this.label10.TabIndex = 5;
             this.label10.Text = "Male";
+            this.label10.Visible = false;
             // 
             // RenderTimer
             // 
