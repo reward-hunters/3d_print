@@ -367,7 +367,7 @@ namespace RH.HeadShop.Helpers
             return maxX;
         }
 
-        public List<PointF> FacialFeatures;
+        public List<Vector2> FacialFeatures;
         public bool IsMale;
 
 
@@ -533,9 +533,9 @@ namespace RH.HeadShop.Helpers
                 RightMiddleFace1 = new Vector2(RightMiddleFace1.X / (image.Width * 1f), RightMiddleFace1.Y / (image.Height * 1f));
                 RightMiddleFace2 = new Vector2(RightMiddleFace2.X / (image.Width * 1f), RightMiddleFace2.Y / (image.Height * 1f));
 
-                FacialFeatures = new List<PointF>();
+                FacialFeatures = new List<Vector2>();
                 foreach (var point in pointFeature)
-                    FacialFeatures.Add(new PointF(point.x / (image.Width * 1f), point.y / (image.Height * 1f)));
+                    FacialFeatures.Add(new Vector2(point.x / (image.Width * 1f), point.y / (image.Height * 1f)));
 
                 /*     int left = facePosition.xc - (int)(facePosition.w * 0.6f);
                      int top = facePosition.yc - (int)(facePosition.w * 0.5f);

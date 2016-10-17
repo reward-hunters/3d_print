@@ -142,6 +142,8 @@ namespace RH.HeadShop
             }
         }
 
+        public List<Vector2> DetectedPoints = new List<Vector2>();
+
         #endregion
 
         #region User face position

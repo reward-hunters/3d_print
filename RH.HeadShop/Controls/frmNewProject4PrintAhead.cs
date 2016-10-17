@@ -185,6 +185,8 @@ namespace RH.HeadShop.Controls
 
         #endregion
 
+        
+
         public void CreateProject()
         {
             #region Корректируем размер фотки
@@ -222,6 +224,24 @@ namespace RH.HeadShop.Controls
             ProgramCore.Project.LeftEyeCenter = fcr.LeftEyeCenter;
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
             ProgramCore.Project.FaceColor = fcr.FaceColor;
+
+            ProgramCore.Project.DetectedPoints.Clear();
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[3]);            // крайние точки рта
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[4]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[45]);           // крайние точки носа
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[46]);
+
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[66]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[68]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[5]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[7]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[9]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[11]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[10]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[8]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[6]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[69]);
+            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[67]);
 
             var aabb = ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
             ProgramCore.MainForm.UpdateProjectControls(true, aabb);
