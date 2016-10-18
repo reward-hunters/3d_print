@@ -142,7 +142,9 @@ namespace RH.HeadShop
             }
         }
 
-        public List<Vector2> DetectedPoints = new List<Vector2>();
+        public List<Vector2> DetectedBottomPoints = new List<Vector2>();
+        public List<Vector2> DetectedNosePoints = new List<Vector2>();
+        public List<Vector2> DetectedLipsPoints = new List<Vector2>();
 
         #endregion
 

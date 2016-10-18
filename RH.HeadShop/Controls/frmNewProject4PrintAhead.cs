@@ -225,28 +225,36 @@ namespace RH.HeadShop.Controls
             ProgramCore.Project.RightEyeCenter = fcr.RightEyeCenter;
             ProgramCore.Project.FaceColor = fcr.FaceColor;
 
-            ProgramCore.Project.DetectedPoints.Clear();
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[3]);            // крайние точки рта
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[4]);
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[45]);           // крайние точки носа
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[46]);
-            
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[5]);
-            ProgramCore.Project.DetectedPoints.Add((fcr.FacialFeatures[7] + fcr.FacialFeatures[9]) * 0.5f);
-            //ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[9]);
+            ProgramCore.Project.DetectedLipsPoints.Clear();
+            ProgramCore.Project.DetectedNosePoints.Clear();
+            ProgramCore.Project.DetectedBottomPoints.Clear();
+
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[3]);            // точки рта
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[58]);
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[55]);
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[59]);
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[4]);
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[57]);
+            ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[56]);
+
+            ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[45]);           // точки носа
+            ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[49]);
+            ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[46]);
+            ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[2]);
+            ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[22]);
+
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[5]); //точки нижней части лица
+            ProgramCore.Project.DetectedBottomPoints.Add((fcr.FacialFeatures[7] + fcr.FacialFeatures[9]) * 0.5f);
             var p11 = fcr.FacialFeatures[11];
-            ProgramCore.Project.DetectedPoints.Add(new Vector2((p11.X + fcr.FacialFeatures[9].X) * 0.5f, p11.Y));
-            ProgramCore.Project.DetectedPoints.Add(new Vector2((p11.X + fcr.FacialFeatures[10].X) * 0.5f, p11.Y));
-            //ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[11]);
+            ProgramCore.Project.DetectedBottomPoints.Add(new Vector2((p11.X + fcr.FacialFeatures[9].X) * 0.5f, p11.Y));
+            ProgramCore.Project.DetectedBottomPoints.Add(new Vector2((p11.X + fcr.FacialFeatures[10].X) * 0.5f, p11.Y));
+            ProgramCore.Project.DetectedBottomPoints.Add((fcr.FacialFeatures[8] + fcr.FacialFeatures[10]) * 0.5f);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[6]);
 
-            ProgramCore.Project.DetectedPoints.Add((fcr.FacialFeatures[8] + fcr.FacialFeatures[10]) * 0.5f);
-            //ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[8]);
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[6]);
-
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[66]);
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[68]);
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[69]);
-            ProgramCore.Project.DetectedPoints.Add(fcr.FacialFeatures[67]);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[66]);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[68]);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[69]);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[67]);
 
             var aabb = ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
             ProgramCore.MainForm.UpdateProjectControls(true, aabb);
@@ -344,7 +352,7 @@ namespace RH.HeadShop.Controls
         {
             if (string.IsNullOrEmpty(templateImage))
                 return;
-
+            
             foreach (var point in facialFeaturesTransformed)
                 e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, point.X - 2, point.Y - 2, 4, 4);
 
