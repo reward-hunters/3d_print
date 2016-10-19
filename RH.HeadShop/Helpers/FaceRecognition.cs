@@ -450,7 +450,9 @@ namespace RH.HeadShop.Helpers
 
                 int left = facePosition.xc - (int)(facePosition.w * 0.6f);
                 //   int top = facePosition.yc - (int)(facePosition.w * 0.5f);             // верхушку определяет неправильлно. поэтому просто не будем обрезать :)
-                faceRectangle = new Rectangle(left, 0, (int)(facePosition.w * 1.2), (int)image.Height);
+                BottomFace = new Vector2(pointFeature[11].x, pointFeature[11].y);
+
+                faceRectangle = new Rectangle(left, 0, (int)(facePosition.w * 1.2), BottomFace.Y + 10 < image.Height ? (int)(BottomFace.Y + 15) : image.Height);
                 if (needCrop)       // если это создание проекта - то нужно обрезать фотку и оставить только голову
                 {
                     using (var croppedImage = ImageEx.Crop(path, faceRectangle))
@@ -477,7 +479,7 @@ namespace RH.HeadShop.Helpers
                 TopFace = new Vector2(pointFeature[66].x, pointFeature[66].y);
                 MiddleFace1 = new Vector2(pointFeature[66].x, pointFeature[66].y);
                 MiddleFace2 = new Vector2(pointFeature[5].x, pointFeature[5].y);
-                BottomFace = new Vector2(pointFeature[11].x, pointFeature[11].y);
+
 
                 RightMiddleFace1 = new Vector2(pointFeature[67].x, pointFeature[67].y);
                 RightMiddleFace2 = new Vector2(pointFeature[6].x, pointFeature[6].y);

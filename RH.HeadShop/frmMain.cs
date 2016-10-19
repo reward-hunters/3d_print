@@ -149,6 +149,7 @@ namespace RH.HeadShop
                 Text = "PrintAhead";
                 aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
                 panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                openToolStripMenuItem.Visible = saveAsToolStripMenuItem.Visible = saveToolStripMenuItem.Visible = false;
             }
             else
             {
@@ -390,7 +391,12 @@ namespace RH.HeadShop
                     panelMenuCut_Click(null, EventArgs.Empty);  // иначе это наш проект волосач и по дефолту мы работаем с волосами, а не с формой лица.
             }
 
-            InitRecentItems();
+            if (CurrentProgram == ProgramMode.PrintAhead)
+            {
+                ProgramCore.MainForm.panelFront.btnAutodots_Click(null, null);
+                ProgramCore.MainForm.panelFront.btnAutodots_Click(null, null);
+            }
+            else InitRecentItems();
 
             if (ProgramCore.Project.ManType == ManType.Custom && UserConfig.ByName("Options")["Tutorials", "CustomHeads", "1"] == "1")
                 frmTutCustomHeads.ShowDialog(this);
