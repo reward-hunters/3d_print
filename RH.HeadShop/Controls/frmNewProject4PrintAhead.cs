@@ -87,6 +87,10 @@ namespace RH.HeadShop.Controls
 
             this.atStartup = atStartup;
 
+            edgePen = (Pen)DrawingTools.GreenPen.Clone();
+            arrowPen = (Pen)DrawingTools.GreenPen.Clone();
+            arrowPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+
             eWidth = pictureTemplate.Width - 100;
             TopEdgeTransformed = new RectangleF(pictureTemplate.Width / 2f - eWidth / 2f, 30, eWidth, eWidth);
 
@@ -185,7 +189,7 @@ namespace RH.HeadShop.Controls
 
         #endregion
 
-        
+
 
         public void CreateProject()
         {
@@ -352,7 +356,7 @@ namespace RH.HeadShop.Controls
         {
             if (string.IsNullOrEmpty(templateImage))
                 return;
-            
+
             foreach (var point in facialFeaturesTransformed)
                 e.Graphics.FillEllipse(DrawingTools.BlueSolidBrush, point.X - 2, point.Y - 2, 4, 4);
 
@@ -627,7 +631,14 @@ namespace RH.HeadShop.Controls
 
                 templateImage = ofd.FileName;
                 fcr = new LuxandFaceRecognition();
-                fcr.Recognize(ref templateImage, true);     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
+                if (!fcr.Recognize(ref templateImage, true))
+                {
+                    textTemplateImage.Text = templateImage = string.Empty;
+                    pictureTemplate.Image = null;
+                    labelHelp.Visible = true;
+
+                    return;                     // это ОЧЕНЬ! важно. потому что мы во время распознавания можем создать обрезанную фотку и использовать ее как основную в проекте.
+                }
                 if (fcr.IsMale)
                     btnMale_Click(null, null);
                 else btnFemale_Click(null, null);
@@ -638,14 +649,6 @@ namespace RH.HeadShop.Controls
                     pictureTemplate.Image = (Bitmap)img.Clone();
                     img.Dispose();
                 }
-
-                edgePen = (Pen)DrawingTools.GreenPen.Clone();
-                //edgePen.Width = 2;
-                arrowPen = (Pen)DrawingTools.GreenPen.Clone();
-                arrowPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
-                //arrowPen.Width = 2;
-
-
 
                 RecalcRealTemplateImagePosition();
 

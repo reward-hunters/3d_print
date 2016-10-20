@@ -373,7 +373,7 @@ namespace RH.HeadShop.Helpers
 
         private int angleCount = 0;
 
-        public void Recognize(ref string path, bool needCrop)
+        public bool Recognize(ref string path, bool needCrop)
         {
             FaceRectRelative = RectangleF.Empty;
             LeftEyeCenter = RightEyeCenter = LeftMouth = LeftNose = RightNose = RightMouth = Vector2.Zero;
@@ -434,6 +434,7 @@ namespace RH.HeadShop.Helpers
             {
                 faceRectangle = new Rectangle(0, 0, image.Width, image.Height);
                 MessageBox.Show("No faces detected", "Face Detection");
+                return false;
             }
             else
             {
@@ -449,10 +450,18 @@ namespace RH.HeadShop.Helpers
 
 
                 int left = facePosition.xc - (int)(facePosition.w * 0.6f);
+                left = left < 0 ? 0 : left;
                 //   int top = facePosition.yc - (int)(facePosition.w * 0.5f);             // верхушку определяет неправильлно. поэтому просто не будем обрезать :)
                 BottomFace = new Vector2(pointFeature[11].x, pointFeature[11].y);
 
-                faceRectangle = new Rectangle(left, 0, (int)(facePosition.w * 1.2), BottomFace.Y + 10 < image.Height ? (int)(BottomFace.Y + 15) : image.Height);
+                var distance = pointFeature[2].y - pointFeature[11].y;
+                var top = pointFeature[16].y + distance - 15;          // определение высоты по алгоритму старикана
+                top = top < 0 ? 0 : top;
+
+                var newWidth = (int)(facePosition.w * 1.2);
+                newWidth = newWidth > image.Width ? image.Width : newWidth;
+
+                faceRectangle = new Rectangle(left, top, newWidth, top + BottomFace.Y + 15 < image.Height ? (int)(BottomFace.Y + 15) : image.Height - top - 1);
                 if (needCrop)       // если это создание проекта - то нужно обрезать фотку и оставить только голову
                 {
                     using (var croppedImage = ImageEx.Crop(path, faceRectangle))
@@ -462,8 +471,8 @@ namespace RH.HeadShop.Helpers
                         path = Path.Combine(path, "tempHaarImage.jpg");
                         croppedImage.Save(path, ImageFormat.Jpeg);
 
-                        Recognize(ref path, false);
-                        return;
+                        return Recognize(ref path, false);
+                        
                     }
                 }
 
@@ -510,8 +519,7 @@ namespace RH.HeadShop.Helpers
                             ii.Save(path, ImageFormat.Jpeg);
                     }
 
-                    Recognize(ref path, false);
-                    return;
+                    return Recognize(ref path, false);
                 }
 
                 #endregion
@@ -553,6 +561,8 @@ namespace RH.HeadShop.Helpers
                 // FaceRectRelative = new RectangleF(leftTop.X, leftTop.Y, rightBottom.X - leftTop.X, rightBottom.Y - leftTop.Y);
 
                 #endregion
+
+                return true;
             }
         }
     }
