@@ -554,7 +554,7 @@ namespace RH.HeadShop.Render
                     
                     SpecialCenterUpdate(points, headController.GetNoseTopIndexes(), ProgramCore.Project.DetectedNosePoints[4]);
                     SpecialBottomPointsUpdate(points);
-
+                    SpecialTopHaedWidth(points);
                     //autodotsShapeHelper.TransformRects();
                     //headMeshesController.UpdateBuffers();
                 }
@@ -570,6 +570,24 @@ namespace RH.HeadShop.Render
             }
 
             RenderTimer.Start();
+        }
+
+        private void SpecialTopHaedWidth(List<HeadPoint> points)
+        {
+            var topHeadIndices = new int[] { 6, 5, 4, 3, 0, 25, 26, 27, 28 };
+            var a = MirroredHeadPoint.GetFrontWorldPoint(ProgramCore.Project.DetectedTopPoints[0]);
+            var b = MirroredHeadPoint.GetFrontWorldPoint(ProgramCore.Project.DetectedTopPoints[1]);
+            var width = b.X - a.X;
+            var invOldWidth = 1.0f / (points[28].Value.X - points[6].Value.X);
+            var minX = points[6].Value.X;
+
+            foreach(var index in topHeadIndices)
+            {
+                var point = points[index];
+                var x = (point.Value.X - minX) * invOldWidth * width + a.X;
+                point.Value = new Vector2(x, point.Value.Y);
+                autodotsShapeHelper.Transform(point.Value, index);
+            }
         }
 
         private void SpecialNosePointsUpdate(List<HeadPoint> points)
