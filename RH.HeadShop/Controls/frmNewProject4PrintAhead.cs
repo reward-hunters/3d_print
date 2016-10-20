@@ -228,6 +228,7 @@ namespace RH.HeadShop.Controls
             ProgramCore.Project.DetectedLipsPoints.Clear();
             ProgramCore.Project.DetectedNosePoints.Clear();
             ProgramCore.Project.DetectedBottomPoints.Clear();
+            ProgramCore.Project.DetectedTopPoints.Clear();
 
             ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[3]);            // точки рта
             ProgramCore.Project.DetectedLipsPoints.Add(fcr.FacialFeatures[58]);
@@ -240,21 +241,24 @@ namespace RH.HeadShop.Controls
             ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[45]);           // точки носа
             ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[49]);
             ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[46]);
-            ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[2]);
+            ProgramCore.Project.DetectedNosePoints.Add(new Vector2(fcr.FacialFeatures[2].X, fcr.FacialFeatures[48].Y));
             ProgramCore.Project.DetectedNosePoints.Add(fcr.FacialFeatures[22]);
 
             ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[5]); //точки нижней части лица
-            ProgramCore.Project.DetectedBottomPoints.Add((fcr.FacialFeatures[7] + fcr.FacialFeatures[9]) * 0.5f);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[7] * 0.75f + fcr.FacialFeatures[9] * 0.25f);
             var p11 = fcr.FacialFeatures[11];
             ProgramCore.Project.DetectedBottomPoints.Add(new Vector2((p11.X + fcr.FacialFeatures[9].X) * 0.5f, p11.Y));
             ProgramCore.Project.DetectedBottomPoints.Add(new Vector2((p11.X + fcr.FacialFeatures[10].X) * 0.5f, p11.Y));
-            ProgramCore.Project.DetectedBottomPoints.Add((fcr.FacialFeatures[8] + fcr.FacialFeatures[10]) * 0.5f);
+            ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[8] * 0.75f + fcr.FacialFeatures[10] * 0.25f);
             ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[6]);
 
             ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[66]);
             ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[68]);
             ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[69]);
             ProgramCore.Project.DetectedBottomPoints.Add(fcr.FacialFeatures[67]);
+
+            ProgramCore.Project.DetectedTopPoints.Add(fcr.FacialFeatures[66]);
+            ProgramCore.Project.DetectedTopPoints.Add(fcr.FacialFeatures[67]);
 
             var aabb = ProgramCore.MainForm.ctrlRenderControl.InitializeShapedotsHelper(true);         // инициализация точек головы. эта инфа тоже сохранится в проект
             ProgramCore.MainForm.UpdateProjectControls(true, aabb);
@@ -271,7 +275,7 @@ namespace RH.HeadShop.Controls
                 using (var ms = new MemoryStream(File.ReadAllBytes(exampleImgPath))) // Don't use using!!
                     ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage((Bitmap)Bitmap.FromStream(ms), false);          // устанавливаем картинку помощь для юзера
             }
-        }
+        }        
 
         /// <summary> Пересчитать положение прямоугольника в зависимост от размера картинки на picturetemplate </summary>
         private void RecalcRealTemplateImagePosition()

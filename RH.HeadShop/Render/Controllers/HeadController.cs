@@ -1022,8 +1022,9 @@ namespace RH.HeadShop.Render.Controllers
         }
         public bool UpdateAutodotsPointSelection(float x, float y, bool needUpdate)
         {
+            var index = 0;
             foreach (var elem in AutoDots)
-            {
+            {                
                 if (!elem.Visible)
                     continue;
 
@@ -1033,7 +1034,7 @@ namespace RH.HeadShop.Render.Controllers
                 absolutePoint.Y = (elem.ValueMirrored.Y * ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateHeight + ProgramCore.MainForm.ctrlTemplateImage.ImageTemplateOffsetY) + HalfPointRectSize;
 
                 if (absolutePoint.X >= x - PointRectSize && absolutePoint.X <= x + PointRectSize && absolutePoint.Y >= y - PointRectSize && absolutePoint.Y <= y + PointRectSize)
-                {
+                {                    
                     if (needUpdate)
                     {
                         elem.Selected = !elem.Selected;
@@ -1046,6 +1047,7 @@ namespace RH.HeadShop.Render.Controllers
 
                     return true;
                 }
+                index++;
             }
             return false;
         }
