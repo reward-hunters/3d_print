@@ -663,6 +663,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\logo_HeadShop_OneClick.jpg" />
     <None Include="Resources\btnMenuPrintPressed.png" />
     <None Include="Resources\btnMenuPrintNormal.png" />
     <None Include="Resources\logo.png" />

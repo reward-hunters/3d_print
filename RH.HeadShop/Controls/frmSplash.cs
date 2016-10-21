@@ -15,10 +15,23 @@ namespace RH.HeadShop.Controls
         }
         protected override void OnLoad(EventArgs e)
         {
-            var image = ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.PrintAhead ?  Properties.Resources.Logo_PrintAhead : Properties.Resources.logo_HeadShop;
-            image = new Bitmap(image, new Size(image.Width,  image.Height ));
-         //   Left = 353;
-        //    Top = 422;
+            Bitmap image = null;
+            switch (ProgramCore.MainForm.CurrentProgram)
+            {
+                case frmMain.ProgramMode.PrintAhead:
+                    image = Properties.Resources.Logo_PrintAhead;
+                    break;
+                case frmMain.ProgramMode.HeadShop:
+                    image = Properties.Resources.logo_HeadShop;
+                    break;
+                case frmMain.ProgramMode.HeadShopOneClick:
+                    image = Properties.Resources.logo_HeadShop_OneClick;
+                    break;
+            }
+
+            image = new Bitmap(image, new Size(image.Width, image.Height));
+            //   Left = 353;
+            //    Top = 422;
             SetBitmap(image);
             image.Dispose();
         }
@@ -50,12 +63,12 @@ namespace RH.HeadShop.Controls
                 var pointSource = new Win32.Point(0, 0);
                 var topPos = new Win32.Point(Left, Top);
                 var blend = new Win32.Blendfunction
-                                {
-                                    BlendOp = Win32.AC_SRC_OVER,
-                                    BlendFlags = 0,
-                                    SourceConstantAlpha = 255,
-                                    AlphaFormat = Win32.AC_SRC_ALPHA
-                                };
+                {
+                    BlendOp = Win32.AC_SRC_OVER,
+                    BlendFlags = 0,
+                    SourceConstantAlpha = 255,
+                    AlphaFormat = Win32.AC_SRC_ALPHA
+                };
                 Win32.UpdateLayeredWindow(Handle, screenDc, ref topPos, ref size, memDc, ref pointSource, 0, ref blend, Win32.ULW_ALPHA);
             }
             finally

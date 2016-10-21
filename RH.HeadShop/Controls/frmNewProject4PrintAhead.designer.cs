@@ -368,7 +368,7 @@ namespace RH.HeadShop.Controls
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Create new or load project";
+            this.Text = "Create new project";
             this.Resize += new System.EventHandler(this.frmNewProject4PrintAhead_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTemplate)).EndInit();
             this.groupBox1.ResumeLayout(false);

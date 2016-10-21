@@ -106,16 +106,30 @@ namespace RH.HeadShop
         public enum ProgramMode     // какую программу билдим. head3d (= printahead)? или headshop? пока разница только в заставке
         {
             PrintAhead,
-            HeadShop
+            HeadShop,
+            HeadShopOneClick            // урезанная версия HeadShop. Без возможности сохранения и с одной активной вкладкой Front
+
         }
 
         public string ProgramCaption
         {
-            get { return CurrentProgram == ProgramMode.HeadShop ? "HeadShop 10" : "PrintAhead"; }
+            get
+            {
+                switch (CurrentProgram)
+                {
+                    case ProgramMode.HeadShop:
+                        return "HeadShop 10";
+                    case ProgramMode.PrintAhead:
+                        return "PrintAhead";
+                    case ProgramMode.HeadShopOneClick:
+                        return "HeadShop OneClick";
+                }
+                return "Abalone LLC";
+            }
         }
 
 
-        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
+        public ProgramMode CurrentProgram = ProgramMode.HeadShopOneClick;
 
 
         public readonly Cursor GrabCursor;
@@ -144,18 +158,31 @@ namespace RH.HeadShop
             KeyPreview = true;
             ProgramCore.ProgressProc += ProgressProc;
 
-            if (CurrentProgram == ProgramMode.PrintAhead)
+            switch (CurrentProgram)
             {
-                Text = "PrintAhead";
-                aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
-                panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
-                openToolStripMenuItem.Visible = saveAsToolStripMenuItem.Visible = saveToolStripMenuItem.Visible = false;
-            }
-            else
-            {
-                Text = "HeadShop 10";
-                aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10.2";
-                panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                case ProgramMode.PrintAhead:
+                    Text = "PrintAhead";
+                    aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
+                    panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                    openToolStripMenuItem.Visible = saveAsToolStripMenuItem.Visible = saveToolStripMenuItem.Visible = false;
+                    break;
+                case ProgramMode.HeadShop:
+                    Text = "HeadShop 10";
+                    aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10.2";
+                    panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                    break;
+                case ProgramMode.HeadShopOneClick:
+                    Text = "HeadShop OneClick";
+                    aboutHeadShopProToolStripMenuItem.Text = "About HeadShop OneClick";
+
+                    openToolStripMenuItem.Visible = saveAsToolStripMenuItem.Visible = saveToolStripMenuItem.Visible = false;
+                    panelMenuFeatures.Visible = panelMenuStyle.Visible = panelMenuAccessories.Visible = panelMenuMaterials.Visible = panelMenuStage.Visible = false;
+                    profileTabToolStripMenuItem.Visible = featuresTabToolStripMenuItem.Visible = styleTabToolStripMenuItem.Visible = accessoryTabToolStripMenuItem.Visible = materialtabToolStripMenuItem.Visible = navigateToolStripMenuItem.Visible = stageLibraryToolStripMenuItem1.Visible = false;
+                    startHelpToolStripMenuItem.Visible = autodotsHelpToolStripMenuItem.Visible = profileHelpToolStripMenuItem.Visible = freehandHelpToolStripMenuItem.Visible = mirrorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem.Visible =
+                    colorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem1.Visible = styleHelpToolStripMenuItem.Visible = materialHelpToolStripMenuItem.Visible = stageHelpToolStripMenuItem.Visible = videoTutorialPart1CutAndShapeToolStripMenuItem.Visible =
+                    videoTutorialPart2ToolStripMenuItem.Visible = showManualToolStripMenuItem.Visible = false;          // все хелпные кнопки
+                    toolStripMenuItem9.Visible = toolStripMenuItem10.Visible = toolStripMenuItem4.Visible = toolStripMenuItem5.Visible = false;
+                    break;
             }
 
             if (!UserConfig.ByName("Tutorials").HasAny())
@@ -215,42 +242,48 @@ namespace RH.HeadShop
                 OpenProject(openProjectPath);
             else
             {
-                if (CurrentProgram == ProgramMode.HeadShop)
+                switch (CurrentProgram)
                 {
-                    #region новый проект для HeadShop
+                    case ProgramMode.HeadShop:
+                        {
+                            #region новый проект для HeadShop
 
-                    var newProjectDlg = new frmNewProject4HeadShop(true);
-                    newProjectDlg.ShowDialog(this);
+                            var newProjectDlg = new frmNewProject4HeadShop(true);
+                            newProjectDlg.ShowDialog(this);
 
-                    if (newProjectDlg.dialogResult != DialogResult.OK)
-                    {
-                        Application.Exit();
-                        return;
-                    }
+                            if (newProjectDlg.dialogResult != DialogResult.OK)
+                            {
+                                Application.Exit();
+                                return;
+                            }
 
-                    if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
-                        OpenProject(newProjectDlg.LoadingProject);
-                    else
-                        newProjectDlg.CreateProject();
+                            if (newProjectDlg.LoadProject && !string.IsNullOrEmpty(newProjectDlg.LoadingProject))
+                                OpenProject(newProjectDlg.LoadingProject);
+                            else
+                                newProjectDlg.CreateProject();
 
-                    #endregion
-                }
-                else if (CurrentProgram == ProgramMode.PrintAhead)
-                {
-                    #region проект для PrintAhead
+                            #endregion
+                        }
+                        break;
+                    case ProgramMode.PrintAhead:
+                    case ProgramMode.HeadShopOneClick:
+                        {
+                            #region проект для PrintAhead
 
-                    var newProjectDlg = new frmNewProject4PrintAhead(true);
-                    newProjectDlg.ShowDialog(this);
+                            var newProjectDlg = new frmNewProject4PrintAhead(true);
+                            newProjectDlg.ShowDialog(this);
 
-                    if (newProjectDlg.dialogResult != DialogResult.OK)
-                    {
-                        Application.Exit();
-                        return;
-                    }
+                            if (newProjectDlg.dialogResult != DialogResult.OK)
+                            {
+                                Application.Exit();
+                                return;
+                            }
 
-                    newProjectDlg.CreateProject();
+                            newProjectDlg.CreateProject();
 
-                    #endregion
+                            #endregion
+                        }
+                        break;
                 }
 
             }
@@ -391,7 +424,7 @@ namespace RH.HeadShop
                     panelMenuCut_Click(null, EventArgs.Empty);  // иначе это наш проект волосач и по дефолту мы работаем с волосами, а не с формой лица.
             }
 
-            if (CurrentProgram == ProgramMode.PrintAhead)
+            if (CurrentProgram == ProgramMode.PrintAhead || CurrentProgram == ProgramMode.HeadShopOneClick)
             {
                 ProgramCore.MainForm.panelFront.btnAutodots_Click(null, null);
                 ProgramCore.MainForm.panelFront.btnAutodots_Click(null, null);
@@ -486,53 +519,55 @@ namespace RH.HeadShop
 
         private void InitializeTutorialLinks()
         {
-            if (CurrentProgram == ProgramMode.PrintAhead)
+            switch (CurrentProgram)
             {
-                UserConfig.ByName("Tutorials")["Links", "Start"] = "http://youtu.be/JC5z64YP1xA";
-                UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
-                UserConfig.ByName("Tutorials")["Links", "Profile"] = "http://youtu.be/Olc7oeQUmWk";
-                UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
-                UserConfig.ByName("Tutorials")["Links", "LineTool"] = "https://www.youtube.com/watch?v=c7YbRsm8m9I";
-                UserConfig.ByName("Tutorials")["Links", "Freehand"] = "http://youtu.be/c2Yvd2DaiDg";
-                UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
-                UserConfig.ByName("Tutorials")["Links", "Autodots"] = "http://youtu.be/JC5z64YP1xA";
+                case ProgramMode.PrintAhead:
+                    UserConfig.ByName("Tutorials")["Links", "Start"] = "http://youtu.be/JC5z64YP1xA";
+                    UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
+                    UserConfig.ByName("Tutorials")["Links", "Profile"] = "http://youtu.be/Olc7oeQUmWk";
+                    UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
+                    UserConfig.ByName("Tutorials")["Links", "LineTool"] = "https://www.youtube.com/watch?v=c7YbRsm8m9I";
+                    UserConfig.ByName("Tutorials")["Links", "Freehand"] = "http://youtu.be/c2Yvd2DaiDg";
+                    UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
+                    UserConfig.ByName("Tutorials")["Links", "Autodots"] = "http://youtu.be/JC5z64YP1xA";
 
-                UserConfig.ByName("Tutorials")["Links", "Style"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Style"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Material"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
 
-                UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/gWOkSUDbv0I";
-                UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/8cejdijABQY";
-            }
-            else
-            {
-                UserConfig.ByName("Tutorials")["Links", "Start"] = "https://www.youtube.com/watch?v=0baUErHwngA";
-                UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
-                UserConfig.ByName("Tutorials")["Links", "Profile"] = "https://youtu.be/IFvfVc-81M4";
-                UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
-                UserConfig.ByName("Tutorials")["Links", "LineTool"] = " https://youtu.be/dzLtPdsmtMY";
-                UserConfig.ByName("Tutorials")["Links", "Freehand"] = "https://youtu.be/-Lg6AWr17gU";
-                UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
-                UserConfig.ByName("Tutorials")["Links", "Autodots"] = "https://youtu.be/Cxi_eTyCh-Y";
+                    UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/gWOkSUDbv0I";
+                    UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/8cejdijABQY";
+                    break;
+                case ProgramMode.HeadShop:
+                case ProgramMode.HeadShopOneClick:
+                    UserConfig.ByName("Tutorials")["Links", "Start"] = "https://www.youtube.com/watch?v=0baUErHwngA";
+                    UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
+                    UserConfig.ByName("Tutorials")["Links", "Profile"] = "https://youtu.be/IFvfVc-81M4";
+                    UserConfig.ByName("Tutorials")["Links", "Mirror"] = "http://youtu.be/JC5z64YP1xA";
+                    UserConfig.ByName("Tutorials")["Links", "LineTool"] = " https://youtu.be/dzLtPdsmtMY";
+                    UserConfig.ByName("Tutorials")["Links", "Freehand"] = "https://youtu.be/-Lg6AWr17gU";
+                    UserConfig.ByName("Tutorials")["Links", "CustomHeads"] = "http://youtu.be/H9dqNF4HdMQ";
+                    UserConfig.ByName("Tutorials")["Links", "Autodots"] = "https://youtu.be/Cxi_eTyCh-Y";
 
-                UserConfig.ByName("Tutorials")["Links", "Style"] = "https://youtu.be/8_7CnBSW85M";
-                UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Material"] = "https://youtu.be/zHA7_1ODIl0";
-                UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
-                UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://youtu.be/UeQljfKlNG8";
+                    UserConfig.ByName("Tutorials")["Links", "Style"] = "https://youtu.be/8_7CnBSW85M";
+                    UserConfig.ByName("Tutorials")["Links", "Stage"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Shape"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Material"] = "https://youtu.be/zHA7_1ODIl0";
+                    UserConfig.ByName("Tutorials")["Links", "Cut"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
+                    UserConfig.ByName("Tutorials")["Links", "Accessory"] = "https://youtu.be/UeQljfKlNG8";
 
-                UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/z8rnXteNnm0";
-                UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/7sovzyHCnRY";
+                    UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/z8rnXteNnm0";
+                    UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/7sovzyHCnRY";
 
-                UserConfig.ByName("Tutorials")["Links", "Features"] = "https://youtu.be/_hADE739X9w";
-                UserConfig.ByName("Tutorials")["Links", "Export"] = "https://youtu.be/aPsJOD1Nroc";
-                UserConfig.ByName("Tutorials")["Links", "3DPrinting"] = "https://youtu.be/A_MQCNI4E8U";
+                    UserConfig.ByName("Tutorials")["Links", "Features"] = "https://youtu.be/_hADE739X9w";
+                    UserConfig.ByName("Tutorials")["Links", "Export"] = "https://youtu.be/aPsJOD1Nroc";
+                    UserConfig.ByName("Tutorials")["Links", "3DPrinting"] = "https://youtu.be/A_MQCNI4E8U";
+                    break;
             }
         }
 
@@ -1362,26 +1397,32 @@ namespace RH.HeadShop
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            if (CurrentProgram == ProgramMode.HeadShop)
+            switch (CurrentProgram)
             {
-                var frm = new frmNewProject4HeadShop(false);
-                frm.ShowDialog();
-                if (frm.dialogResult != DialogResult.OK)
-                    return;
+                case ProgramMode.HeadShop:
+                    {
+                        var frm = new frmNewProject4HeadShop(false);
+                        frm.ShowDialog();
+                        if (frm.dialogResult != DialogResult.OK)
+                            return;
 
-                frm.CreateProject();
-            }
-            else
-            {
-                var frm = new frmNewProject4PrintAhead(false);
-                frm.ShowDialog();
-                if (frm.dialogResult != DialogResult.OK)
-                    return;
+                        frm.CreateProject();
+                    }
+                    break;
+                case ProgramMode.HeadShopOneClick:
+                case ProgramMode.PrintAhead:
+                    {
+                        var frm = new frmNewProject4PrintAhead(false);
+                        frm.ShowDialog();
+                        if (frm.dialogResult != DialogResult.OK)
+                            return;
 
-                frm.CreateProject();
+                        frm.CreateProject();
+                    }
+                    break;
             }
         }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var ofd = new OpenFileDialogEx("Open HeadShop/HairShop project", "HeadShop projects|*.hds|HairShop projects|*.hs"))

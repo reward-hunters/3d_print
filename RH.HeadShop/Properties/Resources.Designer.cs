@@ -903,6 +903,16 @@ namespace RH.HeadShop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_HeadShop_OneClick {
+            get {
+                object obj = ResourceManager.GetObject("logo_HeadShop_OneClick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Logo_PrintAhead {
             get {
                 object obj = ResourceManager.GetObject("Logo_PrintAhead", resourceCulture);
