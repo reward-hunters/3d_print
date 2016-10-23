@@ -598,6 +598,8 @@ namespace RH.HeadShop.Render
             {
                 var point = points[bottomNosePoints[i]];
                 var delta = MirroredHeadPoint.GetFrontWorldPoint(ProgramCore.Project.DetectedNosePoints[i]) - point.Value;
+                if(i != 52)
+                    delta.Y -= 0.2f;
                 //delta = new Vector2(point.Value.X + delta.X, point.Value.Y) - point.Value;
                 point.Value += delta;
                 foreach (var l in point.LinkedPoints)
