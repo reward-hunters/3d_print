@@ -636,7 +636,7 @@ namespace RH.HeadShop.Render
                 p.Value = new Vector2(center.X + dx + delta2.X, p.Value.Y + delta2.Y);                
             }
             //Проставляем фиксированные точки
-            var indices = new int[] {15, 17, 1, 39, 37, 38, 16 };
+            var indices = new int[] {15, 17, 1, 39, 37, 38, 16, 51 };
             var i = 0;
             foreach (var index in indices)
             {
