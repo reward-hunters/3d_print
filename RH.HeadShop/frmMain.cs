@@ -129,7 +129,7 @@ namespace RH.HeadShop
         }
 
 
-        public ProgramMode CurrentProgram = ProgramMode.HeadShopOneClick;
+        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
 
 
         public readonly Cursor GrabCursor;

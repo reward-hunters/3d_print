@@ -94,6 +94,8 @@ namespace RH.HeadShop.Controls
             eWidth = pictureTemplate.Width - 100;
             TopEdgeTransformed = new RectangleF(pictureTemplate.Width / 2f - eWidth / 2f, 30, eWidth, eWidth);
 
+            label11.Visible = rbImportObj.Visible = ProgramCore.PluginMode;
+
             ShowInTaskbar = atStartup;
         }
 
@@ -280,7 +282,7 @@ namespace RH.HeadShop.Controls
                 using (var ms = new MemoryStream(File.ReadAllBytes(exampleImgPath))) // Don't use using!!
                     ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage((Bitmap)Bitmap.FromStream(ms), false);          // устанавливаем картинку помощь для юзера
             }
-        }        
+        }
 
         /// <summary> Пересчитать положение прямоугольника в зависимост от размера картинки на picturetemplate </summary>
         private void RecalcRealTemplateImagePosition()

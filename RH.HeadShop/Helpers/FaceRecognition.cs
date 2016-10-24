@@ -458,10 +458,12 @@ namespace RH.HeadShop.Helpers
                 var top = pointFeature[16].y + distance - 15;          // определение высоты по алгоритму старикана
                 top = top < 0 ? 0 : top;
 
-                var newWidth = (int)(facePosition.w * 1.2);
+              var newWidth = (int)(facePosition.w * 1.2);
                 newWidth = newWidth > image.Width ? image.Width : newWidth;
 
-                faceRectangle = new Rectangle(left, top, newWidth, top + BottomFace.Y + 15 < image.Height ? (int)(BottomFace.Y + 15) : image.Height - top - 1);
+
+
+                faceRectangle = new Rectangle(left, top, newWidth, BottomFace.Y + 15 < image.Height ? (int)(BottomFace.Y + 15) - top : image.Height - top - 1);
                 if (needCrop)       // если это создание проекта - то нужно обрезать фотку и оставить только голову
                 {
                     using (var croppedImage = ImageEx.Crop(path, faceRectangle))
