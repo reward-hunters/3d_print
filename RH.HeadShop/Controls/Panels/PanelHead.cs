@@ -39,6 +39,11 @@ namespace RH.HeadShop.Controls.Panels
                 btnFlipRight.Visible = false;
             }*/
 
+            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShopOneClick)
+            {
+                btnShapeTool.Visible = btnPolyLine.Visible = false;
+            }
+
             if (ProgramCore.Project != null)
                 ResetButtons();
 

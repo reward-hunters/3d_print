@@ -97,6 +97,9 @@ namespace RH.HeadShop.Controls
             label11.Visible = rbImportObj.Visible = ProgramCore.PluginMode;
 
             ShowInTaskbar = atStartup;
+
+            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShopOneClick)
+                rbImportObj.Visible = btnChild.Visible = label8.Visible = label11.Visible = false;
         }
 
         #region Form's event
@@ -671,7 +674,9 @@ namespace RH.HeadShop.Controls
                     var dazPath = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\", "fs3d.obj");
                     if (File.Exists(dazPath))
                     {
-                        rbImportObj.Checked = true;
+                        if (ProgramCore.MainForm.CurrentProgram != frmMain.ProgramMode.HeadShopOneClick)
+                            rbImportObj.Checked = true;
+
                         CustomModelPath = dazPath;
                     }
                     else

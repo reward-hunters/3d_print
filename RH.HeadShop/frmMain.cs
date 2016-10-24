@@ -129,7 +129,7 @@ namespace RH.HeadShop
         }
 
 
-        public ProgramMode CurrentProgram = ProgramMode.PrintAhead;
+        public ProgramMode CurrentProgram = ProgramMode.HeadShopOneClick;
 
 
         public readonly Cursor GrabCursor;
@@ -175,11 +175,12 @@ namespace RH.HeadShop
                     Text = "HeadShop OneClick";
                     aboutHeadShopProToolStripMenuItem.Text = "About HeadShop OneClick";
 
+                    editToolStripMenuItem.Visible = frontTabToolStripMenuItem.Visible = false;
                     openToolStripMenuItem.Visible = saveAsToolStripMenuItem.Visible = saveToolStripMenuItem.Visible = false;
                     panelMenuFeatures.Visible = panelMenuStyle.Visible = panelMenuAccessories.Visible = panelMenuMaterials.Visible = panelMenuStage.Visible = false;
                     profileTabToolStripMenuItem.Visible = featuresTabToolStripMenuItem.Visible = styleTabToolStripMenuItem.Visible = accessoryTabToolStripMenuItem.Visible = materialtabToolStripMenuItem.Visible = navigateToolStripMenuItem.Visible = stageLibraryToolStripMenuItem1.Visible = false;
-                    startHelpToolStripMenuItem.Visible = autodotsHelpToolStripMenuItem.Visible = profileHelpToolStripMenuItem.Visible = freehandHelpToolStripMenuItem.Visible = mirrorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem.Visible =
-                    colorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem1.Visible = styleHelpToolStripMenuItem.Visible = materialHelpToolStripMenuItem.Visible = stageHelpToolStripMenuItem.Visible = videoTutorialPart1CutAndShapeToolStripMenuItem.Visible =
+                    startHelpToolStripMenuItem.Visible = freehandHelpToolStripMenuItem.Visible = mirrorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem.Visible =
+                    colorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem1.Visible = styleHelpToolStripMenuItem.Visible = materialHelpToolStripMenuItem.Visible = stageHelpToolStripMenuItem.Visible = 
                     videoTutorialPart2ToolStripMenuItem.Visible = showManualToolStripMenuItem.Visible = false;          // все хелпные кнопки
                     toolStripMenuItem9.Visible = toolStripMenuItem10.Visible = toolStripMenuItem4.Visible = toolStripMenuItem5.Visible = false;
                     break;
