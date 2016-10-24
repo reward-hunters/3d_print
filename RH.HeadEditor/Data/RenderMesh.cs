@@ -189,7 +189,7 @@ namespace RH.HeadEditor.Data
             aabb.B = b;
 
             BlendingInfos.Clear();
-            var radius = Math.Abs(leye.X - reye.X) * 0.5f;
+            var radius = Math.Abs(leye.X - reye.X) * 0.35f;
             BlendingInfos.Add(new BlendingInfo
             {
                 Position = leye,
@@ -203,17 +203,17 @@ namespace RH.HeadEditor.Data
             BlendingInfos.Add(new BlendingInfo
             {
                 Position = aabb.Center.Xy,
-                Radius = (aabb.Center.Xy - aabb.B.Xy).Length
+                Radius = (aabb.Center.Xy - aabb.B.Xy).Length * 0.8f
             });
             BlendingInfos.Add(new BlendingInfo
             {
                 Position = lip,
-                Radius = (aabb.Center.Xy - lip).Length
+                Radius = (aabb.Center.Xy - lip).Length * 0.75f
             });
             BlendingInfos.Add(new BlendingInfo
             {
-                Position = face,
-                Radius = (aabb.B.Xy - face).Length * 0.6f
+                Position = (leye + reye) * 0.5f,
+                Radius = (aabb.B.Xy - face).Length * 0.75f
             });
             foreach (var part in Parts)
                 part.FillBlendingData(BlendingInfos);
