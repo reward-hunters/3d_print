@@ -1123,6 +1123,26 @@ namespace RH.HeadShop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TutAutodots_OneClick {
+            get {
+                object obj = ResourceManager.GetObject("TutAutodots_OneClick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TutChild_OneClick {
+            get {
+                object obj = ResourceManager.GetObject("TutChild_OneClick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TutCustomHeads {
             get {
                 object obj = ResourceManager.GetObject("TutCustomHeads", resourceCulture);
@@ -1186,6 +1206,16 @@ namespace RH.HeadShop.Properties {
         internal static System.Drawing.Bitmap TutProfile {
             get {
                 object obj = ResourceManager.GetObject("TutProfile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TutProfile_OneClick {
+            get {
+                object obj = ResourceManager.GetObject("TutProfile_OneClick", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

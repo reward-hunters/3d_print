@@ -7,21 +7,22 @@ using RH.HeadShop.IO;
 
 namespace RH.HeadShop.Controls.Tutorials.HeadShop
 {
-    public partial class frmMirrorTutorial : FormEx
+    public partial class frmChildTutorial : Form
     {
-        public frmMirrorTutorial()
+        public frmChildTutorial()
         {
             InitializeComponent();
-            linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Mirror", "http://youtu.be/JC5z64YP1xA"];
+            linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Profile", "http://youtu.be/Olc7oeQUmWk"];
             Text = ProgramCore.ProgramCaption;
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
-            var filePath = Path.Combine(directoryPath, "TutMirror.jpg");
+            string filePath = Path.Combine(directoryPath, "TutChild_OneClick.jpg");
+
             if (File.Exists(filePath))
                 BackgroundImage = Image.FromFile(filePath);
         }
 
-        private void frmMirrorTutorial_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmProfileTutorial_FormClosing(object sender, FormClosingEventArgs e)
         {
             Hide();
             e.Cancel = true;            // this cancels the close event.
@@ -29,13 +30,13 @@ namespace RH.HeadShop.Controls.Tutorials.HeadShop
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var link = UserConfig.ByName("Tutorials")["Links", "Mirror", "http://youtu.be/JC5z64YP1xA"];
+            var link = UserConfig.ByName("Tutorials")["Links", "Child", "http://youtu.be/Olc7oeQUmWk"];
             Process.Start(link);
         }
 
         private void cbShow_CheckedChanged(object sender, System.EventArgs e)
         {
-            UserConfig.ByName("Options")["Tutorials", "Mirror"] = cbShow.Checked ? "0" : "1";
+            UserConfig.ByName("Options")["Tutorials", "Child"] = cbShow.Checked ? "0" : "1";
         }
     }
 }

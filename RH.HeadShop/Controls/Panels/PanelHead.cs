@@ -32,6 +32,8 @@ namespace RH.HeadShop.Controls.Panels
             InitializeComponent();
             frontTab = true;
 
+            
+
             /*
             if (ProgramCore.PluginMode)
             {
@@ -39,10 +41,8 @@ namespace RH.HeadShop.Controls.Panels
                 btnFlipRight.Visible = false;
             }*/
 
-            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShopOneClick)
-            {
+            if (ProgramCore.CurrentProgram == ProgramCore.ProgramMode.HeadShopOneClick)
                 btnShapeTool.Visible = btnPolyLine.Visible = false;
-            }
 
             if (ProgramCore.Project != null)
                 ResetButtons();
@@ -53,6 +53,9 @@ namespace RH.HeadShop.Controls.Panels
         private void ReInitializeControl(bool isFrontTab)
         {
             btnAutodots.Visible = isFrontTab;
+
+            if (ProgramCore.CurrentProgram == ProgramCore.ProgramMode.HeadShopOneClick)
+                btnPolyLine.Visible = !isFrontTab;
 
 
             //TODO: uncomment if need return  
@@ -83,10 +86,10 @@ namespace RH.HeadShop.Controls.Panels
             if (btnPolyLine.Tag.ToString() == "1")
                 btnPolyLine_Click(null, EventArgs.Empty);
 
-      /*      if (btnFlipLeft.Tag.ToString() == "1")
-                btnFlipLeft_Click(null, EventArgs.Empty);
-            if (btnFlipRight.Tag.ToString() == "1")
-                btnFlipRight_Click(null, EventArgs.Empty);*/
+            /*      if (btnFlipLeft.Tag.ToString() == "1")
+                      btnFlipLeft_Click(null, EventArgs.Empty);
+                  if (btnFlipRight.Tag.ToString() == "1")
+                      btnFlipRight_Click(null, EventArgs.Empty);*/
 
             ResetButtons();
         }
@@ -103,8 +106,8 @@ namespace RH.HeadShop.Controls.Panels
                 btnPolyLine.Enabled = true;
                 btnShapeTool.Enabled = true;
 
-       /*         btnFlipLeft.Enabled = false;
-                btnFlipRight.Enabled = false;*/
+                /*         btnFlipLeft.Enabled = false;
+                         btnFlipRight.Enabled = false;*/
 
                 btnProfile.Enabled = true;
             }
@@ -119,8 +122,8 @@ namespace RH.HeadShop.Controls.Panels
                 btnPolyLine.Enabled = false;
                 btnShapeTool.Enabled = false;
 
-            /*    btnFlipLeft.Enabled = false;
-                btnFlipRight.Enabled = false;*/
+                /*    btnFlipLeft.Enabled = false;
+                    btnFlipRight.Enabled = false;*/
 
                 btnProfile.Enabled = false;
             }
@@ -158,8 +161,8 @@ namespace RH.HeadShop.Controls.Panels
                         btnPolyLine.Enabled = false;
                         btnShapeTool.Enabled = false;
 
-                       /* btnFlipLeft.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;
-                        btnFlipRight.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;*/
+                        /* btnFlipLeft.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;
+                         btnFlipRight.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadAutodots;*/
                     }
                     break;
                 case Mode.HeadFlipLeft:
@@ -188,8 +191,8 @@ namespace RH.HeadShop.Controls.Panels
                     btnPolyLine.Enabled = ProgramCore.MainForm.ctrlRenderControl.Mode == Mode.HeadLine;
                     btnShapeTool.Enabled = false;
 
-               /*     btnFlipLeft.Enabled = true;
-                    btnFlipRight.Enabled = true;*/
+                    /*     btnFlipLeft.Enabled = true;
+                         btnFlipRight.Enabled = true;*/
                     break;
                 case Mode.HeadAutodotsLassoStart:
                 case Mode.HeadAutodotsLassoActive:
@@ -221,42 +224,42 @@ namespace RH.HeadShop.Controls.Panels
                 part.UpdateNormals();
         }
 
-       /* private void UpdateFlipEnable(FlipType flip)
-        {
-            switch (flip)
+        /* private void UpdateFlipEnable(FlipType flip)
+         {
+             switch (flip)
+             {
+                 case FlipType.LeftToRight:
+                     EnableFlipLeftToRight();
+                     break;
+                 case FlipType.RightToLeft:
+                     EnableFlipRightToLeft();
+                     break;
+             }
+         }*/
+        /*    private void EnableFlipLeftToRight()
             {
-                case FlipType.LeftToRight:
-                    EnableFlipLeftToRight();
-                    break;
-                case FlipType.RightToLeft:
-                    EnableFlipRightToLeft();
-                    break;
+                btnFlipLeft.Tag = "1";
+                btnFlipRight.Tag = "2";
+
+                btnFlipLeft.Image = Properties.Resources.btnToRightPressed;
+                btnFlipRight.Image = Properties.Resources.btnToRightNormal;
             }
-        }*/
-    /*    private void EnableFlipLeftToRight()
-        {
-            btnFlipLeft.Tag = "1";
-            btnFlipRight.Tag = "2";
+            private void EnableFlipRightToLeft()
+            {
+                btnFlipRight.Tag = "1";
+                btnFlipLeft.Tag = "2";
 
-            btnFlipLeft.Image = Properties.Resources.btnToRightPressed;
-            btnFlipRight.Image = Properties.Resources.btnToRightNormal;
-        }
-        private void EnableFlipRightToLeft()
-        {
-            btnFlipRight.Tag = "1";
-            btnFlipLeft.Tag = "2";
+                btnFlipRight.Image = Properties.Resources.btnToLeftPressed;
+                btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
+            }
+            private void DisableFlip()
+            {
+                btnFlipRight.Tag = "2";
+                btnFlipLeft.Tag = "2";
 
-            btnFlipRight.Image = Properties.Resources.btnToLeftPressed;
-            btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
-        }
-        private void DisableFlip()
-        {
-            btnFlipRight.Tag = "2";
-            btnFlipLeft.Tag = "2";
-
-            btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
-            btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
-        }*/
+                btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
+                btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
+            }*/
 
         public void UpdateProfileSmoothing(bool isSmoothing)
         {
@@ -396,14 +399,20 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.frmFreeHand.cbMirror.Enabled = false;
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
-        //        UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
+                //        UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
                 SetPanelLogic();
 
                 if (OnShapeTool != null && sender != null)
                     OnShapeTool(this, EventArgs.Empty);
 
-                if (frontTab && UserConfig.ByName("Options")["Tutorials", "Freehand", "1"] == "1")
-                    ProgramCore.MainForm.frmTutFreehand.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (frontTab && UserConfig.ByName("Options")["Tutorials", "Freehand", "1"] == "1")
+                            ProgramCore.MainForm.frmTutFreehand.ShowDialog(this);
+                        break;
+                }
             }
             else
             {
@@ -459,9 +468,9 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
 
-       //         btnFlipLeft.Visible = true;
-         //       btnFlipRight.Visible = true;
-           //     UpdateFlipEnable(ProgramCore.Project.TextureFlip);
+                //         btnFlipLeft.Visible = true;
+                //       btnFlipRight.Visible = true;
+                //     UpdateFlipEnable(ProgramCore.Project.TextureFlip);
                 SetPanelLogic();
 
                 if (frontTab && UserConfig.ByName("Options")["Tutorials", "Autodots", "1"] == "1")
@@ -501,14 +510,14 @@ namespace RH.HeadShop.Controls.Panels
                     }
                 }
 
-        //        btnFlipLeft.Visible = false;
-        //        btnFlipRight.Visible = false;
+                //        btnFlipLeft.Visible = false;
+                //        btnFlipRight.Visible = false;
                 ProgramCore.MainForm.ctrlRenderControl.CalcReflectedBitmaps();
                 ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
                 ProgramCore.MainForm.EnableRotating();
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.None;
                 SetPanelLogic();
-          //      DisableFlip();
+                //      DisableFlip();
             }
             EndUpdate();
         }
@@ -575,7 +584,7 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.ctrlRenderControl.Mode = Mode.HeadLine;
                 ProgramCore.MainForm.ctrlTemplateImage.UpdateUserCenterPositions(false, true);
 
-              //  UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
+                //  UpdateFlipEnable(ProgramCore.Project.ShapeFlip);
                 SetPanelLogic();
                 if (ProgramCore.MainForm.HeadProfile)
                 {
@@ -646,130 +655,130 @@ namespace RH.HeadShop.Controls.Panels
                 ProgramCore.MainForm.ctrlTemplateImage.ResetProfileRects();
                 ProgramCore.MainForm.ctrlRenderControl.ProfileFaceRect = RectangleF.Empty;
 
-            //    DisableFlip();
+                //    DisableFlip();
                 SetPanelLogic();
             }
         }
 
         public void btnFlipLeft_Click(object sender, EventArgs e)
         {
-        /*    if (btnFlipLeft.Tag.ToString() == "2")
-            {
-                btnFlipLeft.Tag = "1";
-                btnFlipRight.Tag = "2";
-
-                btnFlipLeft.Image = Properties.Resources.btnToRightPressed;
-                btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
-
-                switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+            /*    if (btnFlipLeft.Tag.ToString() == "2")
                 {
-                    case Mode.HeadLine:
-                        //    case Mode.HeadShapedots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(true, 0);
-                        ProgramCore.Project.ShapeFlip = FlipType.LeftToRight;
+                    btnFlipLeft.Tag = "1";
+                    btnFlipRight.Tag = "2";
 
-                        ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();
-                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                        ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
-                        break;
-                    case Mode.HeadAutodotsFirstTime:
-                    case Mode.HeadAutodots:
-                        ProgramCore.MainForm.ctrlRenderControl.FlipLeft(true);
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(true, 0);                // добавлено после слияниея с shapedots!
+                    btnFlipLeft.Image = Properties.Resources.btnToRightPressed;
+                    btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
 
-                        ProgramCore.Project.TextureFlip = FlipType.LeftToRight;
+                    switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                    {
+                        case Mode.HeadLine:
+                            //    case Mode.HeadShapedots:
+                            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(true, 0);
+                            ProgramCore.Project.ShapeFlip = FlipType.LeftToRight;
 
-                        ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();            // добавлено после слияниея с shapedots!
-                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                        ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
-                        break;
+                            ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();
+                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                            ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
+                            break;
+                        case Mode.HeadAutodotsFirstTime:
+                        case Mode.HeadAutodots:
+                            ProgramCore.MainForm.ctrlRenderControl.FlipLeft(true);
+                            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(true, 0);                // добавлено после слияниея с shapedots!
+
+                            ProgramCore.Project.TextureFlip = FlipType.LeftToRight;
+
+                            ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();            // добавлено после слияниея с shapedots!
+                            ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                            ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
+                            break;
+                    }
+
+                    SetPanelLogic();
+
+                    if (frontTab && UserConfig.ByName("Options")["Tutorials", "Mirror", "1"] == "1")
+                        ProgramCore.MainForm.frmTutMirror.ShowDialog(this);
                 }
-
-                SetPanelLogic();
-
-                if (frontTab && UserConfig.ByName("Options")["Tutorials", "Mirror", "1"] == "1")
-                    ProgramCore.MainForm.frmTutMirror.ShowDialog(this);
-            }
-            else
-            {
-                btnFlipLeft.Tag = "2";
-                btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
-
-                switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                else
                 {
-                    case Mode.HeadLine:
-                        //     case Mode.HeadShapedots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();
-                        ProgramCore.Project.ShapeFlip = FlipType.None;
-                        break;
-                    case Mode.HeadAutodotsFirstTime:
-                    case Mode.HeadAutodots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();     // после слияние с ShapeDots. Проверить!
-                        ProgramCore.MainForm.ctrlRenderControl.FlipLeft(false);
-                        ProgramCore.Project.TextureFlip = FlipType.None;
-                        break;
-                }
-            }*/
+                    btnFlipLeft.Tag = "2";
+                    btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
+
+                    switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                    {
+                        case Mode.HeadLine:
+                            //     case Mode.HeadShapedots:
+                            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();
+                            ProgramCore.Project.ShapeFlip = FlipType.None;
+                            break;
+                        case Mode.HeadAutodotsFirstTime:
+                        case Mode.HeadAutodots:
+                            ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();     // после слияние с ShapeDots. Проверить!
+                            ProgramCore.MainForm.ctrlRenderControl.FlipLeft(false);
+                            ProgramCore.Project.TextureFlip = FlipType.None;
+                            break;
+                    }
+                }*/
         }
         public void btnFlipRight_Click(object sender, EventArgs e)
         {
-          /*  if (btnFlipRight.Tag.ToString() == "2")
-            {
-                btnFlipRight.Tag = "1";
-                btnFlipLeft.Tag = "2";
+            /*  if (btnFlipRight.Tag.ToString() == "2")
+              {
+                  btnFlipRight.Tag = "1";
+                  btnFlipLeft.Tag = "2";
 
-                btnFlipRight.Image = Properties.Resources.btnToLeftPressed;
-                btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
+                  btnFlipRight.Image = Properties.Resources.btnToLeftPressed;
+                  btnFlipLeft.Image = Properties.Resources.btnToRightNormal;
 
-                switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
-                {
-                    case Mode.HeadLine:
-                        //       case Mode.HeadShapedots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(false, 0);
-                        ProgramCore.Project.ShapeFlip = FlipType.RightToLeft;
+                  switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                  {
+                      case Mode.HeadLine:
+                          //       case Mode.HeadShapedots:
+                          ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(false, 0);
+                          ProgramCore.Project.ShapeFlip = FlipType.RightToLeft;
 
-                        ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();
-                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                        ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
-                        break;
-                    case Mode.HeadAutodotsFirstTime:
-                    case Mode.HeadAutodots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(false, 0);       // после слияние с ShapeDots. Проверить!
+                          ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();
+                          ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                          ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
+                          break;
+                      case Mode.HeadAutodotsFirstTime:
+                      case Mode.HeadAutodots:
+                          ProgramCore.MainForm.ctrlRenderControl.headMeshesController.Mirror(false, 0);       // после слияние с ShapeDots. Проверить!
 
-                        ProgramCore.MainForm.ctrlRenderControl.FlipRight(true);
-                        ProgramCore.Project.TextureFlip = FlipType.RightToLeft;
+                          ProgramCore.MainForm.ctrlRenderControl.FlipRight(true);
+                          ProgramCore.Project.TextureFlip = FlipType.RightToLeft;
 
-                        ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();        // после слияние с ShapeDots. Проверить!
-                        ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
-                        ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
-                        break;
-                }
+                          ProgramCore.MainForm.ctrlRenderControl.headController.AutoDots.ClearSelection();        // после слияние с ShapeDots. Проверить!
+                          ProgramCore.MainForm.ctrlRenderControl.headController.ShapeDots.ClearSelection();
+                          ProgramCore.MainForm.ctrlTemplateImage.RectTransformMode = false;
+                          break;
+                  }
 
-                if (frontTab && UserConfig.ByName("Options")["Tutorials", "Mirror", "1"] == "1")
-                    ProgramCore.MainForm.frmTutMirror.ShowDialog(this);
-            }
-            else
-            {
-                btnFlipRight.Tag = "2";
-                btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
+                  if (frontTab && UserConfig.ByName("Options")["Tutorials", "Mirror", "1"] == "1")
+                      ProgramCore.MainForm.frmTutMirror.ShowDialog(this);
+              }
+              else
+              {
+                  btnFlipRight.Tag = "2";
+                  btnFlipRight.Image = Properties.Resources.btnToLeftNormal;
 
-                switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
-                {
-                    case Mode.HeadLine:
-                        //    case Mode.HeadShapedots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();
-                        ProgramCore.Project.ShapeFlip = FlipType.None;
-                        break;
-                    case Mode.HeadAutodotsFirstTime:
-                    case Mode.HeadAutodots:
-                        ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();           // после слияние с ShapeDots. Проверить!
-                        ProgramCore.MainForm.ctrlRenderControl.FlipRight(false);
-                        ProgramCore.Project.TextureFlip = FlipType.None;
-                        break;
-                }
+                  switch (ProgramCore.MainForm.ctrlRenderControl.Mode)
+                  {
+                      case Mode.HeadLine:
+                          //    case Mode.HeadShapedots:
+                          ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();
+                          ProgramCore.Project.ShapeFlip = FlipType.None;
+                          break;
+                      case Mode.HeadAutodotsFirstTime:
+                      case Mode.HeadAutodots:
+                          ProgramCore.MainForm.ctrlRenderControl.headMeshesController.UndoMirror();           // после слияние с ShapeDots. Проверить!
+                          ProgramCore.MainForm.ctrlRenderControl.FlipRight(false);
+                          ProgramCore.Project.TextureFlip = FlipType.None;
+                          break;
+                  }
 
-                SetPanelLogic();
-            }*/
+                  SetPanelLogic();
+              }*/
         }
 
         #endregion

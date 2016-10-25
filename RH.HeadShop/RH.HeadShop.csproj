@@ -243,6 +243,12 @@
     <Compile Include="Controls\Tutorials\frmRecognizeTutorial.designer.cs">
       <DependentUpon>frmRecognizeTutorial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Tutorials\HeadShop\frmChildTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Tutorials\HeadShop\frmChildTutorial.Designer.cs">
+      <DependentUpon>frmChildTutorial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Tutorials\PrintAhead\frmAccessoryTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -489,6 +495,9 @@
     <EmbeddedResource Include="Controls\Tutorials\frmRecognizeTutorial.resx">
       <DependentUpon>frmRecognizeTutorial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Tutorials\HeadShop\frmChildTutorial.resx">
+      <DependentUpon>frmChildTutorial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Tutorials\PrintAhead\frmAccessoryTutorial.resx">
       <DependentUpon>frmAccessoryTutorial.cs</DependentUpon>
     </EmbeddedResource>
@@ -663,6 +672,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\TutProfile_OneClick.jpg" />
+    <None Include="Resources\TutChild_OneClick.jpg" />
+    <None Include="Resources\TutAutodots_OneClick.jpg" />
     <None Include="Resources\logo_HeadShop_OneClick.jpg" />
     <None Include="Resources\btnMenuPrintPressed.png" />
     <None Include="Resources\btnMenuPrintNormal.png" />

@@ -98,7 +98,7 @@ namespace RH.HeadShop.Controls
 
             ShowInTaskbar = atStartup;
 
-            if (ProgramCore.MainForm.CurrentProgram == frmMain.ProgramMode.HeadShopOneClick)
+            if (ProgramCore.CurrentProgram == ProgramCore.ProgramMode.HeadShopOneClick)
                 rbImportObj.Visible = btnChild.Visible = label8.Visible = label11.Visible = false;
         }
 
@@ -674,7 +674,7 @@ namespace RH.HeadShop.Controls
                     var dazPath = Path.Combine(appDataPath, @"DAZ 3D\Studio4\temp\FaceShop\", "fs3d.obj");
                     if (File.Exists(dazPath))
                     {
-                        if (ProgramCore.MainForm.CurrentProgram != frmMain.ProgramMode.HeadShopOneClick)
+                        if (ProgramCore.CurrentProgram != ProgramCore.ProgramMode.HeadShopOneClick)
                             rbImportObj.Checked = true;
 
                         CustomModelPath = dazPath;

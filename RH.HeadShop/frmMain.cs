@@ -56,6 +56,7 @@ namespace RH.HeadShop
 
         private readonly frmStartTutorial frmTutStart = new frmStartTutorial();
         public readonly frmRecognizeTutorial frmTutRecognize = new frmRecognizeTutorial();
+        public readonly frmChildTutorial frmTutChild = new frmChildTutorial();
 
         private readonly frmAccessoryTutorial frmTutAccessory = new frmAccessoryTutorial();
         private readonly frmCutTutorial frmTutCut = new frmCutTutorial();
@@ -65,11 +66,11 @@ namespace RH.HeadShop
         private readonly frmStyleTutorial frmTutStyle = new frmStyleTutorial();
 
         public readonly frmCustomHeadsTutorial frmTutCustomHeads = new frmCustomHeadsTutorial();
-        public readonly frmAutodotsTutorial frmTutAutodots = new frmAutodotsTutorial();
+        public readonly frmAutodotsTutorial frmTutAutodots = new frmAutodotsTutorial();                 // OneClick
         public readonly frmShapedotsTutorial frmTutShapedots = new frmShapedotsTutorial();
         public readonly frmMirrorTutorial frmTutMirror = new frmMirrorTutorial();
         public readonly frmFreehandTutorial frmTutFreehand = new frmFreehandTutorial();
-        public readonly frmProfileTutorial frmTutProfile = new frmProfileTutorial();
+        public readonly frmProfileTutorial frmTutProfile = new frmProfileTutorial();                     // OneClick
         public readonly frmLineToolTutorial frmTutLineTool = new frmLineToolTutorial();
 
         public readonly frmFeaturesTutorial frmTutFeatures = new frmFeaturesTutorial();
@@ -103,35 +104,6 @@ namespace RH.HeadShop
 
         private string openProjectPath;
 
-        public enum ProgramMode     // какую программу билдим. head3d (= printahead)? или headshop? пока разница только в заставке
-        {
-            PrintAhead,
-            HeadShop,
-            HeadShopOneClick            // урезанная версия HeadShop. Без возможности сохранения и с одной активной вкладкой Front
-
-        }
-
-        public string ProgramCaption
-        {
-            get
-            {
-                switch (CurrentProgram)
-                {
-                    case ProgramMode.HeadShop:
-                        return "HeadShop 10";
-                    case ProgramMode.PrintAhead:
-                        return "PrintAhead";
-                    case ProgramMode.HeadShopOneClick:
-                        return "HeadShop OneClick";
-                }
-                return "Abalone LLC";
-            }
-        }
-
-
-        public ProgramMode CurrentProgram = ProgramMode.HeadShopOneClick;
-
-
         public readonly Cursor GrabCursor;
         public readonly Cursor GrabbingCursor;
 
@@ -158,20 +130,22 @@ namespace RH.HeadShop
             KeyPreview = true;
             ProgramCore.ProgressProc += ProgressProc;
 
-            switch (CurrentProgram)
+            switch (ProgramCore.CurrentProgram)
             {
-                case ProgramMode.PrintAhead:
+                case ProgramCore.ProgramMode.PrintAhead:
                     Text = "PrintAhead";
                     aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
                     panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
                     openToolStripMenuItem.Visible = saveAsToolStripMenuItem.Visible = saveToolStripMenuItem.Visible = false;
+                    childHelpToolStripMenuItem.Visible = false;
                     break;
-                case ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.HeadShop:
                     Text = "HeadShop 10";
                     aboutHeadShopProToolStripMenuItem.Text = "About HeadShop 10.2";
                     panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                    childHelpToolStripMenuItem.Visible = false;
                     break;
-                case ProgramMode.HeadShopOneClick:
+                case ProgramCore.ProgramMode.HeadShopOneClick:
                     Text = "HeadShop OneClick";
                     aboutHeadShopProToolStripMenuItem.Text = "About HeadShop OneClick";
 
@@ -180,9 +154,10 @@ namespace RH.HeadShop
                     panelMenuFeatures.Visible = panelMenuStyle.Visible = panelMenuAccessories.Visible = panelMenuMaterials.Visible = panelMenuStage.Visible = false;
                     profileTabToolStripMenuItem.Visible = featuresTabToolStripMenuItem.Visible = styleTabToolStripMenuItem.Visible = accessoryTabToolStripMenuItem.Visible = materialtabToolStripMenuItem.Visible = navigateToolStripMenuItem.Visible = stageLibraryToolStripMenuItem1.Visible = false;
                     startHelpToolStripMenuItem.Visible = freehandHelpToolStripMenuItem.Visible = mirrorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem.Visible =
-                    colorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem1.Visible = styleHelpToolStripMenuItem.Visible = materialHelpToolStripMenuItem.Visible = stageHelpToolStripMenuItem.Visible = 
+                    colorHelpToolStripMenuItem.Visible = accessoriesHelpToolStripMenuItem1.Visible = styleHelpToolStripMenuItem.Visible = materialHelpToolStripMenuItem.Visible = stageHelpToolStripMenuItem.Visible =
                     videoTutorialPart2ToolStripMenuItem.Visible = showManualToolStripMenuItem.Visible = false;          // все хелпные кнопки
-                    toolStripMenuItem9.Visible = toolStripMenuItem10.Visible = toolStripMenuItem4.Visible = toolStripMenuItem5.Visible = false;
+                    toolStripMenuItem9.Visible = toolStripMenuItem10.Visible = toolStripMenuItem5.Visible = false;
+                    childHelpToolStripMenuItem.Visible = true;
                     break;
             }
 
@@ -234,8 +209,16 @@ namespace RH.HeadShop
         {
             ProgramCore.Splash.ShowDialog();
 
-            if (UserConfig.ByName("Options")["Tutorials", "Start", "1"] == "1")
-                frmTutStart.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    if (UserConfig.ByName("Options")["Tutorials", "Start", "1"] == "1")
+                        frmTutStart.ShowDialog(this);
+                    break;
+            }
+
+
 
             ctrlRenderControl.Initialize();
 
@@ -243,9 +226,9 @@ namespace RH.HeadShop
                 OpenProject(openProjectPath);
             else
             {
-                switch (CurrentProgram)
+                switch (ProgramCore.CurrentProgram)
                 {
-                    case ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShop:
                         {
                             #region новый проект для HeadShop
 
@@ -266,8 +249,8 @@ namespace RH.HeadShop
                             #endregion
                         }
                         break;
-                    case ProgramMode.PrintAhead:
-                    case ProgramMode.HeadShopOneClick:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
                         {
                             #region проект для PrintAhead
 
@@ -425,15 +408,21 @@ namespace RH.HeadShop
                     panelMenuCut_Click(null, EventArgs.Empty);  // иначе это наш проект волосач и по дефолту мы работаем с волосами, а не с формой лица.
             }
 
-            if (CurrentProgram == ProgramMode.PrintAhead || CurrentProgram == ProgramMode.HeadShopOneClick)
+            if (ProgramCore.CurrentProgram == ProgramCore.ProgramMode.PrintAhead || ProgramCore.CurrentProgram == ProgramCore.ProgramMode.HeadShopOneClick)
             {
                 ProgramCore.MainForm.panelFront.btnAutodots_Click(null, null);
                 ProgramCore.MainForm.panelFront.btnAutodots_Click(null, null);
             }
             else InitRecentItems();
 
-            if (ProgramCore.Project.ManType == ManType.Custom && UserConfig.ByName("Options")["Tutorials", "CustomHeads", "1"] == "1")
-                frmTutCustomHeads.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    if (ProgramCore.Project.ManType == ManType.Custom && UserConfig.ByName("Options")["Tutorials", "CustomHeads", "1"] == "1")
+                        frmTutCustomHeads.ShowDialog(this);
+                    break;
+            }
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -510,8 +499,14 @@ namespace RH.HeadShop
             if (beginExport)
                 return;
 
-            if (UserConfig.ByName("Options")["Tutorials", "Export", "1"] == "1")
-                ProgramCore.MainForm.frmTut3dPrint.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    if (UserConfig.ByName("Options")["Tutorials", "Export", "1"] == "1")
+                        ProgramCore.MainForm.frmTut3dPrint.ShowDialog(this);
+                    break;
+            }
 
             beginExport = true;
             Export();
@@ -520,9 +515,9 @@ namespace RH.HeadShop
 
         private void InitializeTutorialLinks()
         {
-            switch (CurrentProgram)
+            switch (ProgramCore.CurrentProgram)
             {
-                case ProgramMode.PrintAhead:
+                case ProgramCore.ProgramMode.PrintAhead:
                     UserConfig.ByName("Tutorials")["Links", "Start"] = "http://youtu.be/JC5z64YP1xA";
                     UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
                     UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
@@ -543,8 +538,8 @@ namespace RH.HeadShop
                     UserConfig.ByName("Tutorials")["Links", "AdvancedManual"] = "https://youtu.be/gWOkSUDbv0I";
                     UserConfig.ByName("Tutorials")["Links", "QuickStart"] = "https://youtu.be/8cejdijABQY";
                     break;
-                case ProgramMode.HeadShop:
-                case ProgramMode.HeadShopOneClick:
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.HeadShopOneClick:
                     UserConfig.ByName("Tutorials")["Links", "Start"] = "https://www.youtube.com/watch?v=0baUErHwngA";
                     UserConfig.ByName("Tutorials")["Links", "Recognize"] = "https://www.youtube.com/watch?v=AjG09RGgHvw";
                     UserConfig.ByName("Tutorials")["Links", "Shapedots"] = "http://youtu.be/pIlrJUByJj8";
@@ -730,7 +725,17 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                        case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                        case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -746,8 +751,14 @@ namespace RH.HeadShop
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
                 ResetModeTools();
 
-                if (UserConfig.ByName("Options")["Tutorials", "Cut", "1"] == "1")
-                    frmTutCut.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Cut", "1"] == "1")
+                            frmTutCut.ShowDialog(this);
+                        break;
+                }
             }
         }
         public void panelMenuShape_Click(object sender, EventArgs e)
@@ -768,7 +779,16 @@ namespace RH.HeadShop
                 panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -784,8 +804,14 @@ namespace RH.HeadShop
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
                 ResetModeTools();
 
-                if (UserConfig.ByName("Options")["Tutorials", "Shape", "1"] == "1")
-                    frmTutShape.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Shape", "1"] == "1")
+                            frmTutShape.ShowDialog(this);
+                        break;
+                }
             }
         }
         public void panelMenuAccessories_Click(object sender, EventArgs e)
@@ -806,7 +832,16 @@ namespace RH.HeadShop
                 panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -821,8 +856,14 @@ namespace RH.HeadShop
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
 
-                if (UserConfig.ByName("Options")["Tutorials", "Accessory", "1"] == "1")
-                    frmTutAccessory.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Accessory", "1"] == "1")
+                            frmTutAccessory.ShowDialog(this);
+                        break;
+                }
             }
         }
         public void panelMenuMaterials_Click(object sender, EventArgs e)
@@ -843,7 +884,16 @@ namespace RH.HeadShop
                 panelMenuCut.Image = Properties.Resources.btnMenuCutNormal;
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -858,8 +908,14 @@ namespace RH.HeadShop
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица
                 HeadMode = HeadFront = HeadProfile = HeadFeature = false;
 
-                if (UserConfig.ByName("Options")["Tutorials", "Material", "1"] == "1")
-                    frmTutMaterial.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Material", "1"] == "1")
+                            frmTutMaterial.ShowDialog(this);
+                        break;
+                }
             }
         }
         public void panelMenuStage_Click(object sender, EventArgs e)
@@ -871,7 +927,16 @@ namespace RH.HeadShop
             {
                 activePanel = 4;
                 panelMenuStage.Tag = "1";
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStagePressed : Properties.Resources.btnMenuPrintPressed;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStagePressed;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintPressed;
+                        break;
+                }
                 panelMenuControl.Controls.Clear();
                 panelMenuControl.Controls.Add(panelStages);
 
@@ -903,8 +968,14 @@ namespace RH.HeadShop
                     ProgramCore.MainForm.ctrlRenderControl.camera.AfterLoadVoid();
                 }
 
-                if (UserConfig.ByName("Options")["Tutorials", "Stage", "1"] == "1")
-                    frmTutStage.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Stage", "1"] == "1")
+                            frmTutStage.ShowDialog(this);
+                        break;
+                }
             }
         }
         public void panelMenuStyle_Click(object sender, EventArgs e)
@@ -937,7 +1008,16 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFront.Tag = panelMenuFeatures.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -956,8 +1036,14 @@ namespace RH.HeadShop
                 if (frmStyles != null && !frmStyles.Visible)
                     styleLibraryOnOpen_Click(null, EventArgs.Empty);
 
-                if (UserConfig.ByName("Options")["Tutorials", "Style", "1"] == "1")
-                    frmTutStyle.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Style", "1"] == "1")
+                            frmTutStyle.ShowDialog(this);
+                        break;
+                }
             }
         }
 
@@ -980,7 +1066,16 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFeatures.Image = Properties.Resources.btnMenuFeaturesNormal;
 
@@ -1030,7 +1125,16 @@ namespace RH.HeadShop
                 panelMenuShape.Image = Properties.Resources.btnMenuShapeNormal;
                 panelMenuAccessories.Image = Properties.Resources.btnMenuAccessoriesNormal;
                 panelMenuMaterials.Image = Properties.Resources.btnMenuColorNormal;
-                panelMenuStage.Image = CurrentProgram == ProgramMode.HeadShop ? Properties.Resources.btnMenuStageNormal : Properties.Resources.btnMenuPrintNormal;
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.HeadShopOneClick:
+                        panelMenuStage.Image = Properties.Resources.btnMenuStageNormal;
+                        break;
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        panelMenuStage.Image = Properties.Resources.btnMenuPrintNormal;
+                        break;
+                }
 
                 panelMenuFront.Tag = "2";
                 panelMenuFront.Image = Properties.Resources.btnMenuFrontNormal;
@@ -1046,9 +1150,14 @@ namespace RH.HeadShop
                 EnableRotating();
                 ProgramCore.MainForm.ctrlTemplateImage.SetTemplateImage(ProgramCore.Project.FrontImage);       // возвращаем как было, после изменения профиля лица
 
-
-                if (UserConfig.ByName("Options")["Tutorials", "Features", "1"] == "1")
-                    frmTutFeatures.ShowDialog(this);
+                switch (ProgramCore.CurrentProgram)
+                {
+                    case ProgramCore.ProgramMode.HeadShop:
+                    case ProgramCore.ProgramMode.PrintAhead:
+                        if (UserConfig.ByName("Options")["Tutorials", "Features", "1"] == "1")
+                            frmTutFeatures.ShowDialog(this);
+                        break;
+                }
             }
         }
 
@@ -1398,9 +1507,9 @@ namespace RH.HeadShop
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            switch (CurrentProgram)
+            switch (ProgramCore.CurrentProgram)
             {
-                case ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.HeadShop:
                     {
                         var frm = new frmNewProject4HeadShop(false);
                         frm.ShowDialog();
@@ -1410,8 +1519,8 @@ namespace RH.HeadShop
                         frm.CreateProject();
                     }
                     break;
-                case ProgramMode.HeadShopOneClick:
-                case ProgramMode.PrintAhead:
+                case ProgramCore.ProgramMode.HeadShopOneClick:
+                case ProgramCore.ProgramMode.PrintAhead:
                     {
                         var frm = new frmNewProject4PrintAhead(false);
                         frm.ShowDialog();
@@ -1639,32 +1748,74 @@ namespace RH.HeadShop
 
         private void startHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutStart.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutStart.ShowDialog(this);
+                    break;
+            }
         }
 
         private void cutHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutCut.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutCut.ShowDialog(this);
+                    break;
+            }
         }
         private void shapeHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutShape.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutShape.ShowDialog(this);
+                    break;
+            }
         }
         private void accessoriesHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutFeatures.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutFeatures.ShowDialog(this);
+                    break;
+            }
         }
         private void materialHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutExport.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutExport.ShowDialog(this);
+                    break;
+            }
         }
         private void stageHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTut3dPrint.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTut3dPrint.ShowDialog(this);
+                    break;
+            }
         }
         private void styleHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutStyle.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutStyle.ShowDialog(this);
+                    break;
+            }
         }
 
         private void autodotsHelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1673,15 +1824,33 @@ namespace RH.HeadShop
         }
         private void shapedotsHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutShapedots.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutShapedots.ShowDialog(this);
+                    break;
+            }
         }
         private void mirrorHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutLineTool.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutLineTool.ShowDialog(this);
+                    break;
+            }
         }
         private void freehandHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutFreehand.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutFreehand.ShowDialog(this);
+                    break;
+            }
         }
         private void profileHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2100,19 +2269,41 @@ namespace RH.HeadShop
                 #endregion
             }
 
-            MessageBox.Show(ProgramCore.MainForm.ProgramCaption + " project successfully exported!", "Done", MessageBoxButtons.OK);
+            MessageBox.Show(ProgramCore.ProgramCaption + " project successfully exported!", "Done", MessageBoxButtons.OK);
             if (ProgramCore.PluginMode)
                 Environment.Exit(0);
         }
 
         private void accessoriesHelpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmTutAccessory.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutAccessory.ShowDialog(this);
+                    break;
+            }
         }
 
         private void colorHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTutMaterial.ShowDialog(this);
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.PrintAhead:
+                    frmTutMaterial.ShowDialog(this);
+                    break;
+            }
+        }
+
+        private void childHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.HeadShopOneClick:
+                    frmTutChild.ShowDialog(this);
+                    break;
+            }
         }
     }
 }

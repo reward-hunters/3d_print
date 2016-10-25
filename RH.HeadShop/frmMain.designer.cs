@@ -143,6 +143,7 @@ namespace RH.HeadShop
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.showManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutHeadShopProToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.childHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelRender.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -495,7 +496,7 @@ namespace RH.HeadShop
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -503,7 +504,7 @@ namespace RH.HeadShop
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -511,26 +512,26 @@ namespace RH.HeadShop
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(143, 6);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
@@ -1028,6 +1029,7 @@ namespace RH.HeadShop
             this.accessoriesHelpToolStripMenuItem1,
             this.colorHelpToolStripMenuItem,
             this.accessoriesHelpToolStripMenuItem,
+            this.childHelpToolStripMenuItem,
             this.styleHelpToolStripMenuItem,
             this.materialHelpToolStripMenuItem,
             this.stageHelpToolStripMenuItem,
@@ -1165,6 +1167,13 @@ namespace RH.HeadShop
             this.aboutHeadShopProToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.aboutHeadShopProToolStripMenuItem.Text = "About PrintAhead";
             this.aboutHeadShopProToolStripMenuItem.Click += new System.EventHandler(this.aboutHeadShopProToolStripMenuItem_Click);
+            // 
+            // childHelpToolStripMenuItem
+            // 
+            this.childHelpToolStripMenuItem.Name = "childHelpToolStripMenuItem";
+            this.childHelpToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.childHelpToolStripMenuItem.Text = "Child Help";
+            this.childHelpToolStripMenuItem.Click += new System.EventHandler(this.childHelpToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -1325,6 +1334,7 @@ namespace RH.HeadShop
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem accessoriesHelpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem colorHelpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem childHelpToolStripMenuItem;
     }
 }
 

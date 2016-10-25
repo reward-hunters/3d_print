@@ -41,11 +41,38 @@ namespace RH.HeadShop
         public const bool Debug = false;
         public static bool PluginMode;      // запускаем ли прогу из DAZ или просто
 
+
+        public static ProgramMode CurrentProgram = ProgramMode.HeadShopOneClick;
+        public enum ProgramMode     // какую программу билдим. head3d (= printahead)? или headshop? пока разница только в заставке
+        {
+            PrintAhead,
+            HeadShop,
+            HeadShopOneClick            // урезанная версия HeadShop. Без возможности сохранения и с одной активной вкладкой Front
+
+        }
+        public static string ProgramCaption
+        {
+            get
+            {
+                switch (CurrentProgram)
+                {
+                    case ProgramMode.HeadShop:
+                        return "HeadShop 10";
+                    case ProgramMode.PrintAhead:
+                        return "PrintAhead";
+                    case ProgramMode.HeadShopOneClick:
+                        return "HeadShop OneClick";
+                }
+                return "Abalone LLC";
+            }
+        }
+
         #endregion
 
         static ProgramCore()
         {
-            Nfi = new NumberFormatInfo {
+            Nfi = new NumberFormatInfo
+            {
                 NumberDecimalSeparator = "."
             };
             Splash = new frmSplash();
@@ -353,7 +380,8 @@ namespace RH.HeadShop
             callStackReleasedHandlers += handler;
             if (callStackReleasedTimer == null)
             {
-                callStackReleasedTimer = new Timer {
+                callStackReleasedTimer = new Timer
+                {
                     Interval = 10
                 };
                 callStackReleasedTimer.Tick += OnTimerTick;

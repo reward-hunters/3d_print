@@ -14,6 +14,7 @@ namespace RH.HeadShop.Controls.Tutorials.HairShop
         {
             InitializeComponent();
             linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Material", "https://youtu.be/zHA7_1ODIl0"];
+            Text = ProgramCore.ProgramCaption;
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
             var filePath = Path.Combine(directoryPath, "MaterialTutorial.jpg");

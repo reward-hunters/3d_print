@@ -13,6 +13,7 @@ namespace RH.HeadShop.Controls.Tutorials
         {
             InitializeComponent();
             linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "LineTool", "https://www.youtube.com/watch?v=c7YbRsm8m9I"];
+            Text = ProgramCore.ProgramCaption;
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
             var filePath = Path.Combine(directoryPath, "TutLineTool.jpg");

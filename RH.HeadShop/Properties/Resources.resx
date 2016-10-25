@@ -475,4 +475,13 @@
   <data name="logo_HeadShop_OneClick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_HeadShop_OneClick.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TutAutodots_OneClick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutAutodots_OneClick.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TutChild_OneClick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutChild_OneClick.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TutProfile_OneClick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TutProfile_OneClick.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

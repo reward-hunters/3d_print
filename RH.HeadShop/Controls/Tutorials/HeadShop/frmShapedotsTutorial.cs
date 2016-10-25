@@ -13,6 +13,7 @@ namespace RH.HeadShop.Controls.Tutorials.HeadShop
         {
             InitializeComponent();
             linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Shapedots", "http://youtu.be/pIlrJUByJj8"];
+            Text = ProgramCore.ProgramCaption;
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
             var filePath = Path.Combine(directoryPath, "TutShapedots.jpg");

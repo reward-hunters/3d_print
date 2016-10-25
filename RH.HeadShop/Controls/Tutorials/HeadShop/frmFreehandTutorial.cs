@@ -13,6 +13,7 @@ namespace RH.HeadShop.Controls.Tutorials.HeadShop
         {
             InitializeComponent();
             linkLabel1.Text = UserConfig.ByName("Tutorials")["Links", "Freehand", "http://youtu.be/c2Yvd2DaiDg"];
+            Text = ProgramCore.ProgramCaption;
 
             var directoryPath = Path.Combine(Application.StartupPath, "Tutorials");
             var filePath = Path.Combine(directoryPath, "TutFreehand.jpg");

@@ -16,15 +16,15 @@ namespace RH.HeadShop.Controls
         protected override void OnLoad(EventArgs e)
         {
             Bitmap image = null;
-            switch (ProgramCore.MainForm.CurrentProgram)
+            switch (ProgramCore.CurrentProgram)
             {
-                case frmMain.ProgramMode.PrintAhead:
+                case ProgramCore.ProgramMode.PrintAhead:
                     image = Properties.Resources.Logo_PrintAhead;
                     break;
-                case frmMain.ProgramMode.HeadShop:
+                case ProgramCore.ProgramMode.HeadShop:
                     image = Properties.Resources.logo_HeadShop;
                     break;
-                case frmMain.ProgramMode.HeadShopOneClick:
+                case ProgramCore.ProgramMode.HeadShopOneClick:
                     image = Properties.Resources.logo_HeadShop_OneClick;
                     break;
             }
