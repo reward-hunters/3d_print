@@ -21,6 +21,9 @@ namespace RH.HeadShop.Controls
                 case ProgramCore.ProgramMode.PrintAhead:
                     image = Properties.Resources.Logo_PrintAhead;
                     break;
+                case ProgramCore.ProgramMode.PrintAheadPayPal:
+                    image = Properties.Resources.Logo_PrintAheadPayPal;
+                    break;
                 case ProgramCore.ProgramMode.HeadShop:
                     image = Properties.Resources.logo_HeadShop;
                     break;

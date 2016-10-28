@@ -672,6 +672,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project1.ico" />
+    <None Include="Resources\PrintAheadPayPal.jpg" />
     <None Include="Resources\TutProfile_OneClick.jpg" />
     <None Include="Resources\TutChild_OneClick.jpg" />
     <None Include="Resources\TutAutodots_OneClick.jpg" />

@@ -19,6 +19,15 @@ namespace RH.HeadShop.Controls.Panels
         public PanelFeatures()
         {
             InitializeComponent();
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.PrintAheadPayPal:
+                    btnSave.Visible = false;
+                    break;
+                default:
+                    btnSave.Visible = true;
+                    break;
+            }
         }
 
         #region Form's event

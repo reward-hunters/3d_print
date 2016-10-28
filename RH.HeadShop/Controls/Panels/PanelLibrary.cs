@@ -19,7 +19,17 @@ namespace RH.HeadShop.Controls.Panels
         public PanelLibrary(bool needExport, bool needSaveDelete)
         {
             InitializeComponent();
-            btnExport.Visible = needExport;
+
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.PrintAheadPayPal:
+                    btnExport.Visible = false;
+                    break;
+                default:
+                    btnExport.Visible = needExport;
+                    break;
+            }
+
             btnSave.Visible = btnDelete.Visible = needSaveDelete;
         }
 

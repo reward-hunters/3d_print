@@ -227,7 +227,7 @@
             this.trackProfileSmoothing.TrackerSize = new System.Drawing.Size(16, 16);
             this.trackProfileSmoothing.TrackLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(93)))), ((int)(((byte)(90)))));
             this.trackProfileSmoothing.TrackLineHeight = 3;
-            this.trackProfileSmoothing.Value = 1;
+            this.trackProfileSmoothing.Value = 50;
             this.trackProfileSmoothing.Visible = false;
             this.trackProfileSmoothing.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackProfileSmoothing_MouseUp);
             // 

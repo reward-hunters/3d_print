@@ -32,7 +32,16 @@ namespace RH.HeadShop.Controls.Panels
             InitializeComponent();
             frontTab = true;
 
-            
+            switch (ProgramCore.CurrentProgram)
+            {
+                case ProgramCore.ProgramMode.PrintAheadPayPal:
+                    btnSave.Visible = false;
+                    break;
+                default:
+                    btnSave.Visible = true;
+                    break;
+            }
+
 
             /*
             if (ProgramCore.PluginMode)
@@ -264,6 +273,9 @@ namespace RH.HeadShop.Controls.Panels
         public void UpdateProfileSmoothing(bool isSmoothing)
         {
             lblProfileSmoothing.Visible = trackProfileSmoothing.Visible = isSmoothing;
+
+            if (isSmoothing)                    // "After finished calculations, the default position of smoothen should be at 50% "
+                ProgramCore.MainForm.ctrlTemplateImage.ProfileSmoothing.Smooth(trackProfileSmoothing.Value / (float)(trackProfileSmoothing.Maximum));
         }
 
         #endregion
@@ -409,6 +421,7 @@ namespace RH.HeadShop.Controls.Panels
                 {
                     case ProgramCore.ProgramMode.HeadShop:
                     case ProgramCore.ProgramMode.PrintAhead:
+                    case ProgramCore.ProgramMode.PrintAheadPayPal:
                         if (frontTab && UserConfig.ByName("Options")["Tutorials", "Freehand", "1"] == "1")
                             ProgramCore.MainForm.frmTutFreehand.ShowDialog(this);
                         break;

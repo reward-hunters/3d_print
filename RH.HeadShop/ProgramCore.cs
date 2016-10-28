@@ -42,10 +42,11 @@ namespace RH.HeadShop
         public static bool PluginMode;      // запускаем ли прогу из DAZ или просто
 
 
-        public static ProgramMode CurrentProgram = ProgramMode.HeadShopOneClick;
-        public enum ProgramMode     // какую программу билдим. head3d (= printahead)? или headshop? пока разница только в заставке
+        public static ProgramMode CurrentProgram = ProgramMode.PrintAheadPayPal;
+        public enum ProgramMode   
         {
-            PrintAhead,
+            PrintAhead,                 // обычный PrintAhead
+            PrintAheadPayPal,           // PrintAhead с интеграцией PayPal. Нет возможности сохранения, экспорта. Только печать за деньги
             HeadShop,
             HeadShopOneClick            // урезанная версия HeadShop. Без возможности сохранения и с одной активной вкладкой Front
 
@@ -60,6 +61,8 @@ namespace RH.HeadShop
                         return "HeadShop 10";
                     case ProgramMode.PrintAhead:
                         return "PrintAhead";
+                    case ProgramCore.ProgramMode.PrintAheadPayPal:
+                        return "PrintAhead 2.0";
                     case ProgramMode.HeadShopOneClick:
                         return "HeadShop OneClick";
                 }
