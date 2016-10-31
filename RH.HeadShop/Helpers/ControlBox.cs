@@ -63,46 +63,49 @@ namespace RH.HeadShop.Helpers
                 controlButtons.Add(CreateButton(text, dialogResult, order));
         }
 
-        private static void AppendButtons(Form box, Control control, MessageBoxButtons buttons, int defaultButton)
+        private static void AppendButtons(Form box, Control control, MessageBoxButtons buttons, int defaultButton, bool needButtons)
         {
             var controlButtons = GetControlButtons(control);
             Button cancelButton = null;
 
             var oKpresent = controlButtons.Any(t => t.DialogResult == DialogResult.OK);
 
-            switch (buttons)
+            if (needButtons)
             {
-                case MessageBoxButtons.AbortRetryIgnore:
-                    AppendButton(controlButtons, "Abort", DialogResult.Abort, 1 + double.Epsilon);
-                    AppendButton(controlButtons, "Repeat", DialogResult.Retry, 2 + double.Epsilon);
-                    AppendButton(controlButtons, "Ignore", DialogResult.Ignore, 3 + double.Epsilon);
-                    cancelButton = controlButtons[controlButtons.Count - 1];
-                    break;
-                case MessageBoxButtons.OK:
-                    AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);
-                  //  cancelButton = controlButtons[controlButtons.Count - 1];
-                    break;
-                case MessageBoxButtons.OKCancel:
-                    AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);
-                    AppendButton(controlButtons, "Cancel", DialogResult.Cancel, 2 + double.Epsilon);
-                    cancelButton = controlButtons[controlButtons.Count - 1];
-                    break;
-                case MessageBoxButtons.RetryCancel:
-                    AppendButton(controlButtons, "Repeat", DialogResult.Retry, 1 + double.Epsilon);
-                    AppendButton(controlButtons, "Cancel", DialogResult.Cancel, 2 + double.Epsilon);
-                    cancelButton = controlButtons[controlButtons.Count - 1];
-                    break;
-                case MessageBoxButtons.YesNo:
-                    AppendButton(controlButtons, "Yes", DialogResult.Yes, 1 + double.Epsilon);
-                    AppendButton(controlButtons, "No", DialogResult.No, 2 + double.Epsilon);
-                    cancelButton = controlButtons[controlButtons.Count - 1];
-                    break;
-                case MessageBoxButtons.YesNoCancel:
-                    AppendButton(controlButtons, "Yes", DialogResult.Yes, 1 + double.Epsilon);
-                    AppendButton(controlButtons, "No", DialogResult.No, 2 + double.Epsilon);
-                    AppendButton(controlButtons, "Cancel", DialogResult.Cancel, 3 + double.Epsilon);
-                    cancelButton = controlButtons[controlButtons.Count - 1];
-                    break;
+                switch (buttons)
+                {
+                    case MessageBoxButtons.AbortRetryIgnore:
+                        AppendButton(controlButtons, "Abort", DialogResult.Abort, 1 + double.Epsilon);
+                        AppendButton(controlButtons, "Repeat", DialogResult.Retry, 2 + double.Epsilon);
+                        AppendButton(controlButtons, "Ignore", DialogResult.Ignore, 3 + double.Epsilon);
+                        cancelButton = controlButtons[controlButtons.Count - 1];
+                        break;
+                    case MessageBoxButtons.OK:
+                        AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);
+                        //  cancelButton = controlButtons[controlButtons.Count - 1];
+                        break;
+                    case MessageBoxButtons.OKCancel:
+                        AppendButton(controlButtons, "OK", DialogResult.OK, 1 + double.Epsilon);
+                        AppendButton(controlButtons, "Cancel", DialogResult.Cancel, 2 + double.Epsilon);
+                        cancelButton = controlButtons[controlButtons.Count - 1];
+                        break;
+                    case MessageBoxButtons.RetryCancel:
+                        AppendButton(controlButtons, "Repeat", DialogResult.Retry, 1 + double.Epsilon);
+                        AppendButton(controlButtons, "Cancel", DialogResult.Cancel, 2 + double.Epsilon);
+                        cancelButton = controlButtons[controlButtons.Count - 1];
+                        break;
+                    case MessageBoxButtons.YesNo:
+                        AppendButton(controlButtons, "Yes", DialogResult.Yes, 1 + double.Epsilon);
+                        AppendButton(controlButtons, "No", DialogResult.No, 2 + double.Epsilon);
+                        cancelButton = controlButtons[controlButtons.Count - 1];
+                        break;
+                    case MessageBoxButtons.YesNoCancel:
+                        AppendButton(controlButtons, "Yes", DialogResult.Yes, 1 + double.Epsilon);
+                        AppendButton(controlButtons, "No", DialogResult.No, 2 + double.Epsilon);
+                        AppendButton(controlButtons, "Cancel", DialogResult.Cancel, 3 + double.Epsilon);
+                        cancelButton = controlButtons[controlButtons.Count - 1];
+                        break;
+                }
             }
 
             AddButtons(box, controlButtons.ToArray(), defaultButton);
@@ -111,7 +114,7 @@ namespace RH.HeadShop.Helpers
                 box.CancelButton = cancelButton;
         }
 
-        public static DialogResult Show(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons, int defaultButton, bool canResize)
+        public static DialogResult Show(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons, int defaultButton, bool canResize, bool needButtons)
         {
             int btnHeight;
             using (var btn = CreateButton("test", DialogResult.None))
@@ -135,7 +138,7 @@ namespace RH.HeadShop.Helpers
             control.Location = new Point(Margin, Margin);
             control.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
-            AppendButtons(box, control, buttons, defaultButton);
+            AppendButtons(box, control, buttons, defaultButton, needButtons);
 
             control.Parent = box;
 

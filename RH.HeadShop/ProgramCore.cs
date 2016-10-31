@@ -43,7 +43,7 @@ namespace RH.HeadShop
 
 
         public static ProgramMode CurrentProgram = ProgramMode.PrintAheadPayPal;
-        public enum ProgramMode   
+        public enum ProgramMode
         {
             PrintAhead,                 // обычный PrintAhead
             PrintAheadPayPal,           // PrintAhead с интеграцией PayPal. Нет возможности сохранения, экспорта. Только печать за деньги
@@ -168,112 +168,116 @@ namespace RH.HeadShop
 
         public static DialogResult ShowDialog(Control control)
         {
-            return ShowDialog(MainForm, control, "", MessageBoxButtons.OK, 0, false);
+            return ShowDialog(MainForm, control, "", MessageBoxButtons.OK, 0, false, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control)
         {
-            return ShowDialog(owner, control, "", MessageBoxButtons.OK, 0, false);
+            return ShowDialog(owner, control, "", MessageBoxButtons.OK, 0, false, true);
         }
         public static DialogResult ShowDialog(Control control, bool canResize)
         {
-            return ShowDialog(MainForm, control, "", MessageBoxButtons.OK, 0, canResize);
+            return ShowDialog(MainForm, control, "", MessageBoxButtons.OK, 0, canResize, true);
+        }
+        public static DialogResult ShowDialog(Control control, bool canResize, bool needButtons)
+        {
+            return ShowDialog(MainForm, control, "", MessageBoxButtons.OK, 0, canResize, needButtons);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, bool canResize)
         {
-            return ShowDialog(owner, control, "", MessageBoxButtons.OK, 0, canResize);
+            return ShowDialog(owner, control, "", MessageBoxButtons.OK, 0, canResize, true);
         }
         public static DialogResult ShowDialog(Control control, string caption)
         {
-            return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, false);
+            return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, false, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption)
         {
-            return ShowDialog(owner, control, caption, MessageBoxButtons.OK, 0, false);
+            return ShowDialog(owner, control, caption, MessageBoxButtons.OK, 0, false, true);
         }
         public static DialogResult ShowDialog(Control control, string caption, bool canResize)
         {
-            return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, canResize);
+            return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, canResize, true);
         }
         public static DialogResult ShowDialog(Control control, string caption, bool canResize, bool useDefaultButtons)
         {
             if (useDefaultButtons)
-                return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, canResize);
+                return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, canResize, true);
             return ControlBox.Show(MainForm, control, caption, canResize);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, bool canResize, bool useDefaultButtons)
         {
             if (useDefaultButtons)
-                return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, canResize);
+                return ShowDialog(MainForm, control, caption, MessageBoxButtons.OK, 0, canResize, true);
             return ControlBox.Show(MainForm, control, caption, canResize);
         }
 
         public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, bool canResize)
         {
-            return ShowDialog(owner, control, caption, MessageBoxButtons.OK, 0, canResize);
+            return ShowDialog(owner, control, caption, MessageBoxButtons.OK, 0, canResize, true);
         }
         public static DialogResult ShowDialog(Control control, MessageBoxButtons buttons)
         {
-            return ShowDialog(MainForm, control, "", buttons, 0, false);
+            return ShowDialog(MainForm, control, "", buttons, 0, false, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, MessageBoxButtons buttons)
         {
-            return ShowDialog(owner, control, "", buttons, 0, false);
+            return ShowDialog(owner, control, "", buttons, 0, false, true);
         }
         public static DialogResult ShowDialog(Control control, MessageBoxButtons buttons, bool canResize)
         {
-            return ShowDialog(MainForm, control, "", buttons, 0, canResize);
+            return ShowDialog(MainForm, control, "", buttons, 0, canResize, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, MessageBoxButtons buttons, bool canResize)
         {
-            return ShowDialog(owner, control, "", buttons, 0, canResize);
+            return ShowDialog(owner, control, "", buttons, 0, canResize, true);
         }
         public static DialogResult ShowDialog(Control control, string caption, MessageBoxButtons buttons)
         {
-            return ShowDialog(MainForm, control, caption, buttons, 0, false);
+            return ShowDialog(MainForm, control, caption, buttons, 0, false, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons)
         {
-            return ShowDialog(owner, control, caption, buttons, 0, false);
+            return ShowDialog(owner, control, caption, buttons, 0, false, true);
         }
         public static DialogResult ShowDialog(Control control, string caption, MessageBoxButtons buttons, bool canResize)
         {
-            return ShowDialog(MainForm, control, caption, buttons, 0, canResize);
+            return ShowDialog(MainForm, control, caption, buttons, 0, canResize, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons, bool canResize)
         {
-            return ShowDialog(owner, control, caption, buttons, 0, canResize);
+            return ShowDialog(owner, control, caption, buttons, 0, canResize, true);
         }
         public static DialogResult ShowDialog(Control control, MessageBoxButtons buttons, int defaultButton)
         {
-            return ShowDialog(MainForm, control, "", buttons, defaultButton, false);
+            return ShowDialog(MainForm, control, "", buttons, defaultButton, false, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, MessageBoxButtons buttons, int defaultButton)
         {
-            return ShowDialog(owner, control, "", buttons, defaultButton, false);
+            return ShowDialog(owner, control, "", buttons, defaultButton, false, true);
         }
         public static DialogResult ShowDialog(Control control, MessageBoxButtons buttons, int defaultButton, bool canResize)
         {
-            return ShowDialog(MainForm, control, "", buttons, defaultButton, canResize);
+            return ShowDialog(MainForm, control, "", buttons, defaultButton, canResize, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, MessageBoxButtons buttons, int defaultButton, bool canResize)
         {
-            return ShowDialog(owner, control, "", buttons, defaultButton, canResize);
+            return ShowDialog(owner, control, "", buttons, defaultButton, canResize, true);
         }
         public static DialogResult ShowDialog(Control control, string caption, MessageBoxButtons buttons, int defaultButton)
         {
-            return ShowDialog(MainForm, control, caption, buttons, defaultButton, false);
+            return ShowDialog(MainForm, control, caption, buttons, defaultButton, false, true);
         }
         public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons, int defaultButton)
         {
-            return ShowDialog(owner, control, caption, buttons, defaultButton, false);
+            return ShowDialog(owner, control, caption, buttons, defaultButton, false, true);
         }
         public static DialogResult ShowDialog(Control control, string caption, MessageBoxButtons buttons, int defaultButton, bool canResize)
         {
-            return ShowDialog(MainForm, control, caption, buttons, defaultButton, canResize);
+            return ShowDialog(MainForm, control, caption, buttons, defaultButton, canResize, true);
         }
-        public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons, int defaultButton, bool canResize)
+        public static DialogResult ShowDialog(IWin32Window owner, Control control, string caption, MessageBoxButtons buttons, int defaultButton, bool canResize, bool needButtons)
         {
-            return ControlBox.Show(owner, control, caption, buttons, defaultButton, canResize);
+            return ControlBox.Show(owner, control, caption, buttons, defaultButton, canResize, needButtons);
         }
 
         public static void ShowFloatWindow(Control control, string caption, bool canResize, bool allowMaximize = false)

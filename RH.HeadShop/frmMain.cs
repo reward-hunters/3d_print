@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Assimp;
+using CefSharp;
 using Ionic.Zip;
 using RH.HeadShop.Controls;
 using RH.HeadShop.Controls.Libraries;
@@ -148,6 +149,11 @@ namespace RH.HeadShop
 
                     exportToolStripMenuItem.Visible = exportToolStripMenuItem1.Visible = exportToolStripMenuItem2.Visible = exportToolStripMenuItem3.Visible = false;       // запрет экспорта 
                     saveToolStripMenuItem5.Visible = saveToolStripMenuItem6.Visible = saveToolStripMenuItem8.Visible = toolStripMenuItem1.Visible = false;
+
+                    CefSettings settings = new CefSettings();           // инициализация хромимума. браузер для показа paypal
+                    // Initialize cef with the provided settings
+                    Cef.Initialize(settings);
+
                     break;
                 case ProgramCore.ProgramMode.HeadShop:
                     Text = "HeadShop 10";
@@ -447,6 +453,8 @@ namespace RH.HeadShop
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Cef.Shutdown();     // хромиум пускаем по пизде
+
             frmMaterial = null;
             frmAccessories = null;
             frmStyles = null;
@@ -2019,9 +2027,25 @@ namespace RH.HeadShop
             ctrlRenderControl.Cursor = cursor;
         }
 
-        /// <summary> Формат stl </summary>
+        private bool MakePayment(string price, string description)
+        {
+            var ctrl = new ctrlPaypalPayment();
+            if (!ctrl.CreatePayment(price, description))
+                return false;
+
+            ProgramCore.ShowDialog(ctrl, "Please pay for print!", false, false);
+            return ctrl.IsSuccess;
+        }
+
+        /// <summary> Формат stl 5$</summary>
         public void Export3DPrint()
         {
+            if (!MakePayment("5", "Payment for PrintAhead stl print"))
+            {
+                MessageBox.Show("Payment was failed!");
+                return;
+            }
+
             var fiName = string.Empty;
             var stlName = string.Empty;
             using (var ofd = new FolderDialogEx())
@@ -2054,6 +2078,12 @@ namespace RH.HeadShop
         /// <summary> Формат dae. (collada) </summary>
         public void ExportCollada()
         {
+            if (!MakePayment("8", "Payment for PrintAhead collada print"))
+            {
+                MessageBox.Show("Payment was failed!");
+                return;
+            }
+
             var fiName = string.Empty;
             var daeName = string.Empty;
             string newDirectory = string.Empty;

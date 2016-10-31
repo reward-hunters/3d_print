@@ -331,6 +331,7 @@ namespace RH.HeadShop.Controls.Libraries
             InitializeListView();
         }
 
+
         private void btn3DPrint_Click(object sender, EventArgs e)
         {
             switch (ProgramCore.CurrentProgram)
@@ -343,7 +344,7 @@ namespace RH.HeadShop.Controls.Libraries
                     break;
             }
 
-            ProgramCore.MainForm.Export3DPrint();
+            ProgramCore.MainForm.Export3DPrint();       //stl - 5 $
         }
         private void btnColor3DPrint_Click(object sender, EventArgs e)
         {
@@ -357,7 +358,7 @@ namespace RH.HeadShop.Controls.Libraries
                     break;
             }
 
-            ProgramCore.MainForm.ExportCollada();
+            ProgramCore.MainForm.ExportCollada();       // color 8$
         }
 
         #endregion
